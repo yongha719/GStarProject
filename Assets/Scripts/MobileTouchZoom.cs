@@ -6,9 +6,17 @@ public class MobileTouchZoom : MonoBehaviour
 {
     float m_fOldToucDis = 0f;       // 터치 이전 거리를 저장합니다.
     float m_fFieldOfView = 60f;     // 카메라의 FieldOfView의 기본값을 60으로 정합니다.
+
+    Camera mainCam;
+    private void Start()
+    {
+        mainCam = Camera.main;
+    }
+
     void Update()
     {
-        CheckTouch();
+        if (Input.touchCount > 0)
+            CheckTouch();
     }
     void CheckTouch()
     {
@@ -17,7 +25,7 @@ public class MobileTouchZoom : MonoBehaviour
         float fDis = 0f;
 
         // 터치가 두개이고, 두 터치중 하나라도 이동한다면 카메라의 fieldOfView를 조정합니다.
-        if (Input.touchCount == 2 && (Input.touches[0].phase == TouchPhase.Moved || Input.touches[1].phase == TouchPhase.Moved))
+        if (nTouch == 2 && (Input.touches[0].phase == TouchPhase.Moved || Input.touches[1].phase == TouchPhase.Moved))
         {
             m_fToucDis = (Input.touches[0].position - Input.touches[1].position).sqrMagnitude;
 
@@ -30,7 +38,7 @@ public class MobileTouchZoom : MonoBehaviour
             m_fFieldOfView = Mathf.Clamp(m_fFieldOfView, 20.0f, 100.0f);
 
             // 확대 / 축소가 갑자기 되지않도록 보간합니다.
-            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, m_fFieldOfView, Time.deltaTime * 5);
+            mainCam.fieldOfView = Mathf.Lerp(mainCam.fieldOfView, m_fFieldOfView, Time.deltaTime * 5);
 
             m_fOldToucDis = m_fToucDis;
         }
