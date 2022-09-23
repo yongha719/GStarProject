@@ -83,7 +83,7 @@ public class GridBuildingSystem : MonoBehaviour
     }
 
     #region TileMap
-    private TileBase[] GetTilesBlock(BoundsInt area, Tilemap tilemap)
+    private TileBase[] GetTilesBlock(in BoundsInt area, Tilemap tilemap)
     {
         TileBase[] array = new TileBase[area.size.x * area.size.y * area.size.z];
         int cnt = 0;

@@ -32,10 +32,7 @@ namespace Map
             }
         }
 
-        public bool Exists(Block block)
-        {
-            return Exists(block.x, block.y);
-        }
+        public bool Exists(Block block) => Exists(block.x, block.y);
 
         public bool Exists(int x, int y)
         {
@@ -50,8 +47,6 @@ namespace Map
         /// <summary>
         /// 주변 블록 가져오기
         /// </summary>
-        /// <param name="target"></param>
-        /// <returns></returns>
         public List<Block> GetAroundBlocks(Block target)
         {
             //[-1,-1] [ 0,-1] [ 1,-1]
@@ -59,53 +54,55 @@ namespace Map
             //[-1, 1] [ 0, 1] [ 1, 1]
 
             List<Block> arounds = new List<Block>();
+            Block block = null;
+
             if (Exists(target.x - 1, target.y - 1))
             {
-                Block block = blocks[target.x - 1, target.y - 1];
+                block = blocks[target.x - 1, target.y - 1];
                 arounds.Add(block);
             }
             if (Exists(target.x, target.y - 1))
             {
-                Block block = blocks[target.x, target.y - 1];
+                block = blocks[target.x, target.y - 1];
                 arounds.Add(block);
             }
             if (Exists(target.x + 1, target.y - 1))
             {
-                Block block = blocks[target.x + 1, target.y - 1];
+                block = blocks[target.x + 1, target.y - 1];
                 arounds.Add(block);
             }
 
             if (Exists(target.x - 1, target.y))
             {
-                Block block = blocks[target.x - 1, target.y];
+                block = blocks[target.x - 1, target.y];
                 arounds.Add(block);
             }
             if (Exists(target.x + 1, target.y))
             {
-                Block block = blocks[target.x + 1, target.y];
+                block = blocks[target.x + 1, target.y];
                 arounds.Add(block);
             }
 
             if (Exists(target.x - 1, target.y + 1))
             {
-                Block block = blocks[target.x - 1, target.y + 1];
+                block = blocks[target.x - 1, target.y + 1];
                 arounds.Add(block);
             }
             if (Exists(target.x, target.y + 1))
             {
-                Block block = blocks[target.x, target.y + 1];
+                block = blocks[target.x, target.y + 1];
                 arounds.Add(block);
             }
             if (Exists(target.x + 1, target.y + 1))
             {
-                Block block = blocks[target.x + 1, target.y + 1];
+                block = blocks[target.x + 1, target.y + 1];
                 arounds.Add(block);
             }
 
             // 대각선 블록인 경우 정방향블록이 벽이면 제외한다.
-            for (int i = arounds.Count - 1; i >= 0 ; i--)
+            for (int i = arounds.Count - 1; i >= 0; i--)
             {
-                Block block = arounds[i];
+                block = arounds[i];
                 bool isDiagonalBlock = Math.Abs(block.x - target.x) == 1 && Math.Abs(block.y - target.y) == 1;
                 if (isDiagonalBlock)
                 {
