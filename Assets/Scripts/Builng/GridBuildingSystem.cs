@@ -4,6 +4,11 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
 
+public enum TileType
+{
+    Empty, White, Green, Red
+}
+
 public class GridBuildingSystem : MonoBehaviour
 {
     public static GridBuildingSystem Instance;
@@ -55,7 +60,7 @@ public class GridBuildingSystem : MonoBehaviour
 
                 if (prevPos != cellPos)
                 {
-                    temp.transform.localPosition = gridLayout.CellToLocalInterpolated(cellPos + new Vector3(0.5f, 0.5f, 0f));
+                    temp.transform.localPosition = gridLayout.CellToLocalInterpolated(cellPos);
                     prevPos = cellPos;
                     FollowBuiliding();
                 }
@@ -85,7 +90,7 @@ public class GridBuildingSystem : MonoBehaviour
     #region TileMap
     private TileBase[] GetTilesBlock(in BoundsInt area, Tilemap tilemap)
     {
-        TileBase[] array = new TileBase[area.size.x * area.size.y * area.size.z];
+        TileBase[] array = new TileBase[area.size.x * area.size.y];
         int cnt = 0;
 
         foreach (var v in area.allPositionsWithin)
@@ -99,7 +104,7 @@ public class GridBuildingSystem : MonoBehaviour
 
     private void SetTilesBlock(BoundsInt area, TileType type, Tilemap tilemap)
     {
-        int size = area.size.x * area.size.y * area.size.z;
+        int size = area.size.x * area.size.y;
         TileBase[] tileArray = new TileBase[size];
         FillTiles(tileArray, type);
         tilemap.SetTilesBlock(area, tileArray);
@@ -112,9 +117,10 @@ public class GridBuildingSystem : MonoBehaviour
     }
     #endregion
 
+    //Button
     public void InitializeWithBuilding(GameObject building)
     {
-        MainTilemap.color = Color.white;
+        MainTilemap.color = new Color(1, 1, 1, 0.5f);
         temp = Instantiate(building, Vector3.zero, Quaternion.identity, BuildingParent).GetComponent<Building>();
         FollowBuiliding();
     }
@@ -148,9 +154,10 @@ public class GridBuildingSystem : MonoBehaviour
         int size = baseArray.Length;
         TileBase[] tileArray = new TileBase[size];
 
+        print(size);
         for (int i = 0; i < size; i++)
         {
-            if (baseArray[i] == tileBases[TileType.White])
+            if (baseArray[i] == tileBases[TileType.Empty])
             {
                 tileArray[i] = tileBases[TileType.Green];
             }
@@ -173,7 +180,7 @@ public class GridBuildingSystem : MonoBehaviour
 
         foreach (var tilebase in baseArray)
         {
-            if (tilebase != tileBases[TileType.White])
+            if (tilebase != tileBases[TileType.Empty])
             {
                 return false;
             }
@@ -190,7 +197,3 @@ public class GridBuildingSystem : MonoBehaviour
     }
 }
 
-public enum TileType
-{
-    Empty, White, Green, Red
-}
