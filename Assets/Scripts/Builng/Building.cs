@@ -26,15 +26,4 @@ public class Building : MonoBehaviour
 
         GridBuildingSystem.Instance.TakeArea(areaTemp);
     }
-
-
-    void Start()
-    {
-
-    }
-
-    void Update()
-    {
-
-    }
 }
