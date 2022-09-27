@@ -50,8 +50,11 @@ public class TestPlayer : MonoBehaviour
         {
             _progress = 0f;
             node = nodes[cnt];
-            print(node.Pos);
-            dest = node.Pos;
+            if (node.isDiagonal && nodes[cnt + 1].isDiagonal == false)
+            {
+
+                dest = new Vector2(node.Pos.x * 0.5f, node.Pos.y * 0.25f);
+            }
             yield return new WaitForSeconds(2);
         }
 

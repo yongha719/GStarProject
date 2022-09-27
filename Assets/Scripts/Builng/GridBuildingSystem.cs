@@ -37,6 +37,10 @@ public class GridBuildingSystem : MonoBehaviour
         tileBases.Add(TileType.White, Resources.Load<TileBase>($"{path}white"));
         tileBases.Add(TileType.Green, Resources.Load<TileBase>($"{path}green"));
         tileBases.Add(TileType.Red, Resources.Load<TileBase>($"{path}red"));
+
+        print(MainTilemap.layoutGrid.LocalToCell(transform.position));
+
+
     }
 
     void Update()

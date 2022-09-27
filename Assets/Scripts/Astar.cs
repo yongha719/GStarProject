@@ -12,8 +12,13 @@ public class Node
     public bool isDiagonal;
     public Node ParentNode;
 
-    public Vector2 Pos => new Vector2(x * 0.5f, y * 0.25f);
-
+    public Vector2 Pos
+    {
+        get
+        {
+            return new Vector2(x * 0.5f, y * 0.25f);
+        }
+    }
     // G : 시작으로부터 이동했던 거리, H : |가로|+|세로| 장애물 무시하여 목표까지의 거리, F : G + H
     public int x, y, G, H;
     public int F => G + H;
@@ -98,8 +103,8 @@ public class AStar : MonoBehaviour
                 FinalNodeList.Add(StartNode);
                 FinalNodeList.Reverse();
 
-                for (int i = 0; i < FinalNodeList.Count; i++)
-                    print(i + "번째는 " + FinalNodeList[i].x + ", " + FinalNodeList[i].y);
+                //foreach (var list in FinalNodeList)
+                //print($"{list.x} {list.y}");
                 return FinalNodeList;
             }
 
@@ -142,7 +147,7 @@ public class AStar : MonoBehaviour
                     return;
 
 
-            // 이웃노드에 넣고, 직선은 10, 대각선은 14비용
+            // 이웃노드에 넣고, 직선은 56, 대각선은 50비용
             Node NeighborNode = NodeArray[checkX - bottomLeft.x, checkY - bottomLeft.y];
             int MoveCost = CurNode.G + (CurNode.x - checkX == 0 || CurNode.y - checkY == 0 ? 50 : 56);
 
