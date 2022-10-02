@@ -383,7 +383,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea25b505bde91f24aa744404c26cd9bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPos: {x: 3, y: 2}
+  targetPos: {x: 5, y: 2}
   _progress: 0
 --- !u!212 &523238305
 SpriteRenderer:

@@ -46,16 +46,14 @@ public class TestPlayer : MonoBehaviour
         var cnt = 0;
         Node node = null;
 
-        while (nodes.Count - 1 != cnt++)
+        int nodesCnt = nodes.Count;
+
+        while (nodesCnt - 1 != cnt++)
         {
             _progress = 0f;
             node = nodes[cnt];
-            if (node.isDiagonal && nodes[cnt + 1].isDiagonal == false)
-            {
-
-                dest = new Vector2(node.Pos.x * 0.5f, node.Pos.y * 0.25f);
-            }
-            yield return new WaitForSeconds(2);
+            dest = new Vector2(node.Pos.x, node.Pos.y);
+            yield return new WaitForSeconds(1);
         }
 
     }

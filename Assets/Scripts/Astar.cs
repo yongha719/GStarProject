@@ -27,21 +27,17 @@ public class Node
 
 public class AStar : MonoBehaviour
 {
-    public static AStar Instance;
-
     public static Vector2Int bottomLeft, topRight;
     public static List<Node> FinalNodeList;
     public static bool allowDiagonal = true;
     public static bool dontCrossCorner;
 
-    static int sizeX, sizeY;
     static Node[,] NodeArray;
     static Node StartNode, TargetNode, CurNode;
     static List<Node> OpenList, ClosedList;
 
     private void Awake()
     {
-        Instance = this;
     }
 
 
@@ -53,8 +49,8 @@ public class AStar : MonoBehaviour
         topRight = bottomLeft == startPos ? targetPos : startPos;
 
         // NodeArray의 크기 정해주고, isWall, x, y 대입
-        sizeX = topRight.x - bottomLeft.x + 1;
-        sizeY = topRight.y - bottomLeft.y + 1;
+        int sizeX = topRight.x - bottomLeft.x + 1;
+        int sizeY = topRight.y - bottomLeft.y + 1;
         NodeArray = new Node[sizeX, sizeY];
 
         for (int i = 0; i < sizeX; i++)
@@ -103,8 +99,11 @@ public class AStar : MonoBehaviour
                 FinalNodeList.Add(StartNode);
                 FinalNodeList.Reverse();
 
-                //foreach (var list in FinalNodeList)
-                //print($"{list.x} {list.y}");
+                foreach (var list in FinalNodeList)
+                    print($"{list.x} {list.y}");
+
+                CheckList();
+
                 return FinalNodeList;
             }
 
@@ -125,6 +124,18 @@ public class AStar : MonoBehaviour
             OpenListAdd(CurNode.x - 1, CurNode.y, false);
         }
         return null;
+    }
+
+    static void CheckList()
+    { 
+        for (int i = 0; i < FinalNodeList.Count - 1; i++)
+        {
+            if (FinalNodeList[i].isDiagonal == false && FinalNodeList[i + 1].isDiagonal == false)
+                if (FinalNodeList[i].x == FinalNodeList[i + 1].x || FinalNodeList[i].y == FinalNodeList[i + 1].y)
+                    FinalNodeList.RemoveAt(i);
+        }
+
+        print(FinalNodeList.Count);
     }
 
     static void OpenListAdd(int checkX, int checkY, bool isdiagonal)
