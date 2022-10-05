@@ -127,7 +127,7 @@ public class AStar : MonoBehaviour
     }
 
     static void CheckList()
-    { 
+    {
         for (int i = 0; i < FinalNodeList.Count - 1; i++)
         {
             if (FinalNodeList[i].isDiagonal == false && FinalNodeList[i + 1].isDiagonal == false)
@@ -161,7 +161,6 @@ public class AStar : MonoBehaviour
             // 이웃노드에 넣고, 직선은 56, 대각선은 50비용
             Node NeighborNode = NodeArray[checkX - bottomLeft.x, checkY - bottomLeft.y];
             int MoveCost = CurNode.G + (CurNode.x - checkX == 0 || CurNode.y - checkY == 0 ? 50 : 56);
-
 
             // 이동비용이 이웃노드G보다 작거나 또는 열린리스트에 이웃노드가 없다면 G, H, ParentNode를 설정 후 열린리스트에 추가
             if (MoveCost < NeighborNode.G || OpenList.Contains(NeighborNode) == false)
