@@ -16,11 +16,10 @@ public class GridBuildingSystem : MonoBehaviour
     public GridLayout gridLayout;
     public Tilemap MainTilemap;
     public Tilemap TempTilemap;
-    public Transform BuildingParent;
 
     private static Dictionary<TileType, TileBase> tileBases = new Dictionary<TileType, TileBase>();
 
-    private Building temp;
+    private Building CurBuilding;
     private Vector3 prevPos;
     private BoundsInt prevArea;
     private Vector3Int cellPos;
@@ -38,56 +37,60 @@ public class GridBuildingSystem : MonoBehaviour
         tileBases.Add(TileType.Green, Resources.Load<TileBase>($"{path}green"));
         tileBases.Add(TileType.Red, Resources.Load<TileBase>($"{path}red"));
 
-        print(MainTilemap.layoutGrid.LocalToCell(transform.position));
-
 
     }
 
     void Update()
     {
-        if (!temp)
+
+
+        if (CurBuilding != null)
         {
-            return;
-        }
-
-        if (Input.GetMouseButton(0))
-        {
-            if (EventSystem.current.IsPointerOverGameObject(0))
+            if (Input.GetMouseButton(0))
             {
-                return;
-            }
-
-            if (temp.Placed == false)
-            {
-                Vector2 touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                cellPos = gridLayout.LocalToCell(touchPos);
-
-                if (prevPos != cellPos)
+                print("0");
+                if (EventSystem.current.IsPointerOverGameObject(0))
                 {
-                    temp.transform.localPosition = gridLayout.CellToLocalInterpolated(cellPos);
-                    prevPos = cellPos;
-                    FollowBuiliding();
+                    print("1");
+                    return;
+                }
+
+                if (CurBuilding.Placed == false)
+                {
+                    var inputPos = Input.mousePosition;
+                    inputPos.z = 1;
+                    Vector2 touchPos = Camera.main.ScreenToWorldPoint(inputPos);
+                    cellPos = gridLayout.LocalToCell(touchPos);
+                    print(inputPos);
+                    print(touchPos);
+
+                    if (prevPos != cellPos)
+                    {
+                        CurBuilding.transform.localPosition = gridLayout.CellToLocalInterpolated(cellPos);
+                        prevPos = cellPos;
+                        FollowBuiliding();
+                    }
                 }
             }
-        }
-        else if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (temp.CanBePlaced())
+            else if (Input.GetKeyDown(KeyCode.Space))
             {
-                temp.transform.localPosition = gridLayout.CellToLocalInterpolated(cellPos);
-                temp.Place();
+                if (CurBuilding.CanBePlaced())
+                {
+                    CurBuilding.transform.localPosition = gridLayout.CellToLocalInterpolated(cellPos);
+                    CurBuilding.Place();
+                    MainTilemap.color = Color.clear;
+                }
+            }
+            else if (Input.GetMouseButtonDown(1))
+            {
+                BuildingClear();
+                Destroy(CurBuilding.gameObject);
                 MainTilemap.color = Color.clear;
             }
-        }
-        else if (Input.GetMouseButtonDown(1))
-        {
-            BuildingClear();
-            Destroy(temp.gameObject);
-            MainTilemap.color = Color.clear;
-        }
-        else if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            BuildingClear();
+            else if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                BuildingClear();
+            }
         }
     }
 
@@ -125,7 +128,7 @@ public class GridBuildingSystem : MonoBehaviour
     public void InitializeWithBuilding(GameObject building)
     {
         MainTilemap.color = new Color(1, 1, 1, 0.5f);
-        temp = Instantiate(building, Vector3.zero, Quaternion.identity, BuildingParent).GetComponent<Building>();
+        CurBuilding = Instantiate(building, Vector3.zero, Quaternion.identity, transform).GetComponent<Building>();
         FollowBuiliding();
     }
 
@@ -150,8 +153,8 @@ public class GridBuildingSystem : MonoBehaviour
     {
         BuildingClear();
 
-        temp.area.position = gridLayout.WorldToCell(temp.gameObject.transform.position);
-        BoundsInt buildingArea = temp.area;
+        CurBuilding.area.position = gridLayout.WorldToCell(CurBuilding.gameObject.transform.position);
+        BoundsInt buildingArea = CurBuilding.area;
 
         TileBase[] baseArray = GetTilesBlock(buildingArea, MainTilemap);
 
