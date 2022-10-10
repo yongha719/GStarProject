@@ -45,8 +45,12 @@ public class AStar : MonoBehaviour
     {
         startPos *= 2;
         targetPos *= 2;
-        bottomLeft = (startPos.x < targetPos.x && startPos.y < targetPos.y) ? startPos : targetPos;
+        print($"sp{startPos} tp{targetPos}");
+        print(startPos.x < targetPos.x);
+        print(startPos.y < targetPos.y);
+        bottomLeft = (startPos.x <= targetPos.x && startPos.y <= targetPos.y) ? startPos : targetPos;
         topRight = bottomLeft == startPos ? targetPos : startPos;
+        print($"bl {bottomLeft} tr {topRight}");
 
         // NodeArray의 크기 정해주고, isWall, x, y 대입
         int sizeX = topRight.x - bottomLeft.x + 1;
@@ -99,9 +103,6 @@ public class AStar : MonoBehaviour
                 FinalNodeList.Add(StartNode);
                 FinalNodeList.Reverse();
 
-                foreach (var list in FinalNodeList)
-                    print($"{list.x} {list.y}");
-
                 CheckList();
 
                 return FinalNodeList;
@@ -134,8 +135,6 @@ public class AStar : MonoBehaviour
                 if (FinalNodeList[i].x == FinalNodeList[i + 1].x || FinalNodeList[i].y == FinalNodeList[i + 1].y)
                     FinalNodeList.RemoveAt(i);
         }
-
-        print(FinalNodeList.Count);
     }
 
     static void OpenListAdd(int checkX, int checkY, bool isdiagonal)

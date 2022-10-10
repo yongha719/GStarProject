@@ -37,7 +37,6 @@ public class GridBuildingSystem : MonoBehaviour
         tileBases.Add(TileType.Green, Resources.Load<TileBase>($"{path}green"));
         tileBases.Add(TileType.Red, Resources.Load<TileBase>($"{path}red"));
 
-
     }
 
     void Update()
@@ -48,21 +47,15 @@ public class GridBuildingSystem : MonoBehaviour
         {
             if (Input.GetMouseButton(0))
             {
-                print("0");
                 if (EventSystem.current.IsPointerOverGameObject(0))
                 {
-                    print("1");
                     return;
                 }
 
                 if (CurBuilding.Placed == false)
                 {
-                    var inputPos = Input.mousePosition;
-                    inputPos.z = 1;
-                    Vector2 touchPos = Camera.main.ScreenToWorldPoint(inputPos);
+                    Vector2 touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     cellPos = gridLayout.LocalToCell(touchPos);
-                    print(inputPos);
-                    print(touchPos);
 
                     if (prevPos != cellPos)
                     {
@@ -117,9 +110,16 @@ public class GridBuildingSystem : MonoBehaviour
         tilemap.SetTilesBlock(area, tileArray);
     }
 
+    private void FillTile(TileBase[] tile, TileType tiletype, int index)
+    {
+        tile[index] = tileBases[tiletype];
+    }
+
     private void FillTiles(TileBase[] arr, TileType type)
     {
-        for (int i = 0; i < arr.Length; i++)
+        int arrLength = arr.Length;
+
+        for (int i = 0; i < arrLength; i++)
             arr[i] = tileBases[type];
     }
     #endregion
@@ -161,7 +161,6 @@ public class GridBuildingSystem : MonoBehaviour
         int size = baseArray.Length;
         TileBase[] tileArray = new TileBase[size];
 
-        print(size);
         for (int i = 0; i < size; i++)
         {
             if (baseArray[i] == tileBases[TileType.Empty])
@@ -170,9 +169,7 @@ public class GridBuildingSystem : MonoBehaviour
             }
             else
             {
-                FillTiles(tileArray, TileType.Red);
-
-                break;
+                tileArray[i] = tileBases[TileType.Red];
             }
         }
 

@@ -18,18 +18,28 @@ public class TestPlayer : MonoBehaviour
     private void Start()
     {
         tilemap = GridBuildingSystem.Instance.MainTilemap;
-        Move();
+        StartCoroutine(RandomMove());
     }
 
     private void Update()
     {
-        //dest = tilemap.LocalToCell(dest);
         transform.position = Vector2.Lerp(transform.position, dest, _progress * 2f);
         if (_progress < 1f)
         {
             _progress += Time.deltaTime;
             if (_progress >= 1f)
                 _progress = 1f;
+        }
+    }
+
+    IEnumerator RandomMove()
+    {
+        while (true)
+        {
+            targetPos = new Vector2Int(Random.Range(0,5), Random.Range(0,5));
+            print(targetPos);
+            yield return StartCoroutine(MoveStep());
+            yield return new WaitForSeconds(2);
         }
     }
 
@@ -55,7 +65,6 @@ public class TestPlayer : MonoBehaviour
             dest = new Vector2(node.Pos.x, node.Pos.y);
             yield return new WaitForSeconds(1);
         }
-
     }
     void OnDrawGizmos()
     {
