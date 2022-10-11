@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using static UnityEngine.Debug;
 
 [System.Serializable]
 public class Node
@@ -14,18 +14,16 @@ public class Node
 
     public Vector2 Pos
     {
-        get
-        {
-            return new Vector2(x * 0.5f, y * 0.25f);
-        }
+        get => new Vector2(x * 0.5f, y * 0.25f);
     }
+
     // G : 시작으로부터 이동했던 거리, H : |가로|+|세로| 장애물 무시하여 목표까지의 거리, F : G + H
     public int x, y, G, H;
     public int F => G + H;
 }
 
 
-public class AStar : MonoBehaviour
+public class AStar
 {
     public static Vector2Int bottomLeft, topRight;
     public static List<Node> FinalNodeList;
@@ -40,17 +38,17 @@ public class AStar : MonoBehaviour
     {
     }
 
-
     public static List<Node> PathFinding(Vector2Int startPos, Vector2Int targetPos)
     {
         startPos *= 2;
         targetPos *= 2;
-        print($"sp{startPos} tp{targetPos}");
-        print(startPos.x < targetPos.x);
-        print(startPos.y < targetPos.y);
-        bottomLeft = (startPos.x <= targetPos.x && startPos.y <= targetPos.y) ? startPos : targetPos;
+        Log($"sp{startPos} tp{targetPos}");
+        Log(startPos.x < targetPos.x);
+        Log(startPos.y < targetPos.y);
+        //bottomLeft = (startPos.x <= targetPos.x && startPos.y <= targetPos.y) ? startPos : targetPos;
+        bottomLeft = Vector2Int.Min(startPos, targetPos);
         topRight = bottomLeft == startPos ? targetPos : startPos;
-        print($"bl {bottomLeft} tr {topRight}");
+        Log($"bl {bottomLeft} tr {topRight}");
 
         // NodeArray의 크기 정해주고, isWall, x, y 대입
         int sizeX = topRight.x - bottomLeft.x + 1;
@@ -141,7 +139,7 @@ public class AStar : MonoBehaviour
     {
         // 상하좌우 범위를 벗어나지 않고, 벽이 아니면서, 닫힌리스트에 없다면
         if (checkX >= bottomLeft.x && checkX < topRight.x + 1 && checkY >= bottomLeft.y && checkY < topRight.y + 1
-            && !NodeArray[checkX - bottomLeft.x, checkY - bottomLeft.y].isWall
+            && NodeArray[checkX - bottomLeft.x, checkY - bottomLeft.y].isWall == false
             && ClosedList.Contains(NodeArray[checkX - bottomLeft.x, checkY - bottomLeft.y]) == false)
         {
             // 대각선 허용시, 벽 사이로 통과 안됨
