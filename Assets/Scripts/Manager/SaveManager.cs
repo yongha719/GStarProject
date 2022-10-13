@@ -10,9 +10,7 @@ public class SaveManager : Singleton<SaveManager>
     [System.Serializable]
     public class SaveData
     {
-        //TODO: 단순 재화들은 나중에 한 클래스로 묶고 싶다만 딱히 재화 시스템을 만들라는 기획은 없으니 기각
-        public int catCount;
-        public int gold;
+        ResourceClass ResourceClass = GameManager.Instance.resource;
 
     }
     public SaveData saveData;
