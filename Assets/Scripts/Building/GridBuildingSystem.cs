@@ -66,12 +66,7 @@ public class GridBuildingSystem : MonoBehaviour
             }
             else if (Input.GetKeyDown(KeyCode.Space))
             {
-                if (CurBuilding.CanBePlaced())
-                {
-                    CurBuilding.transform.localPosition = gridLayout.CellToLocalInterpolated(cellPos);
-                    CurBuilding.Place();
-                    MainTilemap.color = Color.clear;
-                }
+                Place();
             }
             else if (Input.GetMouseButtonDown(1))
             {
@@ -131,7 +126,17 @@ public class GridBuildingSystem : MonoBehaviour
         FollowBuiliding();
     }
       
-    private void BuildingClear()
+    public void Place()
+    {
+        if (CurBuilding.CanBePlaced())
+        {
+            CurBuilding.transform.localPosition = gridLayout.CellToLocalInterpolated(cellPos);
+            CurBuilding.Place();
+            MainTilemap.color = Color.clear;
+        }
+    }
+
+    public void BuildingClear()
     {
         TileBase[] toClear = new TileBase[prevArea.size.x * prevArea.size.y * prevArea.size.z];
         FillTiles(toClear, TileType.Empty);
