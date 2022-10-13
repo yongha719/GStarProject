@@ -11,13 +11,21 @@ public class BuildingInstallation : MonoBehaviour
     private GameObject CurBuilding;
     private string CurBuildingName;
 
-    #region WorkShop Buildings
+    #region Buildings
+
+    [Header("")]
 
     [Header("WorkShop Buildings")]
     [SerializeField] private List<BuildingInfo> WorkShopBuildings;
 
     [Header("Warning")]
     [SerializeField] private Warning Warning;
+
+    #endregion
+
+    #region UI Object
+
+    [SerializeField] private GameObject BuildingInstallationObject;
 
     #endregion
 
@@ -35,11 +43,18 @@ public class BuildingInstallation : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// BuildingInstallation UI Object SetActive
+    /// </summary>
+    public void BuildingInstallationUISetActive(bool value)
+    {
+        BuildingInstallationObject.SetActive(value);
+    }
+
     private void UISetting()
     {
         foreach (var building in WorkShopBuildings)
         {
-            print(building.name);
             building.Onclick(() =>
             {
                 CurBuildingName = building.buildingName;

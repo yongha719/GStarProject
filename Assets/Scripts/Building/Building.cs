@@ -8,43 +8,92 @@ public class Building : MonoBehaviour
     public bool Placed { get; private set; }
     public BoundsInt area;
 
+    #region Gold
+
     [SerializeField] private Button CollectMoneyButton;
-    public float GoldChargingTime; 
+    public float GoldChargingTime;
     private bool didGetMoney;
 
     private WaitForSeconds waitGoldChargingTime;
 
+    #endregion
+
+    #region Deploying
+    private bool isDeploying;
+    public bool IsDeploying
+    {
+        get
+        {
+            return isDeploying;
+        }
+
+        set
+        {
+            isDeploying = value;
+
+            if (isDeploying)
+            {
+                CollectMoneyButton.gameObject.SetActive(false);
+            }
+            else
+            {
+                CollectMoneyButton.gameObject.SetActive(true);
+
+            }
+        }
+    }
+
+    [SerializeField] private Button InstallationButton;
+    [SerializeField] private Button DemolitionButton;
+    [SerializeField] private Button RotateButton;
+
+    #endregion
+
+    private GridBuildingSystem GridBuildingSystem;
 
     private void Start()
     {
+        GridBuildingSystem = GridBuildingSystem.Instance;
+
         waitGoldChargingTime = new WaitForSeconds(GoldChargingTime);
 
         CollectMoneyButton.onClick.AddListener(() =>
         {
             didGetMoney = true;
         });
+
+        InstallationButton.onClick.AddListener(() =>
+        {
+            GridBuildingSystem.Place();
+        });
+
+        DemolitionButton.onClick.AddListener(() =>
+        {
+            GridBuildingSystem.BuildingClear();
+            Destroy(gameObject);
+        });
     }
 
 
     public bool CanBePlaced()
     {
-        Vector3Int positionInt = GridBuildingSystem.Instance.gridLayout.LocalToCell(transform.position);
+        Vector3Int positionInt = GridBuildingSystem.gridLayout.LocalToCell(transform.position);
         BoundsInt areaTemp = area;
         areaTemp.position = positionInt;
 
-        return GridBuildingSystem.Instance.CanTakeArea(areaTemp);
+        return GridBuildingSystem.CanTakeArea(areaTemp);
     }
 
     public void Place()
     {
-        Vector3Int positionInt = GridBuildingSystem.Instance.gridLayout.LocalToCell(transform.position);
+        Vector3Int positionInt = GridBuildingSystem.gridLayout.LocalToCell(transform.position);
         BoundsInt areaTemp = area;
         areaTemp.position = positionInt;
         Placed = true;
 
-        GridBuildingSystem.Instance.TakeArea(areaTemp);
+        GridBuildingSystem.TakeArea(areaTemp);
 
-
+        IsDeploying = true;
         StartCoroutine(CChargeMoney());
     }
 
@@ -55,23 +104,20 @@ public class Building : MonoBehaviour
         {
             yield return waitGoldChargingTime;
 
-            CollectMoneyButton.gameObject.SetActive(true);
-
             yield return StartCoroutine(CWaitClick());
         }
     }
 
     IEnumerator CWaitClick()
     {
-        var wait = new WaitForEndOfFrame();
-
         while (true)
         {
             if (didGetMoney)
             {
                 yield break;
             }
-            yield return wait;
+
+            yield return null;
         }
     }
 }
