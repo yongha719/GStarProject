@@ -23,7 +23,7 @@ public class TestPlayer : MonoBehaviour
 
     private void Update()
     {
-        transform.position = Vector2.Lerp(transform.position, dest, _progress * 2f);
+        transform.position = Vector2.Lerp(transform.position, dest, _progress * 2f); 
         if (_progress < 1f)
         {
             _progress += Time.deltaTime;

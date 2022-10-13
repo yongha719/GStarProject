@@ -16,15 +16,26 @@ public class GameManager : Singleton<GameManager>
         public int electric;
         public int ice;
     }
-
-    public ResourceClass resourceClass;
-    public ResourceClass _resourceClass
+    private ResourceClass m_Resource;
+    int _catCount
     {
-        get { return resourceClass; }
-        set
-        {
-            resourceClass = value; 
-        }
+        get { return m_Resource.catCount; }
+        set { m_Resource.catCount = value; }
+    }
+    public int _coin
+    {
+        get { return m_Resource.coin; }
+        set { m_Resource.coin = value; }
+    }
+    public int _electric
+    {
+        get { return m_Resource.electric; }
+        set { m_Resource.electric = value; }
+    }
+    public int _ice
+    {
+        get { return m_Resource.ice; }
+        set { m_Resource.ice = value; }
     }
     void Start()
     {
