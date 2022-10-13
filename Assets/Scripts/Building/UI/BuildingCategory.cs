@@ -9,8 +9,8 @@ public class BuildingCategory : MonoBehaviour
     public Sprite On;
     public Sprite Off;
 
-    [SerializeField] private Button button;
-    [SerializeField] private RectTransform rect;
+    private Button button;
+    private RectTransform rect;
 
     private void Start()
     {
