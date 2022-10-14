@@ -9,10 +9,11 @@ public class BuildingInfo : MonoBehaviour
     public string buildingID;
     public string buildingName;
     public int Gold;
-    public GameObject building;
+    public GameObject buildingPrefab;
+    public Building Building;
     public Button BuyButton;
 
-    public void Onclick(Action call)
+    public void BuyButtonOnclick(Action call)
     {
         BuyButton.onClick.AddListener(() => call());
     }

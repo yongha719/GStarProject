@@ -35,7 +35,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 160, y: -145}
+  m_AnchoredPosition: {x: 149, y: -145}
   m_SizeDelta: {x: 83, y: 83}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2139381818212145419
@@ -325,7 +325,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 200}
+  m_AnchoredPosition: {x: 0, y: 128}
   m_SizeDelta: {x: 83, y: 83}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8884796223699180084
@@ -358,7 +358,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -542,6 +542,12 @@ MonoBehaviour:
     m_Size: {x: 1, y: 1, z: 1}
   CollectMoneyButton: {fileID: 5444481926985826226}
   GoldChargingTime: 3
+  BuildingInfo: {fileID: 0}
+  spriteRenderer: {fileID: 2077103226882709871}
+  DeplyingObject: {fileID: 1159057902452433820}
+  InstallationButton: {fileID: 405574493701101109}
+  DemolitionButton: {fileID: 5969899369050173961}
+  RotateButton: {fileID: 7496639491388935465}
 --- !u!1 &7234473010087785592
 GameObject:
   m_ObjectHideFlags: 0
@@ -678,7 +684,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -160, y: -145}
+  m_AnchoredPosition: {x: -149, y: -145}
   m_SizeDelta: {x: 83, y: 83}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4842662616739110947

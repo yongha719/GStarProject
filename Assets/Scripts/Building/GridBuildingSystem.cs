@@ -46,7 +46,7 @@ public class GridBuildingSystem : MonoBehaviour
         {
             if (Input.GetMouseButton(0))
             {
-                if (EventSystem.current.IsPointerOverGameObject(0))
+                if (EventSystem.current.IsPointerOverGameObject())
                 {
                     return;
                 }
