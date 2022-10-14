@@ -29,6 +29,7 @@ public class BuildingInstallation : MonoBehaviour
 
     #endregion
 
+
     private GridBuildingSystem GridBuildingSystem;
 
     void Start()
