@@ -29,7 +29,6 @@ public class BuildingInstallation : MonoBehaviour
 
     #endregion
 
-
     private GridBuildingSystem GridBuildingSystem;
 
     void Start()
@@ -44,26 +43,24 @@ public class BuildingInstallation : MonoBehaviour
 
     }
 
-    /// <summary>
-    /// BuildingInstallation UI Object SetActive
-    /// </summary>
-    public void BuildingInstallationUISetActive(bool value)
-    {
-        BuildingInstallationObject.SetActive(value);
-    }
-
     private void UISetting()
     {
         foreach (var building in WorkShopBuildings)
         {
-            building.Onclick(() =>
+            building.BuyButtonOnclick(() =>
             {
+                CurBuilding = building.buildingPrefab;
+                building.Building.BuildingInfo = building;
                 CurBuildingName = building.buildingName;
-                CurBuilding = building.building;
 
-                //Warning.gameObject.SetActive(true);
-                Warning.SetWarningData(CurBuilding, CurBuildingName);
+                Warning.SetWarningData(CurBuilding, CurBuildingName,
+                action: () =>
+                {
+                    BuildingInstallationObject.SetActive(true);
+                });
             });
         }
+
+
     }
 }

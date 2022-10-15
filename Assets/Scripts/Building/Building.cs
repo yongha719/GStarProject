@@ -33,16 +33,22 @@ public class Building : MonoBehaviour
 
             if (isDeploying)
             {
+                DeplyingObject.SetActive(true);
                 CollectMoneyButton.gameObject.SetActive(false);
             }
             else
             {
+                DeplyingObject.SetActive(false);
                 CollectMoneyButton.gameObject.SetActive(true);
 
             }
         }
     }
 
+    public BuildingInfo BuildingInfo;
+    [SerializeField] private SpriteRenderer spriteRenderer;
+
+    [SerializeField] private GameObject DeplyingObject;
     [SerializeField] private Button InstallationButton;
     [SerializeField] private Button DemolitionButton;
     [SerializeField] private Button RotateButton;
@@ -53,6 +59,8 @@ public class Building : MonoBehaviour
 
     private void Start()
     {
+        print("start");
+
         GridBuildingSystem = GridBuildingSystem.Instance;
 
         waitGoldChargingTime = new WaitForSeconds(GoldChargingTime);
@@ -72,6 +80,12 @@ public class Building : MonoBehaviour
             GridBuildingSystem.BuildingClear();
             Destroy(gameObject);
         });
+
+        RotateButton.onClick.AddListener(() =>
+        {
+            print("d");
+            spriteRenderer.flipX = !spriteRenderer.flipX;
+        });
     }
 
 
@@ -83,6 +97,7 @@ public class Building : MonoBehaviour
 
         return GridBuildingSystem.CanTakeArea(areaTemp);
     }
+
 
     public void Place()
     {

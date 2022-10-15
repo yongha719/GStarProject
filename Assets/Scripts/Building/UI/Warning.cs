@@ -10,22 +10,15 @@ public class Warning : MonoBehaviour
     [SerializeField] private Button YesButton;
     [SerializeField] private Button NoButton;
 
-    public void SetWarningData(GameObject building, string text)
-    {
-        CurBuilding = building;
-        WarningText.text = text;
-    }
+    private const string WARNING_PHRASE = "(를)을\n설치하시겠습니까?";
 
     private void Awake()
     {
-        print("aa");
 
     }
     private void Start()
     {
-        print("ss");
-
-
+        print("st");
         YesButton.onClick.AddListener(() =>
         {
             GridBuildingSystem.Instance.InitializeWithBuilding(CurBuilding);
@@ -36,5 +29,13 @@ public class Warning : MonoBehaviour
         {
             gameObject.SetActive(false);
         });
+    }
+    public void SetWarningData(GameObject building, string text, System.Action action)
+    {
+        print("me");
+        CurBuilding = building;
+        WarningText.text = $"{text}{WARNING_PHRASE}";
+
+        action();
     }
 }
