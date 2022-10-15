@@ -18,6 +18,7 @@ public class GameManager : Singleton<GameManager>
     }
 
     public ResourceClass resource;
+
     public int _catCount
     {
         get { return resource.catCount; }

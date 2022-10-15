@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
+using TMPro;
 
 public class Building : MonoBehaviour
 {
@@ -19,6 +21,7 @@ public class Building : MonoBehaviour
     #endregion
 
     #region Deploying
+    [Header("Deploying")]
     private bool isDeploying;
     public bool IsDeploying
     {
@@ -44,10 +47,16 @@ public class Building : MonoBehaviour
             }
         }
     }
+    public bool FirstTimeInstallation;
 
     public BuildingInfo BuildingInfo;
-    [SerializeField] private SpriteRenderer spriteRenderer;
 
+
+    [SerializeField] private GameObject BuildingSprte;
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private TextMeshProUGUI NotEnoughGoldUI;
+
+    [Space(10f)]
     [SerializeField] private GameObject DeplyingObject;
     [SerializeField] private Button InstallationButton;
     [SerializeField] private Button DemolitionButton;
@@ -65,6 +74,8 @@ public class Building : MonoBehaviour
 
         waitGoldChargingTime = new WaitForSeconds(GoldChargingTime);
 
+        BuildingSprte = spriteRenderer.gameObject;
+
         CollectMoneyButton.onClick.AddListener(() =>
         {
             didGetMoney = true;
@@ -78,16 +89,22 @@ public class Building : MonoBehaviour
         DemolitionButton.onClick.AddListener(() =>
         {
             GridBuildingSystem.BuildingClear();
+            BuildingInfo.BuildingInstalltionUI.SetActive(true);
             Destroy(gameObject);
         });
 
         RotateButton.onClick.AddListener(() =>
         {
-            print("d");
             spriteRenderer.flipX = !spriteRenderer.flipX;
         });
-    }
 
+        if (FirstTimeInstallation)
+        {
+            FirstTimeInstallation = false;
+            StartCoroutine(BuildingInstalltionEffect());
+        }
+        
+    }
 
     public bool CanBePlaced()
     {
@@ -108,7 +125,7 @@ public class Building : MonoBehaviour
 
         GridBuildingSystem.TakeArea(areaTemp);
 
-        IsDeploying = true;
+        IsDeploying = false;
         StartCoroutine(CChargeMoney());
     }
 
@@ -129,10 +146,23 @@ public class Building : MonoBehaviour
         {
             if (didGetMoney)
             {
+                didGetMoney = false;
                 yield break;
             }
 
             yield return null;
         }
+    }
+
+    IEnumerator BuildingInstalltionEffect()
+    {
+        BuildingSprte.transform.localScale = new Vector3(0.03f, 0.03f, 1f);
+        yield return BuildingSprte.transform.DOScale(new Vector3(0.1f, 0.1f, 1f), 0.4f).WaitForCompletion();
+
+        NotEnoughGoldUI.gameObject.SetActive(true);
+        NotEnoughGoldUI.rectTransform.DOAnchorPosY(200, 1);
+        yield return NotEnoughGoldUI.DOFade(0f, 0.7f).WaitForCompletion();
+
+        NotEnoughGoldUI.gameObject.SetActive(true);
     }
 }

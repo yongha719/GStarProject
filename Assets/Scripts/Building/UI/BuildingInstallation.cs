@@ -16,16 +16,18 @@ public class BuildingInstallation : MonoBehaviour
     [Header("")]
 
     [Header("WorkShop Buildings")]
-    [SerializeField] private List<BuildingInfo> WorkShopBuildings;
+    /// 
+    [SerializeField] private List<BuildingInfo> WorkShopBuildingInfos;
 
     [Header("Warning")]
     [SerializeField] private Warning Warning;
+    [SerializeField] private NotEnoughGold NotEnoughGold;
 
     #endregion
 
     #region UI Object
 
-    [SerializeField] private GameObject BuildingInstallationObject;
+    [SerializeField] private GameObject BuildingInstallationUI;
 
     #endregion
 
@@ -40,24 +42,31 @@ public class BuildingInstallation : MonoBehaviour
 
     void Update()
     {
-
+        
     }
 
     private void UISetting()
     {
-        foreach (var building in WorkShopBuildings)
+        foreach (var buildingInfo in WorkShopBuildingInfos)
         {
-            building.BuyButtonOnclick(() =>
+            buildingInfo.BuyButtonOnclick((Building) =>
             {
-                CurBuilding = building.buildingPrefab;
-                building.Building.BuildingInfo = building;
-                CurBuildingName = building.buildingName;
+                CurBuilding = buildingInfo.buildingPrefab;
+                CurBuildingName = buildingInfo.buildingName;
 
-                Warning.SetWarningData(CurBuilding, CurBuildingName,
-                action: () =>
+                buildingInfo.BuildingInstalltionUI = BuildingInstallationUI;
+                buildingInfo.Building.FirstTimeInstallation = true;
+                Building.BuildingInfo = buildingInfo;
+
+                if (GameManager.Instance._coin >= buildingInfo.Gold)
                 {
-                    BuildingInstallationObject.SetActive(true);
-                });
+                    Warning.WarningUI.SetActive(true);
+                    Warning.SetWarningData(CurBuilding, CurBuildingName, BuildingInstallationUI);
+                }
+                else
+                {
+                    NotEnoughGold.NotEnoughGoldUI.SetActive(true);
+                }
             });
         }
 

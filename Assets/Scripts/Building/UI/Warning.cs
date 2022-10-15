@@ -6,6 +6,11 @@ using TMPro;
 public class Warning : MonoBehaviour
 {
     private GameObject CurBuilding;
+
+    // 건물 설치 UI
+    private GameObject BuildingInstallationUI;
+
+    public GameObject WarningUI;
     [SerializeField] private TextMeshProUGUI WarningText;
     [SerializeField] private Button YesButton;
     [SerializeField] private Button NoButton;
@@ -27,15 +32,17 @@ public class Warning : MonoBehaviour
 
         NoButton.onClick.AddListener(() =>
         {
+            BuildingInstallationUI.SetActive(true);
             gameObject.SetActive(false);
         });
     }
-    public void SetWarningData(GameObject building, string text, System.Action action)
+
+    public void SetWarningData(GameObject building, string text, GameObject buildingInstalltionUI)
     {
         print("me");
         CurBuilding = building;
         WarningText.text = $"{text}{WARNING_PHRASE}";
 
-        action();
+        BuildingInstallationUI = buildingInstalltionUI;
     }
 }

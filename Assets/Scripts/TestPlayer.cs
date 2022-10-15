@@ -66,6 +66,7 @@ public class TestPlayer : MonoBehaviour
             yield return new WaitForSeconds(1);
         }
     }
+
     void OnDrawGizmos()
     {
         if (nodes.Count != 0)

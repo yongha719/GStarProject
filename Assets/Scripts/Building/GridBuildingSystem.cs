@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -20,7 +21,7 @@ public class GridBuildingSystem : MonoBehaviour
     private static Dictionary<TileType, TileBase> tileBases = new Dictionary<TileType, TileBase>();
 
     public string CurBuildingName;
-    private Building CurBuilding;
+    [SerializeField] private Building CurBuilding;
     private Vector3 prevPos;
     private BoundsInt prevArea;
     private Vector3Int cellPos;
@@ -125,7 +126,7 @@ public class GridBuildingSystem : MonoBehaviour
         CurBuilding = Instantiate(building, Vector3.zero, Quaternion.identity, transform).GetComponent<Building>();
         FollowBuiliding();
     }
-      
+
     public void Place()
     {
         if (CurBuilding.CanBePlaced())
@@ -167,14 +168,7 @@ public class GridBuildingSystem : MonoBehaviour
 
         for (int i = 0; i < size; i++)
         {
-            if (baseArray[i] == tileBases[TileType.Empty])
-            {
-                tileArray[i] = tileBases[TileType.Green];
-            }
-            else
-            {
-                tileArray[i] = tileBases[TileType.Red];
-            }
+            tileArray[i] = (baseArray[i] == tileBases[TileType.Empty]) ? tileBases[TileType.Green] : tileBases[TileType.Red];
         }
 
         TempTilemap.SetTilesBlock(buildingArea, tileArray);
