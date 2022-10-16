@@ -11,9 +11,14 @@ public class BuildingInfo : MonoBehaviour
     public int Gold;
     public GameObject buildingPrefab;
     public Button BuyButton;
-    public GameObject BuildingInstalltionUI;
+    [HideInInspector] public GameObject BuildingInstalltionUI;
 
-    public Building Building;
+    [HideInInspector] public Building Building;
+
+    private void Start()
+    {
+        Building = buildingPrefab.GetComponent<Building>();
+    }
 
     public void BuyButtonOnclick(Action<Building> call)
     {

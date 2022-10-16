@@ -23,10 +23,10 @@ public class Warning : MonoBehaviour
     }
     private void Start()
     {
-        print("st");
         YesButton.onClick.AddListener(() =>
         {
             GridBuildingSystem.Instance.InitializeWithBuilding(CurBuilding);
+            CurBuilding.GetComponent<Building>().IsDeploying = true;
             gameObject.SetActive(false);
         });
 
@@ -37,11 +37,11 @@ public class Warning : MonoBehaviour
         });
     }
 
-    public void SetWarningData(GameObject building, string text, GameObject buildingInstalltionUI)
+    public void SetWarningData(GameObject building, string buildingname, GameObject buildingInstalltionUI)
     {
         print("me");
         CurBuilding = building;
-        WarningText.text = $"{text}{WARNING_PHRASE}";
+        WarningText.text = $"{buildingname}{WARNING_PHRASE}";
 
         BuildingInstallationUI = buildingInstalltionUI;
     }

@@ -13,10 +13,7 @@ public class BuildingInstallation : MonoBehaviour
 
     #region Buildings
 
-    [Header("")]
-
     [Header("WorkShop Buildings")]
-    /// 
     [SerializeField] private List<BuildingInfo> WorkShopBuildingInfos;
 
     [Header("Warning")]
@@ -42,7 +39,7 @@ public class BuildingInstallation : MonoBehaviour
 
     void Update()
     {
-        
+
     }
 
     private void UISetting()
@@ -54,10 +51,11 @@ public class BuildingInstallation : MonoBehaviour
                 CurBuilding = buildingInfo.buildingPrefab;
                 CurBuildingName = buildingInfo.buildingName;
 
+                Building.BuildingInfo = buildingInfo;
                 buildingInfo.BuildingInstalltionUI = BuildingInstallationUI;
                 buildingInfo.Building.FirstTimeInstallation = true;
-                Building.BuildingInfo = buildingInfo;
 
+                print(GameManager.Instance._coin >= buildingInfo.Gold);
                 if (GameManager.Instance._coin >= buildingInfo.Gold)
                 {
                     Warning.WarningUI.SetActive(true);

@@ -12,6 +12,7 @@ public class Building : MonoBehaviour
 
     #region Gold
 
+    private int Gold;
     [SerializeField] private Button CollectMoneyButton;
     public float GoldChargingTime;
     private bool didGetMoney;
@@ -36,11 +37,13 @@ public class Building : MonoBehaviour
 
             if (isDeploying)
             {
+                spriteRenderer.color = new Color(1, 1, 1, 0.5f);
                 DeplyingObject.SetActive(true);
                 CollectMoneyButton.gameObject.SetActive(false);
             }
             else
             {
+                spriteRenderer.color = Color.white;
                 DeplyingObject.SetActive(false);
                 CollectMoneyButton.gameObject.SetActive(true);
 
@@ -68,7 +71,7 @@ public class Building : MonoBehaviour
 
     private void Start()
     {
-        print("start");
+        Gold = BuildingInfo.Gold;
 
         GridBuildingSystem = GridBuildingSystem.Instance;
 
@@ -84,6 +87,7 @@ public class Building : MonoBehaviour
         InstallationButton.onClick.AddListener(() =>
         {
             GridBuildingSystem.Place();
+
         });
 
         DemolitionButton.onClick.AddListener(() =>
@@ -98,12 +102,7 @@ public class Building : MonoBehaviour
             spriteRenderer.flipX = !spriteRenderer.flipX;
         });
 
-        if (FirstTimeInstallation)
-        {
-            FirstTimeInstallation = false;
-            StartCoroutine(BuildingInstalltionEffect());
-        }
-        
+
     }
 
     public bool CanBePlaced()
@@ -126,6 +125,13 @@ public class Building : MonoBehaviour
         GridBuildingSystem.TakeArea(areaTemp);
 
         IsDeploying = false;
+
+        if (FirstTimeInstallation)
+        {
+            FirstTimeInstallation = false;
+            StartCoroutine(BuildingInstalltionEffect());
+        }
+
         StartCoroutine(CChargeMoney());
     }
 
@@ -146,6 +152,7 @@ public class Building : MonoBehaviour
         {
             if (didGetMoney)
             {
+                GameManager.Instance._coin += Gold;
                 didGetMoney = false;
                 yield break;
             }
@@ -164,5 +171,7 @@ public class Building : MonoBehaviour
         yield return NotEnoughGoldUI.DOFade(0f, 0.7f).WaitForCompletion();
 
         NotEnoughGoldUI.gameObject.SetActive(true);
+        GridBuildingSystem.InitializeWithBuilding(BuildingInfo.buildingPrefab);
+
     }
 }
