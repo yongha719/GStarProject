@@ -9,8 +9,9 @@ public class BuildingCategory : MonoBehaviour
     public Sprite OnSprite;
     public Sprite OffSprite;
 
-    [SerializeField] private bool isSelected;
     private static BuildingCategory s_CurCategory;
+    [SerializeField] private bool isSelected;
+    [SerializeField] private GameObject CurBuildings;
 
     #region Component
 
@@ -19,6 +20,7 @@ public class BuildingCategory : MonoBehaviour
     private RectTransform rect;
 
     #endregion
+
     private void Start()
     {
         image = GetComponent<Image>();

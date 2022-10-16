@@ -18,7 +18,8 @@ public class GameManager : Singleton<GameManager>
         DontDestroyOnLoad(this.gameObject);
     }
 
-    public ResourceClass resource;
+    public ResourceClass resource = new ResourceClass();
+
     public int _catCount
     {
         get { return resource.catCount; }
