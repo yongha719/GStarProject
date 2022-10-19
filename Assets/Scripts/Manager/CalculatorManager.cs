@@ -13,25 +13,24 @@ public class BigUnit
 {
     /// 단위는 기본 적으로 char형으로 저장되며 "123.45 a" 이런식으로 계산됨
     public char Unit = '\'';
-    public int index = 0;
+    public ushort index = 0;
 
-
-    public Dictionary<int, int> _values = new Dictionary<int, int>();
-
+    public Dictionary<ushort, ushort> _values = new Dictionary<ushort, ushort>();
 
     public string GetString()
     {
-        string returnStr = $"{index}.{_values[Unit - 1] / 10}" + Unit;
+        string returnStr = $"{index}.{_values[(ushort)(Unit - 1)] / 10}" + Unit;
         return returnStr;
     }
     public static BigUnit operator +(BigUnit A, BigUnit B)
     {
-        A.index += B.index;
-        while (A.index >= 100)
+        BigUnit returnValue = new BigUnit();
+        returnValue.index = (ushort)(A.index + B.index);
+        while (returnValue.index >= 1000)
         {
-            A.Unit++;
-            A.index /= 100;
-            
+            returnValue.index /= 1000;
+            returnValue.Unit++;
+            returnValue._values[A.Unit] = (ushort)(A.index % 1000);
         }
 
 
