@@ -11,9 +11,9 @@ public class Building : MonoBehaviour
     public BoundsInt area;
 
     #region Gold
-
-    private int Gold;
+    [Header("Gold")]
     [SerializeField] private Button CollectMoneyButton;
+    private int Gold;
     public float GoldChargingTime;
     private bool didGetMoney;
 
@@ -50,16 +50,17 @@ public class Building : MonoBehaviour
             }
         }
     }
-    public bool FirstTimeInstallation;
+    [HideInInspector] public bool FirstTimeInstallation;
 
-    public BuildingInfo BuildingInfo;
+    [HideInInspector] public BuildingInfo BuildingInfo;
 
 
-    [SerializeField] private GameObject BuildingSprte;
+    [Header("Deploying")]
+    private GameObject BuildingSprte;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private TextMeshProUGUI NotEnoughGoldUI;
 
-    [Space(10f)]
+    [Space(5f)]
     [SerializeField] private GameObject DeplyingObject;
     [SerializeField] private Button InstallationButton;
     [SerializeField] private Button DemolitionButton;
