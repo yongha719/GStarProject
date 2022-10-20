@@ -4,59 +4,31 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using UnityEngine.Audio;
 
-[System.Serializable]
-// 방치형 게임에 큰 단위수를 좀더 편하게 계산하기 위하여 만든 계산기
-// 1000 = 1a 그 이상 단위가 오를때마다 b,c,d... 순으로 넘어감  아직 z이후로는 개발 안함 넘어가지 말아주세요ㅠㅠ
-// 성능에 과부하가 온다고 생각시 깜펭 호출
-
-public class BigUnit
+class CalculatorManager : Singleton<CalculatorManager>
 {
-    /// 단위는 기본 적으로 char형으로 저장되며 "123.45 a" 이런식으로 계산됨
-    public char Unit = '\'';
-    public ushort index = 0;
-
-    public Dictionary<ushort, ushort> _values = new Dictionary<ushort, ushort>();
-
-    public string GetString()
+    //1000에 자리수 마다 올림한다
+    //123.45a <- 기본 형태
+    readonly int roundUnit = 1000;
+    public string returnStr(double value)
     {
-        string returnStr = $"{index}.{_values[(ushort)(Unit - 1)] / 10}" + Unit;
+        char unit = '\'';
+        int remainValue = 0;
+
+        //소수점 뒤에 두자리를 남기기위해 지난 수를 집어넣음
+        while (value >= 1000)
+        {
+            if (unit >= 'z') break;
+            if (value < 100000)
+            {
+                // 리메인에다가 값 넣어라
+            }
+            remainValue = (int)value;
+            value /= 1000;
+            unit++;
+        }
+
+        string returnStr = $"value unit";
         return returnStr;
-    }
-    public static BigUnit operator +(BigUnit A, BigUnit B)
-    {
-        BigUnit returnValue = new BigUnit();
-        returnValue.index = (ushort)(A.index + B.index);
-        while (returnValue.index >= 1000)
-        {
-            returnValue.index /= 1000;
-            returnValue.Unit++;
-            returnValue._values[A.Unit] = (ushort)(A.index % 1000);
-        }
-
-
-        return new BigUnit();
-    }
-    public static BigUnit operator -(BigUnit A, BigUnit B)
-    {
-        if (A.Unit - B.Unit < 0 || (A.index - B.index < 0 && A.Unit == B.Unit))
-        {
-            Debug.Log("오류 발생 큰수 연산은 -가 될 수 없음");
-            return new BigUnit();
-        }
-
-        return new BigUnit();
-    }
-    public static BigUnit operator *(BigUnit A, BigUnit B)
-    {
-        return new BigUnit();
-    }
-    public static BigUnit operator *(BigUnit A, int B)
-    {
-        return new BigUnit();
-    }
-    public static BigUnit operator /(BigUnit A, int B)
-    {
-        return new BigUnit();
     }
 
 }
