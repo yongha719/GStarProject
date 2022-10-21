@@ -8,12 +8,12 @@ using TMPro;
 public class Building : MonoBehaviour
 {
     public bool Placed { get; private set; }
-    public BoundsInt area;
+    public BoundsInt Area;
 
     #region Gold
     [Header("Gold")]
     [SerializeField] private Button CollectMoneyButton;
-    private int Gold;
+    private int gold;
     public float GoldChargingTime;
     private bool didGetMoney;
 
@@ -72,7 +72,7 @@ public class Building : MonoBehaviour
 
     private void Start()
     {
-        Gold = BuildingInfo.Gold;
+        gold = BuildingInfo.Gold;
 
         GridBuildingSystem = GridBuildingSystem.Instance;
 
@@ -103,13 +103,12 @@ public class Building : MonoBehaviour
             spriteRenderer.flipX = !spriteRenderer.flipX;
         });
 
-
     }
 
     public bool CanBePlaced()
     {
         Vector3Int positionInt = GridBuildingSystem.gridLayout.LocalToCell(transform.position);
-        BoundsInt areaTemp = area;
+        BoundsInt areaTemp = Area;
         areaTemp.position = positionInt;
 
         return GridBuildingSystem.CanTakeArea(areaTemp);
@@ -119,7 +118,7 @@ public class Building : MonoBehaviour
     public void Place()
     {
         Vector3Int positionInt = GridBuildingSystem.gridLayout.LocalToCell(transform.position);
-        BoundsInt areaTemp = area;
+        BoundsInt areaTemp = Area;
         areaTemp.position = positionInt;
         Placed = true;
 
@@ -153,7 +152,7 @@ public class Building : MonoBehaviour
         {
             if (didGetMoney)
             {
-                GameManager.Instance._coin += Gold;
+                GameManager.Instance._coin += gold;
                 didGetMoney = false;
                 yield break;
             }
