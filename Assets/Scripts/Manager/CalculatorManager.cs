@@ -20,15 +20,15 @@ class CalculatorManager : Singleton<CalculatorManager>
             if (unit >= 'z') break;
             if (value < 100000)
             {
-                // 리메인에다가 값 넣어라
+                // 리메인에다가 값 넣어라 
+                remainValue = ((int)value % 1000) / 10;
             }
             remainValue = (int)value;
             value /= 1000;
             unit++;
         }
 
-        string returnStr = $"value unit";
+        string returnStr = $"{value}.{remainValue}{unit}";
         return returnStr;
     }
-
 }
