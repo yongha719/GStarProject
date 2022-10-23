@@ -13,7 +13,7 @@ public class Building : MonoBehaviour
     #region Gold
     [Header("Gold")]
     [SerializeField] private Button CollectMoneyButton;
-    private int Gold;
+    public int Gold;
     public float GoldChargingTime;
     private bool didGetMoney;
 
@@ -58,7 +58,7 @@ public class Building : MonoBehaviour
     [Header("Deploying")]
     private GameObject BuildingSprte;
     [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private TextMeshProUGUI NotEnoughGoldUI;
+    [SerializeField] private TextMeshProUGUI ConstructionGoldText;
 
     [Space(5f)]
     [SerializeField] private GameObject DeplyingObject;
@@ -72,8 +72,6 @@ public class Building : MonoBehaviour
 
     private void Start()
     {
-        Gold = BuildingInfo.Gold;
-
         GridBuildingSystem = GridBuildingSystem.Instance;
 
         waitGoldChargingTime = new WaitForSeconds(GoldChargingTime);
@@ -167,12 +165,12 @@ public class Building : MonoBehaviour
         BuildingSprte.transform.localScale = new Vector3(0.03f, 0.03f, 1f);
         yield return BuildingSprte.transform.DOScale(new Vector3(0.1f, 0.1f, 1f), 0.4f).WaitForCompletion();
 
-        NotEnoughGoldUI.gameObject.SetActive(true);
-        NotEnoughGoldUI.rectTransform.DOAnchorPosY(200, 1);
-        yield return NotEnoughGoldUI.DOFade(0f, 0.7f).WaitForCompletion();
+        ConstructionGoldText.gameObject.SetActive(true);
+        ConstructionGoldText.rectTransform.DOAnchorPosY(200, 1);
+        yield return ConstructionGoldText.DOFade(0f, 0.7f).WaitForCompletion();
 
-        NotEnoughGoldUI.gameObject.SetActive(true);
-        GridBuildingSystem.InitializeWithBuilding(BuildingInfo.buildingPrefab);
+        ConstructionGoldText.gameObject.SetActive(true);
+        GridBuildingSystem.InitializeWithBuilding(BuildingInfo.BuildingPrefab);
 
     }
 }

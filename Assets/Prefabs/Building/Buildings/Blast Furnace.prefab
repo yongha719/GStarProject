@@ -481,7 +481,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1dae0d639cd992c47ac217884fe2f16d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b8c4dc8be1e556f4f9a1693f1f112218, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.5}
   m_FlipX: 0
   m_FlipY: 0
@@ -503,7 +503,7 @@ GameObject:
   - component: {fileID: 7293558756560507725}
   - component: {fileID: 1510417249225105120}
   m_Layer: 0
-  m_Name: Potato Farm
+  m_Name: Blast Furnace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
