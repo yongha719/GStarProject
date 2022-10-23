@@ -26,6 +26,8 @@ public class BuildingInfo : MonoBehaviour
 
         buildingCostText = BuyButton.GetComponentInChildren<TextMeshProUGUI>();
         buildingCostText.text = gold.ToString();
+
+        print(double.MaxValue);
     }
 
     public void BuyButtonOnclick(Action<Building> call)
