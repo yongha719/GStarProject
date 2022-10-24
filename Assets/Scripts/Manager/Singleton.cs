@@ -9,7 +9,6 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     {
         get
         {
-
             if (instance == null)
             {
                 instance = FindObjectOfType(typeof(T)) as T;
