@@ -7,7 +7,7 @@ public static class CalculatorManager
 {
     //1000에 자리수 마다 올림한다
     //123.45a <- 기본 형태
-    const int roundUnit = 1000;
+    const int roundUnit = 10000;
     /// <summary>
     /// 높은 double형에 수를 1000의 자리수마다 알파벳으로 바꾼다
     /// </summary>
@@ -20,7 +20,7 @@ public static class CalculatorManager
         while (value >= roundUnit)
         {
             if (unit > 'z') break;
-            if (value < roundUnit * 100) remainValue = ((int)value % roundUnit) / 10;
+            if (value < roundUnit * 100) remainValue = ((int)value % roundUnit) / (roundUnit / 100);
             else remainValue = 0;
             value /= roundUnit;
             unit++;
