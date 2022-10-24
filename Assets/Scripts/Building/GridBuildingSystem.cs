@@ -158,8 +158,8 @@ public class GridBuildingSystem : MonoBehaviour
     {
         BuildingClear();
 
-        CurBuilding.area.position = gridLayout.WorldToCell(CurBuilding.gameObject.transform.position);
-        BoundsInt buildingArea = CurBuilding.area;
+        CurBuilding.Area.position = gridLayout.WorldToCell(CurBuilding.gameObject.transform.position);
+        BoundsInt buildingArea = CurBuilding.Area;
 
         TileBase[] baseArray = GetTilesBlock(buildingArea, MainTilemap);
 
