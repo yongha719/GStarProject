@@ -55,14 +55,7 @@ public class GameManager : Singleton<GameManager>
     }
     private void Awake()
     {
-        if (Instance != null)
-        {
-            DontDestroyOnLoad(this.gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        DontDestroyOnLoad(this.gameObject);
     }
     void Start()
     {

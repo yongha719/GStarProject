@@ -14,27 +14,25 @@ public static class CalculatorManager
     public static string returnStr(this double value)
     {
         char unit = '`';
-        int remainValue = 0;
 
         //소수점 뒤에 두자리를 남기기위해 지난 수를 집어넣음
         while (value >= roundUnit)
         {
             if (unit > 'z') break;
-            if (value < roundUnit * 100) remainValue = ((int)value % roundUnit) / (roundUnit / 100);
-            else remainValue = 0;
             value /= roundUnit;
             unit++;
         }
-        value = System.Math.Ceiling(value);
+        value = System.Math.Round(value, 2);
 
-        string returnStr, remainStr;
+        string returnStr;
         //소수점 뒤에 숫자를 처리하는 과정
-        if (remainValue < 10) remainStr = $"0{remainValue}";
-        else remainStr = remainValue.ToString();
 
-        if (unit > '`') returnStr = $"{value}.{remainStr}{unit}";
-        else returnStr = $"{value}";
-
+        if (unit > '`') returnStr = $"{value}{unit}";
+        else
+        {
+            System.Math.Truncate(value);
+            returnStr = $"{value}";
+        }
         return returnStr;
     }
     /// <summary>

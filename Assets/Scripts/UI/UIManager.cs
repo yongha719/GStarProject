@@ -15,19 +15,16 @@ public class UIManager : Singleton<UIManager>
 
     private bool onTitle = true;
 
+    [Header("≈∏¿Ã∆≤UI")]
     [SerializeField]
     private Image title;
     [SerializeField]
     private TextMeshProUGUI pressToStartText;
 
     private GameManager gameManager;
-    private void Awake()
-    {
-        gameManager = GameManager.Instance;
-    }
-
     private void Start()
     {
+        gameManager = GameManager.Instance;
         ResourcesApply();
         StartCoroutine(TitleEffect());
     }

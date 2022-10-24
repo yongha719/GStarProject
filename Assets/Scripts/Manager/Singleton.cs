@@ -15,8 +15,8 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
                 if (instance == null)
                 {
                     return null;
-                    //GameObject temp = new GameObject(typeof(T).Name);
-                    //instance = temp.AddComponent<T>();
+                    GameObject temp = new GameObject(typeof(T).Name);
+                    instance = temp.AddComponent<T>();
                 }
             }
             return instance;

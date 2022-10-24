@@ -33,7 +33,6 @@ public class BuildingInstallation : MonoBehaviour
 
     private void Awake()
     {
-        GameManager = GameManager.Instance;
 
         BuildingManager.Init();
     }
@@ -41,6 +40,7 @@ public class BuildingInstallation : MonoBehaviour
     void Start()
     {
         GridBuildingSystem = GridBuildingSystem.Instance;
+        GameManager = GameManager.Instance;
 
         UISetting();
     }

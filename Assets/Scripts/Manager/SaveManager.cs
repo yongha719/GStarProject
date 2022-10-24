@@ -11,10 +11,12 @@ public class SaveManager : Singleton<SaveManager>
     public class SaveData
     {
         public ResourceClass ResourceClass;
-
+        public Dictionary<SoundType, AudioSourceClass> audioSourceClasses;
     }
     public SaveData saveData;
 
+    //세이브 날리기
+    [SerializeField] private bool DEBUG;
     private string savePath = "DataSavePath";
     private void Awake()
     {
@@ -24,6 +26,8 @@ public class SaveManager : Singleton<SaveManager>
 
     private void DataLoad()
     {
+        if (DEBUG) return;
+
         string dataString = PlayerPrefs.GetString(savePath, "null");
         if (dataString == "null") saveData = new SaveData();
         else saveData = JsonUtility.FromJson<SaveData>(dataString);
@@ -41,10 +45,12 @@ public class SaveManager : Singleton<SaveManager>
     private void InputSaveData()
     {
         saveData.ResourceClass = GameManager.Instance.resource;
+        saveData.audioSourceClasses = SoundManager.Instance.audioSourceClasses;
     }
     private void OutputSaveData()
     {
         GameManager.Instance.resource = saveData.ResourceClass;
+        SoundManager.Instance.audioSourceClasses = saveData.audioSourceClasses;
 
     }
 
