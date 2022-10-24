@@ -181,7 +181,7 @@ public class Building : MonoBehaviour
         {
             if (didGetMoney)
             {
-                GameManager.Instance._coin += DefaultGold;
+                GameManager.Instance._coin += CalculatorManager.returnValue(DefaultGold);
                 didGetMoney = false;
                 yield break;
             }

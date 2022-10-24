@@ -21,11 +21,9 @@ public class UIManager : Singleton<UIManager>
     private TextMeshProUGUI pressToStartText;
 
     private GameManager gameManager;
-    private CalculatorManager calculatorManager;
     private void Awake()
     {
         gameManager = GameManager.Instance;
-        calculatorManager = CalculatorManager.Instance;
     }
 
     private void Start()
@@ -36,10 +34,10 @@ public class UIManager : Singleton<UIManager>
 
     public void ResourcesApply()
     {
-        catText.text = $"{ gameManager.resource.catCount}마리";
-        coinText.text = calculatorManager.returnStr(gameManager.resource.coin);
-        iceText.text = calculatorManager.returnStr(gameManager.resource.ice);
-        energyText.text = calculatorManager.returnStr(gameManager.resource.energy);
+        catText.text = $"{gameManager.resource.catCount}마리";
+        coinText.text = CalculatorManager.returnStr(gameManager.resource.coin);
+        iceText.text = CalculatorManager.returnStr(gameManager.resource.ice);
+        energyText.text = CalculatorManager.returnStr(gameManager.resource.energy);
 
     }
     private IEnumerator TitleEffect()
