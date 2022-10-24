@@ -6,52 +6,21 @@ using DG.Tweening;
 using TMPro;
 using System.Runtime.ConstrainedExecution;
 
-public class Building : MonoBehaviour
+public abstract class Building : MonoBehaviour
 {
     public bool Placed { get; private set; }
     public BoundsInt area;
 
-    public int Rating;
-    public GoldBuildingType buildingType;
+    [Header("Building Info")]
+    public string BuildingName;
+    public int Rating = 1;
 
-    #region Gold
-    [Header("Gold")]
-    [SerializeField] private Button CollectMoneyButton;
-    [SerializeField] private string DefaultGold;
-    [SerializeField] private float DefaultGoldChargingTime;
-    [SerializeField] private float IncreasePerLevelUp;
-
-    public string ProductionGold
-    {
-        get
-        {
-            var gold = DefaultGold.returnValue();
-
-            for (var i = 0; i < Rating; i++)
-            {
-                gold *= IncreasePerLevelUp;
-            }
-
-            return gold.returnStr();
-        }
-    }
-
-
-    [Tooltip("기본 건설 비용")] public string DefaultConstructionCost;
-    public string ConstructionCost
-    {
-        get => (DefaultConstructionCost.returnValue() * (BuildingManager.s_GoldBuildings[buildingType] * 3)).returnStr();
-    }
-
-    private bool didGetMoney;
-
-    private WaitForSeconds waitGoldChargingTime;
-
-    #endregion
 
     #region Deploying
-    private bool isDeploying;
-    public bool IsDeploying
+
+
+    protected bool isDeploying;
+    public virtual bool IsDeploying
     {
         get
         {
@@ -61,24 +30,12 @@ public class Building : MonoBehaviour
         set
         {
             isDeploying = value;
-
-            if (isDeploying)
-            {
-                SpriteRenderer.color = new Color(1, 1, 1, 0.5f);
-                DeplyingObject.SetActive(true);
-                CollectMoneyButton.gameObject.SetActive(false);
-            }
-            else
-            {
-                SpriteRenderer.color = Color.white;
-                DeplyingObject.SetActive(false);
-                CollectMoneyButton.gameObject.SetActive(true);
-
-            }
         }
     }
 
-    [HideInInspector] public bool FirstTimeInstallation;
+    [SerializeField] protected string DefaultConstructionCost;
+    public virtual string ConstructionCost { get; }
+
 
     [HideInInspector] public BuildingInfo BuildingInfo;
 
@@ -87,31 +44,26 @@ public class Building : MonoBehaviour
     [Tooltip("배치 가능한 고양이 수")] public int MaxDeployableCat;
 
     private GameObject BuildingSprte;
-    [SerializeField] private SpriteRenderer SpriteRenderer;
-    [SerializeField] private TextMeshProUGUI ConstructionGoldText;
+    [HideInInspector] public bool FirstTimeInstallation;
+    [SerializeField] protected SpriteRenderer SpriteRenderer;
 
     [Space(5f)]
-    [SerializeField] private GameObject DeplyingObject;
+    [SerializeField] protected GameObject DeployingUIParent;
     [SerializeField] private Button InstallationButton;
     [SerializeField] private Button DemolitionButton;
     [SerializeField] private Button RotateButton;
 
     #endregion
 
-    private GridBuildingSystem GridBuildingSystem;
+    protected GridBuildingSystem GridBuildingSystem;
 
-    private void Start()
+    protected virtual void Start()
     {
         GridBuildingSystem = GridBuildingSystem.Instance;
 
-        waitGoldChargingTime = new WaitForSeconds(DefaultGoldChargingTime);
-
         BuildingSprte = SpriteRenderer.gameObject;
 
-        CollectMoneyButton.onClick.AddListener(() =>
-        {
-            didGetMoney = true;
-        });
+
 
         InstallationButton.onClick.AddListener(() =>
         {
@@ -144,7 +96,7 @@ public class Building : MonoBehaviour
     }
 
 
-    public void Place()
+    public virtual void Place()
     {
         Vector3Int positionInt = GridBuildingSystem.gridLayout.LocalToCell(transform.position);
         BoundsInt areaTemp = area;
@@ -160,47 +112,13 @@ public class Building : MonoBehaviour
             FirstTimeInstallation = false;
             StartCoroutine(BuildingInstalltionEffect());
         }
-
-        StartCoroutine(CChargeMoney());
     }
 
-    IEnumerator CChargeMoney()
-    {
-
-        while (true)
-        {
-            yield return waitGoldChargingTime;
-
-            yield return StartCoroutine(CWaitClick());
-        }
-    }
-
-    IEnumerator CWaitClick()
-    {
-        while (true)
-        {
-            if (didGetMoney)
-            {
-                GameManager.Instance._coin += CalculatorManager.returnValue(DefaultGold);
-                didGetMoney = false;
-                yield break;
-            }
-
-            yield return null;
-        }
-    }
-
-    IEnumerator BuildingInstalltionEffect()
+    protected virtual IEnumerator BuildingInstalltionEffect()
     {
         BuildingSprte.transform.localScale = new Vector3(0.03f, 0.03f, 1f);
         yield return BuildingSprte.transform.DOScale(new Vector3(0.1f, 0.1f, 1f), 0.4f).WaitForCompletion();
 
-        ConstructionGoldText.gameObject.SetActive(true);
-        ConstructionGoldText.rectTransform.DOAnchorPosY(200, 1);
-        yield return ConstructionGoldText.DOFade(0f, 0.7f).WaitForCompletion();
-
-        ConstructionGoldText.gameObject.SetActive(true);
-        GridBuildingSystem.InitializeWithBuilding(BuildingInfo.BuildingPrefab);
-
     }
+
 }

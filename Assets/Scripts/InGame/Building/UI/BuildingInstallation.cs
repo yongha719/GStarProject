@@ -34,6 +34,8 @@ public class BuildingInstallation : MonoBehaviour
     private void Awake()
     {
         GameManager = GameManager.Instance;
+
+        BuildingManager.Init();
     }
 
     void Start()
@@ -55,7 +57,7 @@ public class BuildingInstallation : MonoBehaviour
             buildingInfo.BuyButtonOnclick((Building) =>
             {
                 CurBuilding = buildingInfo.BuildingPrefab;
-                CurBuildingName = buildingInfo.BuildingName;
+                CurBuildingName = Building.BuildingName;
 
                 Building.BuildingInfo = buildingInfo;
                 buildingInfo.BuildingInstalltionUI = BuildingInstallationUI;

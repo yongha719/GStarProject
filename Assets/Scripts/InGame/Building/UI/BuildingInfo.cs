@@ -7,8 +7,6 @@ using TMPro;
 
 public class BuildingInfo : MonoBehaviour
 {
-    public string BuildingID;
-    public string BuildingName;
     public GameObject BuildingPrefab;
     private string gold;
 
@@ -22,12 +20,10 @@ public class BuildingInfo : MonoBehaviour
     private void Awake()
     {
         Building = BuildingPrefab.GetComponent<Building>();
-        gold = Building.ProductionGold;
+        gold = Building.ConstructionCost;
 
         buildingCostText = BuyButton.GetComponentInChildren<TextMeshProUGUI>();
         buildingCostText.text = gold;
-
-        print(double.MaxValue);
     }
 
     public void BuyButtonOnclick(Action<Building> call)

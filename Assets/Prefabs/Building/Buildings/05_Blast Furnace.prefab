@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 3628688147823231921}
   - component: {fileID: 5444481926985826226}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Collect Money
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -262,7 +262,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3854345743032265918}
   m_Layer: 5
-  m_Name: BuildingInstallation
+  m_Name: Deploying UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -501,7 +501,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7293558756560507725}
-  - component: {fileID: 1510417249225105120}
+  - component: {fileID: 6834921374153740821}
   m_Layer: 0
   m_Name: 05_Blast Furnace
   m_TagString: Untagged
@@ -525,7 +525,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1510417249225105120
+--- !u!114 &6834921374153740821
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -534,22 +534,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 5249543589208906696}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f08a07ff309095d428563766488caace, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b4a2d8af5130bf4a83aef14138b2716, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   area:
     m_Position: {x: 0, y: 0, z: 0}
     m_Size: {x: 1, y: 1, z: 1}
-  CollectMoneyButton: {fileID: 5444481926985826226}
-  GoldChargingTime: 3
-  FirstTimeInstallation: 1
+  BuildingName: "\uC6A9\uAD11\uB85C"
+  Rating: 1
+  DefaultConstructionCost: 20b
   BuildingInfo: {fileID: 0}
-  spriteRenderer: {fileID: 2077103226882709871}
-  ConstructionGoldText: {fileID: 3977098050459093906}
-  DeplyingObject: {fileID: 1159057902452433820}
+  MaxDeployableCat: 1
+  FirstTimeInstallation: 0
+  SpriteRenderer: {fileID: 2077103226882709871}
+  DeployingUIParent: {fileID: 1159057902452433820}
   InstallationButton: {fileID: 405574493701101109}
   DemolitionButton: {fileID: 5969899369050173961}
   RotateButton: {fileID: 7496639491388935465}
+  buildingType: 4
+  CollectMoneyButton: {fileID: 5444481926985826226}
+  DefaultGold: 20a
+  DefaultGoldChargingTime: 25
+  IncreasePerLevelUp: 15
+  ConstructionGoldText: {fileID: 0}
 --- !u!1 &7234473010087785592
 GameObject:
   m_ObjectHideFlags: 0

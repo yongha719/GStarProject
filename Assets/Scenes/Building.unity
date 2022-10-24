@@ -1891,9 +1891,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03facf5f2693c534280ee6568713422a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BuildingID: 
-  BuildingName: 
-  BuildingPrefab: {fileID: 0}
+  BuildingPrefab: {fileID: 5249543589208906696, guid: 3932e27f817bb6141bb00e5fddd16d89, type: 3}
   BuyButton: {fileID: 1640254461}
   BuildingInstalltionUI: {fileID: 0}
   Building: {fileID: 0}
@@ -1913,7 +1911,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &754983004
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2383,9 +2381,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03facf5f2693c534280ee6568713422a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BuildingID: 
-  BuildingName: 
-  BuildingPrefab: {fileID: 0}
+  BuildingPrefab: {fileID: 5249543589208906696, guid: 7ba1037d7629d2941aa60bee4df88bcd, type: 3}
   BuyButton: {fileID: 1210505703}
   BuildingInstalltionUI: {fileID: 0}
   Building: {fileID: 0}
@@ -12922,9 +12918,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03facf5f2693c534280ee6568713422a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BuildingID: 
-  BuildingName: 
-  BuildingPrefab: {fileID: 0}
+  BuildingPrefab: {fileID: 5249543589208906696, guid: a4c59a5d2b762ea47a231d6cd766299a, type: 3}
   BuyButton: {fileID: 1254916978}
   BuildingInstalltionUI: {fileID: 0}
   Building: {fileID: 1510417249225105120, guid: 3932e27f817bb6141bb00e5fddd16d89, type: 3}
@@ -13147,7 +13141,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1475619309}
+      - m_Target: {fileID: 69815738}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -13157,7 +13151,7 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
         m_CallState: 1
 --- !u!114 &1897323206
 MonoBehaviour:
@@ -13481,7 +13475,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2012468477
 MonoBehaviour:
   m_ObjectHideFlags: 0
