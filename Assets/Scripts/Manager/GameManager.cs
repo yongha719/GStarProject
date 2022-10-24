@@ -6,39 +6,46 @@ using UnityEngine;
 [System.Serializable]
 public class ResourceClass
 {
-    public int catCount;
-    public int coin;
-    public int electric;
-    public int ice;
+    public double catCount;
+    public double coin;
+    public double electric;
+    public double ice;
 }
 public class GameManager : Singleton<GameManager>
 {
-    private void Awake()
-    {
-        DontDestroyOnLoad(this.gameObject);
-    }
 
     public ResourceClass resource = new ResourceClass();
 
-    public int _catCount
+    public double _catCount
     {
         get { return resource.catCount; }
         set { resource.catCount = value; }
     }
-    public int _coin
+    public double _coin
     {
         get { return resource.coin; }
         set { resource.coin = value; }
     }
-    public int _electric
+    public double _electric
     {
         get { return resource.electric; }
         set { resource.electric = value; }
     }
-    public int _ice
+    public double _ice
     {
         get { return resource.ice; }
         set { resource.ice = value; }
+    }
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
     void Start()
     {

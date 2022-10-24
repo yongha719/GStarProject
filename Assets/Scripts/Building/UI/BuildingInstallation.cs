@@ -16,7 +16,7 @@ public class BuildingInstallation : MonoBehaviour
     [Header("WorkShop Buildings")]
     [SerializeField] private List<BuildingInfo> WorkShopBuildingInfos;
 
-    [Header("Warning")]
+    [Header("Warning UIs")]
     [SerializeField] private Warning Warning;
     [SerializeField] private NotEnoughGold NotEnoughGold;
 
@@ -29,6 +29,12 @@ public class BuildingInstallation : MonoBehaviour
     #endregion
 
     private GridBuildingSystem GridBuildingSystem;
+    private GameManager GameManager;
+
+    private void Awake()
+    {
+        GameManager = GameManager.Instance;
+    }
 
     void Start()
     {
@@ -48,15 +54,14 @@ public class BuildingInstallation : MonoBehaviour
         {
             buildingInfo.BuyButtonOnclick((Building) =>
             {
-                CurBuilding = buildingInfo.buildingPrefab;
-                CurBuildingName = buildingInfo.buildingName;
+                CurBuilding = buildingInfo.BuildingPrefab;
+                CurBuildingName = buildingInfo.BuildingName;
 
                 Building.BuildingInfo = buildingInfo;
                 buildingInfo.BuildingInstalltionUI = BuildingInstallationUI;
                 buildingInfo.Building.FirstTimeInstallation = true;
 
-                print(GameManager.Instance._coin >= buildingInfo.Gold);
-                if (GameManager.Instance._coin >= buildingInfo.Gold)
+                if (GameManager._coin > 0 && GameManager._coin >= Building.Gold)
                 {
                     Warning.WarningUI.SetActive(true);
                     Warning.SetWarningData(CurBuilding, CurBuildingName, BuildingInstallationUI);
