@@ -8,7 +8,7 @@ public class ResourceClass
 {
     public double catCount;
     public double coin;
-    public double electric;
+    public double energy;
     public double ice;
 }
 public class GameManager : Singleton<GameManager>
@@ -26,10 +26,10 @@ public class GameManager : Singleton<GameManager>
         get { return resource.coin; }
         set { resource.coin = value; }
     }
-    public double _electric
+    public double _energy
     {
-        get { return resource.electric; }
-        set { resource.electric = value; }
+        get { return resource.energy; }
+        set { resource.energy = value; }
     }
     public double _ice
     {
