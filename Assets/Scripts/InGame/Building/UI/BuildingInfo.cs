@@ -10,7 +10,7 @@ public class BuildingInfo : MonoBehaviour
     public string BuildingID;
     public string BuildingName;
     public GameObject BuildingPrefab;
-    private int gold;
+    private string gold;
 
     public Button BuyButton;
     private TextMeshProUGUI buildingCostText;
@@ -22,10 +22,10 @@ public class BuildingInfo : MonoBehaviour
     private void Awake()
     {
         Building = BuildingPrefab.GetComponent<Building>();
-        gold = Building.DefaultGold;
+        gold = Building.ProductionGold;
 
         buildingCostText = BuyButton.GetComponentInChildren<TextMeshProUGUI>();
-        buildingCostText.text = gold.ToString();
+        buildingCostText.text = gold;
 
         print(double.MaxValue);
     }

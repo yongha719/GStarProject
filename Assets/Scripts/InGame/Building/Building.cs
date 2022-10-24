@@ -11,10 +11,13 @@ public class Building : MonoBehaviour
     public bool Placed { get; private set; }
     public BoundsInt area;
 
+    public int Rating;
+    public GoldBuildingType buildingType;
+
     #region Gold
     [Header("Gold")]
     [SerializeField] private Button CollectMoneyButton;
-    [SerializeField] private int DefaultGold;
+    [SerializeField] private string DefaultGold;
     [SerializeField] private float DefaultGoldChargingTime;
     [SerializeField] private float IncreasePerLevelUp;
 
@@ -22,12 +25,24 @@ public class Building : MonoBehaviour
     {
         get
         {
-            return null;
+            var gold = DefaultGold.returnValue();
+
+            for (var i = 0; i < Rating; i++)
+            {
+                gold *= IncreasePerLevelUp;
+            }
+
+            return gold.returnStr();
         }
     }
 
 
-    [Tooltip("기본 건설 비용")] public string ConstructionCost;
+    [Tooltip("기본 건설 비용")] public string DefaultConstructionCost;
+    public string ConstructionCost
+    {
+        get => (DefaultConstructionCost.returnValue() * (BuildingManager.s_GoldBuildings[buildingType] * 3)).returnStr();
+    }
+
     private bool didGetMoney;
 
     private WaitForSeconds waitGoldChargingTime;

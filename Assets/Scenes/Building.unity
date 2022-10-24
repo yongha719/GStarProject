@@ -8752,7 +8752,7 @@ MonoBehaviour:
   resource:
     catCount: 0
     coin: 0
-    electric: 0
+    energy: 0
     ice: 0
 --- !u!1 &1427637680
 GameObject:
@@ -13481,7 +13481,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2012468477
 MonoBehaviour:
   m_ObjectHideFlags: 0
