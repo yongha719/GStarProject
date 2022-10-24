@@ -158,22 +158,22 @@ public class GridBuildingSystem : MonoBehaviour
     {
         BuildingClear();
 
-        CurBuilding.Area.position = gridLayout.WorldToCell(CurBuilding.gameObject.transform.position);
-        BoundsInt buildingArea = CurBuilding.Area;
+        //CurBuilding.Area.position = gridLayout.WorldToCell(CurBuilding.gameObject.transform.position);
+        //BoundsInt buildingArea = CurBuilding.Area;
 
-        TileBase[] baseArray = GetTilesBlock(buildingArea, MainTilemap);
+    //    TileBase[] baseArray = GetTilesBlock(buildingArea, MainTilemap);
 
-        int size = baseArray.Length;
-        TileBase[] tileArray = new TileBase[size];
+    //    int size = baseArray.Length;
+    //    TileBase[] tileArray = new TileBase[size];
 
-        for (int i = 0; i < size; i++)
-        {
-            tileArray[i] = (baseArray[i] == tileBases[TileType.Empty]) ? tileBases[TileType.Green] : tileBases[TileType.Red];
-        }
+    //    for (int i = 0; i < size; i++)
+    //    {
+    //        tileArray[i] = (baseArray[i] == tileBases[TileType.Empty]) ? tileBases[TileType.Green] : tileBases[TileType.Red];
+    //    }
 
-        TempTilemap.SetTilesBlock(buildingArea, tileArray);
+    //    TempTilemap.SetTilesBlock(buildingArea, tileArray);
 
-        prevArea = buildingArea;
+    //    prevArea = buildingArea;
     }
 
     public bool CanTakeArea(BoundsInt area)

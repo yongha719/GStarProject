@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine.Serialization;
 using DG.Tweening;
 
-public class UIManager : MonoBehaviour
+public class UIManager : Singleton<UIManager>
 {
     public TextMeshProUGUI catText;
     public TextMeshProUGUI coinText;
@@ -30,12 +30,13 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
+        ResourcesApply();
         StartCoroutine(TitleEffect());
     }
 
-    private void ResourcesApply()
+    public void ResourcesApply()
     {
-        catText.text = calculatorManager.returnStr(gameManager.resource.catCount);
+        catText.text = $"{ gameManager.resource.catCount}¸¶¸®";
         coinText.text = calculatorManager.returnStr(gameManager.resource.coin);
         iceText.text = calculatorManager.returnStr(gameManager.resource.ice);
         energyText.text = calculatorManager.returnStr(gameManager.resource.energy);

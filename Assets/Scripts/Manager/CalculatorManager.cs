@@ -13,7 +13,7 @@ class CalculatorManager : Singleton<CalculatorManager>
     /// </summary>
     public string returnStr(double value)
     {
-        char unit = '\'';
+        char unit = '`';
         int remainValue = 0;
 
         //소수점 뒤에 두자리를 남기기위해 지난 수를 집어넣음
@@ -25,12 +25,14 @@ class CalculatorManager : Singleton<CalculatorManager>
             value /= roundUnit;
             unit++;
         }
+        value = System.Math.Ceiling(value);
 
         string returnStr, remainStr;
-        if (remainValue < 100) remainStr = $"0{remainValue}";
+        //소수점 뒤에 숫자를 처리하는 과정
+        if (remainValue < 10) remainStr = $"0{remainValue}";
         else remainStr = remainValue.ToString();
 
-        if (unit > '\'') returnStr = $"{value}.{remainStr}{unit}";
+        if (unit > '`') returnStr = $"{value}.{remainStr}{unit}";
         else returnStr = $"{value}";
 
         return returnStr;
@@ -40,11 +42,11 @@ class CalculatorManager : Singleton<CalculatorManager>
     /// </summary>
     public double returnValue(string str)
     {
-        char unit = '\'';
-        double value = 0;
+        char unit = '`';
+        double value;
         for (int i = 0; i < str.Length; i++)
         {
-            if (str[i] > '\'')
+            if (str[i] > '`')
             {
                 unit = str[i];
                 str.Remove(i);
@@ -53,7 +55,7 @@ class CalculatorManager : Singleton<CalculatorManager>
 
         value = double.Parse(str);
 
-        for (; unit > '\''; unit--) value *= roundUnit;
+        for (; unit > '`'; unit--) value *= roundUnit;
 
         return value;
     }
