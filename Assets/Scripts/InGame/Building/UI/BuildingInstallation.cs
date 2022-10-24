@@ -61,7 +61,7 @@ public class BuildingInstallation : MonoBehaviour
                 buildingInfo.BuildingInstalltionUI = BuildingInstallationUI;
                 buildingInfo.Building.FirstTimeInstallation = true;
 
-                if (GameManager._coin > 0 && GameManager._coin >= Building.Gold)
+                if (GameManager._coin > 0 && GameManager._coin >= Building.DefaultGold)
                 {
                     Warning.WarningUI.SetActive(true);
                     Warning.SetWarningData(CurBuilding, CurBuildingName, BuildingInstallationUI);

@@ -481,7 +481,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1dae0d639cd992c47ac217884fe2f16d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0fb7216783e258a4c9dd5f8fdc70fd23, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.5}
   m_FlipX: 0
   m_FlipY: 0
@@ -503,7 +503,7 @@ GameObject:
   - component: {fileID: 7293558756560507725}
   - component: {fileID: 1510417249225105120}
   m_Layer: 0
-  m_Name: Potato Farm
+  m_Name: 07_Cauldron
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -541,10 +541,12 @@ MonoBehaviour:
     m_Position: {x: 0, y: 0, z: 0}
     m_Size: {x: 1, y: 1, z: 1}
   CollectMoneyButton: {fileID: 5444481926985826226}
+  Gold: 0
   GoldChargingTime: 3
   FirstTimeInstallation: 1
   BuildingInfo: {fileID: 0}
-  spriteRenderer: {fileID: 2077103226882709871}
+  MaxDeployableCat: 0
+  SpriteRenderer: {fileID: 0}
   ConstructionGoldText: {fileID: 3977098050459093906}
   DeplyingObject: {fileID: 1159057902452433820}
   InstallationButton: {fileID: 405574493701101109}

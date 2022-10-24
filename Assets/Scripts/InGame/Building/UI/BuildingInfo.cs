@@ -22,7 +22,7 @@ public class BuildingInfo : MonoBehaviour
     private void Awake()
     {
         Building = BuildingPrefab.GetComponent<Building>();
-        gold = Building.Gold;
+        gold = Building.DefaultGold;
 
         buildingCostText = BuyButton.GetComponentInChildren<TextMeshProUGUI>();
         buildingCostText.text = gold.ToString();

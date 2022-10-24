@@ -503,7 +503,7 @@ GameObject:
   - component: {fileID: 7293558756560507725}
   - component: {fileID: 1510417249225105120}
   m_Layer: 0
-  m_Name: Fishing Spot
+  m_Name: 01_Fishing Spot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

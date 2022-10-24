@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
+using System.Runtime.ConstrainedExecution;
 
 public class Building : MonoBehaviour
 {
@@ -13,8 +14,20 @@ public class Building : MonoBehaviour
     #region Gold
     [Header("Gold")]
     [SerializeField] private Button CollectMoneyButton;
-    public int Gold;
-    public float GoldChargingTime;
+    [SerializeField] private int DefaultGold;
+    [SerializeField] private float DefaultGoldChargingTime;
+    [SerializeField] private float IncreasePerLevelUp;
+
+    public string ProductionGold
+    {
+        get
+        {
+            return null;
+        }
+    }
+
+
+    [Tooltip("기본 건설 비용")] public string ConstructionCost;
     private bool didGetMoney;
 
     private WaitForSeconds waitGoldChargingTime;
@@ -22,7 +35,6 @@ public class Building : MonoBehaviour
     #endregion
 
     #region Deploying
-    [Header("Deploying")]
     private bool isDeploying;
     public bool IsDeploying
     {
@@ -37,27 +49,30 @@ public class Building : MonoBehaviour
 
             if (isDeploying)
             {
-                spriteRenderer.color = new Color(1, 1, 1, 0.5f);
+                SpriteRenderer.color = new Color(1, 1, 1, 0.5f);
                 DeplyingObject.SetActive(true);
                 CollectMoneyButton.gameObject.SetActive(false);
             }
             else
             {
-                spriteRenderer.color = Color.white;
+                SpriteRenderer.color = Color.white;
                 DeplyingObject.SetActive(false);
                 CollectMoneyButton.gameObject.SetActive(true);
 
             }
         }
     }
+
     [HideInInspector] public bool FirstTimeInstallation;
 
     [HideInInspector] public BuildingInfo BuildingInfo;
 
 
     [Header("Deploying")]
+    [Tooltip("배치 가능한 고양이 수")] public int MaxDeployableCat;
+
     private GameObject BuildingSprte;
-    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private SpriteRenderer SpriteRenderer;
     [SerializeField] private TextMeshProUGUI ConstructionGoldText;
 
     [Space(5f)]
@@ -74,9 +89,9 @@ public class Building : MonoBehaviour
     {
         GridBuildingSystem = GridBuildingSystem.Instance;
 
-        waitGoldChargingTime = new WaitForSeconds(GoldChargingTime);
+        waitGoldChargingTime = new WaitForSeconds(DefaultGoldChargingTime);
 
-        BuildingSprte = spriteRenderer.gameObject;
+        BuildingSprte = SpriteRenderer.gameObject;
 
         CollectMoneyButton.onClick.AddListener(() =>
         {
@@ -98,7 +113,7 @@ public class Building : MonoBehaviour
 
         RotateButton.onClick.AddListener(() =>
         {
-            spriteRenderer.flipX = !spriteRenderer.flipX;
+            SpriteRenderer.flipX = !SpriteRenderer.flipX;
         });
 
 
@@ -151,7 +166,7 @@ public class Building : MonoBehaviour
         {
             if (didGetMoney)
             {
-                GameManager.Instance._coin += Gold;
+                GameManager.Instance._coin += DefaultGold;
                 didGetMoney = false;
                 yield break;
             }
