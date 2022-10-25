@@ -34,7 +34,7 @@ public class GridBuildingSystem : MonoBehaviour
 
     void Start()
     {
-        tileBases.Add(TileType.Empty, null);
+        tileBases.Add(TileType.Empty, Resources.Load<TileBase>($"{path}DefaultTile"));
         tileBases.Add(TileType.EnableZone, Resources.Load<TileBase>($"{path}white"));
         tileBases.Add(TileType.Green, Resources.Load<TileBase>($"{path}green"));
         tileBases.Add(TileType.Red, Resources.Load<TileBase>($"{path}red"));
@@ -83,7 +83,7 @@ public class GridBuildingSystem : MonoBehaviour
     }
 
     #region TileMap
-    private TileBase[] GetTilesBlock(in BoundsInt area, Tilemap tilemap)
+    private TileBase[] GetTilesBlock(BoundsInt area, Tilemap tilemap)
     {
         TileBase[] array = new TileBase[area.size.x * area.size.y];
         int cnt = 0;
@@ -119,10 +119,9 @@ public class GridBuildingSystem : MonoBehaviour
     }
     #endregion
 
-    //Button
     public void InitializeWithBuilding(GameObject building)
     {
-        MainTilemap.color = new Color(1, 1, 1, 0.5f);
+        //MainTilemap.color = new Color(1, 1, 1, 0.5f);
         CurBuilding = Instantiate(building, Vector3.zero, Quaternion.identity, transform).GetComponent<Building>();
         FollowBuiliding();
     }
@@ -133,7 +132,7 @@ public class GridBuildingSystem : MonoBehaviour
         {
             CurBuilding.transform.localPosition = gridLayout.CellToLocalInterpolated(cellPos);
             CurBuilding.Place();
-            MainTilemap.color = Color.clear;
+            //MainTilemap.color = Color.clear;
         }
     }
 
@@ -195,7 +194,7 @@ public class GridBuildingSystem : MonoBehaviour
     public void TakeArea(BoundsInt area)
     {
         SetTilesBlock(area, TileType.Empty, TempTilemap);
-        SetTilesBlock(area, TileType.Green, MainTilemap);
+        //SetTilesBlock(area, TileType.Green, MainTilemap);
     }
 }
 

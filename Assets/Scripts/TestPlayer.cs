@@ -37,7 +37,6 @@ public class TestPlayer : MonoBehaviour
         while (true)
         {
             targetPos = new Vector2Int(Random.Range(0,5), Random.Range(0,5));
-            print(targetPos);
             yield return StartCoroutine(MoveStep());
             yield return new WaitForSeconds(2);
         }

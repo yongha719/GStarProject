@@ -39,7 +39,6 @@ public class Warning : MonoBehaviour
 
     public void SetWarningData(GameObject building, string buildingname, GameObject buildingInstalltionUI)
     {
-        print("me");
         CurBuilding = building;
         WarningText.text = $"{buildingname}{WARNING_PHRASE}";
 
