@@ -7,7 +7,7 @@ using DG.Tweening;
 
 public class GoldProductionBuilding : Building, IResourceProductionBuilding
 {
-    [Header("Gold Production Building"), Space]
+    [Header("Gold Production Building")]
     public GoldBuildingType buildingType;
 
     #region Gold
@@ -42,6 +42,10 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
     [SerializeField] private TextMeshProUGUI ConstructionGoldText;
 
     #endregion
+
+    [SerializeField] private Button BuildingButton;
+    [SerializeField] private GameObject BuildingUI;
+
     public override bool IsDeploying
     {
         get
@@ -80,6 +84,23 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
         {
             didGetMoney = true;
         });
+
+        BuildingButton.onClick.AddListener(() =>
+        {
+            if (CollectMoneyButton.gameObject.activeSelf)
+            {
+                didGetMoney = true;
+            }
+            else if (BuildingUI.activeSelf)
+            {
+                BuildingUI.SetActive(false);
+            }
+            else
+            {
+                BuildingUI.SetActive(true);
+            }
+
+        });
     }
 
 
@@ -99,7 +120,7 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
         {
             if (didGetMoney)
             {
-                GameManager.Instance._coin += DefaultGold.returnValue();
+                GameManager.Instance._coin += ProductionGold.returnValue();
                 didGetMoney = false;
                 yield break;
             }
