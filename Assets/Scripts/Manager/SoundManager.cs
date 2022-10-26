@@ -1,8 +1,9 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
+[System.Serializable]
 public enum SoundType
 {
     SFX,
@@ -10,17 +11,16 @@ public enum SoundType
     CAT,
     END
 }
-[System.Serializable]
-public class AudioSourceClass
-{
-    public AudioSource audioSource;
-    public float audioVolume = 0.5f;
-}
 
 public class SoundManager : Singleton<SoundManager>
 {
     public Dictionary<string, AudioClip> audioClips = new Dictionary<string, AudioClip>();
-    public Dictionary<SoundType, AudioSourceClass> audioSourceClasses = new Dictionary<SoundType, AudioSourceClass>();
+    public Dictionary<SoundType, AudioSource> audioSources = new Dictionary<SoundType, AudioSource>();
+    public float[] audioVolumes = new float[(int)SoundType.END];
+
+    public Slider audioSlider;
+    public Slider sfxSlider;
+    public Slider catSlider;
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
@@ -31,49 +31,58 @@ public class SoundManager : Singleton<SoundManager>
             audioClips[clip.name] = clip;
         }
 
-        string[] enumNames = Enum.GetNames(typeof(SoundType));
+        string[] enumNames = System.Enum.GetNames(typeof(SoundType));
         for (int i = 0; i < (int)SoundType.END; i++)
         {
             GameObject AudioSourceObj = new GameObject(enumNames[i]);
             AudioSourceObj.transform.SetParent(transform);
-            AudioSourceClass sourceClass
-                = new AudioSourceClass { audioSource = AudioSourceObj.AddComponent<AudioSource>(), audioVolume = 0.5f };
-            audioSourceClasses[(SoundType)i] = sourceClass;
+            audioSources[(SoundType)i] = AudioSourceObj.AddComponent<AudioSource>();
+            audioVolumes[i] = 0.5f;
         }
 
-        audioSourceClasses[SoundType.BGM].audioSource.loop = true;
+        audioSources[SoundType.BGM].loop = true;
     }
-
+    private void Start()
+    {
+        sliderValueaApply();
+    }
     public AudioClip PlaySoundClip(string clipName, SoundType type, float volume = 0.5f, float pitch = 1)
     {
         AudioClip clip = audioClips[clipName];
-        audioSourceClasses[type].audioSource.pitch = pitch;
+        audioSources[type].pitch = pitch;
 
-        float curVolume = volume * audioSourceClasses[type].audioVolume;
+        float curVolume = volume * audioVolumes[(int)type];
         if (type == SoundType.BGM)
         {
-            audioSourceClasses[SoundType.BGM].audioSource.clip = clip;
-            audioSourceClasses[SoundType.BGM].audioSource.volume = curVolume;
-            audioSourceClasses[SoundType.BGM].audioSource.Play();
+            audioSources[SoundType.BGM].clip = clip;
+            audioSources[SoundType.BGM].volume = curVolume;
+            audioSources[SoundType.BGM].Play();
         }
         else
         {
-            audioSourceClasses[type].audioSource.PlayOneShot(clip, curVolume);
+            audioSources[type].PlayOneShot(clip, curVolume);
         }
 
         return clip;
     }
+    private void sliderValueaApply()
+    {
+        audioSlider.value = audioVolumes[0];
+        sfxSlider.value = audioVolumes[1];
+        catSlider.value = audioVolumes[2];
+    }
     public void AudioSoundSetting(float index)
     {
-        audioSourceClasses[SoundType.BGM].audioSource.volume = index;
+        audioVolumes[(int)SoundType.BGM] = index;
+        audioSources[SoundType.BGM].volume = index;
     }
     public void SFXSoundSetting(float index)
     {
-        audioSourceClasses[SoundType.SFX].audioVolume = index;
+        audioVolumes[(int)SoundType.SFX] = index;
     }
     public void CatSoundSetting(float index)
     {
-        audioSourceClasses[SoundType.CAT].audioVolume = index;
+        audioVolumes[(int)SoundType.CAT] = index;
     }
 
 }
