@@ -47,7 +47,7 @@ public static class CalculatorManager
             if (str[i] > '`')
             {
                 unit = str[i];
-                str.Remove(i);
+                str = str.Remove(i);
             }
         }
 

@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
-
+using System;
 
 public class BuildingInstallation : MonoBehaviour
 {
@@ -14,7 +13,7 @@ public class BuildingInstallation : MonoBehaviour
     #region Buildings
 
     [Header("WorkShop Buildings")]
-    [SerializeField] private List<BuildingInfo> WorkShopBuildingInfos;
+    [SerializeField] private List<BuildingInfo> GoldProductionBuildingInfos;
 
     [Header("Warning UIs")]
     [SerializeField] private Warning Warning;
@@ -33,7 +32,6 @@ public class BuildingInstallation : MonoBehaviour
 
     private void Awake()
     {
-
         BuildingManager.Init();
     }
 
@@ -52,18 +50,20 @@ public class BuildingInstallation : MonoBehaviour
 
     private void UISetting()
     {
-        foreach (var buildingInfo in WorkShopBuildingInfos)
+        foreach (var buildingInfo in GoldProductionBuildingInfos)
         {
             buildingInfo.BuyButtonOnclick((Building) =>
             {
-                CurBuilding = buildingInfo.BuildingPrefab;
-                CurBuildingName = Building.BuildingName;
+                var goldprodutionbuilding = Building as GoldProductionBuilding;
 
-                Building.BuildingInfo = buildingInfo;
+                CurBuilding = buildingInfo.BuildingPrefab;
+                CurBuildingName = goldprodutionbuilding.BuildingName;
+
+                goldprodutionbuilding.BuildingInfo = buildingInfo;
                 buildingInfo.BuildingInstalltionUI = BuildingInstallationUI;
                 buildingInfo.Building.FirstTimeInstallation = true;
 
-                if (GameManager._coin > 0 /*&& GameManager._coin >= Building.ProductionGold*/)
+                if (GameManager._coin > 0 && GameManager._coin >= goldprodutionbuilding.ProductionGold.returnValue())
                 {
                     Warning.WarningUI.SetActive(true);
                     Warning.SetWarningData(CurBuilding, CurBuildingName, BuildingInstallationUI);

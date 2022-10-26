@@ -10,8 +10,10 @@ public class BuildingCategory : MonoBehaviour
     public Sprite OffSprite;
 
     private static BuildingCategory s_CurCategory;
+    private static GameObject s_CurCategoryBuildings;
+
+    [SerializeField] private GameObject CurCategoryBuildings;
     [SerializeField] private bool isSelected;
-    [SerializeField] private GameObject CurBuildings;
 
     #region Component
 
@@ -32,6 +34,7 @@ public class BuildingCategory : MonoBehaviour
         if (isSelected)
         {
             s_CurCategory = this;
+            s_CurCategoryBuildings = CurCategoryBuildings;
         }
     }
 
@@ -42,6 +45,12 @@ public class BuildingCategory : MonoBehaviour
 
         s_CurCategory.Unselect();
         s_CurCategory = this;
+
+
+        s_CurCategoryBuildings.SetActive(false);
+        CurCategoryBuildings.SetActive(true);
+        s_CurCategoryBuildings = CurCategoryBuildings;
+
         image.sprite = OnSprite;
         rect.DOAnchorPosY(-70f, 0.3f);
     }

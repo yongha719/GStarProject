@@ -5,5 +5,5 @@ using UnityEngine;
 public interface IResourceProductionBuilding 
 {
     public IEnumerator ResourceProduction();
-    public IEnumerator CWaitClick();
+    public IEnumerator WaitClick();
 }

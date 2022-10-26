@@ -56,6 +56,8 @@ public class GameManager : Singleton<GameManager>
     private void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
+
+        _coin = double.MaxValue;
     }
     void Start()
     {

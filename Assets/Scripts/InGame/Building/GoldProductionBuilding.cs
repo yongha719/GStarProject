@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,7 @@ using DG.Tweening;
 
 public class GoldProductionBuilding : Building, IResourceProductionBuilding
 {
-    [Header("Gold Production Building"), Space]
+    [Header("Gold Production Building")]
     public GoldBuildingType buildingType;
 
     #region Gold
@@ -23,9 +24,9 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
         {
             var gold = DefaultGold.returnValue();
 
-            for (var i = 0; i < Rating; i++)
+            for (var i = 0; i < Rating - 1; i++)
             {
-                gold *= IncreasePerLevelUp;
+                gold += gold * Math.Round((double)(IncreasePerLevelUp / 100f), 3);
             }
 
             return gold.returnStr();
@@ -33,15 +34,29 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
     }
 
 
-    public override string ConstructionCost => (DefaultConstructionCost.returnValue() * (BuildingManager.s_GoldBuildings[buildingType] * 3)).returnStr();
+    public override string ConstructionCost
+    {
+        get
+        {
+            if (BuildingManager.s_GoldBuildings[buildingType] == 0)
+                return DefaultConstructionCost;
+            return (DefaultConstructionCost.returnValue() * (BuildingManager.s_GoldBuildings[buildingType] * 3)).returnStr();
+        }
+    }
+
 
     private bool didGetMoney;
 
     private WaitForSeconds waitGoldChargingTime;
+    private const float AUTO_GET_GOLD_DELAY = 20f;
 
     [SerializeField] private TextMeshProUGUI ConstructionGoldText;
 
     #endregion
+
+    [SerializeField] private Button BuildingButton;
+    [SerializeField] private GameObject BuildingUI;
+
     public override bool IsDeploying
     {
         get
@@ -80,6 +95,23 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
         {
             didGetMoney = true;
         });
+
+        BuildingButton.onClick.AddListener(() =>
+        {
+            if (CollectMoneyButton.gameObject.activeSelf)
+            {
+                didGetMoney = true;
+            }
+            else if (BuildingUI.activeSelf)
+            {
+                BuildingUI.SetActive(false);
+            }
+            else
+            {
+                BuildingUI.SetActive(true);
+            }
+
+        });
     }
 
 
@@ -88,20 +120,36 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
         while (true)
         {
             yield return waitGoldChargingTime;
+            CollectMoneyButton.gameObject.SetActive(true);
 
-            yield return StartCoroutine(CWaitClick());
+            yield return StartCoroutine(WaitClick());
         }
     }
 
-    public IEnumerator CWaitClick()
+    public IEnumerator WaitClick()
     {
+        var curtime = 0f;
+        var autogetmoney = false;
+
         while (true)
         {
             if (didGetMoney)
             {
-                GameManager.Instance._coin += DefaultGold.returnValue();
+                GameManager.Instance._coin += autogetmoney ? ProductionGold.returnValue() : ProductionGold.returnValue() * 0.5f;
                 didGetMoney = false;
+                CollectMoneyButton.gameObject.SetActive(false);
+                // °ñµå È¹µæ ¿¬Ãâ
+
                 yield break;
+            }
+
+            curtime += Time.deltaTime;
+            print(curtime);
+
+            if (curtime >= AUTO_GET_GOLD_DELAY)
+            {
+                autogetmoney = true;
+                didGetMoney = true;
             }
 
             yield return null;
