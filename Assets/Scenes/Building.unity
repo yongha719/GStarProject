@@ -3920,6 +3920,7 @@ MonoBehaviour:
   TempTilemap: {fileID: 1151875349}
   CurBuildingName: 
   CurBuilding: {fileID: 0}
+  BuildingInstallationEffect: {fileID: 6392570179548458414, guid: a5cc52e46ae4dac4cbbba547dae66005, type: 3}
 --- !u!4 &1331289784
 Transform:
   m_ObjectHideFlags: 0
@@ -8449,7 +8450,7 @@ MonoBehaviour:
   - {fileID: 2041764971}
   Warning: {fileID: 1566361277}
   NotEnoughGold: {fileID: 69815740}
-  BuildingInstallationUI: {fileID: 1475619309}
+  BuildingInstallation: {fileID: 1475619309}
 --- !u!114 &2041764971 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3727081598646874595, guid: f148dbee75cb3f7459006c21be62d0b7, type: 3}

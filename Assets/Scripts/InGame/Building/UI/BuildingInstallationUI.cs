@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-public class BuildingInstallation : MonoBehaviour
+public class BuildingInstallationUI : MonoBehaviour
 {
     private GameObject CurBuilding;
     private string CurBuildingName;
@@ -23,7 +23,7 @@ public class BuildingInstallation : MonoBehaviour
 
     #region UI Object
 
-    [SerializeField] private GameObject BuildingInstallationUI;
+    [SerializeField] private GameObject BuildingInstallation;
 
     #endregion
 
@@ -60,13 +60,13 @@ public class BuildingInstallation : MonoBehaviour
                 CurBuildingName = goldprodutionbuilding.BuildingName;
 
                 goldprodutionbuilding.BuildingInfo = buildingInfo;
-                buildingInfo.BuildingInstalltionUI = BuildingInstallationUI;
+                buildingInfo.BuildingInstalltionUI = BuildingInstallation;
                 buildingInfo.Building.FirstTimeInstallation = true;
 
                 if (GameManager._coin > 0 && GameManager._coin >= goldprodutionbuilding.ProductionGold.returnValue())
                 {
                     Warning.WarningUI.SetActive(true);
-                    Warning.SetWarningData(CurBuilding, CurBuildingName, BuildingInstallationUI);
+                    Warning.SetWarningData(CurBuilding, CurBuildingName, BuildingInstallation);
                 }
                 else
                 {

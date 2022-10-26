@@ -57,6 +57,15 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
     [SerializeField] private Button BuildingButton;
     [SerializeField] private GameObject BuildingUI;
 
+    // 건물에 배치된 고양이
+    private Cat[] PlacedInBuildingCat;
+
+    private void Awake()
+    {
+        
+
+    }
+
     public override bool IsDeploying
     {
         get
@@ -89,6 +98,8 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
     {
         base.Start();
 
+        PlacedInBuildingCat = new Cat[MaxDeployableCat];
+
         waitGoldChargingTime = new WaitForSeconds(DefaultGoldChargingTime);
 
         CollectMoneyButton.onClick.AddListener(() =>
@@ -96,7 +107,7 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
             didGetMoney = true;
         });
 
-        BuildingButton.onClick.AddListener(() =>
+        BuildingButton?.onClick.AddListener(() =>
         {
             if (CollectMoneyButton.gameObject.activeSelf)
             {
@@ -112,6 +123,35 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
             }
 
         });
+    }
+
+    public void OnCatMemberChange(Action action)
+    {
+        // 생산 시간 감소 수치
+        int decreasingfigure = 0;
+
+        for (int i = 0; i < MaxDeployableCat; i++)
+        {
+            if (PlacedInBuildingCat[i] != null)
+            {
+                if((int)buildingType == (int)PlacedInBuildingCat[i].GoldAbilityType)
+                {
+                    //decreasingfigure += PlacedInBuildingCat[i].CatAbilityInfo[]
+                }
+            }
+        }
+        //var productiondelay = DefaultGoldChargingTime * Math.Round(DefaultGoldChargingTime * ,3)
+
+        //waitGoldChargingTime = new WaitForSeconds();
+
+        action?.Invoke();
+    }
+
+    public override void Place()
+    {
+        base.Place();
+
+        StartCoroutine(ResourceProduction());
     }
 
 
@@ -144,7 +184,6 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
             }
 
             curtime += Time.deltaTime;
-            print(curtime);
 
             if (curtime >= AUTO_GET_GOLD_DELAY)
             {
@@ -156,12 +195,6 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
         }
     }
 
-    public override void Place()
-    {
-        base.Place();
-
-        StartCoroutine(ResourceProduction());
-    }
 
     protected override IEnumerator BuildingInstalltionEffect()
     {

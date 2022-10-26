@@ -22,6 +22,8 @@ public class GridBuildingSystem : MonoBehaviour
 
     public string CurBuildingName;
     [SerializeField] private Building CurBuilding;
+    [SerializeField] private ParticleSystem BuildingInstallationEffect;
+
     private Vector3 prevPos;
     private BoundsInt prevArea;
     private Vector3Int cellPos;
@@ -39,19 +41,33 @@ public class GridBuildingSystem : MonoBehaviour
         tileBases.Add(TileType.Green, Resources.Load<TileBase>($"{path}green"));
         tileBases.Add(TileType.Red, Resources.Load<TileBase>($"{path}red"));
 
+
+        BuildingInstallEffectPlay(Vector2.zero);
     }
 
     void Update()
     {
+
+        #region Building Installation
         if (CurBuilding != null)
         {
             if (Input.GetMouseButton(0))
             {
+                // 클릭한 오브젝트가 UI면 return
+#if UNITY_EDITOR
                 if (EventSystem.current.IsPointerOverGameObject())
                 {
                     return;
                 }
-
+#elif UNITY_ANDROID
+                if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+                {
+                    if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
+                    {
+                       return;
+                    }
+                }
+#endif
                 if (CurBuilding.Placed == false)
                 {
                     Vector2 touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -65,21 +81,8 @@ public class GridBuildingSystem : MonoBehaviour
                     }
                 }
             }
-            else if (Input.GetKeyDown(KeyCode.Space))
-            {
-                Place();
-            }
-            else if (Input.GetMouseButtonDown(1))
-            {
-                BuildingClear();
-                Destroy(CurBuilding.gameObject);
-                MainTilemap.color = Color.clear;
-            }
-            else if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                BuildingClear();
-            }
         }
+        #endregion
     }
 
     #region TileMap
@@ -190,11 +193,16 @@ public class GridBuildingSystem : MonoBehaviour
         return true;
     }
 
-
     public void TakeArea(BoundsInt area)
     {
         SetTilesBlock(area, TileType.Empty, TempTilemap);
         //SetTilesBlock(area, TileType.Green, MainTilemap);
+    }
+
+
+    public void BuildingInstallEffectPlay(Vector2 pos)
+    {
+        Instantiate(BuildingInstallationEffect, pos, Quaternion.identity);
     }
 }
 
