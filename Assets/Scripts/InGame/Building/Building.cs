@@ -117,8 +117,9 @@ public abstract class Building : MonoBehaviour
     protected virtual IEnumerator BuildingInstalltionEffect()
     {
         BuildingSprte.transform.localScale = new Vector3(0.03f, 0.03f, 1f);
-        yield return BuildingSprte.transform.DOScale(new Vector3(0.1f, 0.1f, 1f), 0.4f).WaitForCompletion();
+        GridBuildingSystem.BuildingInstallEffectPlay(transform.localPosition);
 
+        yield return BuildingSprte.transform.DOScale(new Vector3(0.1f, 0.1f, 1f), 0.4f).WaitForCompletion();
     }
 
 }
