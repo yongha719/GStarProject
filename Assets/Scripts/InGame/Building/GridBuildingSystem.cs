@@ -53,7 +53,7 @@ public class GridBuildingSystem : MonoBehaviour
         {
             if (Input.GetMouseButton(0))
             {
-                // Å¬¸¯ÇÑ ¿ÀºêÁ§Æ®°¡ UI¸é return
+                // í´ë¦­í•œ ì˜¤ë¸Œì íŠ¸ê°€ UIë©´ return
 #if UNITY_EDITOR
                 if (EventSystem.current.IsPointerOverGameObject())
                 {
@@ -203,6 +203,14 @@ public class GridBuildingSystem : MonoBehaviour
     public void BuildingInstallEffectPlay(Vector2 pos)
     {
         Instantiate(BuildingInstallationEffect, pos, Quaternion.identity);
+    }
+
+    /// <summary>
+    /// ë§ˆì„ íšŒê´€ ë ˆë²¨ì—…ì‹œ ì˜ì—­ í™•ì¥
+    /// </summary>
+    public void ExpandArea(int level)
+    {
+
     }
 }
 
