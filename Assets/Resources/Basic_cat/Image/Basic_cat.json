@@ -1,0 +1,57 @@
+{ "skeleton": { "images": "D:/Spine/Basic_cat/Image/" },
+"PhotoshopToSpine": { "scale": 1, "padding": 1, "trim": true },
+"bones": [
+	{ "name": "root" }
+],
+"slots": [
+	{ "name": "Tail", "bone": "root", "attachment": "Tail" },
+	{ "name": "Leg_L", "bone": "root", "attachment": "Leg_L" },
+	{ "name": "Arm_L", "bone": "root", "attachment": "Arm_L" },
+	{ "name": "Body", "bone": "root", "attachment": "Body" },
+	{ "name": "Leg_R", "bone": "root", "attachment": "Leg_R" },
+	{ "name": "Arm_R", "bone": "root", "attachment": "Arm_R" },
+	{ "name": "Head", "bone": "root", "attachment": "Head" },
+	{ "name": "Ear_L", "bone": "root", "attachment": "Ear_L" },
+	{ "name": "Nose", "bone": "root", "attachment": "Nose" },
+	{ "name": "Eyes", "bone": "root", "attachment": "Eyes" },
+	{ "name": "Closed_eyes", "bone": "root", "attachment": "Closed_eyes" }
+],
+"skins": {
+	"default": {
+		"Tail": {
+			"Tail": { "x": 593, "y": -663.5, "width": 208, "height": 231 }
+		},
+		"Leg_L": {
+			"Leg_L": { "x": 408, "y": -778, "width": 106, "height": 108 }
+		},
+		"Arm_L": {
+			"Arm_L": { "x": 382, "y": -625.5, "width": 146, "height": 181 }
+		},
+		"Body": {
+			"Body": { "x": 483, "y": -694.5, "width": 270, "height": 245 }
+		},
+		"Leg_R": {
+			"Leg_R": { "x": 540.5, "y": -797, "width": 121, "height": 126 }
+		},
+		"Arm_R": {
+			"Arm_R": { "x": 608, "y": -674.5, "width": 146, "height": 181 }
+		},
+		"Head": {
+			"Head": { "x": 487.5, "y": -445, "width": 369, "height": 352 }
+		},
+		"Ear_L": {
+			"Ear_L": { "x": 414, "y": -303, "width": 152, "height": 122 }
+		},
+		"Nose": {
+			"Nose": { "x": 377, "y": -514.5, "width": 34, "height": 41 }
+		},
+		"Eyes": {
+			"Eyes": { "x": 400.5, "y": -480.5, "width": 119, "height": 77 }
+		},
+		"Closed_eyes": {
+			"Closed_eyes": { "x": 399, "y": -491.5, "width": 120, "height": 55 }
+		}
+	}
+},
+"animations": { "animation": {} }
+}
