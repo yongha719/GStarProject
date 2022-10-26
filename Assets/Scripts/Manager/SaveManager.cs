@@ -10,8 +10,9 @@ public class SaveManager : Singleton<SaveManager>
     [System.Serializable]
     public class SaveData
     {
-        public ResourceClass ResourceClass;
-        public Dictionary<SoundType, AudioSourceClass> audioSourceClasses;
+        public ResourceClass ResourceClass = new ResourceClass();
+        public DailyQuests dailyQuests = new DailyQuests();
+        public float[] audioVolumes = new float[(int)SoundType.END];
     }
     public SaveData saveData;
 
@@ -45,12 +46,16 @@ public class SaveManager : Singleton<SaveManager>
     private void InputSaveData()
     {
         saveData.ResourceClass = GameManager.Instance.resource;
-        saveData.audioSourceClasses = SoundManager.Instance.audioSourceClasses;
+        saveData.audioVolumes = SoundManager.Instance.audioVolumes;
+        saveData.dailyQuests = DailyQuest.dailyQuests;
+        saveData.dailyQuests.nowTimeStr = System.DateTime.Now.ToString();
     }
+
     private void OutputSaveData()
     {
         GameManager.Instance.resource = saveData.ResourceClass;
-        SoundManager.Instance.audioSourceClasses = saveData.audioSourceClasses;
+        SoundManager.Instance.audioVolumes = saveData.audioVolumes;
+        DailyQuest.dailyQuests = saveData.dailyQuests;
 
     }
 

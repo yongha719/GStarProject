@@ -62,6 +62,7 @@ public enum QuestType
 public class DailyQuests
 {
     public List<BaseDailyQuest> quests = new List<BaseDailyQuest>();
+    public string nowTimeStr = null;
 }
 [System.Serializable]
 public class DailyQuestInfo
@@ -71,24 +72,14 @@ public class DailyQuestInfo
 }
 public class DailyQuest : MonoBehaviour
 {
-    private string dailyQuestTimeSavePath = "DaillyQuestTime DataPath";
-    private string dailyQuestSavePath = "DaillyQuest DataPath";
-
-    public DailyQuests dailyQuests = new DailyQuests();
-
-    public bool DEBUG;
+    public static DailyQuests dailyQuests = new DailyQuests();
     private void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
     }
 
-    public void StartDailyQuest()
+    public void Start()
     {
-        if (DEBUG)
-        {
-            PlayerPrefs.DeleteKey(dailyQuestTimeSavePath);
-            PlayerPrefs.DeleteKey(dailyQuestSavePath);
-        }
         CheckTimeToReset();
     }
 
@@ -97,8 +88,8 @@ public class DailyQuest : MonoBehaviour
     /// </summary>
     private void CheckTimeToReset()
     {
-        string lastTimeData = PlayerPrefs.GetString(dailyQuestTimeSavePath, "null");
-        if (lastTimeData != "null")
+        string lastTimeData = SaveManager.Instance.saveData.dailyQuests.nowTimeStr;
+        if (lastTimeData != null)
         {
             DateTime nowtime = DateTime.Now;
             DateTime lastTime = DateTime.Parse(lastTimeData);
@@ -108,46 +99,16 @@ public class DailyQuest : MonoBehaviour
             }
             else
             {
-                string dataLoadString = PlayerPrefs.GetString(dailyQuestSavePath, "null");
-                if (dataLoadString != "null")
-                {
-                    Debug.Log(dataLoadString);
-                    dailyQuests = JsonUtility.FromJson<DailyQuests>(dataLoadString);
-                }
+                DailyQuests loadData = SaveManager.Instance.saveData.dailyQuests;
+                if (loadData != null)
+                    dailyQuests = loadData;
                 else
-                {
                     Debug.Log("QUEST SAVE LOAD ERROR");
-                }
             }
         }
         else
         {
-           // QuestReset();
-        }
-    }
-    private void QuestInfoSave()
-    {
-        string dailyQuestDataString = JsonUtility.ToJson(dailyQuests);
-        PlayerPrefs.SetString(dailyQuestSavePath, dailyQuestDataString);
-
-        DateTime nowTime = DateTime.Now;
-        PlayerPrefs.SetString(dailyQuestTimeSavePath, nowTime.ToString());
-
-        if (DEBUG)
-        {
-            PlayerPrefs.DeleteKey(dailyQuestTimeSavePath);
-            PlayerPrefs.DeleteKey(dailyQuestSavePath);
-        }
-    }
-    private void OnApplicationQuit()
-    {
-        QuestInfoSave();
-    }
-    private void OnApplicationPause(bool pause)
-    {
-        if (pause)
-        {
-            QuestInfoSave();
+            // QuestReset();
         }
     }
 }
