@@ -57,7 +57,6 @@ public class GameManager : Singleton<GameManager>
     {
         DontDestroyOnLoad(this.gameObject);
 
-        _coin = double.MaxValue;
     }
     void Start()
     {

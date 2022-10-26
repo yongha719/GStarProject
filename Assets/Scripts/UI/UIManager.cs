@@ -32,7 +32,7 @@ public class UIManager : Singleton<UIManager>
     public void ResourcesApply()
     {
         catText.text = $"{gameManager.resource.catCount}¸¶¸®";
-        coinText.text = CalculatorManager.returnStr(gameManager.resource.coin);
+        coinText.text = gameManager.resource.coin.returnStr();  CalculatorManager.returnStr(gameManager.resource.coin);
         iceText.text = CalculatorManager.returnStr(gameManager.resource.ice);
         energyText.text = CalculatorManager.returnStr(gameManager.resource.energy);
 

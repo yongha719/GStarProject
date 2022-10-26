@@ -18,7 +18,11 @@ public static class CalculatorManager
         //소수점 뒤에 두자리를 남기기위해 지난 수를 집어넣음
         while (value >= roundUnit)
         {
-            if (unit > 'z') break;
+            if (unit > 'z')
+            {
+                Debug.Log("Func: \"returnstr\" error - 단위 초과");
+                break;
+            }
             value /= roundUnit;
             unit++;
         }
