@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// °ñµå »ı»ê °Ç¹° °í¾çÀÌ ´É·Â
+/// ê³¨ë“œ ìƒì‚° ê±´ë¬¼ ê³ ì–‘ì´ ëŠ¥ë ¥
 /// </summary>
 
 public enum GoldAbilityType
 {
-    Fishing,                // ³¬½Ã
-    Mining,                 // ±¤Áú
-    Axing,                  // µµ³¢Áú
-    Farming,                // ³ó»ç
-    Kiln,                   // °¡¸¶Áú
-    Knitting,               // ¶ß°³Áú 
-    Boiling,                // ²úÀÌ±â
-    GeneratorOperating,     // ¹ßÀü±â
+    Fishing,                // ë‚šì‹œ
+    Mining,                 // ê´‘ì§ˆ
+    Axing,                  // ë„ë¼ì§ˆ
+    Farming,                // ë†ì‚¬
+    Kiln,                   // ê°€ë§ˆì§ˆ
+    Knitting,               // ëœ¨ê°œì§ˆ 
+    Boiling,                // ë“ì´ê¸°
+    GeneratorOperating,     // ë°œì „ê¸°
     End
 }
 
@@ -25,24 +25,36 @@ public class Cat : MonoBehaviour
     public GoldAbilityType GoldAbilityType;
     public int AbilityRating;
 
-    public Dictionary<GoldAbilityType, Dictionary<int, int>> CatAbilityInfo = new Dictionary<GoldAbilityType, Dictionary<int, int>>();
+    public int Status;
+    public int Recovery;
+    
+
+    public int ReductionTimebyGrade => AbilityRating switch
+    {
+        1 => 10,
+        2 => 15,
+        3 => 20,
+        _ => throw new System.Exception("Cat Ability Rating that does not exist")
+    };
+
+
 
     void Start()
     {
-        var reductiontimebygrade = new Dictionary<int, int>()
-        {
-            { 1, 10 },
-            { 2, 10 },
-            { 3, 15 }
-        };
 
-        for (int abilityType = 0; abilityType < (int)GoldAbilityType.End; abilityType++)
-        {
-            CatAbilityInfo.Add((GoldAbilityType)abilityType, reductiontimebygrade);
-        }
     }
 
     void Update()
+    {
+
+    }
+
+    /// <summary>
+    /// ê³ ì–‘ì´ íœ´ì‹ 
+    /// ê³¨ë“œ 10ë²ˆ ìƒì‚°í–ˆì„ì‹œ í˜¸ì¶œ
+    /// ì—ë„ˆì§€ ìƒì‚° ê±´ë¬¼ë¡œ ê°€ì„œ ì—ë„ˆì§€ ìƒì‚°
+    /// </summary>
+    public void GoToRest()
     {
 
     }

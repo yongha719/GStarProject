@@ -57,15 +57,8 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
     [SerializeField] private Button BuildingButton;
     [SerializeField] private GameObject BuildingUI;
 
-    // °Ç¹°¿¡ ¹èÄ¡µÈ °í¾çÀÌ
+    // ê±´ë¬¼ì— ë°°ì¹˜ëœ ê³ ì–‘ì´
     private Cat[] PlacedInBuildingCat;
-
-    private void Awake()
-    {
-        
-
-    }
-
     public override bool IsDeploying
     {
         get
@@ -91,6 +84,11 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
 
             }
         }
+    }
+
+    private void Awake()
+    {
+
     }
 
 
@@ -125,24 +123,35 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
         });
     }
 
+    // TODO : ë„ˆë¬´ ê¸´ ê±° ê°™ìŒ ì¶”í›„ ë¦¬íŒ©í† ë§
     public void OnCatMemberChange(Action action)
     {
-        // »ı»ê ½Ã°£ °¨¼Ò ¼öÄ¡
+        // ìƒì‚° ì‹œê°„ ê°ì†Œ ìˆ˜ì¹˜
         int decreasingfigure = 0;
 
         for (int i = 0; i < MaxDeployableCat; i++)
         {
             if (PlacedInBuildingCat[i] != null)
             {
-                if((int)buildingType == (int)PlacedInBuildingCat[i].GoldAbilityType)
+                if ((int)buildingType == (int)PlacedInBuildingCat[i].GoldAbilityType)
                 {
-                    //decreasingfigure += PlacedInBuildingCat[i].CatAbilityInfo[]
+                    decreasingfigure += PlacedInBuildingCat[i].ReductionTimebyGrade;
                 }
             }
         }
-        //var productiondelay = DefaultGoldChargingTime * Math.Round(DefaultGoldChargingTime * ,3)
 
-        //waitGoldChargingTime = new WaitForSeconds();
+        double productiondelay = 0;
+
+        if (decreasingfigure != 0)
+        {
+            productiondelay = DefaultGoldChargingTime * Math.Round(decreasingfigure / 100f, 3);
+        }
+        else
+        {
+            productiondelay = DefaultGoldChargingTime;
+        }
+
+        waitGoldChargingTime = new WaitForSeconds((float)productiondelay);
 
         action?.Invoke();
     }
@@ -160,13 +169,28 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
         while (true)
         {
             yield return waitGoldChargingTime;
+
             CollectMoneyButton.gameObject.SetActive(true);
 
-            yield return StartCoroutine(WaitClick());
+            for(int i = 0; i < MaxDeployableCat; i++)
+            {
+                if (PlacedInBuildingCat[i] == null)
+                    continue;
+
+                PlacedInBuildingCat[i].Status++;
+
+                // ê³¨ë“œ ìƒì‚° 10ë²ˆí•˜ë©´ ì‰¬ëŸ¬ ê°€ì•¼ í•¨
+                if (PlacedInBuildingCat[i].Status >= 10)
+                {
+                    PlacedInBuildingCat[i].GoToRest();
+                }
+            }
+
+            yield return StartCoroutine(WaitGetResource());
         }
     }
 
-    public IEnumerator WaitClick()
+    public IEnumerator WaitGetResource()
     {
         var curtime = 0f;
         var autogetmoney = false;
@@ -178,7 +202,7 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
                 GameManager.Instance._coin += autogetmoney ? ProductionGold.returnValue() : ProductionGold.returnValue() * 0.5f;
                 didGetMoney = false;
                 CollectMoneyButton.gameObject.SetActive(false);
-                // °ñµå È¹µæ ¿¬Ãâ
+                // ê³¨ë“œ íšë“ ì—°ì¶œ
 
                 yield break;
             }

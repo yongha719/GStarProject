@@ -18,7 +18,11 @@ public enum GoldBuildingType
 
 public enum EnergyBuildingType
 {
-
+    CatTower,         // 캣 타워
+    Scratcher,        // 스크래처
+    HotSpring,        // 온천
+    bonfire,          // 모닥불
+    Box,              // 박스
     End
 }
 
