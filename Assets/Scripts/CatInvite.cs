@@ -10,11 +10,15 @@ public class CatInvite : MonoBehaviour
         if (needGoldValue <= GameManager.Instance._coin)
         {
             GameManager.Instance._coin -= needGoldValue;
-
+            StartCoroutine(GachaEffect());
         }
         else
         {
             Debug.Log("소지 코인 부족");
         }
+    }
+    IEnumerator GachaEffect()
+    {
+        yield return null;
     }
 }
