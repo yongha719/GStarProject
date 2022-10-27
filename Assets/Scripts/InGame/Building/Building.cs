@@ -41,7 +41,7 @@ public abstract class Building : MonoBehaviour
 
 
     [Header("Deploying")]
-    [Tooltip("¹èÄ¡ °¡´ÉÇÑ °í¾çÀÌ ¼ö")] public int MaxDeployableCat;
+    [Tooltip("ë°°ì¹˜ ê°€ëŠ¥í•œ ê³ ì–‘ì´ ìˆ˜")] public int MaxDeployableCat;
 
     private GameObject BuildingSprte;
     [HideInInspector] public bool FirstTimeInstallation;
@@ -64,11 +64,9 @@ public abstract class Building : MonoBehaviour
         BuildingSprte = SpriteRenderer.gameObject;
 
 
-
         InstallationButton.onClick.AddListener(() =>
         {
             GridBuildingSystem.Place();
-
         });
 
         DemolitionButton.onClick.AddListener(() =>

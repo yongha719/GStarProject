@@ -58,4 +58,13 @@ public class Cat : MonoBehaviour
     {
 
     }
+
+    /// <summary>
+    /// 일해라 고양이
+    /// 골드 생산
+    /// </summary>
+    public void GoToWork()
+    {
+
+    }
 }

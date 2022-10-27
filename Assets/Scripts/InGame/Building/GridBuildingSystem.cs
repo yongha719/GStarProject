@@ -34,7 +34,7 @@ public class GridBuildingSystem : MonoBehaviour
         Instance = this;
     }
 
-    void Start()
+    IEnumerator Start()
     {
         tileBases.Add(TileType.Empty, Resources.Load<TileBase>($"{path}DefaultTile"));
         tileBases.Add(TileType.EnableZone, Resources.Load<TileBase>($"{path}white"));
@@ -42,7 +42,12 @@ public class GridBuildingSystem : MonoBehaviour
         tileBases.Add(TileType.Red, Resources.Load<TileBase>($"{path}red"));
 
 
-        BuildingInstallEffectPlay(Vector2.zero);
+        ExpandArea(1);
+
+        yield return new WaitForSeconds(2f);
+
+        print("================================");
+        ExpandArea(2);
     }
 
     void Update()
@@ -108,10 +113,7 @@ public class GridBuildingSystem : MonoBehaviour
         tilemap.SetTilesBlock(area, tileArray);
     }
 
-    private void FillTile(TileBase[] tile, TileType tiletype, int index)
-    {
-        tile[index] = tileBases[tiletype];
-    }
+    private void FillTile(TileBase[] tile, TileType tiletype, int index) => tile[index] = tileBases[tiletype];
 
     private void FillTiles(TileBase[] arr, TileType type)
     {
@@ -196,7 +198,7 @@ public class GridBuildingSystem : MonoBehaviour
     public void TakeArea(BoundsInt area)
     {
         SetTilesBlock(area, TileType.Empty, TempTilemap);
-        //SetTilesBlock(area, TileType.Green, MainTilemap);
+        SetTilesBlock(area, TileType.Green, MainTilemap);
     }
 
 
@@ -210,7 +212,22 @@ public class GridBuildingSystem : MonoBehaviour
     /// </summary>
     public void ExpandArea(int level)
     {
+        BoundsInt area = new BoundsInt();
 
+        // 영역 증가량 나누기 2
+        var areaincrementdividedby2 = ((level * 2) + 2) / 2;
+
+        area.min = new Vector3Int(areaincrementdividedby2 * -1, areaincrementdividedby2 * -1, 1);
+        area.max = new Vector3Int(areaincrementdividedby2 - 1, areaincrementdividedby2 - 1, 1);
+        print(area.max);
+        print(area.min);
+        print(area.size);
+
+
+        //foreach (var bound in area.allPositionsWithin)
+        //    print($"{bound.x} {bound.y}");
+
+        SetTilesBlock(area, TileType.Red, MainTilemap);
     }
 }
 
