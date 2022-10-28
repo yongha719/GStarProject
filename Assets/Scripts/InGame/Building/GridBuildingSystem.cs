@@ -7,17 +7,16 @@ using UnityEngine.Tilemaps;
 
 public enum TileType
 {
-    Empty, Default, Tree, Green, Red
-}//possibility
+    Empty, Uninstalled, Installed, Green, Red
+}
 
 public class GridBuildingSystem : MonoBehaviour
 {
     public static GridBuildingSystem Instance;
 
     public GridLayout gridLayout;
-    public Tilemap MainTilemap;
     public Tilemap TempTilemap;
-    public Tilemap BackgroundTilemap;
+    public Tilemap BuildingTilemap;
 
     private static Dictionary<TileType, TileBase> tileBases = new Dictionary<TileType, TileBase>();
 
@@ -30,24 +29,21 @@ public class GridBuildingSystem : MonoBehaviour
     private Vector3Int cellPos;
 
     private const string path = "Tile/";
+
     private void Awake()
     {
         Instance = this;
 
         tileBases.Add(TileType.Empty, null);
-        tileBases.Add(TileType.Default, Resources.Load<TileBase>($"{path}DefaultTile"));
-        tileBases.Add(TileType.Tree, Resources.Load<TileBase>($"{path}Tree"));
-        tileBases.Add(TileType.Green, Resources.Load<TileBase>($"{path}green"));
-        tileBases.Add(TileType.Red, Resources.Load<TileBase>($"{path}red"));
+        tileBases.Add(TileType.Uninstalled, Resources.Load<TileBase>(path + nameof(TileType.Uninstalled)));
+        tileBases.Add(TileType.Installed, Resources.Load<TileBase>(path + nameof(TileType.Installed)));
+        tileBases.Add(TileType.Green, Resources.Load<TileBase>(path + nameof(TileType.Green)));
+        tileBases.Add(TileType.Red, Resources.Load<TileBase>(path + nameof(TileType.Red)));
+
     }
 
-    IEnumerator Start()
+    void Start()
     {
-
-        ExpandArea(1);
-
-        yield return new WaitForSeconds(2f);
-        ExpandArea(2);
     }
 
     void Update()
@@ -105,8 +101,8 @@ public class GridBuildingSystem : MonoBehaviour
 
     public void BuildingClear()
     {
-        TileBase[] toClear = new TileBase[prevArea.size.x * prevArea.size.y * prevArea.size.z];
-        FillTiles(toClear, TileType.Empty);
+        TileBase[] toClear = new TileBase[prevArea.size.x * prevArea.size.y];
+        FillTiles(toClear, TileType.Uninstalled);
         TempTilemap.SetTilesBlock(prevArea, toClear);
     }
 
@@ -117,6 +113,12 @@ public class GridBuildingSystem : MonoBehaviour
         FillTiles(toClear, TileType.Empty);
         TempTilemap.SetTilesBlock(area, toClear);
     }
+    public void InitializeWithBuilding(GameObject building)
+    {
+        //MainTilemap.color = new Color(1, 1, 1, 0.5f);
+        CurBuilding = Instantiate(building, Vector3.zero, Quaternion.identity, transform).GetComponent<Building>();
+        FollowBuiliding();
+    }
 
     private void FollowBuiliding()
     {
@@ -125,15 +127,14 @@ public class GridBuildingSystem : MonoBehaviour
         CurBuilding.area.position = gridLayout.WorldToCell(CurBuilding.gameObject.transform.position);
         BoundsInt buildingArea = CurBuilding.area;
 
-        TileBase[] mainbase = GetTilesBlock(buildingArea, MainTilemap);
-        TileBase[] backgroundbase = GetTilesBlock(buildingArea, BackgroundTilemap);
+        TileBase[] tempbase = GetTilesBlock(buildingArea, BuildingTilemap);
 
-        int size = mainbase.Length;
+        int size = tempbase.Length;
         TileBase[] tileArray = new TileBase[size];
 
         for (int i = 0; i < size; i++)
         {
-            if (mainbase[i] == tileBases[TileType.Default] && backgroundbase[i] != tileBases[TileType.Tree])
+            if (tempbase[i] == tileBases[TileType.Uninstalled])
             {
                 tileArray[i] = tileBases[TileType.Green];
             }
@@ -150,13 +151,11 @@ public class GridBuildingSystem : MonoBehaviour
 
     public bool CanTakeArea(BoundsInt area)
     {
-        TileBase[] mainbase = GetTilesBlock(area, MainTilemap);
-        TileBase[] backgroundbase = GetTilesBlock(area, BackgroundTilemap);
+        TileBase[] tempbase = GetTilesBlock(area, BuildingTilemap);
 
-
-        for (int i = 0; i < mainbase.Length; i++)
+        for (int i = 0; i < tempbase.Length; i++)
         {
-            if (mainbase[i] != tileBases[TileType.Default] && backgroundbase[i] == tileBases[TileType.Tree])
+            if (tempbase[i] != tileBases[TileType.Green])
             {
                 return false;
             }
@@ -168,7 +167,7 @@ public class GridBuildingSystem : MonoBehaviour
     public void TakeArea(BoundsInt area)
     {
         SetTilesBlock(area, TileType.Empty, TempTilemap);
-        //SetTilesBlock(area, TileType.Impossibility, MainTilemap);
+        SetTilesBlock(area, TileType.Installed, BuildingTilemap);
     }
 
 
@@ -186,11 +185,15 @@ public class GridBuildingSystem : MonoBehaviour
         // 영역 증가량 나누기 2
         var areaincrementdividedby2 = ((level * 2) + 2) / 2;
         area.min = new Vector3Int(areaincrementdividedby2 * -1, areaincrementdividedby2 * -1, 1);
-        area.max = new Vector3Int(areaincrementdividedby2 - 1, areaincrementdividedby2 - 1, 1);
+        area.max = new Vector3Int(areaincrementdividedby2, areaincrementdividedby2, 1);
 
-        SetTilesBlock(area, TileType.Red, MainTilemap);
+        // TODO : 이미 설치된 건물들 판별해야 함
+        var tile = GetTilesBlock(area, BuildingTilemap);
+        SetTilesBlock(area, TileType.Uninstalled, BuildingTilemap);
+        BuildingTilemap.SetTilesBlock(area, tile);
     }
-    private void SetTilesBlock(BoundsInt area, TileType type, Tilemap tilemap)
+
+    public void SetTilesBlock(BoundsInt area, TileType type, Tilemap tilemap)
     {
         int size = area.size.x * area.size.y;
         TileBase[] tileArray = new TileBase[size];
@@ -206,13 +209,6 @@ public class GridBuildingSystem : MonoBehaviour
 
         for (int i = 0; i < arrLength; i++)
             arr[i] = tileBases[type];
-    }
-
-    public void InitializeWithBuilding(GameObject building)
-    {
-        //MainTilemap.color = new Color(1, 1, 1, 0.5f);
-        CurBuilding = Instantiate(building, Vector3.zero, Quaternion.identity, transform).GetComponent<Building>();
-        FollowBuiliding();
     }
 
     public void Place()

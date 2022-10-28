@@ -33,13 +33,12 @@ public class VillageHall : MonoBehaviour
     {
         GridBuildingSystem = GridBuildingSystem.Instance;
 
-        if (CanBePlaced())
-        {
-            var cellPos = GridBuildingSystem.gridLayout.LocalToCell(Vector2.zero);
+        //GridBuildingSystem.ExpandArea(Level);
 
-            transform.localPosition = GridBuildingSystem.gridLayout.CellToLocalInterpolated(cellPos);
-            Place();
-        }
+        // z 값 조정 잘하자
+        area.position = new Vector3Int(-1, -1, 0);
+
+        GridBuildingSystem.SetTilesBlock(area, TileType.Installed, GridBuildingSystem.BuildingTilemap);
     }
 
     void Update()
@@ -68,5 +67,10 @@ public class VillageHall : MonoBehaviour
 
         IsDeploying = false;
 
+    }
+
+    private void OnMouseDown()
+    {
+        print("fuck you");
     }
 }

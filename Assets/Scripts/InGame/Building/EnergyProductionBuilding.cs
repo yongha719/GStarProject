@@ -58,4 +58,16 @@ public class EnergyProductionBuilding : Building
 
     [SerializeField] private Button BuildingButton;
     [SerializeField] private GameObject BuildingUI;
+
+    protected override void Start()
+    {
+        base.Start();
+    }
+
+    protected override IEnumerator BuildingInstalltionEffect()
+    {
+        return base.BuildingInstalltionEffect();
+
+
+    }
 }
