@@ -63,10 +63,7 @@ public class BuildingInstallationUI : MonoBehaviour
                 buildingInfo.BuildingInstalltionUI = BuildingInstallation;
                 buildingInfo.Building.FirstTimeInstallation = true;
 
-
-                print(GameManager._coin);
-                print(GameManager._coin >= goldprodutionbuilding.ConstructionCost.returnValue());
-                if (GameManager._coin > 0 && GameManager._coin >= goldprodutionbuilding.ConstructionCost.returnValue())
+                if (GameManager._coin > 0 && GameManager._coin >= goldprodutionbuilding.ProductionGold.returnValue())
                 {
                     Warning.WarningUI.SetActive(true);
                     Warning.SetWarningData(CurBuilding, CurBuildingName, BuildingInstallation);
