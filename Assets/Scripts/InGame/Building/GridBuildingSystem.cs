@@ -7,7 +7,7 @@ using UnityEngine.Tilemaps;
 
 public enum TileType
 {
-    Empty, Possibility, Impossibility, Red
+    Empty, Default, Tree, Green, Red
 }//possibility
 
 public class GridBuildingSystem : MonoBehaviour
@@ -17,6 +17,7 @@ public class GridBuildingSystem : MonoBehaviour
     public GridLayout gridLayout;
     public Tilemap MainTilemap;
     public Tilemap TempTilemap;
+    public Tilemap BackgroundTilemap;
 
     private static Dictionary<TileType, TileBase> tileBases = new Dictionary<TileType, TileBase>();
 
@@ -34,8 +35,9 @@ public class GridBuildingSystem : MonoBehaviour
         Instance = this;
 
         tileBases.Add(TileType.Empty, null);
-        tileBases.Add(TileType.Possibility, Resources.Load<TileBase>($"{path}DefaultTile"));
-        tileBases.Add(TileType.Impossibility, Resources.Load<TileBase>($"{path}Impossibility"));
+        tileBases.Add(TileType.Default, Resources.Load<TileBase>($"{path}DefaultTile"));
+        tileBases.Add(TileType.Tree, Resources.Load<TileBase>($"{path}Tree"));
+        tileBases.Add(TileType.Green, Resources.Load<TileBase>($"{path}green"));
         tileBases.Add(TileType.Red, Resources.Load<TileBase>($"{path}red"));
     }
 
@@ -45,8 +47,6 @@ public class GridBuildingSystem : MonoBehaviour
         ExpandArea(1);
 
         yield return new WaitForSeconds(2f);
-
-        print("================================");
         ExpandArea(2);
     }
 
@@ -125,14 +125,22 @@ public class GridBuildingSystem : MonoBehaviour
         CurBuilding.area.position = gridLayout.WorldToCell(CurBuilding.gameObject.transform.position);
         BoundsInt buildingArea = CurBuilding.area;
 
-        TileBase[] baseArray = GetTilesBlock(buildingArea, MainTilemap);
+        TileBase[] mainbase = GetTilesBlock(buildingArea, MainTilemap);
+        TileBase[] backgroundbase = GetTilesBlock(buildingArea, BackgroundTilemap);
 
-        int size = baseArray.Length;
+        int size = mainbase.Length;
         TileBase[] tileArray = new TileBase[size];
 
         for (int i = 0; i < size; i++)
         {
-            tileArray[i] = (baseArray[i] == tileBases[TileType.Impossibility]) ? tileBases[TileType.Impossibility] : tileBases[TileType.Red];
+            if (mainbase[i] == tileBases[TileType.Default] && backgroundbase[i] != tileBases[TileType.Tree])
+            {
+                tileArray[i] = tileBases[TileType.Green];
+            }
+            else
+            {
+                tileArray[i] = tileBases[TileType.Red];
+            }
         }
 
         TempTilemap.SetTilesBlock(buildingArea, tileArray);
@@ -142,11 +150,13 @@ public class GridBuildingSystem : MonoBehaviour
 
     public bool CanTakeArea(BoundsInt area)
     {
-        TileBase[] baseArray = GetTilesBlock(area, MainTilemap);
+        TileBase[] mainbase = GetTilesBlock(area, MainTilemap);
+        TileBase[] backgroundbase = GetTilesBlock(area, BackgroundTilemap);
 
-        foreach (var tilebase in baseArray)
+
+        for (int i = 0; i < mainbase.Length; i++)
         {
-            if (tilebase != tileBases[TileType.Impossibility])
+            if (mainbase[i] != tileBases[TileType.Default] && backgroundbase[i] == tileBases[TileType.Tree])
             {
                 return false;
             }
@@ -173,19 +183,10 @@ public class GridBuildingSystem : MonoBehaviour
     public void ExpandArea(int level)
     {
         BoundsInt area = new BoundsInt();
-
         // 영역 증가량 나누기 2
         var areaincrementdividedby2 = ((level * 2) + 2) / 2;
-
         area.min = new Vector3Int(areaincrementdividedby2 * -1, areaincrementdividedby2 * -1, 1);
         area.max = new Vector3Int(areaincrementdividedby2 - 1, areaincrementdividedby2 - 1, 1);
-        print(area.max);
-        print(area.min);
-        print(area.size);
-
-
-        //foreach (var bound in area.allPositionsWithin)
-        //    print($"{bound.x} {bound.y}");
 
         SetTilesBlock(area, TileType.Red, MainTilemap);
     }
@@ -216,6 +217,7 @@ public class GridBuildingSystem : MonoBehaviour
 
     public void Place()
     {
+        print(CurBuilding.CanBePlaced());
         if (CurBuilding.CanBePlaced())
         {
             CurBuilding.transform.localPosition = gridLayout.CellToLocalInterpolated(cellPos);

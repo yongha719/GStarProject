@@ -22,8 +22,6 @@ public class VillageHall : MonoBehaviour
         }
     }
 
-
-
     public int Level = 1;
 
     private const string DefaultLevelUpCost = "1000a";
@@ -37,7 +35,6 @@ public class VillageHall : MonoBehaviour
 
         if (CanBePlaced())
         {
-            print("in");
             var cellPos = GridBuildingSystem.gridLayout.LocalToCell(Vector2.zero);
 
             transform.localPosition = GridBuildingSystem.gridLayout.CellToLocalInterpolated(cellPos);
@@ -56,7 +53,6 @@ public class VillageHall : MonoBehaviour
         BoundsInt areaTemp = area;
         areaTemp.position = positionInt;
 
-        print(positionInt);
         return GridBuildingSystem.CanTakeArea(areaTemp);
     }
 
