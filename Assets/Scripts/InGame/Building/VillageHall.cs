@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class VillageHall : MonoBehaviour
 {
@@ -27,6 +28,11 @@ public class VillageHall : MonoBehaviour
     private const string DefaultLevelUpCost = "1000a";
     public string GetLevelUpCost => (DefaultLevelUpCost.returnValue() * Mathf.Pow(1000, Level - 1)).returnStr();
 
+    [Header("Building UI")]
+    [SerializeField] private GameObject BuildingUi;
+    [SerializeField] private Button CatsRecruitmentButton;
+    [SerializeField] private Button BuildingDetailsButton;
+
     private GridBuildingSystem GridBuildingSystem;
 
     void Start()
@@ -35,10 +41,20 @@ public class VillageHall : MonoBehaviour
 
         //GridBuildingSystem.ExpandArea(Level);
 
-        // z °ª Á¶Á¤ ÀßÇÏÀÚ
+        // z ê°’ ì¡°ì • ìž˜í•˜ìž
         area.position = new Vector3Int(-1, -1, 0);
 
         GridBuildingSystem.SetTilesBlock(area, TileType.Installed, GridBuildingSystem.BuildingTilemap);
+
+        CatsRecruitmentButton.onClick.AddListener(() =>
+        {
+
+        });
+
+        BuildingDetailsButton.onClick.AddListener(() =>
+        {
+
+        });
     }
 
     void Update()
@@ -71,6 +87,6 @@ public class VillageHall : MonoBehaviour
 
     private void OnMouseDown()
     {
-        print("fuck you");
+        BuildingUi.SetActive(true);
     }
 }

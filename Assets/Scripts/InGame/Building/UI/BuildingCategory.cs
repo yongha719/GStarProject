@@ -1,63 +1,52 @@
 using System.Collections;
 using System.Collections.Generic;
-using DG.Tweening;
 using UnityEngine;
-using UnityEngine.UI;
+using DG.Tweening;
 
-public class BuildingCategory : MonoBehaviour
+public class BuildingCategory : Category
 {
-    public Sprite OnSprite;
-    public Sprite OffSprite;
+    private static Category s_Category;
+    private static GameObject s_CategoryBuildings;
 
-    private static BuildingCategory s_CurCategory;
-    private static GameObject s_CurCategoryBuildings;
-
-    [SerializeField] private GameObject CurCategoryBuildings;
-    [SerializeField] private bool isSelected;
-
-    #region Component
-
-    private Image image;
-    private Button button;
-    private RectTransform rect;
-
-    #endregion
-
-    private void Start()
+    protected override void Start()
     {
-        image = GetComponent<Image>();
-        button = GetComponent<Button>();
-        rect = GetComponent<RectTransform>();
-
-        button.onClick.AddListener(Select);
+        base.Start();
 
         if (isSelected)
         {
-            s_CurCategory = this;
-            s_CurCategoryBuildings = CurCategoryBuildings;
+            s_Category = this;
+            s_CategoryBuildings = CurCategoryBuildings;
         }
     }
 
-    private void Select()
+    protected override void Select()
     {
-        if (s_CurCategory == this)
+        if (s_Category == this)
             return;
 
-        s_CurCategory.Unselect();
-        s_CurCategory = this;
+        s_Category.Unselect();
+        s_Category = this;
 
 
-        s_CurCategoryBuildings.SetActive(false);
+        s_CategoryBuildings.SetActive(false);
         CurCategoryBuildings.SetActive(true);
-        s_CurCategoryBuildings = CurCategoryBuildings;
+        s_CategoryBuildings = CurCategoryBuildings;
 
-        image.sprite = OnSprite;
+
         rect.DOAnchorPosY(-70f, 0.3f);
     }
 
-    private void Unselect()
+    public override void Unselect()
     {
-        image.sprite = OffSprite;
+        base.Unselect();         
+
         rect.DOAnchorPosY(60f, 0.3f);
+    }
+
+
+    // Update is called once per frame
+    void Update()
+    {
+        
     }
 }

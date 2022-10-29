@@ -19,6 +19,14 @@ public class BuildingInstallationUI : MonoBehaviour
     [SerializeField] private Warning Warning;
     [SerializeField] private NotEnoughGold NotEnoughGold;
 
+
+
+    #endregion
+
+    #region Category
+
+         
+
     #endregion
 
     #region UI Object
@@ -54,7 +62,10 @@ public class BuildingInstallationUI : MonoBehaviour
         {
             buildingInfo.BuyButtonOnclick((Building) =>
             {
-                var goldprodutionbuilding = Building as GoldProductionBuilding;
+                GoldProductionBuilding goldprodutionbuilding = null;
+
+                if (Building is GoldProductionBuilding)
+                    goldprodutionbuilding = Building as GoldProductionBuilding;
 
                 CurBuilding = buildingInfo.BuildingPrefab;
                 CurBuildingName = goldprodutionbuilding.BuildingName;
@@ -64,8 +75,6 @@ public class BuildingInstallationUI : MonoBehaviour
                 buildingInfo.Building.FirstTimeInstallation = true;
 
 
-                print(GameManager._coin);
-                print(GameManager._coin >= goldprodutionbuilding.ConstructionCost.returnValue());
                 if (GameManager._coin > 0 && GameManager._coin >= goldprodutionbuilding.ConstructionCost.returnValue())
                 {
                     Warning.WarningUI.SetActive(true);

@@ -83,6 +83,12 @@ public class GridBuildingSystem : MonoBehaviour
             }
         }
         #endregion
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            ExpandArea(2);
+            print("key");
+        }
     }
 
     private TileBase[] GetTilesBlock(BoundsInt area, Tilemap tilemap)
@@ -113,6 +119,7 @@ public class GridBuildingSystem : MonoBehaviour
         FillTiles(toClear, TileType.Empty);
         TempTilemap.SetTilesBlock(area, toClear);
     }
+
     public void InitializeWithBuilding(GameObject building)
     {
         //MainTilemap.color = new Color(1, 1, 1, 0.5f);
@@ -155,7 +162,7 @@ public class GridBuildingSystem : MonoBehaviour
 
         for (int i = 0; i < tempbase.Length; i++)
         {
-            if (tempbase[i] != tileBases[TileType.Green])
+            if (tempbase[i] != tileBases[TileType.Uninstalled])
             {
                 return false;
             }
@@ -181,21 +188,28 @@ public class GridBuildingSystem : MonoBehaviour
     /// </summary>
     public void ExpandArea(int level)
     {
-        BoundsInt area = new BoundsInt();
-        // 영역 증가량 나누기 2
         var areaincrementdividedby2 = ((level * 2) + 2) / 2;
-        area.min = new Vector3Int(areaincrementdividedby2 * -1, areaincrementdividedby2 * -1, 1);
-        area.max = new Vector3Int(areaincrementdividedby2, areaincrementdividedby2, 1);
 
+        BoundsInt area = new BoundsInt(new Vector3Int(areaincrementdividedby2 * -1, areaincrementdividedby2 * -1, 0), new Vector3Int((level * 2) + 2, (level * 2) + 2, 1));
+        // 영역 증가량 나누기 2
+        //area.position = Vector3Int.zero;
+        //area.min = new Vector3Int(areaincrementdividedby2 * -1, areaincrementdividedby2 * -1, 1);
+        //area.max = new Vector3Int(areaincrementdividedby2, areaincrementdividedby2, 1);
+
+        foreach (var pos in area.allPositionsWithin)
+        {
+            print(pos);
+        }
         // TODO : 이미 설치된 건물들 판별해야 함
         var tile = GetTilesBlock(area, BuildingTilemap);
-        SetTilesBlock(area, TileType.Uninstalled, BuildingTilemap);
+        SetTilesBlock(area, TileType.Green, BuildingTilemap);
         BuildingTilemap.SetTilesBlock(area, tile);
     }
 
     public void SetTilesBlock(BoundsInt area, TileType type, Tilemap tilemap)
     {
         int size = area.size.x * area.size.y;
+
         TileBase[] tileArray = new TileBase[size];
         FillTiles(tileArray, type);
         tilemap.SetTilesBlock(area, tileArray);
@@ -213,7 +227,6 @@ public class GridBuildingSystem : MonoBehaviour
 
     public void Place()
     {
-        print(CurBuilding.CanBePlaced());
         if (CurBuilding.CanBePlaced())
         {
             CurBuilding.transform.localPosition = gridLayout.CellToLocalInterpolated(cellPos);
