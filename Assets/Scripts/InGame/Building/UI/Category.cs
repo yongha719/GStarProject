@@ -9,7 +9,7 @@ public class Category : MonoBehaviour
     public Sprite OnSprite;
     public Sprite OffSprite;
 
-    [SerializeField] protected GameObject CurCategoryBuildings;
+    [SerializeField] protected GameObject CurCategoryObject;
     [SerializeField] protected bool isSelected;
 
     #region Component
