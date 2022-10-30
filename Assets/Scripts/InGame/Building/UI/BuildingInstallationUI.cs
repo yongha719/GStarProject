@@ -16,7 +16,7 @@ public class BuildingInstallationUI : MonoBehaviour
     [SerializeField] private List<BuildingInfo> GoldProductionBuildingInfos;
 
     [Header("Warning UIs")]
-    [SerializeField] private Warning Warning;
+    [SerializeField] private BuildingInstallWarning Warning;
     [SerializeField] private NotEnoughGold NotEnoughGold;
 
 

@@ -1,21 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
+
 public class Warning : MonoBehaviour
 {
-    private GameObject CurBuilding;
-
-    // 건물 설치 UI
-    private GameObject BuildingInstallationUI;
-
     public GameObject WarningUI;
-    [SerializeField] private TextMeshProUGUI WarningText;
-    [SerializeField] private Button YesButton;
-    [SerializeField] private Button NoButton;
+    [SerializeField] protected TextMeshProUGUI WarningText;
+    [SerializeField] protected Button YesButton;
+    [SerializeField] protected Button NoButton;
 
-    private const string WARNING_PHRASE = "(를)을\n설치하시겠습니까?";
+
 
     private void Awake()
     {
@@ -23,25 +19,6 @@ public class Warning : MonoBehaviour
     }
     private void Start()
     {
-        YesButton.onClick.AddListener(() =>
-        {
-            GridBuildingSystem.Instance.InitializeWithBuilding(CurBuilding);
-            CurBuilding.GetComponent<Building>().IsDeploying = true;
-            gameObject.SetActive(false);
-        });
-
-        NoButton.onClick.AddListener(() =>
-        {
-            BuildingInstallationUI.SetActive(true);
-            gameObject.SetActive(false);
-        });
     }
 
-    public void SetWarningData(GameObject building, string buildingname, GameObject buildingInstalltionUI)
-    {
-        CurBuilding = building;
-        WarningText.text = $"{buildingname}{WARNING_PHRASE}";
-
-        BuildingInstallationUI = buildingInstalltionUI;
-    }
 }

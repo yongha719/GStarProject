@@ -10,6 +10,7 @@ public class VillageHall : MonoBehaviour
     public BoundsInt area;
 
     private bool isDeploying;
+
     public bool IsDeploying
     {
         get
@@ -23,15 +24,15 @@ public class VillageHall : MonoBehaviour
         }
     }
 
+
     public int Level = 1;
+    public int CurAreaSize => (Level * 2) + 2;
+
 
     private const string DefaultLevelUpCost = "1000a";
     public string GetLevelUpCost => (DefaultLevelUpCost.returnValue() * Mathf.Pow(1000, Level - 1)).returnStr();
 
-    [Header("Building UI")]
-    [SerializeField] private GameObject BuildingUi;
-    [SerializeField] private Button CatsRecruitmentButton;
-    [SerializeField] private Button BuildingDetailsButton;
+    [Tooltip("마을 회관 UI"), SerializeField] private GameObject VillageHallUI;
 
     private GridBuildingSystem GridBuildingSystem;
 
@@ -39,22 +40,11 @@ public class VillageHall : MonoBehaviour
     {
         GridBuildingSystem = GridBuildingSystem.Instance;
 
-        //GridBuildingSystem.ExpandArea(Level);
-
         // z 값 조정 잘하자
         area.position = new Vector3Int(-1, -1, 0);
 
         GridBuildingSystem.SetTilesBlock(area, TileType.Installed, GridBuildingSystem.BuildingTilemap);
 
-        CatsRecruitmentButton.onClick.AddListener(() =>
-        {
-
-        });
-
-        BuildingDetailsButton.onClick.AddListener(() =>
-        {
-
-        });
     }
 
     void Update()
@@ -87,6 +77,15 @@ public class VillageHall : MonoBehaviour
 
     private void OnMouseDown()
     {
-        BuildingUi.SetActive(true);
+        print("gg");
+        VillageHallUI.SetActive(true);
+    }
+
+    public void LevelUp()
+    {
+        Level++;
+
+        // 레벨업 했을때 이벤트들
+        GridBuildingSystem.ExpandArea(Level);
     }
 }
