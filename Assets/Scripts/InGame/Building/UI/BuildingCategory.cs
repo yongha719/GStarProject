@@ -1,45 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
-using DG.Tweening;
 using UnityEngine;
-using UnityEngine.UI;
+using DG.Tweening;
 
-public class BuildingCategory : MonoBehaviour
+public class BuildingCategory : Category
 {
-    public Sprite OnSprite;
-    public Sprite OffSprite;
-
-    private static BuildingCategory s_CurCategory;
+    private static Category s_CurCategory;
     private static GameObject s_CurCategoryBuildings;
 
-    [SerializeField] private GameObject CurCategoryBuildings;
-    [SerializeField] private bool isSelected;
-
-    #region Component
-
-    private Image image;
-    private Button button;
-    private RectTransform rect;
-
-    #endregion
-
-    private void Start()
+    protected override void Start()
     {
-        image = GetComponent<Image>();
-        button = GetComponent<Button>();
-        rect = GetComponent<RectTransform>();
-
-        button.onClick.AddListener(Select);
+        base.Start();
 
         if (isSelected)
         {
             s_CurCategory = this;
-            s_CurCategoryBuildings = CurCategoryBuildings;
+            s_CurCategoryBuildings = CurCategoryObject;
         }
     }
 
-    private void Select()
+    protected override void Select()
     {
+        base .Select();
+
         if (s_CurCategory == this)
             return;
 
@@ -48,16 +31,24 @@ public class BuildingCategory : MonoBehaviour
 
 
         s_CurCategoryBuildings.SetActive(false);
-        CurCategoryBuildings.SetActive(true);
-        s_CurCategoryBuildings = CurCategoryBuildings;
+        CurCategoryObject.SetActive(true);
+        s_CurCategoryBuildings = CurCategoryObject;
 
-        image.sprite = OnSprite;
+
         rect.DOAnchorPosY(-70f, 0.3f);
     }
 
-    private void Unselect()
+    public override void Unselect()
     {
-        image.sprite = OffSprite;
+        base.Unselect();         
+
         rect.DOAnchorPosY(60f, 0.3f);
+    }
+
+
+    // Update is called once per frame
+    void Update()
+    {
+        
     }
 }

@@ -12,12 +12,10 @@ public class TestPlayer : MonoBehaviour
     private Vector3 dest;
     public float _progress;
 
-    private Tilemap tilemap;
     private List<Node> nodes = new List<Node>();
 
     private void Start()
     {
-        tilemap = GridBuildingSystem.Instance.MainTilemap;
         StartCoroutine(RandomMove());
     }
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class VillageHall : MonoBehaviour
 {
@@ -22,12 +23,15 @@ public class VillageHall : MonoBehaviour
         }
     }
 
-
-
     public int Level = 1;
 
     private const string DefaultLevelUpCost = "1000a";
     public string GetLevelUpCost => (DefaultLevelUpCost.returnValue() * Mathf.Pow(1000, Level - 1)).returnStr();
+
+    [Header("Building UI")]
+    [SerializeField] private GameObject BuildingUi;
+    [SerializeField] private Button CatsRecruitmentButton;
+    [SerializeField] private Button BuildingDetailsButton;
 
     private GridBuildingSystem GridBuildingSystem;
 
@@ -35,14 +39,22 @@ public class VillageHall : MonoBehaviour
     {
         GridBuildingSystem = GridBuildingSystem.Instance;
 
-        if (CanBePlaced())
-        {
-            print("in");
-            var cellPos = GridBuildingSystem.gridLayout.LocalToCell(Vector2.zero);
+        //GridBuildingSystem.ExpandArea(Level);
 
-            transform.localPosition = GridBuildingSystem.gridLayout.CellToLocalInterpolated(cellPos);
-            Place();
-        }
+        // z 값 조정 잘하자
+        area.position = new Vector3Int(-1, -1, 0);
+
+        GridBuildingSystem.SetTilesBlock(area, TileType.Installed, GridBuildingSystem.BuildingTilemap);
+
+        CatsRecruitmentButton.onClick.AddListener(() =>
+        {
+
+        });
+
+        BuildingDetailsButton.onClick.AddListener(() =>
+        {
+
+        });
     }
 
     void Update()
@@ -56,7 +68,6 @@ public class VillageHall : MonoBehaviour
         BoundsInt areaTemp = area;
         areaTemp.position = positionInt;
 
-        print(positionInt);
         return GridBuildingSystem.CanTakeArea(areaTemp);
     }
 
@@ -72,5 +83,10 @@ public class VillageHall : MonoBehaviour
 
         IsDeploying = false;
 
+    }
+
+    private void OnMouseDown()
+    {
+        BuildingUi.SetActive(true);
     }
 }
