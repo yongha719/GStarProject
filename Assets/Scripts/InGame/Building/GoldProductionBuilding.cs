@@ -57,6 +57,9 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
     [SerializeField] private Button BuildingButton;
     [SerializeField] private GameObject BuildingUI;
 
+    // Coin먹는 연출
+    [SerializeField] private GameObject CoinEffect;
+
     // 건물에 배치된 고양이
     private Cat[] PlacedInBuildingCat;
     public override bool IsDeploying
@@ -202,8 +205,10 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
                 GameManager.Instance._coin += autogetmoney ? ProductionGold.returnValue() : ProductionGold.returnValue() * 0.5f;
                 didGetMoney = false;
                 CollectMoneyButton.gameObject.SetActive(false);
-                // 골드 획득 연출
 
+                // 골드 획득 연출
+                Instantiate(CoinEffect, transform.position, Quaternion.identity);
+                                
                 yield break;
             }
 
