@@ -1,11 +1,12 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.Rendering;
 using UnityEngine;
 
 /// <summary>
 /// 골드 생산 건물 고양이 능력
 /// </summary>
-
 public enum GoldAbilityType
 {
     Fishing,                // 낚시
@@ -19,6 +20,9 @@ public enum GoldAbilityType
     End
 }
 
+/// <summary>
+/// 고양이  스킨 종류
+/// </summary>
 public enum CatSkinType
 {
     MufflerCat,        // 목도리 고양이
@@ -42,8 +46,13 @@ public class Cat : MonoBehaviour
 {
     public CatData catData = new CatData();
 
+    // 골드 생산 횟수
+    public int NumberOfGoldProduction;
+    // 에너지 생산 횟수
+    public int NunberOfEnergyProduction;
 
-    public int ReductionTimebyGrade => catData.AbilityRating switch
+    // 등급별 생산 감소 퍼센트
+    public int PercentageReductionbyGrade => catData.AbilityRating switch
     {
         1 => 10,
         2 => 15,

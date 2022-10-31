@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 
 
-public class EnergyProductionBuilding : Building
+public class EnergyProductionBuilding : Building, IResourceProductionBuilding
 {
     [Header("Energy Production Building")]
     public EnergyBuildingType buildingType;
@@ -17,10 +17,15 @@ public class EnergyProductionBuilding : Building
     [SerializeField] private string DefaultEnergy;
     [SerializeField] private float DefaultEnergyChargingTime;
     [SerializeField] private float IncreasePerLevelUp;
+    [SerializeField] private GameObject EnergyAcquisitionEffect;
+
     [Tooltip("회복하기까지 필요한 생산량")]
     [SerializeField] private int ProductionsNeededToRecover;
 
-    public string ProductionGold
+    private Cat[] PlacedInBuildingCat;
+
+    // 생산 에너지
+    public string ProductionEnergy
     {
         get
         {
@@ -35,7 +40,7 @@ public class EnergyProductionBuilding : Building
         }
     }
 
-
+    // 건설 비용
     public override string ConstructionCost
     {
         get
@@ -62,6 +67,8 @@ public class EnergyProductionBuilding : Building
     protected override void Start()
     {
         base.Start();
+
+        PlacedInBuildingCat = new Cat[MaxDeployableCat];
     }
 
     protected override IEnumerator BuildingInstalltionEffect()
@@ -69,5 +76,82 @@ public class EnergyProductionBuilding : Building
         return base.BuildingInstalltionEffect();
 
 
+    }
+
+    public IEnumerator ResourceProduction()
+    {
+        while (true)
+        {
+            yield return waitEnergyChargingTime;
+
+            CollectEnergyButton.gameObject.SetActive(true);
+
+            for (int i = 0; i < MaxDeployableCat; i++)
+            {
+                if (PlacedInBuildingCat[i] == null)
+                    continue;
+
+                // 에너지 생산 10번하면 쉬러 가야 함
+                if (PlacedInBuildingCat[i].NumberOfGoldProduction++ >= 3)
+                {
+                    PlacedInBuildingCat[i].GoToRest();
+                }
+            }
+
+            yield return StartCoroutine(WaitGetResource());
+        }
+    }
+
+    public IEnumerator WaitGetResource()
+    {
+        var autogetenergy = false;
+
+        while (true)
+        {
+            if (didGetEnergy)
+            {
+                GameManager.Instance._coin += autogetenergy ? ProductionEnergy.returnValue() : ProductionEnergy.returnValue() * 0.5f;
+                didGetEnergy = false;
+                CollectEnergyButton.gameObject.SetActive(false);
+
+                // 골드 획득 연출
+                Instantiate(EnergyAcquisitionEffect, transform.position, Quaternion.identity);
+
+                yield break;
+            }
+
+            yield return null;
+        }
+    }
+
+    public void OnCatMemberChange(Action action)
+    {
+        int decreasingfigure = 0;
+
+        for (int i = 0; i < MaxDeployableCat; i++)
+        {
+            if (PlacedInBuildingCat[i] != null)
+            {
+                if ((int)buildingType == (int)PlacedInBuildingCat[i].catData.GoldAbilityType)
+                {
+                    decreasingfigure += PlacedInBuildingCat[i].PercentageReductionbyGrade;
+                }
+            }
+        }
+
+        double productiondelay = 0;
+
+        if (decreasingfigure != 0)
+        {
+            productiondelay = DefaultEnergyChargingTime * Math.Round(decreasingfigure / 100f, 3);
+        }
+        else
+        {
+            productiondelay = DefaultEnergyChargingTime;
+        }
+
+        waitEnergyChargingTime = new WaitForSeconds((float)productiondelay);
+
+        action?.Invoke();
     }
 }

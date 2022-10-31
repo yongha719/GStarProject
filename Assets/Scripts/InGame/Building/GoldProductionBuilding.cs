@@ -54,11 +54,10 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
 
     #endregion
 
-    [SerializeField] private Button BuildingButton;
     [SerializeField] private GameObject BuildingUI;
 
     // Coin먹는 연출
-    [SerializeField] private GameObject CoinEffect;
+    [SerializeField] private GameObject CoinAcquisitionEffect;
 
     // 건물에 배치된 고양이
     private Cat[] PlacedInBuildingCat;
@@ -108,22 +107,6 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
             didGetMoney = true;
         });
 
-        BuildingButton?.onClick.AddListener(() =>
-        {
-            if (CollectMoneyButton.gameObject.activeSelf)
-            {
-                didGetMoney = true;
-            }
-            else if (BuildingUI.activeSelf)
-            {
-                BuildingUI.SetActive(false);
-            }
-            else
-            {
-                BuildingUI.SetActive(true);
-            }
-
-        });
     }
 
     // TODO : 너무 긴 거 같음 추후 리팩토링
@@ -138,7 +121,7 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
             {
                 if ((int)buildingType == (int)PlacedInBuildingCat[i].catData.GoldAbilityType)
                 {
-                    decreasingfigure += PlacedInBuildingCat[i].ReductionTimebyGrade;
+                    decreasingfigure += PlacedInBuildingCat[i].PercentageReductionbyGrade;
                 }
             }
         }
@@ -166,7 +149,6 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
         StartCoroutine(ResourceProduction());
     }
 
-
     public IEnumerator ResourceProduction()
     {
         while (true)
@@ -180,13 +162,11 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
                 if (PlacedInBuildingCat[i] == null)
                     continue;
 
-                //PlacedInBuildingCat[i].Status++;
-
                 // 골드 생산 10번하면 쉬러 가야 함
-                //if (PlacedInBuildingCat[i].Status >= 10)
-                //{
-                //    PlacedInBuildingCat[i].GoToRest();
-                //}
+                if (PlacedInBuildingCat[i].NumberOfGoldProduction++ >= 10)
+                {
+                    PlacedInBuildingCat[i].GoToRest();
+                }
             }
 
             yield return StartCoroutine(WaitGetResource());
@@ -207,7 +187,7 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
                 CollectMoneyButton.gameObject.SetActive(false);
 
                 // 골드 획득 연출
-                Instantiate(CoinEffect, transform.position, Quaternion.identity);
+                Instantiate(CoinAcquisitionEffect, transform.position, Quaternion.identity);
                                 
                 yield break;
             }
@@ -237,5 +217,21 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
 
         GridBuildingSystem.InitializeWithBuilding(BuildingInfo.BuildingPrefab);
         BuildingManager.s_GoldBuildings[buildingType]++;
+    }
+
+    private void OnMouseDown()
+    {
+        if (CollectMoneyButton.gameObject.activeSelf)
+        {
+            didGetMoney = true;
+        }
+        else if (BuildingUI.activeSelf)
+        {
+            BuildingUI.SetActive(false);
+        }
+        else
+        {
+            BuildingUI.SetActive(true);
+        }
     }
 }
