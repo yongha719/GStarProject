@@ -6,6 +6,7 @@ using UnityEngine;
 /// 골드 생산 건물 고양이 능력
 /// </summary>
 
+[System.Serializable]
 public enum GoldAbilityType
 {
     Fishing,                // 낚시
@@ -19,6 +20,7 @@ public enum GoldAbilityType
     End
 }
 
+[System.Serializable]
 public enum CatSkinType
 {
     MufflerCat,        // 목도리 고양이
@@ -29,7 +31,7 @@ public enum CatSkinType
     RedScarfCat,       // 빨간 스카프 고양이
     End
 }
-
+[System.Serializable]
 public class CatData
 {
     public string Name;
