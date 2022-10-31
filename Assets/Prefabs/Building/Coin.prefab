@@ -145,11 +145,11 @@ TrailRenderer:
       - serializedVersion: 3
         time: 1
         value: 0.01449585
-        inSlope: 1.255158
-        outSlope: 1.255158
+        inSlope: 0.2032953
+        outSlope: 0.2032953
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.07697952
+        inWeight: 0.0957768
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -225,3 +225,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f14f998eaaa66a245b5188264de85566, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetpos: {x: -1.03, y: 4.7}

@@ -31,7 +31,7 @@ public class UIPopup : MonoBehaviour
     {
         rect.DOScale(0.4f, 0.3f).WaitForCompletion();
         yield return new WaitForSeconds(0.2f);
-        gameObject.SetActive(false);
         BackgroundRt.gameObject.SetActive(false);
+
     }
 }

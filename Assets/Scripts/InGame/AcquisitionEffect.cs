@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class Coin : MonoBehaviour
+public class AcquisitionEffect : MonoBehaviour
 {
-    Rigidbody2D rigid;
+    public Vector2 targetpos = new Vector2();
 
-    [SerializeField] GameObject d;
+    Rigidbody2D rigid;
 
     IEnumerator Start()
     {
@@ -16,8 +16,8 @@ public class Coin : MonoBehaviour
         rigid.AddForce(Random.insideUnitCircle * 2, ForceMode2D.Impulse);
         yield return new WaitForSeconds(1f);
         rigid.velocity = Vector2.zero;
-        
-        yield return transform.DOLocalMove(new Vector3(-1.03f, 4.7f, 0), 0.5f).WaitForCompletion();
+
+        yield return transform.DOLocalMove(targetpos, 0.5f).WaitForCompletion();
 
         //닷트윈 포물선 그리는 함수
         //Vector3 firstPos = transform.position;
