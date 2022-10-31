@@ -7,18 +7,19 @@ public class Coin : MonoBehaviour
 {
     Rigidbody2D rigid;
 
+    [SerializeField] GameObject d;
+
     IEnumerator Start()
     {
         rigid = GetComponent<Rigidbody2D>();
 
         rigid.AddForce(Random.insideUnitCircle * 2, ForceMode2D.Impulse);
-        yield return new WaitForSeconds(0.5f);
-
-
-        yield return transform.DOLocalMove(new Vector3(-1.03f, 4.7f, 0), 1.5f).WaitForCompletion();
+        yield return new WaitForSeconds(1f);
         rigid.velocity = Vector2.zero;
         
-        // 닷트윈 포물선 그리는 함수
+        yield return transform.DOLocalMove(new Vector3(-1.03f, 4.7f, 0), 0.5f).WaitForCompletion();
+
+        //닷트윈 포물선 그리는 함수
         //Vector3 firstPos = transform.position;
         //Vector3 secondPos = firstPos + new Vector3(0.8f, 1.5f, 0);
         //Vector3 thirdPos = new Vector2(-1.03f, 4.7f);

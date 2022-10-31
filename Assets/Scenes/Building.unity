@@ -76808,6 +76808,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1035034861587665106, guid: d1c3aa70df08bb943a114b0228f21908, type: 3}
+      propertyPath: m_Time
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1615259993351087800, guid: d1c3aa70df08bb943a114b0228f21908, type: 3}
+      propertyPath: m_Time
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2231133372062962022, guid: d1c3aa70df08bb943a114b0228f21908, type: 3}
+      propertyPath: m_Time
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3007865114862605024, guid: d1c3aa70df08bb943a114b0228f21908, type: 3}
+      propertyPath: m_Time
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 4651143797973280713, guid: d1c3aa70df08bb943a114b0228f21908, type: 3}
       propertyPath: m_Name
       value: Coin Effect
@@ -76855,6 +76871,30 @@ PrefabInstance:
     - target: {fileID: 4651143797973280714, guid: d1c3aa70df08bb943a114b0228f21908, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4761553260968276832, guid: d1c3aa70df08bb943a114b0228f21908, type: 3}
+      propertyPath: m_Time
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5039143569179513608, guid: d1c3aa70df08bb943a114b0228f21908, type: 3}
+      propertyPath: m_Time
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5805644815521813976, guid: d1c3aa70df08bb943a114b0228f21908, type: 3}
+      propertyPath: m_Time
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6682499835883990225, guid: d1c3aa70df08bb943a114b0228f21908, type: 3}
+      propertyPath: m_Time
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7465548591661943518, guid: d1c3aa70df08bb943a114b0228f21908, type: 3}
+      propertyPath: m_Time
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9081865193395311145, guid: d1c3aa70df08bb943a114b0228f21908, type: 3}
+      propertyPath: m_Time
+      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d1c3aa70df08bb943a114b0228f21908, type: 3}

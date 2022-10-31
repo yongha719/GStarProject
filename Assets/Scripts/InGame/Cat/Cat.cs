@@ -19,17 +19,31 @@ public enum GoldAbilityType
     End
 }
 
-public class Cat : MonoBehaviour
+public enum CatSkinType
+{
+    MufflerCat,        // 목도리 고양이
+    beanieCat,         // 비니 고양이
+    MufflerBlackCat,   // 검은 목도리 고양이
+    PinkCloakCat,      // 분홍 망토 고양이
+    WhiteCat,          // 흰 고양이
+    RedScarfCat,       // 빨간 스카프 고양이
+    End
+}
+
+public class CatData
 {
     public string Name;
     public GoldAbilityType GoldAbilityType;
     public int AbilityRating;
+    public CatSkinType CatSkinType;
+}
 
-    public int Status;
-    public int Recovery;
-    
+public class Cat : MonoBehaviour
+{
+    public CatData catData = new CatData();
 
-    public int ReductionTimebyGrade => AbilityRating switch
+
+    public int ReductionTimebyGrade => catData.AbilityRating switch
     {
         1 => 10,
         2 => 15,

@@ -136,7 +136,7 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
         {
             if (PlacedInBuildingCat[i] != null)
             {
-                if ((int)buildingType == (int)PlacedInBuildingCat[i].GoldAbilityType)
+                if ((int)buildingType == (int)PlacedInBuildingCat[i].catData.GoldAbilityType)
                 {
                     decreasingfigure += PlacedInBuildingCat[i].ReductionTimebyGrade;
                 }
@@ -180,13 +180,13 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
                 if (PlacedInBuildingCat[i] == null)
                     continue;
 
-                PlacedInBuildingCat[i].Status++;
+                //PlacedInBuildingCat[i].Status++;
 
                 // 골드 생산 10번하면 쉬러 가야 함
-                if (PlacedInBuildingCat[i].Status >= 10)
-                {
-                    PlacedInBuildingCat[i].GoToRest();
-                }
+                //if (PlacedInBuildingCat[i].Status >= 10)
+                //{
+                //    PlacedInBuildingCat[i].GoToRest();
+                //}
             }
 
             yield return StartCoroutine(WaitGetResource());
