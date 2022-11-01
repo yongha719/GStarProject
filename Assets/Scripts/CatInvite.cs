@@ -44,7 +44,7 @@ public class CatInvite : MonoBehaviour
         else
             catData.AbilityRating = 1;
 
-        catData.Name = catNameTextArea.text;
+        catData.Name = null;
 
         return catData;
     }
