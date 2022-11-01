@@ -8,6 +8,33 @@ using DG.Tweening;
 
 public class GoldProductionBuilding : Building, IResourceProductionBuilding
 {
+    public override bool IsDeploying
+    {
+        get
+        {
+            return isDeploying;
+        }
+
+        set
+        {
+            isDeploying = value;
+
+            if (isDeploying)
+            {
+                SpriteRenderer.color = new Color(1, 1, 1, 0.5f);
+                DeployingUIParent.SetActive(true);
+                CollectMoneyButton.gameObject.SetActive(false);
+            }
+            else
+            {
+                SpriteRenderer.color = Color.white;
+                DeployingUIParent.SetActive(false);
+                CollectMoneyButton.gameObject.SetActive(true);
+
+            }
+        }
+    }
+
     [Header("Gold Production Building")]
     public GoldBuildingType buildingType;
 
@@ -51,42 +78,22 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
     private const float AUTO_GET_GOLD_DELAY = 20f;
 
     [SerializeField] private TextMeshProUGUI ConstructionGoldText;
+    [SerializeField] private GameObject GoldAcquisitionEffect;
 
+    [Space(10)]
     #endregion
 
+    
     [SerializeField] private GameObject BuildingUI;
 
-    // Coin먹는 연출
-    [SerializeField] private GameObject CoinAcquisitionEffect;
+
+    [SerializeField] private Button CatPlacementButton;
 
     // 건물에 배치된 고양이
     private Cat[] PlacedInBuildingCat;
-    public override bool IsDeploying
-    {
-        get
-        {
-            return isDeploying;
-        }
 
-        set
-        {
-            isDeploying = value;
+    private CatPlacement CatPlacement;
 
-            if (isDeploying)
-            {
-                SpriteRenderer.color = new Color(1, 1, 1, 0.5f);
-                DeployingUIParent.SetActive(true);
-                CollectMoneyButton.gameObject.SetActive(false);
-            }
-            else
-            {
-                SpriteRenderer.color = Color.white;
-                DeployingUIParent.SetActive(false);
-                CollectMoneyButton.gameObject.SetActive(true);
-
-            }
-        }
-    }
 
     private void Awake()
     {
@@ -105,6 +112,11 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
         CollectMoneyButton.onClick.AddListener(() =>
         {
             didGetMoney = true;
+        });
+
+        CatPlacementButton.onClick.AddListener(() =>
+        {
+            CatPlacement.UISetActive(true);
         });
 
     }
@@ -190,7 +202,7 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
                 CollectMoneyButton.gameObject.SetActive(false);
 
                 // 골드 획득 연출
-                Instantiate(CoinAcquisitionEffect, transform.position, Quaternion.identity);
+                Instantiate(GoldAcquisitionEffect, transform.position, Quaternion.identity);
                                 
                 yield break;
             }

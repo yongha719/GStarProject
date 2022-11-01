@@ -4,9 +4,9 @@ using UnityEngine;
 using TMPro;
 
 
-public class CatTaskText : MonoBehaviour
+public class TaskText : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI TaskText;
+    [SerializeField] private TextMeshProUGUI Tasktext;
 
     private WaitForSeconds wait = new WaitForSeconds(0.5f);
     private string period = ".";
@@ -15,12 +15,12 @@ public class CatTaskText : MonoBehaviour
 
     private void Awake()
     {
-        TaskText = GetComponent<TextMeshProUGUI>();
+        Tasktext = GetComponent<TextMeshProUGUI>();
     }
 
     private void OnEnable()
     {
-        OriginalText = TaskText.text;
+        OriginalText = Tasktext.text;
 
         StartCoroutine(TextChange());
     }
@@ -36,11 +36,11 @@ public class CatTaskText : MonoBehaviour
             if (period.Length == 3)
             {
                 period = ".";
-                TaskText.text = OriginalText;
+                Tasktext.text = OriginalText;
             }
             else
             {
-                TaskText.text = OriginalText + period;
+                Tasktext.text = OriginalText + period;
                 period += ".";
             }
         }

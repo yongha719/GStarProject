@@ -5,22 +5,22 @@ using UnityEngine;
 using System.Linq;
 public static class CalculatorManager
 {
-    //1000¿¡ ÀÚ¸®¼ö ¸¶´Ù ¿Ã¸²ÇÑ´Ù
-    //123.45a <- ±âº» ÇüÅÂ
+    //1000ì— ìë¦¬ìˆ˜ ë§ˆë‹¤ ì˜¬ë¦¼í•œë‹¤
+    //123.45a <- ê¸°ë³¸ í˜•íƒœ
     const int roundUnit = 10000;
     /// <summary>
-    /// ³ôÀº doubleÇü¿¡ ¼ö¸¦ 1000ÀÇ ÀÚ¸®¼ö¸¶´Ù ¾ËÆÄºªÀ¸·Î ¹Ù²Û´Ù
+    /// ë†’ì€ doubleí˜•ì— ìˆ˜ë¥¼ 1000ì˜ ìë¦¬ìˆ˜ë§ˆë‹¤ ì•ŒíŒŒë²³ìœ¼ë¡œ ë°”ê¾¼ë‹¤
     /// </summary>
     public static string returnStr(this double value)
     {
         char unit = '`';
 
-        //¼Ò¼öÁ¡ µÚ¿¡ µÎÀÚ¸®¸¦ ³²±â±âÀ§ÇØ Áö³­ ¼ö¸¦ Áı¾î³ÖÀ½
+        //ì†Œìˆ˜ì  ë’¤ì— ë‘ìë¦¬ë¥¼ ë‚¨ê¸°ê¸°ìœ„í•´ ì§€ë‚œ ìˆ˜ë¥¼ ì§‘ì–´ë„£ìŒ
         while (value >= roundUnit)
         {
             if (unit > 'z')
             {
-                Debug.Log("Func: \"returnstr\" error - ´ÜÀ§ ÃÊ°ú");
+                Debug.Log("Func: \"returnstr\" error - ë‹¨ìœ„ ì´ˆê³¼");
                 break;
             }
             value /= roundUnit;
@@ -29,7 +29,7 @@ public static class CalculatorManager
         value = System.Math.Round(value, 2);
 
         string returnStr;
-        //¼Ò¼öÁ¡ µÚ¿¡ ¼ıÀÚ¸¦ Ã³¸®ÇÏ´Â °úÁ¤
+        //ì†Œìˆ˜ì  ë’¤ì— ìˆ«ìë¥¼ ì²˜ë¦¬í•˜ëŠ” ê³¼ì •
 
         if (unit > '`') returnStr = $"{value}{unit}";
         else
@@ -40,7 +40,7 @@ public static class CalculatorManager
         return returnStr;
     }
     /// <summary>
-    /// 123.45a Çü(string) °ªÀ» double·Î ¹Ù²ãÁØ´Ù
+    /// 123.45a í˜•(string) ê°’ì„ doubleë¡œ ë°”ê¿”ì¤€ë‹¤
     /// </summary>
     public static double returnValue(this string str)
     {
