@@ -146,30 +146,33 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
     {
         base.Place();
 
-        StartCoroutine(ResourceProduction());
+        StartCoroutine(ResourceProduction);
     }
 
-    public IEnumerator ResourceProduction()
+    public IEnumerator ResourceProduction
     {
-        while (true)
+        get
         {
-            yield return waitGoldChargingTime;
-
-            CollectMoneyButton.gameObject.SetActive(true);
-
-            for(int i = 0; i < MaxDeployableCat; i++)
+            while (true)
             {
-                if (PlacedInBuildingCat[i] == null)
-                    continue;
+                yield return waitGoldChargingTime;
 
-                // 골드 생산 10번하면 쉬러 가야 함
-                if (PlacedInBuildingCat[i].NumberOfGoldProduction++ >= 10)
+                CollectMoneyButton.gameObject.SetActive(true);
+
+                for (int i = 0; i < MaxDeployableCat; i++)
                 {
-                    PlacedInBuildingCat[i].GoToRest();
-                }
-            }
+                    if (PlacedInBuildingCat[i] == null)
+                        continue;
 
-            yield return StartCoroutine(WaitGetResource());
+                    // 골드 생산 10번하면 쉬러 가야 함
+                    if (PlacedInBuildingCat[i].NumberOfGoldProduction++ >= 10)
+                    {
+                        PlacedInBuildingCat[i].GoToRest();
+                    }
+                }
+
+                yield return StartCoroutine(WaitGetResource());
+            }
         }
     }
 

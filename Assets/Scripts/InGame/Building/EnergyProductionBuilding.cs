@@ -24,6 +24,8 @@ public class EnergyProductionBuilding : Building, IResourceProductionBuilding
 
     private Cat[] PlacedInBuildingCat;
 
+    private bool isProducting;
+
     // 생산 에너지
     public string ProductionEnergy
     {
@@ -78,27 +80,30 @@ public class EnergyProductionBuilding : Building, IResourceProductionBuilding
 
     }
 
-    public IEnumerator ResourceProduction()
+    public IEnumerator ResourceProduction
     {
-        while (true)
+        get
         {
-            yield return waitEnergyChargingTime;
-
-            CollectEnergyButton.gameObject.SetActive(true);
-
-            for (int i = 0; i < MaxDeployableCat; i++)
+            while (true)
             {
-                if (PlacedInBuildingCat[i] == null)
-                    continue;
+                yield return waitEnergyChargingTime;
 
-                // 에너지 생산 10번하면 쉬러 가야 함
-                if (PlacedInBuildingCat[i].NumberOfGoldProduction++ >= 3)
+                CollectEnergyButton.gameObject.SetActive(true);
+
+                for (int i = 0; i < MaxDeployableCat; i++)
                 {
-                    PlacedInBuildingCat[i].GoToRest();
-                }
-            }
+                    if (PlacedInBuildingCat[i] == null)
+                        continue;
 
-            yield return StartCoroutine(WaitGetResource());
+                    // 에너지 생산 10번하면 쉬러 가야 함
+                    if (PlacedInBuildingCat[i].NumberOfGoldProduction++ >= 3)
+                    {
+                        PlacedInBuildingCat[i].GoToRest();
+                    }
+                }
+
+                yield return StartCoroutine(WaitGetResource());
+            }
         }
     }
 
@@ -139,18 +144,15 @@ public class EnergyProductionBuilding : Building, IResourceProductionBuilding
             }
         }
 
-        double productiondelay = 0;
-
         if (decreasingfigure != 0)
         {
-            productiondelay = DefaultEnergyChargingTime * Math.Round(decreasingfigure / 100f, 3);
+            waitEnergyChargingTime = new WaitForSeconds((float)(DefaultEnergyChargingTime * Math.Round(decreasingfigure / 100f, 3)));
+            StartCoroutine(ResourceProduction);
         }
         else
         {
-            productiondelay = DefaultEnergyChargingTime;
+            StopCoroutine(ResourceProduction);
         }
-
-        waitEnergyChargingTime = new WaitForSeconds((float)productiondelay);
 
         action?.Invoke();
     }
