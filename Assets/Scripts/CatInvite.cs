@@ -35,7 +35,14 @@ public class CatInvite : MonoBehaviour
 
         catData.GoldAbilityType = (GoldAbilityType)Random.Range(0, (int)GoldAbilityType.End);
         catData.CatSkinType = (CatSkinType)Random.Range(0, (int)CatSkinType.End);
-        catData.AbilityRating = Random.Range(1, 4);
+
+        int value = Random.Range(0, 20);
+        if (value < 3)
+            catData.AbilityRating = 3;
+        else if (value < 7)
+            catData.AbilityRating = 2;
+        else
+            catData.AbilityRating = 1;
 
         catData.Name = catNameTextArea.text;
 
