@@ -75,17 +75,24 @@ public class VillageHall : MonoBehaviour
 
     }
 
-    private void OnMouseDown()
-    {
-        print("gg");
-        VillageHallUI.SetActive(true);
-    }
 
     public void LevelUp()
     {
         Level++;
-
+        
         // 레벨업 했을때 이벤트들
         GridBuildingSystem.ExpandArea(Level);
+    }
+
+    private void OnMouseDown()
+    {
+        if (VillageHallUI.activeSelf)
+        {
+            VillageHallUI.SetActive(false);
+        }
+        else
+        {
+            VillageHallUI.SetActive(true);
+        }
     }
 }

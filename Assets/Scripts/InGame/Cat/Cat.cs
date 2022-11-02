@@ -33,18 +33,32 @@ public enum CatSkinType
     RedScarfCat,       // 빨간 스카프 고양이
     End
 }
+
 [System.Serializable]
 public class CatData
 {
-    public string Name;
-    public GoldAbilityType GoldAbilityType;
-    public int AbilityRating;
-    public CatSkinType CatSkinType;
+    public string Name;                           // 고양이 이름
+    public int AbilityRating;                     // 능력 등급
+    public GoldAbilityType GoldAbilityType;       // 능력 타입
+    public Sprite AbilityImage;                   // 능력 이미지
+    public CatSkinType CatSkinType;               // 스킨 종류
+    public Sprite SkinImage;                      // 스킨 이미지
 }
+
+[System.Serializable]
+public enum CatState
+{
+    NotProducting,
+    GoldProducting,
+    EnergyProducting,
+}
+
 
 public class Cat : MonoBehaviour
 {
     public CatData catData = new CatData();
+
+    public CatState CatState = CatState.NotProducting;
 
     // 골드 생산 횟수
     public int NumberOfGoldProduction;
