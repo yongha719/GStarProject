@@ -2,14 +2,28 @@ using DG.Tweening;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+using System.Globalization;
 
 public class CatInvite : MonoBehaviour
 {
     [SerializeField]
     private CatInviteEffect inviteEffect;
+    [SerializeField]
+    private TMP_InputField catNameTextArea;
+    private CatData curCatData;
+
+
+    [Header("Result UI")]
 
     [SerializeField]
-    private InputField catNameTextArea;
+    private GameObject[] Stars;
+    [SerializeField]
+    private Image catSprite;
+    [SerializeField]
+    private Image skillIcon;
+    [SerializeField]
+    private TextMeshProUGUI catName;
     public void CatInviteBtnFunc(double needGoldValue)
     {
         if (needGoldValue <= GameManager.Instance._coin)
@@ -27,6 +41,13 @@ public class CatInvite : MonoBehaviour
     IEnumerator GachaEffect()
     {
         yield return null;
+
+        curCatData = RandomCatEarn();
+        for (int i = 0; i < Stars.Length; i++)
+            Stars[i].SetActive(i < curCatData.AbilityRating);
+        catSprite.sprite = curCatData.SkinImage;
+
+
     }
 
     public CatData RandomCatEarn()
@@ -35,6 +56,8 @@ public class CatInvite : MonoBehaviour
 
         catData.GoldAbilityType = (GoldAbilityType)Random.Range(0, (int)GoldAbilityType.End);
         catData.CatSkinType = (CatSkinType)Random.Range(0, (int)CatSkinType.End);
+        catData.SkinImage = CatManager.Instance.ReturnCatSprite(catData.CatSkinType);
+
 
         int value = Random.Range(0, 20);
         if (value < 3)

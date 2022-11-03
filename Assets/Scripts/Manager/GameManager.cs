@@ -21,7 +21,7 @@ public class GameManager : Singleton<GameManager>
         get { return resource.catCount; }
         set
         {
-            //¸¸¾à¿¡ ui¸Å´ÏÀú°¡ ¾À³»¿¡¼­ »ç¶óÁ³´Ù¸é ¾î¶»°Ô Ã³¸®µÇÁö? ±×°Ç Á» ¾Ë¾ÆºÁ¾ß ÇÒµí
+            //ë§Œì•½ì— uië§¤ë‹ˆì €ê°€ ì”¬ë‚´ì—ì„œ ì‚¬ë¼ì¡Œë‹¤ë©´ ì–´ë–»ê²Œ ì²˜ë¦¬ë˜ì§€? ê·¸ê±´ ì¢€ ì•Œì•„ë´ì•¼ í• ë“¯
             resource.catCount = value;
             if (UIManager.Instance != null) UIManager.Instance.ResourcesApply();
         }
@@ -63,8 +63,4 @@ public class GameManager : Singleton<GameManager>
 
     }
 
-    void Update()
-    {
-
-    }
 }
