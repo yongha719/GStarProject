@@ -114,11 +114,10 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
             didGetMoney = true;
         });
 
-        CatPlacementButton.onClick.AddListener(() =>
+        CatPlacementButton?.onClick.AddListener(() =>
         {
             CatPlacement.UISetActive(true);
         });
-
     }
 
     // TODO : 너무 긴 거 같음 추후 리팩토링
@@ -131,6 +130,7 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
         {
             if (PlacedInBuildingCat[i] != null)
             {
+                // 능력이 건물의 종류와 같을 때
                 if ((int)buildingType == (int)PlacedInBuildingCat[i].catData.GoldAbilityType)
                 {
                     decreasingfigure += PlacedInBuildingCat[i].PercentageReductionbyGrade;

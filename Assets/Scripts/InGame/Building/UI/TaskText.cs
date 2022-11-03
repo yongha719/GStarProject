@@ -6,7 +6,7 @@ using TMPro;
 
 public class TaskText : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI Tasktext;
+    private TextMeshProUGUI Tasktext;
 
     private WaitForSeconds wait = new WaitForSeconds(0.5f);
     private string period = ".";
