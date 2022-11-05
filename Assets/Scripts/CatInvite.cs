@@ -45,7 +45,7 @@ public class CatInvite : MonoBehaviour
         curCatData = RandomCatEarn();
         for (int i = 0; i < Stars.Length; i++)
             Stars[i].SetActive(i < curCatData.AbilityRating);
-        catSprite.sprite = curCatData.SkinImage;
+        catSprite.sprite = curCatData.CatSprite;
 
 
     }
@@ -56,7 +56,7 @@ public class CatInvite : MonoBehaviour
 
         catData.GoldAbilityType = (GoldAbilityType)Random.Range(0, (int)GoldAbilityType.End);
         catData.CatSkinType = (CatSkinType)Random.Range(0, (int)CatSkinType.End);
-        catData.SkinImage = CatManager.Instance.ReturnCatSprite(catData.CatSkinType);
+        catData.CatSprite = CatManager.Instance.ReturnCatSprite(catData.CatSkinType);
 
 
         int value = Random.Range(0, 20);
