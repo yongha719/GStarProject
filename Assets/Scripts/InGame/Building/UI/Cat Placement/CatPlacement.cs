@@ -59,11 +59,6 @@ public class CatPlacement : MonoBehaviour
         //        });
         //}
 
-        var catDatas = new CatData[1];
-        catDatas[0] = new CatData();
-        catDatas[0].Name = "깜펭바보";
-
-        SetBuildingInfo(BuildingType.GoldBuildingType, 0, catDatas, BuildingImage.sprite);
     }
 
     /// <summary>
@@ -84,6 +79,8 @@ public class CatPlacement : MonoBehaviour
 
         if (catData == null)
         {
+            print("아직 고양이 모집이랑 연동안됨");
+
             WorkText.gameObject.SetActive(false);
 
             return;
@@ -111,13 +108,6 @@ public class CatPlacement : MonoBehaviour
         {
             workingCat = Instantiate(GoldBuildingWorkingCatPlacements[buildingNum], WorkingCatParentTr).GetComponent<CatPlacementWorkingCats>();
 
-            for (int i = 0; i < catDataLen; i++)
-            {
-                workingCat.SetData(i, catData[i].CatSprite, call: () =>
-                {
-                    
-                });
-            }
 
             workingCat.CatAbilitys = catAbilityUIs;
         }
@@ -130,6 +120,14 @@ public class CatPlacement : MonoBehaviour
         else
         {
             throw new System.Exception($"이거 뭐야\n{nameof(CatPlacement)} 건물 종류 없어 이 색기야");
+        }
+
+        for (int i = 0; i < catDataLen; i++)
+        {
+            workingCat.SetData(i, catData[i].CatSprite, call: () =>
+            {
+
+            });
         }
     }
 
