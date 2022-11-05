@@ -56,7 +56,7 @@ public enum CatState
 
 public class Cat : MonoBehaviour
 {
-    public CatData catData = new CatData();
+    public CatData catData;
 
     public CatState CatState = CatState.NotProducting;
 
@@ -73,7 +73,6 @@ public class Cat : MonoBehaviour
         3 => 20,
         _ => throw new System.Exception("Cat Ability Rating that does not exist")
     };
-
 
 
     void Start()

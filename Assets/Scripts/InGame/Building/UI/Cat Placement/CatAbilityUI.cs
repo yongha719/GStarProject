@@ -18,6 +18,11 @@ public class CatAbilityUI : MonoBehaviour
         AbilityImage = GetComponent<Image>();
     }
 
+    public void SetAbility(CatAbilityUI catAbilityUI)
+    {
+
+    }
+
     public void SetAbility(Sprite abilitySprite, int Rating)
     {
         AbilityImage.sprite = abilitySprite;

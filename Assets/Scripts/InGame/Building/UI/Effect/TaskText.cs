@@ -25,6 +25,8 @@ public class TaskText : MonoBehaviour
         StartCoroutine(TextChange());
     }
 
+    public void SetText(string text) => OriginalText = text;
+
     // 텍스트 뒤에 ... 이 바뀌는 연출
     IEnumerator TextChange()
     {

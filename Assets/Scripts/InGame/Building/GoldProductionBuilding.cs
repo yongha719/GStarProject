@@ -118,7 +118,7 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
         CatPlacementButton?.onClick.AddListener(() =>
         {
             CatPlacement.UISetActive(true);
-            CatPlacement.SetBuildingInfo(PlacedInBuildingCat.Select(x => x.catData).ToArray(), SpriteRenderer.sprite);
+            //CatPlacement.SetBuildingInfo(PlacedInBuildingCat.Select(x => x.catData).ToArray(), SpriteRenderer.sprite);
         });
     }
 

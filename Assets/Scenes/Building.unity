@@ -8777,7 +8777,7 @@ GameObject:
   m_Component:
   - component: {fileID: 870801489}
   m_Layer: 0
-  m_Name: GameObject (1)
+  m_Name: Cat Place
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18726,6 +18726,7 @@ GameObject:
   - component: {fileID: 1387498854}
   - component: {fileID: 1387498856}
   - component: {fileID: 1387498855}
+  - component: {fileID: 1387498857}
   m_Layer: 0
   m_Name: Cat
   m_TagString: Untagged
@@ -18790,6 +18791,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1387498853}
   m_CullTransparentMesh: 1
+--- !u!114 &1387498857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1387498853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1387498855}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1427637680
 GameObject:
   m_ObjectHideFlags: 0
@@ -75716,6 +75761,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2111896460161843301, guid: 04992898a971d484aac8a54b3a3f4a69, type: 3}
+      propertyPath: Ability
+      value: 
+      objectReference: {fileID: 2111896459611321102}
+    - target: {fileID: 2111896460161843301, guid: 04992898a971d484aac8a54b3a3f4a69, type: 3}
       propertyPath: SkillImage
       value: 
       objectReference: {fileID: 0}
@@ -75997,6 +76046,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04992898a971d484aac8a54b3a3f4a69, type: 3}
+--- !u!114 &2111896459611321102 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5494882581833438104, guid: 04992898a971d484aac8a54b3a3f4a69, type: 3}
+  m_PrefabInstance: {fileID: 2111896459611321101}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f1015982edba684f8d5cc985cb9c9fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2751603834809869811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -82471,6 +82531,7 @@ MonoBehaviour:
   WorkText: {fileID: 1202083613}
   CatToPlacementContentTr: {fileID: 0}
   AbilityParentTr: {fileID: 0}
-  WorkingCatPlacements: []
+  GoldBuildingWorkingCatPlacements: []
+  EnergyBuildingWorkingCatPlacements: []
   CatToPlacementPrefab: {fileID: 0}
   AbilityPrefab: {fileID: 5806247040724369428, guid: 3eb1aa23bf05a8a409a49ca7fcbc8c99, type: 3}

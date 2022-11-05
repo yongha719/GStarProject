@@ -3,26 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Profiling;
 
+class BuildingType
+{
+    public static System.Type  GoldBuildingType = typeof(GoldBuildingType);
+    public static System.Type  EnergyBuildingType = typeof(EnergyBuildingType);
+}
+
 public enum GoldBuildingType
 {
-    IceFishing,              // ¾óÀ½ ³¬½ÃÅÍ
-    GoldMine,                // ±İ ±¤»ê
-    FirewoodChopping,        // ÀåÀÛ ÆĞ±â
-    PotatoFarming,           // °¨ÀÚ ³ó»ç
-    BlastFurnace,            // ¿ë±¤·Î
-    WinterClothesWorkshop,   // °Ü¿ï¿Ê °ø¹æ
-    Cauldron,                // °¡¸¶¼Ü
-    PowerPlant,              // ¹ßÀü¼Ò
+    IceFishing,              // ì–¼ìŒ ë‚šì‹œí„°
+    GoldMine,                // ê¸ˆ ê´‘ì‚°
+    FirewoodChopping,        // ì¥ì‘ íŒ¨ê¸°
+    PotatoFarming,           // ê°ì ë†ì‚¬
+    BlastFurnace,            // ìš©ê´‘ë¡œ
+    WinterClothesWorkshop,   // ê²¨ìš¸ì˜· ê³µë°©
+    Cauldron,                // ê°€ë§ˆì†¥
+    PowerPlant,              // ë°œì „ì†Œ
     End
 }
 
 public enum EnergyBuildingType
 {
-    CatTower,         // Ä¹ Å¸¿ö
-    Scratcher,        // ½ºÅ©·¡Ã³
-    HotSpring,        // ¿ÂÃµ
-    bonfire,          // ¸ğ´ÚºÒ
-    Box,              // ¹Ú½º
+    CatTower,         // ìº£ íƒ€ì›Œ
+    Scratcher,        // ìŠ¤í¬ë˜ì²˜
+    HotSpring,        // ì˜¨ì²œ
+    bonfire,          // ëª¨ë‹¥ë¶ˆ
+    Box,              // ë°•ìŠ¤
     End
 }
 
@@ -33,7 +39,7 @@ public static class BuildingManager
 
     public static void Init()
     {
-        for(int buildingtype = 0; buildingtype < (int)GoldBuildingType.End; buildingtype++)
+        for (int buildingtype = 0; buildingtype < (int)GoldBuildingType.End; buildingtype++)
         {
             s_GoldBuildings.Add((GoldBuildingType)buildingtype, 0);
         }
