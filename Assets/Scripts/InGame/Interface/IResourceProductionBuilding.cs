@@ -9,4 +9,5 @@ public interface IResourceProductionBuilding
     public IEnumerator ResourceProduction { get; }
 
     public IEnumerator WaitGetResource();
+
 }
