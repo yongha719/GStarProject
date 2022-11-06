@@ -40,7 +40,7 @@ public class CatData
     public string Name;                           // 고양이 이름
     public int AbilityRating;                     // 능력 등급
     public GoldAbilityType GoldAbilityType;       // 능력 타입
-    public Sprite AbilitySprite;                   // 능력 이미지
+    public Sprite AbilitySprite;                  // 능력 이미지
     public CatSkinType CatSkinType;               // 스킨 종류
     public Sprite CatSprite;                      // 스킨 이미지
 }

@@ -34,10 +34,15 @@ public class VillageHall : MonoBehaviour
 
     [Tooltip("마을 회관 UI"), SerializeField] private GameObject VillageHallUI;
 
+    [SerializeField] private RectTransform CoinTest;
+
+
     private GridBuildingSystem GridBuildingSystem;
 
     void Start()
     {
+        print(CoinTest.position); // 414.6 2873
+
         GridBuildingSystem = GridBuildingSystem.Instance;
 
         // z 값 조정 잘하자
@@ -45,6 +50,10 @@ public class VillageHall : MonoBehaviour
 
         GridBuildingSystem.SetTilesBlock(area, TileType.Installed, GridBuildingSystem.BuildingTilemap);
 
+        GoldProductionBuilding daqe = new GoldProductionBuilding();
+        IResourceProductionBuilding da = daqe;
+
+        print(da is GoldProductionBuilding);
     }
 
 
@@ -82,6 +91,7 @@ public class VillageHall : MonoBehaviour
 
     private void OnMouseDown()
     {
+
         if (VillageHallUI.activeSelf)
         {
             VillageHallUI.SetActive(false);

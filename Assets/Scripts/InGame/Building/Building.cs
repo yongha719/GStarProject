@@ -19,7 +19,7 @@ public abstract class Building : MonoBehaviour
     #region Deploying
 
 
-    protected bool isDeploying;
+    public bool isDeploying;
     public virtual bool IsDeploying
     {
         get
@@ -52,8 +52,10 @@ public abstract class Building : MonoBehaviour
     [SerializeField] private Button InstallationButton;
     [SerializeField] private Button DemolitionButton;
     [SerializeField] private Button RotateButton;
-
     #endregion
+
+    protected RectTransform CanvasRt;
+    protected Camera Camera;
 
     protected GridBuildingSystem GridBuildingSystem;
 
@@ -61,8 +63,11 @@ public abstract class Building : MonoBehaviour
     {
         GridBuildingSystem = GridBuildingSystem.Instance;
 
+        Camera = Camera.main;
+
         BuildingSprte = SpriteRenderer.gameObject;
 
+        CanvasRt = GameObject.Find("ParticleCanvas").transform as RectTransform;
 
         InstallationButton.onClick.AddListener(() =>
         {

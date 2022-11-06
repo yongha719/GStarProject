@@ -7,17 +7,24 @@ public class AcquisitionEffect : MonoBehaviour
 {
     public Vector2 targetpos = new Vector2();
 
+    RectTransform RectTransform;
     Rigidbody2D rigid;
 
     IEnumerator Start()
     {
+        RectTransform = transform as RectTransform;
+        var parentPos = (RectTransform.parent as RectTransform).anchoredPosition;
+        targetpos = new Vector2(targetpos.x + (parentPos.x * -1), targetpos.y + (parentPos.y * -1));
+
         rigid = GetComponent<Rigidbody2D>();
 
         rigid.AddForce(Random.insideUnitCircle * 2, ForceMode2D.Impulse);
         yield return new WaitForSeconds(1f);
         rigid.velocity = Vector2.zero;
 
-        yield return transform.DOLocalMove(targetpos, 0.5f).WaitForCompletion();
+        yield return RectTransform.DOAnchorPos(targetpos, 0.5f).SetEase(Ease.Linear).WaitForCompletion();
+
+        
 
         //닷트윈 포물선 그리는 함수
         //Vector3 firstPos = transform.position;

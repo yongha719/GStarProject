@@ -23,12 +23,14 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
             if (isDeploying)
             {
                 SpriteRenderer.color = new Color(1, 1, 1, 0.5f);
+                SpriteRenderer.sortingOrder = 3;
                 DeployingUIParent.SetActive(true);
                 CollectMoneyButton.gameObject.SetActive(false);
             }
             else
             {
                 SpriteRenderer.color = Color.white;
+                SpriteRenderer.sortingOrder = 0;
                 DeployingUIParent.SetActive(false);
                 CollectMoneyButton.gameObject.SetActive(true);
 
@@ -84,9 +86,7 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
     [Space(10)]
     #endregion
 
-
     [SerializeField] private GameObject BuildingUI;
-
 
     [SerializeField] private Button CatPlacementButton;
 
@@ -100,7 +100,6 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
     {
         CatPlacement = FindObjectOfType<CatPlacement>();
     }
-
 
     protected override void Start()
     {
@@ -118,7 +117,7 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
         CatPlacementButton?.onClick.AddListener(() =>
         {
             CatPlacement.UISetActive(true);
-            CatPlacement.SetBuildingInfo(BuildingType.Gold, (int)buildingType, PlacedInBuildingCat.Select(x => x.catData).Where(x => x != null).ToArray(), SpriteRenderer.sprite);
+            CatPlacement.SetBuildingInfo(BuildingType.Gold, this, PlacedInBuildingCat.Select(x => x.catData).Where(x => x != null).ToArray(), SpriteRenderer.sprite);
         });
     }
 
@@ -204,7 +203,8 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
                 CollectMoneyButton.gameObject.SetActive(false);
 
                 // 골드 획득 연출
-                Instantiate(GoldAcquisitionEffect, transform.position, Quaternion.identity);
+                print("coin effect");
+                Destroy(Instantiate(GoldAcquisitionEffect, transform.position + (Vector3.up * 0.5f), Quaternion.identity, CanvasRt), 1.5f);
 
                 yield break;
             }
@@ -213,8 +213,11 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
 
             if (curtime >= AUTO_GET_GOLD_DELAY)
             {
+                curtime = 0;
+
                 autogetmoney = true;
                 didGetMoney = true;
+                print("auto get money");
             }
 
             yield return null;
@@ -238,6 +241,9 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
 
     private void OnMouseDown()
     {
+        if (isDeploying)
+            return;
+
         if (CollectMoneyButton.gameObject.activeSelf)
         {
             didGetMoney = true;

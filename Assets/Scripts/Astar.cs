@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.Debug;
@@ -42,13 +42,9 @@ public class AStar
     {
         startPos *= 2;
         targetPos *= 2;
-        Log($"sp{startPos} tp{targetPos}");
-        Log(startPos.x < targetPos.x);
-        Log(startPos.y < targetPos.y);
         //bottomLeft = (startPos.x <= targetPos.x && startPos.y <= targetPos.y) ? startPos : targetPos;
         bottomLeft = Vector2Int.Min(startPos, targetPos);
         topRight = bottomLeft == startPos ? targetPos : startPos;
-        Log($"bl {bottomLeft} tr {topRight}");
 
         // NodeArray의 크기 정해주고, isWall, x, y 대입
         int sizeX = topRight.x - bottomLeft.x + 1;
@@ -60,8 +56,10 @@ public class AStar
             for (int j = 0; j < sizeY; j++)
             {
                 bool isWall = false;
-                //foreach (Collider2D col in Physics2D.OverlapCircleAll(new Vector2(i + bottomLeft.x, j + bottomLeft.y), 0.4f))
-                //    if (col.gameObject.layer == LayerMask.NameToLayer("Wall")) isWall = true;
+                // 장애물 판정
+                foreach (Collider2D col in Physics2D.OverlapCircleAll(new Vector2(i + bottomLeft.x, j + bottomLeft.y), 0.4f))
+                    if (col.gameObject.layer == LayerMask.NameToLayer("Wall"))
+                        isWall = true;
 
                 NodeArray[i, j] = new Node(isWall, i + bottomLeft.x, j + bottomLeft.y);
             }

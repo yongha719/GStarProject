@@ -16,6 +16,7 @@ public class BuildingInstallWarning : Warning
     {
 
     }
+
     private void Start()
     {
         YesButton.onClick.AddListener(() =>

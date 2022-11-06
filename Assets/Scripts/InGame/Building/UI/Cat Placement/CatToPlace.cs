@@ -33,7 +33,7 @@ public class CatToPlace : MonoBehaviour
 
         PlacementButton.onClick.AddListener(() =>
         {
-            onclick();
+            onclick?.Invoke();
         });
     }
 }
