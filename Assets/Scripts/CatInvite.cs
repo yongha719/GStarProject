@@ -13,8 +13,6 @@ public class CatInvite : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI needGoldText;
     [SerializeField]
-    private CatInviteEffect inviteEffect;
-    [SerializeField]
     private TMP_InputField catNameTextArea;
     private CatData curCatData;
 
@@ -38,6 +36,11 @@ public class CatInvite : MonoBehaviour
     public ParticleSystem fastSnow;
     private void OnEnable()
     {
+        slowSnow.Play();
+        CostTextAccept();
+    }
+    private void CostTextAccept()
+    {
         needGoldValue = CatManager.Instance.CatList.Count * 500;
         needGoldText.text = CalculatorManager.returnStr(needGoldValue);
     }
@@ -46,8 +49,8 @@ public class CatInvite : MonoBehaviour
         if (needGoldValue <= GameManager.Instance._coin)
         {
             GameManager.Instance._coin -= needGoldValue;
-            inviteEffect.gameObject.SetActive(true);
-            inviteEffect.PressBtn();
+            CatShadow.gameObject.SetActive(true);
+            fastSnow.Play();
             GachaEffect();
         }
         else
@@ -73,6 +76,8 @@ public class CatInvite : MonoBehaviour
         {
             curCatData.Name = catNameTextArea.text;
             CatManager.Instance.CatList.Add(curCatData);
+            CostTextAccept();
+            catNameTextArea.text = null;
             curCatData = null;
         }
         else
@@ -87,7 +92,7 @@ public class CatInvite : MonoBehaviour
 
         catData.GoldAbilityType = (GoldAbilityType)Random.Range(0, (int)GoldAbilityType.End);
         catData.CatSkinType = (CatSkinType)Random.Range(0, (int)CatSkinType.End);
-        catData.AbilitySprite = CatManager.Instance.GetCatAbiltySprite(catData.GoldAbilityType); ;
+        catData.AbilitySprite = CatManager.Instance.GetCatAbiltySprite(catData.GoldAbilityType);
         catData.CatSprite = CatManager.Instance.catInfos[(int)catData.CatSkinType].CatSprite;
         catData.Name = CatManager.Instance.catInfos[(int)catData.CatSkinType].CatName;
 
@@ -100,24 +105,5 @@ public class CatInvite : MonoBehaviour
             catData.AbilityRating = 1;
 
         return catData;
-    }
-    public void StartEffect()
-    {
-        StartCoroutine(PlayEffect());
-    }
-    public void PressBtn()
-    {
-        fastSnow.Play();
-        CatShadow.SetActive(true);
-    }
-    IEnumerator PlayEffect()
-    {
-        whiteScreen.DOFade(1, 1);
-        yield return new WaitForSeconds(1);
-        fastSnow.Stop();
-        slowSnow.Play();
-        whiteScreen.color = new Color(1, 1, 1, 0);
-        resultUI.SetActive(true);
-        CatShadow.SetActive(true);
     }
 }

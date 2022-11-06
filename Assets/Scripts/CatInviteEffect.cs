@@ -10,17 +10,9 @@ public class CatInviteEffect : MonoBehaviour
     public GameObject resultUI;
     public ParticleSystem slowSnow;
     public ParticleSystem fastSnow;
-    private Animator animator;
     public void StartEffect()
     {
         StartCoroutine(PlayEffect());
-    }
-    public void PressBtn()
-    {
-        animator = GetComponent<Animator>();
-        animator.Play("ShadowMove"); 
-        fastSnow.Play();
-        slowSnow.Stop();
     }
     IEnumerator PlayEffect()
     {
@@ -29,6 +21,7 @@ public class CatInviteEffect : MonoBehaviour
         fastSnow.Stop();
         slowSnow.Play();
         whiteScreen.color = new Color(1, 1, 1, 0);
+        gameObject.SetActive(false);
         resultUI.SetActive(true);
     }
 }

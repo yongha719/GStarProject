@@ -6769,7 +6769,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 5
   m_RenderMode: 0
   m_SortMode: 0
   m_MinParticleSize: 0
@@ -6780,7 +6780,7 @@ ParticleSystemRenderer:
   m_SortingFudge: 0
   m_NormalDirection: 1
   m_ShadowBias: 0
-  m_RenderAlignment: 1
+  m_RenderAlignment: 0
   m_Pivot: {x: 0, y: 0, z: 0}
   m_Flip: {x: 0, y: 0, z: 0}
   m_UseCustomVertexStreams: 0
@@ -12270,7 +12270,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e31274140eb0a46468f02f62707907f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CatList: []
+  CatList:
+  - Name: "\uD770 \uACE0\uC591\uC774"
+    AbilityRating: 1
+    GoldAbilityType: 0
+    AbilitySprite: {fileID: 21300000, guid: 927c340f073bff0499cbf44fecc4bcd0, type: 3}
+    CatSkinType: 4
+    CatSprite: {fileID: 21300000, guid: 6037a5310b5cc03438877f397d5b6260, type: 3}
   catInfos: []
 --- !u!4 &542007593
 Transform:
@@ -16241,6 +16247,7 @@ MonoBehaviour:
     - 0
     - 0
     - 0
+    CatList: []
   DEBUG: 1
 --- !u!4 &1291533927
 Transform:
@@ -18276,7 +18283,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 5
   m_RenderMode: 0
   m_SortMode: 0
   m_MinParticleSize: 0
@@ -18287,7 +18294,7 @@ ParticleSystemRenderer:
   m_SortingFudge: 0
   m_NormalDirection: 1
   m_ShadowBias: 0
-  m_RenderAlignment: 1
+  m_RenderAlignment: 0
   m_Pivot: {x: 0, y: 0, z: 0}
   m_Flip: {x: 0, y: 0, z: 0}
   m_UseCustomVertexStreams: 0
@@ -24145,7 +24152,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   needGoldValue: 0
   needGoldText: {fileID: 138540025}
-  inviteEffect: {fileID: 1382761766}
   catNameTextArea: {fileID: 1947958991}
   Stars:
   - {fileID: 2008818627}
