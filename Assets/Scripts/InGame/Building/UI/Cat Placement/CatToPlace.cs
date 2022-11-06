@@ -36,4 +36,14 @@ public class CatToPlace : MonoBehaviour
             onclick?.Invoke(CatData);
         });
     }
+
+    public void SetData(CatData catData)
+    {
+        CatData = catData;
+
+        CatImage.sprite = CatData.CatSprite;
+        CatNameText.text = CatData.Name;
+
+        Ability.SetAbility(CatData.AbilitySprite, CatData.AbilityRating);
+    }
 }

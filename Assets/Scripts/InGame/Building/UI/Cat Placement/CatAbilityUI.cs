@@ -6,16 +6,14 @@ using UnityEngine.UI;
 
 public class CatAbilityUI : MonoBehaviour
 {
+    [SerializeField] private Image AbilityImage;
     [SerializeField] private List<GameObject> RatingStars = new List<GameObject>();
 
-    private Image AbilityImage;
     private RectTransform rectTransform;
 
     private void Awake()
     {
         rectTransform = transform as RectTransform;
-
-        AbilityImage = GetComponent<Image>();
     }
 
     public void SetAbility(CatAbilityUI catAbilityUI)

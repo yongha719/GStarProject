@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.Rendering;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 /// <summary>
 /// 골드 생산 건물 고양이 능력
@@ -37,6 +38,7 @@ public enum CatSkinType
 [System.Serializable]
 public class CatData
 {
+    public Cat Cat;                               // 고양이
     public string Name;                           // 고양이 이름
     public int AbilityRating;                     // 능력 등급
     public GoldAbilityType GoldAbilityType;       // 능력 타입
@@ -56,7 +58,7 @@ public enum CatState
 
 public class Cat : MonoBehaviour
 {
-    public CatData catData;
+    public CatData catData = new CatData();
 
     public CatState CatState = CatState.NotProducting;
 
@@ -77,7 +79,7 @@ public class Cat : MonoBehaviour
 
     void Start()
     {
-
+        catData.Cat = this;
     }
 
     /// <summary>

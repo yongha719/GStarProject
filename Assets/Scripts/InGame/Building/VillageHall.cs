@@ -47,8 +47,6 @@ public class VillageHall : MonoBehaviour
 
         GoldProductionBuilding daqe = new GoldProductionBuilding();
         IResourceProductionBuilding da = daqe;
-
-        print(da is GoldProductionBuilding);
     }
 
 

@@ -229,7 +229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f1015982edba684f8d5cc985cb9c9fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AbilityImage: {fileID: 0}
+  AbilityImage: {fileID: 5806247040724369430}
   RatingStars:
   - {fileID: 5806247041976647371}
   - {fileID: 5806247040433623946}
