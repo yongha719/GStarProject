@@ -7,6 +7,8 @@ public class CatPlacementWarning : Warning
 {
     CatPlacement CatPlacement;
 
+    private const string WARNING_TEXT = "을(를)\n배치하시겠습니까?";
+
     void Start()
     {
         CatPlacement = FindObjectOfType<CatPlacement>();
@@ -23,4 +25,10 @@ public class CatPlacementWarning : Warning
     }
 
     public void OnClickYesButton(Action call) => YesButton.onClick.AddListener(() => call());
+
+    public void SetWaringData(string CatName)
+    {
+        WarningText.text = CatName + WARNING_TEXT;
+    }
 }
+

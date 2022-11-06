@@ -91,21 +91,18 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
     [SerializeField] private Button CatPlacementButton;
 
     // 건물에 배치된 고양이
-    private Cat[] PlacedInBuildingCat;
-
-    private CatPlacement CatPlacement;
+    private List<Cat> PlacedInBuildingCat = new List<Cat>();
 
 
     private void Awake()
     {
-        CatPlacement = FindObjectOfType<CatPlacement>();
+        //CatPlacement = FindObjectOfType<CatPlacement>();
     }
 
     protected override void Start()
     {
         base.Start();
 
-        PlacedInBuildingCat = new Cat[MaxDeployableCat];
 
         waitGoldChargingTime = new WaitForSeconds(DefaultGoldChargingTime);
 
@@ -116,14 +113,25 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
 
         CatPlacementButton?.onClick.AddListener(() =>
         {
-            CatPlacement.UISetActive(true);
-            CatPlacement.SetBuildingInfo(BuildingType.Gold, this, PlacedInBuildingCat.Select(x => x.catData).Where(x => x != null).ToArray(), SpriteRenderer.sprite);
+            CatPlacement.gameObject.SetActive(true);
+
+            if (PlacedInBuildingCat.Count == 0)
+            {
+                CatPlacement.SetBuildingInfo(BuildingType.Gold, this, null, SpriteRenderer.sprite);
+            }
+            else
+            {
+                CatPlacement.SetBuildingInfo(BuildingType.Gold, this, PlacedInBuildingCat.Where(x => x.catData != null).Select(x => x.catData).ToArray(), SpriteRenderer.sprite);
+            }
+
         });
     }
 
     // TODO : 너무 긴 거 같음 추후 리팩토링
-    public void OnCatMemberChange(Action action)
+    public void OnCatMemberChange(Cat cat, Action action)
     {
+        PlacedInBuildingCat.Add(cat);
+
         // 생산 시간 감소 수치
         int decreasingfigure = 0;
 
@@ -168,9 +176,14 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
         {
             while (true)
             {
-                yield return waitGoldChargingTime;
+                if (PlacedInBuildingCat.Count == 0)
+                {
+                    yield return null;
+                    continue;
+                }
 
-                CollectMoneyButton.gameObject.SetActive(true);
+                yield return StartCoroutine(WaitGetResource());
+
 
                 for (int i = 0; i < MaxDeployableCat; i++)
                 {
@@ -184,7 +197,9 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
                     }
                 }
 
-                yield return StartCoroutine(WaitGetResource());
+                yield return waitGoldChargingTime;
+
+                CollectMoneyButton.gameObject.SetActive(true);
             }
         }
     }

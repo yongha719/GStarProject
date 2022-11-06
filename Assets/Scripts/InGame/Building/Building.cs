@@ -53,6 +53,7 @@ public abstract class Building : MonoBehaviour
     [SerializeField] private Button DemolitionButton;
     [SerializeField] private Button RotateButton;
     #endregion
+    public CatPlacement CatPlacement;
 
     protected RectTransform CanvasRt;
     protected Camera Camera;

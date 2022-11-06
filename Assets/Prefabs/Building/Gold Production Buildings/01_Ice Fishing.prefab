@@ -830,6 +830,7 @@ MonoBehaviour:
   InstallationButton: {fileID: 405574493701101109}
   DemolitionButton: {fileID: 5969899369050173961}
   RotateButton: {fileID: 7496639491388935465}
+  CatPlacement: {fileID: 0}
   buildingType: 0
   CollectMoneyButton: {fileID: 5444481926985826226}
   DefaultGold: 200

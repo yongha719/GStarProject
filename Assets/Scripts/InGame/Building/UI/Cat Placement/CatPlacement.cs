@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
+using UnityEngine.Assertions.Must;
 
 public class CatPlacement : MonoBehaviour
 {
@@ -56,27 +57,40 @@ public class CatPlacement : MonoBehaviour
         var CatList = CatManager.CatList;
         var cnt = CatList.Count;
 
+        for (int i = 0; i < CatToPlacementContentTr.childCount; i++)
+        {
+            Destroy(CatToPlacementContentTr.GetChild(i));
+        }
+
         for (int i = 0; i < cnt; i++)
         {
             // TODO : 리팩토링
             var catToPlacement = Instantiate(CatToPlacementPrefab, CatToPlacementContentTr).GetComponent<CatToPlace>();
+            print(CatList[i] == null);
             catToPlacement.SetData(CatList[i],
-                onclick: () =>
+                onclick: (catData) =>
                 {
                     // 배치 버튼에 들어갈 이벤트들
 
                     // 경고창
                     CatPlacementWarning.gameObject.SetActive(true);
+                    CatPlacementWarning.SetWaringData(catData.Name);
 
                     CatPlacementWarning.OnClickYesButton(() =>
                     {
-                        catToPlacement.SetData(CurSelectedCat, null);
+                        if (CurSelectedCat == null)
+                        {
+                            catToPlacement.SetData(catData, null);
+                        }
+                        else
+                        {
+                            catToPlacement.SetData(CurSelectedCat, null);
+                        }
 
-
-                        workingCat.SetData(CurSelectedCatIndex, CatList[i].CatSprite, CatList[i].AbilitySprite, CatList[i].AbilityRating,
+                        workingCat.SetData(CurSelectedCatIndex, catData.CatSprite, catData.AbilitySprite, catData.AbilityRating,
                         call: () =>
                         {
-                            CurSelectedCat = CatList[i];
+                            CurSelectedCat = catData;
                         });
 
                     });
@@ -103,6 +117,7 @@ public class CatPlacement : MonoBehaviour
             print("아직 고양이 모집이랑 연동안됨");
 
             WorkText.gameObject.SetActive(false);
+            BuildingImage.sprite = buildingSprite;
 
             return;
         }

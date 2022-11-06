@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: 03_MufflerBlackCat
   m_EditorClassIdentifier: 
   CatName: "\uAC80\uC740 \uBAA9\uB3C4\uB9AC \uACE0\uC591\uC774"
-  CatSprite: {fileID: 21300000, guid: e5dabbe0552aed9449d4329380717acd, type: 3}
+  CatSprite: {fileID: 21300000, guid: de44e259daaeeb24c819b39b32e9f052, type: 3}
   CatType: 2

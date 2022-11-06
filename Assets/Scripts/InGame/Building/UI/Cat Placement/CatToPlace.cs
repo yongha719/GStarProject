@@ -22,7 +22,7 @@ public class CatToPlace : MonoBehaviour
     /// 배치할 고양이 정보 설정
     /// </summary>
     /// <param name="onclick">배치 버튼에 들어갈 onclick 이벤트</param>
-    public void SetData(CatData catData, Action onclick)
+    public void SetData(CatData catData, Action<CatData> onclick)
     {
         CatData = catData;
 
@@ -33,7 +33,7 @@ public class CatToPlace : MonoBehaviour
 
         PlacementButton.onClick.AddListener(() =>
         {
-            onclick?.Invoke();
+            onclick?.Invoke(CatData);
         });
     }
 }
