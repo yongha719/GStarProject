@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: b4f1c150cdb37654193564169a821580, type: 3}
   m_Name: 06_RedScarfCat
-  m_EditorClassIdentifier: Assembly-CSharp::CatInfo
+  m_EditorClassIdentifier: 
   CatName: "\uBE68\uAC04 \uC2A4\uCE74\uD504 \uACE0\uC591\uC774"
   CatSprite: {fileID: 21300000, guid: 9d459cbd4d29a1a4da098190363c6e51, type: 3}
   CatType: 5

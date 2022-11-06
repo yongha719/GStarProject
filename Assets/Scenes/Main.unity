@@ -16248,7 +16248,7 @@ MonoBehaviour:
     - 0
     - 0
     CatList: []
-  DEBUG: 1
+  DEBUG: 0
 --- !u!4 &1291533927
 Transform:
   m_ObjectHideFlags: 0
