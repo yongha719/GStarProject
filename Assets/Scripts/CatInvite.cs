@@ -24,6 +24,13 @@ public class CatInvite : MonoBehaviour
     private Image skillIcon;
     [SerializeField]
     private TextMeshProUGUI catName;
+
+    [Header("Animation Effect")]
+    public GameObject CatShadow;
+    public Image whiteScreen;
+    public GameObject resultUI;
+    public ParticleSystem slowSnow;
+    public ParticleSystem fastSnow;
     public void CatInviteBtnFunc(double needGoldValue)
     {
         if (needGoldValue <= GameManager.Instance._coin)
@@ -43,11 +50,26 @@ public class CatInvite : MonoBehaviour
         yield return null;
 
         curCatData = RandomCatEarn();
+
         for (int i = 0; i < Stars.Length; i++)
             Stars[i].SetActive(i < curCatData.AbilityRating);
         catSprite.sprite = curCatData.SkinImage;
+        catName.text = curCatData.Name;
+        skillIcon.sprite = curCatData.AbilityImage;
 
-
+    }
+    public void CatNaming()
+    {
+        if (catNameTextArea.text != null)
+        {
+            curCatData.Name = catNameTextArea.text;
+            CatManager.Instance.CatList.Add(curCatData);
+            curCatData = null;
+        }
+        else
+        {
+            Debug.Log("이름 짓기 오류 문구 뛰워야함");
+        }
     }
 
     public CatData RandomCatEarn()
@@ -56,8 +78,8 @@ public class CatInvite : MonoBehaviour
 
         catData.GoldAbilityType = (GoldAbilityType)Random.Range(0, (int)GoldAbilityType.End);
         catData.CatSkinType = (CatSkinType)Random.Range(0, (int)CatSkinType.End);
+        catData.AbilityImage = CatManager.Instance.ReturnCatAbiltySprite(catData.GoldAbilityType); ;
         catData.SkinImage = CatManager.Instance.ReturnCatSprite(catData.CatSkinType);
-
 
         int value = Random.Range(0, 20);
         if (value < 3)
@@ -70,5 +92,23 @@ public class CatInvite : MonoBehaviour
         catData.Name = null;
 
         return catData;
+    }
+    public void StartEffect()
+    {
+        StartCoroutine(PlayEffect());
+    }
+    public void PressBtn()
+    {
+        fastSnow.gameObject.SetActive(true);
+        CatShadow.SetActive(true);
+    }
+    IEnumerator PlayEffect()
+    {
+        whiteScreen.DOFade(1, 1);
+        yield return new WaitForSeconds(1);
+        fastSnow.Stop();
+        slowSnow.Play();
+        whiteScreen.color = new Color(1, 1, 1, 0);
+        resultUI.SetActive(true);
     }
 }
