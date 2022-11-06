@@ -16,16 +16,20 @@ public class CatToPlace : MonoBehaviour
     [SerializeField] private CatAbilityUI Ability;
     [SerializeField] private Button PlacementButton;
 
+    public CatData CatData;
+
     /// <summary>
     /// 배치할 고양이 정보 설정
     /// </summary>
     /// <param name="onclick">배치 버튼에 들어갈 onclick 이벤트</param>
-    public void SetData(Sprite catSprite, string catName, Sprite abilitySprite, int abilityRating, Action onclick)
+    public void SetData(CatData catData, Action onclick)
     {
-        CatImage.sprite = catSprite;
-        CatNameText.text = catName;
+        CatData = catData;
 
-        Ability.SetAbility(abilitySprite, abilityRating);
+        CatImage.sprite = CatData.CatSprite;
+        CatNameText.text = CatData.Name;
+        
+        Ability.SetAbility(CatData.AbilitySprite, CatData.AbilityRating);
 
         PlacementButton.onClick.AddListener(() =>
         {

@@ -56,7 +56,7 @@ public class CatInvite : MonoBehaviour
 
         catData.GoldAbilityType = (GoldAbilityType)Random.Range(0, (int)GoldAbilityType.End);
         catData.CatSkinType = (CatSkinType)Random.Range(0, (int)CatSkinType.End);
-        catData.CatSprite = CatManager.Instance.ReturnCatSprite(catData.CatSkinType);
+        catData.CatSprite = CatManager.Instance.GetCatSprite(catData.CatSkinType);
 
 
         int value = Random.Range(0, 20);

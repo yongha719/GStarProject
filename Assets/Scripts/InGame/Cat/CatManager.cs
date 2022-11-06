@@ -24,6 +24,6 @@ public class CatManager : Singleton<CatManager>
         // 쫓겨나는 이벤트
     }
 
-    public Sprite ReturnCatSprite(CatSkinType catSkinType) => catSpritesList[(int)catSkinType];
+    public Sprite GetCatSprite(CatSkinType catSkinType) => catSpritesList[(int)catSkinType];
 
 }
