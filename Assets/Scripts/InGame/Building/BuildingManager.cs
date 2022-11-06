@@ -49,6 +49,11 @@ public static class BuildingManager
         {
             s_GoldBuildings.Add((GoldBuildingType)buildingtype, 0);
         }
+        
+        for (int buildingtype = 0; buildingtype < (int)EnergyBuildingType.End; buildingtype++)
+        {
+            s_EnergyBuildings.Add((EnergyBuildingType)buildingtype, 0);
+        }
     }
 
     public static void BuildingLevelUp(GoldBuildingType buildingType) => s_GoldBuildings[buildingType]++;

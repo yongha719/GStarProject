@@ -93,8 +93,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CatImage: {fileID: 2111896460445596147}
   CatNameText: {fileID: 2111896461037401389}
-  Ability: {fileID: 0}
+  Ability: {fileID: 5494882581833438104}
   PlacementButton: {fileID: 2111896460902856847}
+  CatData:
+    Name: 
+    AbilityRating: 0
+    GoldAbilityType: 0
+    AbilitySprite: {fileID: 0}
+    CatSkinType: 0
+    CatSprite: {fileID: 0}
 --- !u!1 &2111896460445596145
 GameObject:
   m_ObjectHideFlags: 0
@@ -667,3 +674,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5806247040724369429, guid: 704595c961f5a6344b690066934fc8ec, type: 3}
   m_PrefabInstance: {fileID: 2114704654047533479}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5494882581833438104 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5843787984955476543, guid: 704595c961f5a6344b690066934fc8ec, type: 3}
+  m_PrefabInstance: {fileID: 2114704654047533479}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f1015982edba684f8d5cc985cb9c9fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
