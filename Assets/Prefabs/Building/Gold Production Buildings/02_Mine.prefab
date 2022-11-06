@@ -558,8 +558,9 @@ MonoBehaviour:
   DefaultGoldChargingTime: 30
   IncreasePerLevelUp: 15
   ConstructionGoldText: {fileID: 3977098050459093906}
+  GoldAcquisitionEffect: {fileID: 0}
   BuildingUI: {fileID: 0}
-  CoinAcquisitionEffect: {fileID: 0}
+  CatPlacementButton: {fileID: 0}
 --- !u!61 &-7530547053688273797
 BoxCollider2D:
   m_ObjectHideFlags: 0

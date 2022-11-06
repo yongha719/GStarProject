@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
+using System.Linq;
 
 public class GoldProductionBuilding : Building, IResourceProductionBuilding
 {
@@ -114,12 +115,11 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
             didGetMoney = true;
         });
 
-        CatPlacementButton.onClick.AddListener(() =>
+        CatPlacementButton?.onClick.AddListener(() =>
         {
             CatPlacement.UISetActive(true);
-            CatPlacement.SetBuildingInfo(PlacedInBuildingCat[0].catData, SpriteRenderer.sprite);
+            CatPlacement.SetBuildingInfo(BuildingType.Gold, (int)buildingType, PlacedInBuildingCat.Select(x => x.catData).Where(x => x != null).ToArray(), SpriteRenderer.sprite);
         });
-
     }
 
     // TODO : 너무 긴 거 같음 추후 리팩토링
@@ -132,6 +132,7 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
         {
             if (PlacedInBuildingCat[i] != null)
             {
+                // 능력이 건물의 종류와 같을 때
                 if ((int)buildingType == (int)PlacedInBuildingCat[i].catData.GoldAbilityType)
                 {
                     decreasingfigure += PlacedInBuildingCat[i].PercentageReductionbyGrade;

@@ -40,9 +40,9 @@ public class CatData
     public string Name;                           // 고양이 이름
     public int AbilityRating;                     // 능력 등급
     public GoldAbilityType GoldAbilityType;       // 능력 타입
-    public Sprite AbilityImage;                   // 능력 이미지
+    public Sprite AbilitySprite;                   // 능력 이미지
     public CatSkinType CatSkinType;               // 스킨 종류
-    public Sprite SkinImage;                      // 스킨 이미지
+    public Sprite CatSprite;                      // 스킨 이미지
 }
 
 [System.Serializable]
@@ -56,7 +56,7 @@ public enum CatState
 
 public class Cat : MonoBehaviour
 {
-    public CatData catData = new CatData();
+    public CatData catData;
 
     public CatState CatState = CatState.NotProducting;
 
@@ -73,7 +73,6 @@ public class Cat : MonoBehaviour
         3 => 20,
         _ => throw new System.Exception("Cat Ability Rating that does not exist")
     };
-
 
 
     void Start()

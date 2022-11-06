@@ -19,15 +19,17 @@ public class CatManager : Singleton<CatManager>
     /// <summary>
     /// 마을 내보내기
     /// </summary>
-    public void RemoveCat(CatData cat) => CatList.Remove(cat);
-
-    public Sprite ReturnCatSprite(CatSkinType catSkinType)
+    public void RemoveCat(CatData cat)
     {
-        return catSpritesList[(int)catSkinType];
+        CatList.Remove(cat);
+
+        // 쫓겨나는 이벤트
     }
     public Sprite ReturnCatAbiltySprite(GoldAbilityType type)
     {
         return abiltySpritesList[(int)type];
     }
+
+    public Sprite GetCatSprite(CatSkinType catSkinType) => catSpritesList[(int)catSkinType];
 
 }

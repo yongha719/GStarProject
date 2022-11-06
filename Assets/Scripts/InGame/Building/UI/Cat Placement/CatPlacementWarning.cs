@@ -1,18 +1,19 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VilageHallWarning : Warning
+public class CatPlacementWarning : Warning
 {
-    private VillageHall VillageHall;
+    CatPlacement CatPlacement;
 
-    private void Start()
+    void Start()
     {
-        VillageHall = FindObjectOfType<VillageHall>();
+        CatPlacement = FindObjectOfType<CatPlacement>();
 
         YesButton.onClick.AddListener(() =>
         {
-            VillageHall.LevelUp();
+
         });
 
         NoButton.onClick.AddListener(() =>
@@ -20,4 +21,6 @@ public class VilageHallWarning : Warning
             WarningUI.SetActive(false);
         });
     }
+
+    public void OnClickYesButton(Action call) => YesButton.onClick.AddListener(() => call());
 }
