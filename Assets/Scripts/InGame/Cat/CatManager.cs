@@ -2,17 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+[CreateAssetMenu(fileName = "CatInfo", menuName = "CatInfo", order = int.MinValue)]
+public class CatInfo : ScriptableObject
+{
+    public string CatName;
+    public Sprite CatSprite;
+    public CatSkinType CatType;
+}
 public class CatManager : Singleton<CatManager>
 {
     public List<CatData> CatList = new List<CatData>();
-    private Sprite[] catSpritesList;
+    public CatInfo[] catInfos;
     private Sprite[] abiltySpritesList;
-
 
     private void Awake()
     {
-        catSpritesList = Resources.LoadAll<Sprite>("CatSprites");
+        catInfos = Resources.LoadAll<CatInfo>("CatInfos");
         abiltySpritesList = Resources.LoadAll<Sprite>("AbiltySprites");
     }
 
@@ -25,11 +30,7 @@ public class CatManager : Singleton<CatManager>
 
         // 쫓겨나는 이벤트
     }
-    public Sprite ReturnCatAbiltySprite(GoldAbilityType type)
-    {
-        return abiltySpritesList[(int)type];
-    }
+    public Sprite GetCatAbiltySprite(GoldAbilityType type) => abiltySpritesList[(int)type];
 
-    public Sprite GetCatSprite(CatSkinType catSkinType) => catSpritesList[(int)catSkinType];
 
 }

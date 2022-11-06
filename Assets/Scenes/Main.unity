@@ -688,7 +688,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1893181343}
         m_TargetAssemblyTypeName: CatInvite, Assembly-CSharp
-        m_MethodName: PressBtn
+        m_MethodName: CatInviteBtnFunc
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6708,7 +6708,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &395615162
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6811,7 +6811,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -12271,6 +12271,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CatList: []
+  catInfos: []
 --- !u!4 &542007593
 Transform:
   m_ObjectHideFlags: 0
@@ -13493,7 +13494,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resource:
     catCount: 100
-    coin: 0
+    coin: 10000
     energy: 10
     ice: 100
 --- !u!4 &825599741
@@ -13817,6 +13818,30 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1177004930}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 309438242}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &871317345
 MonoBehaviour:
@@ -16125,6 +16150,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 309438242}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1281157516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16204,7 +16241,7 @@ MonoBehaviour:
     - 0
     - 0
     - 0
-  DEBUG: 0
+  DEBUG: 1
 --- !u!4 &1291533927
 Transform:
   m_ObjectHideFlags: 0
@@ -18111,6 +18148,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 309438242}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1588285665
 MonoBehaviour:
@@ -24019,7 +24068,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1893181340
 RectTransform:
   m_ObjectHideFlags: 0
@@ -24094,6 +24143,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ba6e476481a99b49a6ed4e518688ea4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  needGoldValue: 0
+  needGoldText: {fileID: 138540025}
   inviteEffect: {fileID: 1382761766}
   catNameTextArea: {fileID: 1947958991}
   Stars:
