@@ -4,11 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Globalization;
+using DG.Tweening.Core;
 
 public class CatInvite : MonoBehaviour
 {
+    public double needGoldValue;
+
     [SerializeField]
-    private CatInviteEffect inviteEffect;
+    private TextMeshProUGUI needGoldText;
     [SerializeField]
     private TMP_InputField catNameTextArea;
     private CatData curCatData;
@@ -24,30 +27,63 @@ public class CatInvite : MonoBehaviour
     private Image skillIcon;
     [SerializeField]
     private TextMeshProUGUI catName;
-    public void CatInviteBtnFunc(double needGoldValue)
+
+    [Header("Animation Effect")]
+    public GameObject CatShadow;
+    public Image whiteScreen;
+    public GameObject resultUI;
+    public ParticleSystem slowSnow;
+    public ParticleSystem fastSnow;
+    private void OnEnable()
+    {
+        slowSnow.Play();
+        CostTextAccept();
+    }
+    private void CostTextAccept()
+    {
+        needGoldValue = CatManager.Instance.CatList.Count * 500;
+        needGoldText.text = CalculatorManager.returnStr(needGoldValue);
+    }
+    public void CatInviteBtnFunc()
     {
         if (needGoldValue <= GameManager.Instance._coin)
         {
             GameManager.Instance._coin -= needGoldValue;
-            inviteEffect.gameObject.SetActive(true);
-            inviteEffect.PressBtn();
-            StartCoroutine(GachaEffect());
+            CatShadow.gameObject.SetActive(true);
+            fastSnow.Play();
+            GachaEffect();
         }
         else
         {
             Debug.Log("소지 코인 부족");
         }
     }
-    IEnumerator GachaEffect()
+    void GachaEffect()
     {
-        yield return null;
-
         curCatData = RandomCatEarn();
+
         for (int i = 0; i < Stars.Length; i++)
             Stars[i].SetActive(i < curCatData.AbilityRating);
-        catSprite.sprite = curCatData.SkinImage;
+        catSprite.sprite = curCatData.CatSprite;
+        catName.text = curCatData.Name;
+        skillIcon.sprite = curCatData.AbilitySprite;
 
 
+    }
+    public void CatNaming()
+    {
+        if (catNameTextArea.text != null)
+        {
+            curCatData.Name = catNameTextArea.text;
+            CatManager.Instance.CatList.Add(curCatData);
+            CostTextAccept();
+            catNameTextArea.text = null;
+            curCatData = null;
+        }
+        else
+        {
+            Debug.Log("이름 짓기 오류 문구 뛰워야함");
+        }
     }
 
     public CatData RandomCatEarn()
@@ -56,8 +92,9 @@ public class CatInvite : MonoBehaviour
 
         catData.GoldAbilityType = (GoldAbilityType)Random.Range(0, (int)GoldAbilityType.End);
         catData.CatSkinType = (CatSkinType)Random.Range(0, (int)CatSkinType.End);
-        catData.SkinImage = CatManager.Instance.ReturnCatSprite(catData.CatSkinType);
-
+        catData.AbilitySprite = CatManager.Instance.GetCatAbiltySprite(catData.GoldAbilityType);
+        catData.CatSprite = CatManager.Instance.catInfos[(int)catData.CatSkinType].CatSprite;
+        catData.Name = CatManager.Instance.catInfos[(int)catData.CatSkinType].CatName;
 
         int value = Random.Range(0, 20);
         if (value < 3)
@@ -66,8 +103,6 @@ public class CatInvite : MonoBehaviour
             catData.AbilityRating = 2;
         else
             catData.AbilityRating = 1;
-
-        catData.Name = null;
 
         return catData;
     }

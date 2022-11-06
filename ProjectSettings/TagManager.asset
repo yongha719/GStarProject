@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - ParticleCamera
   layers:
   - Default
   - TransparentFX
@@ -43,6 +44,15 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Building
+    uniqueID: 3755925095
+    locked: 0
+  - name: MainUI
+    uniqueID: 1580634211
+    locked: 0
+  - name: BuildingUI
+    uniqueID: 2812349021
     locked: 0
   - name: Paticle
     uniqueID: 539147405

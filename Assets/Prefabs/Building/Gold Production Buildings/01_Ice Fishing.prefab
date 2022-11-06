@@ -151,7 +151,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6211559787909298647}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -186,7 +186,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 87dea96216d333e4abfa2a78f53fff36, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e0afaa0d82acf804c92f82d02bf588c1, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -267,7 +267,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3854345743032265918
 RectTransform:
   m_ObjectHideFlags: 0
@@ -545,7 +545,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5716113012735090159
 RectTransform:
   m_ObjectHideFlags: 0
@@ -560,7 +560,7 @@ RectTransform:
   - {fileID: 7668947388004358231}
   - {fileID: 3057283953651789319}
   m_Father: {fileID: 6211559787909298647}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -757,7 +757,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: c94b70f97b831b34bb78f40eb08d0384, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.5}
   m_FlipX: 0
@@ -820,6 +820,7 @@ MonoBehaviour:
     m_Size: {x: 1, y: 1, z: 1}
   BuildingName: "\uC5BC\uC74C \uB09A\uC2DC\uD130"
   Rating: 1
+  isDeploying: 1
   DefaultConstructionCost: 500
   BuildingInfo: {fileID: 0}
   MaxDeployableCat: 1
@@ -829,15 +830,16 @@ MonoBehaviour:
   InstallationButton: {fileID: 405574493701101109}
   DemolitionButton: {fileID: 5969899369050173961}
   RotateButton: {fileID: 7496639491388935465}
+  CatPlacement: {fileID: 0}
   buildingType: 0
   CollectMoneyButton: {fileID: 5444481926985826226}
   DefaultGold: 200
   DefaultGoldChargingTime: 5
   IncreasePerLevelUp: 15
   ConstructionGoldText: {fileID: 3977098050459093906}
-  GoldAcquisitionEffect: {fileID: 0}
-  BuildingUI: {fileID: 0}
-  CatPlacementButton: {fileID: 0}
+  GoldAcquisitionEffect: {fileID: 4651143797973280713, guid: d1c3aa70df08bb943a114b0228f21908, type: 3}
+  BuildingUI: {fileID: 3901589955428253113}
+  CatPlacementButton: {fileID: 7869419501257218185}
 --- !u!61 &1225053044882868628
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -894,9 +896,9 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.01, y: 0.01, z: 1}
   m_Children:
+  - {fileID: 6141328734154275645}
   - {fileID: 6433020165839852332}
   - {fileID: 5716113012735090159}
-  - {fileID: 6141328734154275645}
   - {fileID: 3854345743032265918}
   m_Father: {fileID: 7293558756560507725}
   m_RootOrder: 1
@@ -925,7 +927,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &486691273573016492
 MonoBehaviour:
@@ -997,7 +999,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6211559787909298647}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1034,7 +1036,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: -100
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: eec22635edb9f254cb3eaed61c74d4b0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 295d71f17b9545d48bb95686f58adfcb, type: 2}
   m_sharedMaterial: {fileID: -6049952126849204303, guid: eec22635edb9f254cb3eaed61c74d4b0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1098,7 +1100,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &8500982359711668722
