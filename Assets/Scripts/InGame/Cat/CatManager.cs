@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class CatManager : Singleton<CatManager>
 {
-    public List<CatData> CatList = new List<CatData>();
+    public List<CatData> CatDataList = new List<CatData>();
+    public List<Cat> CatList = new List<Cat>(); 
     public CatInfo[] catInfos;
     private Sprite[] abiltySpritesList;
 
@@ -12,6 +13,8 @@ public class CatManager : Singleton<CatManager>
     {
         catInfos = Resources.LoadAll<CatInfo>("CatInfos");
         abiltySpritesList = Resources.LoadAll<Sprite>("AbiltySprites");
+
+        CatDataList[0].Cat = new Cat();
     }
 
     /// <summary>
@@ -19,7 +22,7 @@ public class CatManager : Singleton<CatManager>
     /// </summary>
     public void RemoveCat(CatData cat)
     {
-        CatList.Remove(cat);
+        CatDataList.Remove(cat);
 
         // 쫓겨나는 이벤트
     }

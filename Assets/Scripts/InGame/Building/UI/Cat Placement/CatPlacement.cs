@@ -58,7 +58,7 @@ public class CatPlacement : MonoBehaviour
     private void OnEnable()
     {
         // 고양이 리스트 출력
-        var CatList = CatManager.CatList;
+        var CatList = CatManager.CatDataList;
         var cnt = CatList.Count;
 
 
@@ -97,7 +97,7 @@ public class CatPlacement : MonoBehaviour
                                 if (BuildingType == BuildingType.Gold)
                                 {
                                     workingCat = Instantiate(GoldBuildingWorkingCatPlacements[(int)goldBuilding.buildingType], WorkingCatParentTr).GetComponent<CatPlacementWorkingCats>();
-                                    goldBuilding.OnCatMemberChange(catData.Cat, null);
+                                    goldBuilding.OnCatMemberChange(catData, null);
                                 }
                             }
                             else if (productionBuilding is EnergyProductionBuilding)

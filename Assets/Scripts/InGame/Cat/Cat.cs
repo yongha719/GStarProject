@@ -50,17 +50,18 @@ public class CatData
 [System.Serializable]
 public enum CatState
 {
-    NotProducting,
-    GoldProducting,
-    EnergyProducting,
+    NotProducting,          // 아무것도 안하는 중
+    Working,                // 일하는 중
+    Resting,                // 휴식하는 중
 }
 
 
 public class Cat : MonoBehaviour
 {
     public CatData catData = new CatData();
-
     public CatState CatState = CatState.NotProducting;
+    public string BuildingName;
+
 
     // 골드 생산 횟수
     public int NumberOfGoldProduction;

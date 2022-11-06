@@ -32,8 +32,6 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
                 SpriteRenderer.color = Color.white;
                 SpriteRenderer.sortingOrder = 0;
                 DeployingUIParent.SetActive(false);
-                CollectMoneyButton.gameObject.SetActive(true);
-
             }
         }
     }
@@ -128,8 +126,11 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
     }
 
     // TODO : 너무 긴 거 같음 추후 리팩토링
-    public void OnCatMemberChange(Cat cat, Action action)
+    public void OnCatMemberChange(CatData catData, Action action)
     {
+        Cat cat = new Cat();
+        cat.catData = catData;
+
         PlacedInBuildingCat.Add(cat);
 
         // 생산 시간 감소 수치

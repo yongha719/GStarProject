@@ -22,10 +22,16 @@ public class VillageHallUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI CurAreaText;
     [SerializeField] private TextMeshProUGUI NextAreaText;
 
+    [Header("경고창")]
     [SerializeField] private GameObject Warning;
     [SerializeField] private GameObject NotEnoughGold;
 
+    [Header("주민")]
+    [SerializeField] private RectTransform CatsContent;
+    [SerializeField] private GameObject CatInfoPrefab;
+
     private GameManager GameManager;
+    private CatManager CatManager;
 
     private void Awake()
     {
@@ -35,13 +41,22 @@ public class VillageHallUI : MonoBehaviour
     }
     private void OnEnable()
     {
-
         LevelUpCostText.text = VillageHall.GetLevelUpCost;
 
         CurLevelText.text = $"Lv. {VillageHall.Level}";
         CurAreaText.text = $"{VillageHall.CurAreaSize} * {VillageHall.CurAreaSize}";
         NextLevelText.text = $"Lv. {VillageHall.Level + 1}";
         NextAreaText.text = $"{VillageHall.CurAreaSize + 2} * {VillageHall.CurAreaSize + 2}";
+
+        var CatList = CatManager.CatList;
+        var cnt = CatList.Count;
+
+        for (int i = 0; i < cnt; i++)
+        {
+            var cat = Instantiate(CatInfoPrefab, CatsContent);
+
+        }
+
     }
 
     void Start()

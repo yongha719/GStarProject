@@ -128,8 +128,11 @@ public class EnergyProductionBuilding : Building, IResourceProductionBuilding
         }
     }
 
-    public void OnCatMemberChange(Cat cat, Action action)
+    public void OnCatMemberChange(CatData catData, Action action)
     {
+        Cat cat = new Cat();
+        cat.catData = catData;
+
         PlacedInBuildingCat.Add(cat);
 
         int decreasingfigure = 0;
