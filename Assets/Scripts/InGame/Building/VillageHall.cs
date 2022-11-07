@@ -86,10 +86,10 @@ public class VillageHall : MonoBehaviour
 
     private void OnMouseDown()
     {
-        //if (EventSystem.current.currentSelectedGameObject != null &&EventSystem.current..layer.Equals(5))
-        //{
-        //    print("ds");
-        //}
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
 
         if (VillageHallUI.activeSelf)
         {
