@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
 using System.Linq;
+using UnityEngine.EventSystems;
 
 public class GoldProductionBuilding : Building, IResourceProductionBuilding
 {
@@ -258,7 +259,7 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
 
     private void OnMouseDown()
     {
-        if (isDeploying)
+        if (isDeploying && EventSystem.current.IsPointerOverGameObject())
             return;
 
         if (CollectMoneyButton.gameObject.activeSelf)

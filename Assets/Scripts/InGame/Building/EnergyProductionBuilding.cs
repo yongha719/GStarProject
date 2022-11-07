@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
+using UnityEngine.EventSystems;
+using System.Linq;
 
 public class EnergyProductionBuilding : Building, IResourceProductionBuilding
 {
@@ -63,12 +64,29 @@ public class EnergyProductionBuilding : Building, IResourceProductionBuilding
 
     #endregion
 
-    [SerializeField] private Button BuildingButton;
     [SerializeField] private GameObject BuildingUI;
+    [SerializeField] private Button CatPlacementButton;
 
     protected override void Start()
     {
         base.Start();
+
+        CatPlacementButton?.onClick.AddListener(() =>
+        {
+            CatPlacement.gameObject.SetActive(true);
+
+            if (PlacedInBuildingCat.Count == 0)
+            {
+                CatPlacement.SetBuildingInfo(BuildingType.Gold, this, null, SpriteRenderer.sprite);
+            }
+            else
+            {
+                var cats = PlacedInBuildingCat.Where(x => x.catData != null).Select(x => x.catData).ToArray();
+                print(cats.Length);
+                CatPlacement.SetBuildingInfo(BuildingType.Gold, this, cats, SpriteRenderer.sprite);
+            }
+
+        });
 
     }
 
@@ -159,5 +177,24 @@ public class EnergyProductionBuilding : Building, IResourceProductionBuilding
         }
 
         action?.Invoke();
+    }
+
+    private void OnMouseDown()
+    {
+        if (isDeploying && EventSystem.current.IsPointerOverGameObject())
+            return;
+
+        if (CollectEnergyButton.gameObject.activeSelf)
+        {
+            didGetEnergy = true;
+        }
+        else if (BuildingUI.activeSelf)
+        {
+            BuildingUI.SetActive(false);
+        }
+        else
+        {
+            BuildingUI.SetActive(true);
+        }
     }
 }
