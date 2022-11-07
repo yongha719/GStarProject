@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
+using UnityEngine.EventSystems;
 
 public class VillageHall : MonoBehaviour
 {
@@ -77,13 +79,17 @@ public class VillageHall : MonoBehaviour
     public void LevelUp()
     {
         Level++;
-        
+
         // 레벨업 했을때 이벤트들
         GridBuildingSystem.ExpandArea(Level);
     }
 
     private void OnMouseDown()
     {
+        //if (EventSystem.current.currentSelectedGameObject != null &&EventSystem.current..layer.Equals(5))
+        //{
+        //    print("ds");
+        //}
 
         if (VillageHallUI.activeSelf)
         {

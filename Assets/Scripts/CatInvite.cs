@@ -72,6 +72,8 @@ public class CatInvite : MonoBehaviour
     }
     public void CatNaming()
     {
+        print("Daw");
+
         if (catNameTextArea.text != null)
         {
             curCatData.Name = catNameTextArea.text;

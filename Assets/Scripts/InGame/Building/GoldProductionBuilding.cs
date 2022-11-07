@@ -119,7 +119,9 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
             }
             else
             {
-                CatPlacement.SetBuildingInfo(BuildingType.Gold, this, PlacedInBuildingCat.Where(x => x.catData != null).Select(x => x.catData).ToArray(), SpriteRenderer.sprite);
+                var cats = PlacedInBuildingCat.Where(x => x.catData != null).Select(x => x.catData).ToArray();
+                print(cats.Length);
+                CatPlacement.SetBuildingInfo(BuildingType.Gold, this, cats, SpriteRenderer.sprite);
             }
 
         });

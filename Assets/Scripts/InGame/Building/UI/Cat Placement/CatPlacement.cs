@@ -67,14 +67,26 @@ public class CatPlacement : MonoBehaviour
             Destroy(CatToPlacementContentTr.GetChild(i).gameObject);
         }
 
+        bool jump = false;
+
         for (int i = 0; i < cnt; i++)
         {
-            if (workingCat != null && workingCat.CatData != null && workingCat.CatData == CatList[i])
-                continue;
+            if (workingCat != null)
+                for (int j = 0; j < workingCat.CatData.Count; j++)
+                {
+                    if (workingCat.CatData[i] == CatList[i])
+                    {
+                        i++;
+                        jump = true;
+                        break;
+                    }
+                }
+
+            if (jump) continue;
 
             // TODO : 리팩토링
             var catToPlacement = Instantiate(CatToPlacementPrefab, CatToPlacementContentTr).GetComponent<CatToPlace>();
-            print(CatList[i] == null);
+
             catToPlacement.SetData(CatList[i],
                 onclick: (catData) =>
                 {
@@ -86,9 +98,13 @@ public class CatPlacement : MonoBehaviour
 
                     CatPlacementWarning.OnClickYesButton(() =>
                     {
+
                         if (CurSelectedCat == null)
                         {
-                            catToPlacement.SetData(catData);
+                            CurSelectedCat = catData;
+                            Destroy(catToPlacement.gameObject);
+
+                            //catToPlacement.SetData(catData);
 
                             if (productionBuilding is GoldProductionBuilding)
                             {
@@ -109,6 +125,9 @@ public class CatPlacement : MonoBehaviour
                                     workingCat = Instantiate(EnergyBuildingWorkingCatPlacements[(int)energyBuilding.buildingType], WorkingCatParentTr).GetComponent<CatPlacementWorkingCats>();
                                 }
                             }
+
+                            workingCat.CatData.Add(catData);
+
                             var ability = Instantiate(AbilityPrefab, AbilityParentTr).GetComponent<CatAbilityUI>();
                             ability.SetAbility(catData.AbilitySprite, catData.AbilityRating);
                             //catAbilityUIs.Add(ability);
@@ -118,19 +137,22 @@ public class CatPlacement : MonoBehaviour
                             {
                                 CurSelectedCat = catData;
                                 CurSelectedCatIndex = catnum;
+                                WorkText.SetText(catData.Name + WORKING_TEXT);
                             });
                         }
                         else
                         {
+                            // 고양이를 바꿔야 하는거임
                             catToPlacement.SetData(CurSelectedCat);
-                            workingCat.SetData(0, catData,
-                            call: (catnum) =>
+                            print(CurSelectedCatIndex);
+                            print(catData == null);
+                            workingCat.SetData(CurSelectedCatIndex, catData,
+                            call: (vv) =>
                             {
-                                CurSelectedCat = catData;
-                                print(catnum);
-                                CurSelectedCatIndex = catnum;
+
                             });
                         }
+
                     });
                 });
         }
@@ -147,8 +169,6 @@ public class CatPlacement : MonoBehaviour
     {
         if (catData == null)
         {
-            print("아직 고양이 모집이랑 연동안됨");
-
             WorkText.gameObject.SetActive(false);
             BuildingImage.sprite = buildingSprite;
 
@@ -161,8 +181,22 @@ public class CatPlacement : MonoBehaviour
 
         catAbilityUIs = new List<CatAbilityUI>();
 
+        bool jump = false;
+
         for (int index = 0; index < catDataLen; index++)
         {
+            for (int j = 0; j < workingCat.CatData.Count; j++)
+            {
+                if (workingCat.CatData[index] == catData[index])
+                {
+                    index++;
+                    jump = true;
+                    break;
+                }
+            }
+
+            if (jump) continue;
+
             // 스킬 정보 넣어야됨
             var ability = Instantiate(AbilityPrefab, AbilityParentTr).GetComponent<CatAbilityUI>();
             ability.SetAbility(catData[index].AbilitySprite, catData[index].AbilityRating);

@@ -7,6 +7,8 @@ public class CatManager : Singleton<CatManager>
     public List<CatData> CatDataList = new List<CatData>();
     public List<Cat> CatList = new List<Cat>(); 
     public CatInfo[] catInfos;
+    public List<RuntimeAnimatorController> CatAnimators = new List<RuntimeAnimatorController>();
+
     private Sprite[] abiltySpritesList;
 
     private void Awake()
@@ -15,6 +17,7 @@ public class CatManager : Singleton<CatManager>
         abiltySpritesList = Resources.LoadAll<Sprite>("AbiltySprites");
 
         CatDataList[0].Cat = new Cat();
+        CatList.Add(CatDataList[0].Cat);
     }
 
     /// <summary>

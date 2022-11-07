@@ -1,9 +1,8 @@
-using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.Rendering;
 using UnityEngine;
-using UnityEngine.UIElements;
+using DG.Tweening;
+using UnityEngine.Experimental.Animations;
 
 /// <summary>
 /// 골드 생산 건물 고양이 능력
@@ -51,6 +50,7 @@ public class CatData
 public enum CatState
 {
     NotProducting,          // 아무것도 안하는 중
+    Idle,                   // 걷는 중
     Working,                // 일하는 중
     Resting,                // 휴식하는 중
 }
@@ -58,10 +58,23 @@ public enum CatState
 
 public class Cat : MonoBehaviour
 {
+    public SpriteRenderer SpriteRenderer;
+
     public CatData catData = new CatData();
     public CatState CatState = CatState.NotProducting;
     public string BuildingName;
 
+    public Animator Animator;
+
+    public Vector2Int targetPos;
+
+    private Coroutine _moveCo = null;
+
+    private Vector3 dest;
+    public float _progress;
+    private bool done;
+
+    private List<Node> nodes = new List<Node>();
 
     // 골드 생산 횟수
     public int NumberOfGoldProduction;
@@ -81,6 +94,75 @@ public class Cat : MonoBehaviour
     void Start()
     {
         catData.Cat = this;
+
+        SpriteRenderer = GetComponent<SpriteRenderer>();
+        Animator = GetComponent<Animator>();
+
+        Animator.runtimeAnimatorController = CatManager.Instance.CatAnimators[(int)catData.CatSkinType];
+
+        StartCoroutine(RandomMove());
+    }
+
+    private void Update()
+    {
+        if (done)
+        {
+            SpriteRenderer.flipX = (transform.position.x < dest.x);
+
+            if (transform.position.y == dest.y)
+                transform.DOMove(dest, 1.4f).SetEase(Ease.Linear);
+            else
+                transform.DOMove(dest, 1f).SetEase(Ease.Linear);
+            done = false;
+        }
+        //position = Vector2.Lerp(transform.position, dest, _progress * 2f);
+        //if (_progress < 1f)
+        //{
+        //    _progress += Time.deltaTime;
+        //    if (_progress >= 1f)
+        //        _progress = 1f;
+        //}
+    }
+
+    IEnumerator RandomMove()
+    {
+        while (true)
+        {
+            targetPos = new Vector2Int(Random.Range(-3, 4), Random.Range(-3, 4));
+            yield return StartCoroutine(MoveStep());
+            yield return new WaitForSeconds(2);
+        }
+    }
+
+    public void Move()
+    {
+        if (_moveCo != null)
+            StopCoroutine(_moveCo);
+        _moveCo = StartCoroutine(MoveStep());
+    }
+
+    private IEnumerator MoveStep()
+    {
+        nodes = AStar.PathFinding(Vector2Int.CeilToInt(transform.position), targetPos);
+        var cnt = 0;
+        Node node = null;
+
+        int nodesCnt = nodes.Count;
+
+        while (nodesCnt - 1 != cnt++)
+        {
+            done = true;
+            node = nodes[cnt];
+            dest = new Vector2(node.Pos.x, node.Pos.y);
+            yield return new WaitForSeconds(1);
+        }
+    }
+
+    public void SetData()
+    {
+        SpriteRenderer.sprite = catData.CatSprite;
+
+
     }
 
     /// <summary>
