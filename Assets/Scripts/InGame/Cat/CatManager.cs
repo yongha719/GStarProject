@@ -5,7 +5,7 @@ using UnityEngine;
 public class CatManager : Singleton<CatManager>
 {
     public List<CatData> CatDataList = new List<CatData>();
-    public List<Cat> CatList = new List<Cat>(); 
+    public List<Cat> CatList = new List<Cat>();
     public CatInfo[] catInfos;
     private Sprite[] abiltySpritesList;
 
@@ -18,7 +18,13 @@ public class CatManager : Singleton<CatManager>
     }
     private void Start()
     {
-        if (CatList.Count == 0) CatList.Add(CatInvite.RandomCatEarn());
+        if (CatList.Count == 0)
+        {
+            Cat cat = new Cat();
+            cat.catData = CatInvite.RandomCatEarn();
+            CatDataList.Add(cat.catData);
+            CatList.Add(cat);
+        }
     }
     /// <summary>
     /// 마을 내보내기

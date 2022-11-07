@@ -64,11 +64,10 @@ public class CatInvite : MonoBehaviour
 
         for (int i = 0; i < Stars.Length; i++)
             Stars[i].SetActive(i < curCatData.AbilityRating);
+        
         catSprite.sprite = curCatData.CatSprite;
         catName.text = curCatData.Name;
         skillIcon.sprite = curCatData.AbilitySprite;
-
-
     }
     public void CatNaming()
     {

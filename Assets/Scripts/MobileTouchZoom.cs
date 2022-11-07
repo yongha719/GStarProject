@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class MobileTouchZoom : MonoBehaviour
 {
-    private float m_fOldToucDis = 0f;       // 터치 이전 거리를 저장합니다.
-    private float m_fFieldOfView = 60f;     // 카메라의 FieldOfView의 기본값을 60으로 정합니다.
+    private float m_oldCamSize = 0f;       // 터치 이전 거리를 저장합니다.
+    [SerializeField]
+    private float m_camSize = 5f;     // 카메라의 Size의 기본값을 5로 정합니다.
 
     private Camera mainCam;
 
@@ -31,18 +32,18 @@ public class MobileTouchZoom : MonoBehaviour
         {
             m_fToucDis = (Input.touches[0].position - Input.touches[1].position).sqrMagnitude;
 
-            fDis = (m_fToucDis - m_fOldToucDis) * 0.01f;
+            fDis = (m_fToucDis - m_oldCamSize) * 0.01f;
 
             // 이전 두 터치의 거리와 지금 두 터치의 거리의 차이를 FleldOfView를 차감합니다.
-            m_fFieldOfView -= fDis;
+            m_camSize -= fDis;
 
             // 최대는 100, 최소는 20으로 더이상 증가 혹은 감소가 되지 않도록 합니다.
-            m_fFieldOfView = Mathf.Clamp(m_fFieldOfView, 20.0f, 100.0f);
+            m_camSize = Mathf.Clamp(m_camSize, 20.0f, 100.0f);
 
             // 확대 / 축소가 갑자기 되지않도록 보간합니다.
-            mainCam.fieldOfView = Mathf.Lerp(mainCam.fieldOfView, m_fFieldOfView, Time.deltaTime * 5);
+            mainCam.fieldOfView = Mathf.Lerp(mainCam.fieldOfView, m_camSize, Time.deltaTime * 5);
 
-            m_fOldToucDis = m_fToucDis;
+            m_oldCamSize = m_fToucDis;
         }
         else if (nTouch == 1 && Input.touches[0].phase == TouchPhase.Moved)
         {
@@ -50,16 +51,16 @@ public class MobileTouchZoom : MonoBehaviour
         }
     }
 
-    void PCDebuging()
+    private void PCDebuging()
     {
         float scroll = Input.GetAxis("Mouse ScrollWheel");
 
-        m_fFieldOfView += scroll * Time.deltaTime;
-        m_fFieldOfView = Mathf.Clamp(m_fFieldOfView, 20f, 100f);
-        mainCam.fieldOfView = m_fFieldOfView;
+        m_camSize -= scroll;
+        m_camSize = Mathf.Clamp(m_camSize, 1f, 7f);
+        mainCam.orthographicSize = m_camSize;
         if (Input.GetMouseButton(0))
         {
-            new Vector3(-Input.GetAxis("Mouse X"), -Input.GetAxis("Mouse Y"), 0);
+            mainCam.transform.position += new Vector3(-Input.GetAxis("Mouse X"), -Input.GetAxis("Mouse Y"), 0) * Time.deltaTime * 5;
         }
     }
 }
