@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class MobileTouchZoom : MonoBehaviour
 {
-    float m_fOldToucDis = 0f;       // ÅÍÄ¡ ÀÌÀü °Å¸®¸¦ ÀúÀåÇÕ´Ï´Ù.
-    float m_fFieldOfView = 60f;     // Ä«¸Ş¶óÀÇ FieldOfViewÀÇ ±âº»°ªÀ» 60À¸·Î Á¤ÇÕ´Ï´Ù.
+    private float m_oldCamSize = 0f;       // í„°ì¹˜ ì´ì „ ê±°ë¦¬ë¥¼ ì €ì¥í•©ë‹ˆë‹¤.
+    [SerializeField]
+    private float m_camSize = 5f;     // ì¹´ë©”ë¼ì˜ Sizeì˜ ê¸°ë³¸ê°’ì„ 5ë¡œ ì •í•©ë‹ˆë‹¤.
 
-    Camera mainCam;
+    private Camera mainCam;
+
     private void Start()
     {
         mainCam = Camera.main;
@@ -15,8 +17,9 @@ public class MobileTouchZoom : MonoBehaviour
 
     void Update()
     {
-        if (Input.touchCount > 0)
-            CheckTouch();
+        // if (Input.touchCount > 0) CheckTouch();
+
+        PCDebuging();
     }
     void CheckTouch()
     {
@@ -24,23 +27,40 @@ public class MobileTouchZoom : MonoBehaviour
         float m_fToucDis = 0f;
         float fDis = 0f;
 
-        // ÅÍÄ¡°¡ µÎ°³ÀÌ°í, µÎ ÅÍÄ¡Áß ÇÏ³ª¶óµµ ÀÌµ¿ÇÑ´Ù¸é Ä«¸Ş¶óÀÇ fieldOfView¸¦ Á¶Á¤ÇÕ´Ï´Ù.
+        // í„°ì¹˜ê°€ ë‘ê°œì´ê³ , ë‘ í„°ì¹˜ì¤‘ í•˜ë‚˜ë¼ë„ ì´ë™í•œë‹¤ë©´ ì¹´ë©”ë¼ì˜ fieldOfViewë¥¼ ì¡°ì •í•©ë‹ˆë‹¤.
         if (nTouch == 2 && (Input.touches[0].phase == TouchPhase.Moved || Input.touches[1].phase == TouchPhase.Moved))
         {
             m_fToucDis = (Input.touches[0].position - Input.touches[1].position).sqrMagnitude;
 
-            fDis = (m_fToucDis - m_fOldToucDis) * 0.01f;
+            fDis = (m_fToucDis - m_oldCamSize) * 0.01f;
 
-            // ÀÌÀü µÎ ÅÍÄ¡ÀÇ °Å¸®¿Í Áö±İ µÎ ÅÍÄ¡ÀÇ °Å¸®ÀÇ Â÷ÀÌ¸¦ FleldOfView¸¦ Â÷°¨ÇÕ´Ï´Ù.
-            m_fFieldOfView -= fDis;
+            // ì´ì „ ë‘ í„°ì¹˜ì˜ ê±°ë¦¬ì™€ ì§€ê¸ˆ ë‘ í„°ì¹˜ì˜ ê±°ë¦¬ì˜ ì°¨ì´ë¥¼ FleldOfViewë¥¼ ì°¨ê°í•©ë‹ˆë‹¤.
+            m_camSize -= fDis;
 
-            // ÃÖ´ë´Â 100, ÃÖ¼Ò´Â 20À¸·Î ´õÀÌ»ó Áõ°¡ È¤Àº °¨¼Ò°¡ µÇÁö ¾Êµµ·Ï ÇÕ´Ï´Ù.
-            m_fFieldOfView = Mathf.Clamp(m_fFieldOfView, 20.0f, 100.0f);
+            // ìµœëŒ€ëŠ” 100, ìµœì†ŒëŠ” 20ìœ¼ë¡œ ë”ì´ìƒ ì¦ê°€ í˜¹ì€ ê°ì†Œê°€ ë˜ì§€ ì•Šë„ë¡ í•©ë‹ˆë‹¤.
+            m_camSize = Mathf.Clamp(m_camSize, 20.0f, 100.0f);
 
-            // È®´ë / Ãà¼Ò°¡ °©ÀÚ±â µÇÁö¾Êµµ·Ï º¸°£ÇÕ´Ï´Ù.
-            mainCam.fieldOfView = Mathf.Lerp(mainCam.fieldOfView, m_fFieldOfView, Time.deltaTime * 5);
+            // í™•ëŒ€ / ì¶•ì†Œê°€ ê°‘ìê¸° ë˜ì§€ì•Šë„ë¡ ë³´ê°„í•©ë‹ˆë‹¤.
+            mainCam.fieldOfView = Mathf.Lerp(mainCam.fieldOfView, m_camSize, Time.deltaTime * 5);
 
-            m_fOldToucDis = m_fToucDis;
+            m_oldCamSize = m_fToucDis;
+        }
+        else if (nTouch == 1 && Input.touches[0].phase == TouchPhase.Moved)
+        {
+
+        }
+    }
+
+    private void PCDebuging()
+    {
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+
+        m_camSize -= scroll;
+        m_camSize = Mathf.Clamp(m_camSize, 1f, 7f);
+        mainCam.orthographicSize = m_camSize;
+        if (Input.GetMouseButton(0))
+        {
+            mainCam.transform.position += new Vector3(-Input.GetAxis("Mouse X"), -Input.GetAxis("Mouse Y"), 0) * Time.deltaTime * 5;
         }
     }
 }

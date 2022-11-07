@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 [System.Serializable]
 public enum SoundType
@@ -21,6 +22,8 @@ public class SoundManager : Singleton<SoundManager>
     public Slider audioSlider;
     public Slider sfxSlider;
     public Slider catSlider;
+
+    private Image mySelfImage;
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
@@ -44,6 +47,7 @@ public class SoundManager : Singleton<SoundManager>
     }
     private void Start()
     {
+        mySelfImage = GetComponent<Image>();
         sliderValueaApply();
     }
     public AudioClip PlaySoundClip(string clipName, SoundType type, float volume = 0.5f, float pitch = 1)
@@ -83,6 +87,18 @@ public class SoundManager : Singleton<SoundManager>
     public void CatSoundSetting(float index)
     {
         audioVolumes[(int)SoundType.CAT] = index;
+    }
+    public void ScreenOn(bool onOff)
+    {
+        if (onOff)
+        {
+            mySelfImage.DOFade(0.5f, 0);
+            transform.GetChild(0).transform.DOScale(1, 0.3f);
+        }
+        else
+        {
+            transform.GetChild(0).transform.DOScale(onOff ? 1 : 0, 0.3f).OnComplete(() =>mySelfImage.DOFade(0f, 0));
+        }
     }
 
 }
