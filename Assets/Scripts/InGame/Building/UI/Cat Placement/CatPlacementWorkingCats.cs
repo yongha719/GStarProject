@@ -40,7 +40,6 @@ public class CatPlacementWorkingCats : MonoBehaviour
 
         if (CatAbilitys.Count == 0 || CatAbilitys.Count <= index)
         {
-            print(nameof(CatPlacementWorkingCats));
             var catAbilityUI = Instantiate(AbilityPrefab).GetComponent<CatAbilityUI>();
             catAbilityUI.SetAbility(CatData.AbilitySprite, CatData.AbilityRating);
             CatAbilitys.Add(catAbilityUI);

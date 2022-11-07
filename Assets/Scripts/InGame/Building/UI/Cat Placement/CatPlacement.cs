@@ -96,19 +96,22 @@ public class CatPlacement : MonoBehaviour
                 CatPlacementWarning.gameObject.SetActive(true);
                 CatPlacementWarning.SetWaringData(catData.Name);
 
+                // 경고창 Yes 버트
                 CatPlacementWarning.OnClickYesButton(() =>
                 {
+                    // 건물에서 일하는 고양이가 없을 때
                     if (CurSelectedCat == null)
                     {
                         CurSelectedCat = catData;
                         Destroy(catToPlacement.gameObject);
 
-                        //catToPlacement.SetData(catData);
 
+                        // 골드 생산 건물 일때
                         if (productionBuilding is GoldProductionBuilding)
                         {
                             var goldBuilding = productionBuilding as GoldProductionBuilding;
 
+                            // 건물에서 일하는 고양이 배치 생성
                             workingCat = Instantiate(GoldBuildingWorkingCatPlacements[(int)goldBuilding.buildingType], WorkingCatParentTr).GetComponent<CatPlacementWorkingCats>();
                             goldBuilding.OnCatMemberChange(catData, null);
                         }
