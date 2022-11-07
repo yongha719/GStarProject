@@ -22,7 +22,7 @@ public class EnergyProductionBuilding : Building, IResourceProductionBuilding
     [Tooltip("회복하기까지 필요한 생산량")]
     [SerializeField] private int ProductionsNeededToRecover;
 
-    private Cat[] PlacedInBuildingCat;
+    private List<Cat> PlacedInBuildingCat;
 
     private bool isProducting;
 
@@ -70,7 +70,6 @@ public class EnergyProductionBuilding : Building, IResourceProductionBuilding
     {
         base.Start();
 
-        PlacedInBuildingCat = new Cat[MaxDeployableCat];
     }
 
     protected override IEnumerator BuildingInstalltionEffect()
@@ -129,8 +128,13 @@ public class EnergyProductionBuilding : Building, IResourceProductionBuilding
         }
     }
 
-    public void OnCatMemberChange(Action action)
+    public void OnCatMemberChange(CatData catData, Action action)
     {
+        Cat cat = new Cat();
+        cat.catData = catData;
+
+        PlacedInBuildingCat.Add(cat);
+
         int decreasingfigure = 0;
 
         for (int i = 0; i < MaxDeployableCat; i++)

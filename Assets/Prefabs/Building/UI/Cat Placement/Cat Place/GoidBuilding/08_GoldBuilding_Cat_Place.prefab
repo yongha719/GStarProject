@@ -369,6 +369,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4711566646519506400}
+  - component: {fileID: -2960328706313698253}
   m_Layer: 0
   m_Name: 08_GoldBuilding_Cat_Place
   m_TagString: Untagged
@@ -398,3 +399,25 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 340}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &-2960328706313698253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4711566646519506401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f973c52e70bb0f94eaf53081ee5a8cd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CatImages:
+  - {fileID: 4711566644886587606}
+  - {fileID: 4711566646495973326}
+  - {fileID: 4711566646267292650}
+  CatClickButtons:
+  - {fileID: 4711566644886587608}
+  - {fileID: 4711566646495973327}
+  - {fileID: 4711566646267292651}
+  CatAbilitys: []
+  AbilityPrefab: {fileID: 5806247040724369428, guid: 704595c961f5a6344b690066934fc8ec, type: 3}

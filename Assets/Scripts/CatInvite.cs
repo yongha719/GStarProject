@@ -41,7 +41,7 @@ public class CatInvite : MonoBehaviour
     }
     private void CostTextAccept()
     {
-        needGoldValue = CatManager.Instance.CatList.Count * 500;
+        needGoldValue = CatManager.Instance.CatDataList.Count * 500;
         needGoldText.text = CalculatorManager.returnStr(needGoldValue);
     }
     public void CatInviteBtnFunc()
@@ -75,7 +75,11 @@ public class CatInvite : MonoBehaviour
         if (catNameTextArea.text != null)
         {
             curCatData.Name = catNameTextArea.text;
-            CatManager.Instance.CatList.Add(curCatData);
+            Cat cat = new Cat();
+            cat.catData = curCatData;
+
+            CatManager.Instance.CatList.Add(cat);
+            CatManager.Instance.CatDataList.Add(curCatData);
             CostTextAccept();
             catNameTextArea.text = null;
             curCatData = null;

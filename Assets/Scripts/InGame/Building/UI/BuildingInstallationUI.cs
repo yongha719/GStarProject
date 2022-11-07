@@ -14,6 +14,7 @@ public class BuildingInstallationUI : MonoBehaviour
 
     [Header("WorkShop Buildings")]
     [SerializeField] private List<BuildingInfo> GoldProductionBuildingInfos;
+    [SerializeField] private List<BuildingInfo> EnergyProductionBuildingInfos;
 
     [Header("Warning UIs")]
     [SerializeField] private BuildingInstallWarning Warning;
@@ -32,7 +33,7 @@ public class BuildingInstallationUI : MonoBehaviour
     #region UI Object
 
     [SerializeField] private GameObject BuildingInstallation;
-
+    [SerializeField] private CatPlacement CatPlacement;
     #endregion
 
     private GridBuildingSystem GridBuildingSystem;
@@ -69,6 +70,7 @@ public class BuildingInstallationUI : MonoBehaviour
                 buildingInfo.BuildingInstalltionUI = BuildingInstallation;
                 buildingInfo.Building.FirstTimeInstallation = true;
 
+                Building.CatPlacement = CatPlacement;
 
                 if (GameManager._coin > 0 && GameManager._coin >= goldprodutionbuilding.ConstructionCost.returnValue())
                 {
@@ -82,6 +84,34 @@ public class BuildingInstallationUI : MonoBehaviour
             });
         }
 
+        foreach (var buildingInfo in EnergyProductionBuildingInfos)
+        {
+            buildingInfo.BuyButtonOnclick((Building) =>
+            {
+                EnergyProductionBuilding energyprodutionbuilding = null;
 
+                if (Building is EnergyProductionBuilding)
+                    energyprodutionbuilding = Building as EnergyProductionBuilding;
+
+                CurBuilding = buildingInfo.BuildingPrefab;
+                CurBuildingName = energyprodutionbuilding.BuildingName;
+
+                energyprodutionbuilding.BuildingInfo = buildingInfo;
+                buildingInfo.BuildingInstalltionUI = BuildingInstallation;
+                buildingInfo.Building.FirstTimeInstallation = true;
+
+                Building.CatPlacement = CatPlacement;
+
+                if (GameManager._coin > 0 && GameManager._coin >= energyprodutionbuilding.ConstructionCost.returnValue())
+                {
+                    Warning.WarningUI.SetActive(true);
+                    Warning.SetWarningData(CurBuilding, CurBuildingName, BuildingInstallation);
+                }
+                else
+                {
+                    NotEnoughGold.NotEnoughGoldUI.SetActive(true);
+                }
+            });
+        }
     }
 }

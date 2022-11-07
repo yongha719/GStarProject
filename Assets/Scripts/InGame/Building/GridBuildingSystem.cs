@@ -199,10 +199,6 @@ public class GridBuildingSystem : MonoBehaviour
         //area.min = new Vector3Int(areaincrementdividedby2 * -1, areaincrementdividedby2 * -1, 1);
         //area.max = new Vector3Int(areaincrementdividedby2, areaincrementdividedby2, 1);
 
-        foreach (var pos in area.allPositionsWithin)
-        {
-            print(pos);
-        }
         // TODO : 이미 설치된 건물들 판별해야 함
         var tile = GetTilesBlock(area, BuildingTilemap);
         SetTilesBlock(area, TileType.Green, BuildingTilemap);
