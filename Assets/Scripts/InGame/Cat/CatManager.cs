@@ -13,7 +13,10 @@ public class CatManager : Singleton<CatManager>
         catInfos = Resources.LoadAll<CatInfo>("CatInfos");
         abiltySpritesList = Resources.LoadAll<Sprite>("AbiltySprites");
     }
-
+    private void Start()
+    {
+        if (CatList.Count == 0) CatList.Add(CatInvite.RandomCatEarn());
+    }
     /// <summary>
     /// 마을 내보내기
     /// </summary>

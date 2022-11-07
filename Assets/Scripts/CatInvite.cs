@@ -86,7 +86,7 @@ public class CatInvite : MonoBehaviour
         }
     }
 
-    public CatData RandomCatEarn()
+    static public CatData RandomCatEarn()
     {
         CatData catData = new CatData();
 
