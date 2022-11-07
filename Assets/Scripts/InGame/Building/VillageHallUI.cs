@@ -38,6 +38,7 @@ public class VillageHallUI : MonoBehaviour
         VillageHall = FindObjectOfType<VillageHall>();
 
         GameManager = GameManager.Instance;
+        CatManager = CatManager.Instance;
     }
     private void OnEnable()
     {
@@ -48,15 +49,17 @@ public class VillageHallUI : MonoBehaviour
         NextLevelText.text = $"Lv. {VillageHall.Level + 1}";
         NextAreaText.text = $"{VillageHall.CurAreaSize + 2} * {VillageHall.CurAreaSize + 2}";
 
-        var CatList = CatManager.CatList;
-        var cnt = CatList.Count;
-
-        for (int i = 0; i < cnt; i++)
+        if (CatManager.CatList == null)
         {
-            var cat = Instantiate(CatInfoPrefab, CatsContent);
+            var CatList = CatManager.CatList;
+            var cnt = CatList.Count;
 
+            for (int i = 0; i < cnt; i++)
+            {
+                var cat = Instantiate(CatInfoPrefab, CatsContent);
+
+            }
         }
-
     }
 
     void Start()
