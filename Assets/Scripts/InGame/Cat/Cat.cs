@@ -98,6 +98,7 @@ public class Cat : MonoBehaviour
         SpriteRenderer = GetComponent<SpriteRenderer>();
         Animator = GetComponent<Animator>();
 
+        SpriteRenderer.sprite = catData.CatSprite;
         Animator.runtimeAnimatorController = CatManager.Instance.CatAnimators[(int)catData.CatSkinType];
 
         StartCoroutine(RandomMove());
@@ -160,7 +161,7 @@ public class Cat : MonoBehaviour
 
     public void SetData()
     {
-        SpriteRenderer.sprite = catData.CatSprite;
+        
 
 
     }

@@ -88,73 +88,69 @@ public class CatPlacement : MonoBehaviour
             var catToPlacement = Instantiate(CatToPlacementPrefab, CatToPlacementContentTr).GetComponent<CatToPlace>();
 
             catToPlacement.SetData(CatList[i],
-                onclick: (catData) =>
+            onclick: (catData) =>
+            {
+                // 배치 버튼에 들어갈 이벤트들
+
+                // 경고창
+                CatPlacementWarning.gameObject.SetActive(true);
+                CatPlacementWarning.SetWaringData(catData.Name);
+
+                CatPlacementWarning.OnClickYesButton(() =>
                 {
-                    // 배치 버튼에 들어갈 이벤트들
-
-                    // 경고창
-                    CatPlacementWarning.gameObject.SetActive(true);
-                    CatPlacementWarning.SetWaringData(catData.Name);
-
-                    CatPlacementWarning.OnClickYesButton(() =>
+                    if (CurSelectedCat == null)
                     {
+                        CurSelectedCat = catData;
+                        Destroy(catToPlacement.gameObject);
 
-                        if (CurSelectedCat == null)
+                        //catToPlacement.SetData(catData);
+
+                        if (productionBuilding is GoldProductionBuilding)
+                        {
+                            var goldBuilding = productionBuilding as GoldProductionBuilding;
+
+                            workingCat = Instantiate(GoldBuildingWorkingCatPlacements[(int)goldBuilding.buildingType], WorkingCatParentTr).GetComponent<CatPlacementWorkingCats>();
+                            goldBuilding.OnCatMemberChange(catData, null);
+                        }
+                        else if (productionBuilding is EnergyProductionBuilding)
+                        {
+                            var energyBuilding = productionBuilding as EnergyProductionBuilding;
+
+                            if (BuildingType == BuildingType.Energy)
+                            {
+                                workingCat = Instantiate(EnergyBuildingWorkingCatPlacements[(int)energyBuilding.buildingType], WorkingCatParentTr).GetComponent<CatPlacementWorkingCats>();
+                            }
+                        }
+
+                        workingCat.CatData.Add(catData);
+
+                        var ability = Instantiate(AbilityPrefab, AbilityParentTr).GetComponent<CatAbilityUI>();
+                        ability.SetAbility(catData.AbilitySprite, catData.AbilityRating);
+                        //catAbilityUIs.Add(ability);
+
+                        workingCat.SetData(CurSelectedCatIndex, catData,
+                        call: (catnum) =>
                         {
                             CurSelectedCat = catData;
-                            Destroy(catToPlacement.gameObject);
-
-                            //catToPlacement.SetData(catData);
-
-                            if (productionBuilding is GoldProductionBuilding)
-                            {
-                                var goldBuilding = productionBuilding as GoldProductionBuilding;
-
-                                if (BuildingType == BuildingType.Gold)
-                                {
-                                    workingCat = Instantiate(GoldBuildingWorkingCatPlacements[(int)goldBuilding.buildingType], WorkingCatParentTr).GetComponent<CatPlacementWorkingCats>();
-                                    goldBuilding.OnCatMemberChange(catData, null);
-                                }
-                            }
-                            else if (productionBuilding is EnergyProductionBuilding)
-                            {
-                                var energyBuilding = productionBuilding as EnergyProductionBuilding;
-
-                                if (BuildingType == BuildingType.Energy)
-                                {
-                                    workingCat = Instantiate(EnergyBuildingWorkingCatPlacements[(int)energyBuilding.buildingType], WorkingCatParentTr).GetComponent<CatPlacementWorkingCats>();
-                                }
-                            }
-
-                            workingCat.CatData.Add(catData);
-
-                            var ability = Instantiate(AbilityPrefab, AbilityParentTr).GetComponent<CatAbilityUI>();
-                            ability.SetAbility(catData.AbilitySprite, catData.AbilityRating);
-                            //catAbilityUIs.Add(ability);
-
-                            workingCat.SetData(CurSelectedCatIndex, catData,
-                            call: (catnum) =>
-                            {
-                                CurSelectedCat = catData;
-                                CurSelectedCatIndex = catnum;
-                                WorkText.SetText(catData.Name + WORKING_TEXT);
-                            });
-                        }
-                        else
+                            CurSelectedCatIndex = catnum;
+                            WorkText.SetText(catData.Name + WORKING_TEXT);
+                        });
+                    }
+                    else
+                    {
+                        // 고양이를 바꿔야 하는거임
+                        catToPlacement.SetData(CurSelectedCat);
+                        print(CurSelectedCatIndex);
+                        print(catData == null);
+                        workingCat.SetData(CurSelectedCatIndex, catData,
+                        call: (vv) =>
                         {
-                            // 고양이를 바꿔야 하는거임
-                            catToPlacement.SetData(CurSelectedCat);
-                            print(CurSelectedCatIndex);
-                            print(catData == null);
-                            workingCat.SetData(CurSelectedCatIndex, catData,
-                            call: (vv) =>
-                            {
 
-                            });
-                        }
+                        });
+                    }
 
-                    });
                 });
+            });
         }
     }
 

@@ -49,7 +49,7 @@ public class VillageHallUI : MonoBehaviour
         NextLevelText.text = $"Lv. {VillageHall.Level + 1}";
         NextAreaText.text = $"{VillageHall.CurAreaSize + 2} * {VillageHall.CurAreaSize + 2}";
 
-        if (CatManager.CatList == null)
+        if (CatManager.CatList != null)
         {
             var CatList = CatManager.CatList;
             var cnt = CatList.Count;

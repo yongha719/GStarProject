@@ -18,6 +18,7 @@ public class GridBuildingSystem : MonoBehaviour
     public GridLayout gridLayout;
     public Tilemap TempTilemap;
     public Tilemap BuildingTilemap;
+    public Tilemap TreeTilemap;
 
     private static Dictionary<TileType, TileBase> tileBases = new Dictionary<TileType, TileBase>();
 
@@ -202,6 +203,7 @@ public class GridBuildingSystem : MonoBehaviour
         // TODO : 이미 설치된 건물들 판별해야 함
         var tile = GetTilesBlock(area, BuildingTilemap);
         SetTilesBlock(area, TileType.Green, BuildingTilemap);
+        SetTilesBlock(area, TileType.Empty, TreeTilemap);
         BuildingTilemap.SetTilesBlock(area, tile);
     }
 

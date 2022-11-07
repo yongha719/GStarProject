@@ -130,10 +130,9 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
     // TODO : 너무 긴 거 같음 추후 리팩토링
     public void OnCatMemberChange(CatData catData, Action action)
     {
-        Cat cat = new Cat();
-        cat.catData = catData;
+        catData.Cat.GoToWork();
 
-        PlacedInBuildingCat.Add(cat);
+        PlacedInBuildingCat.Add(catData.Cat);
 
         // 생산 시간 감소 수치
         int decreasingfigure = 0;

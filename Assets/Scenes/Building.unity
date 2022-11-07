@@ -9689,7 +9689,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   saveData:
     ResourceClass:
-      catCount: 0
       coin: 0
       energy: 0
       ice: 0
@@ -9699,7 +9698,8 @@ MonoBehaviour:
     - 0
     - 0
     - 0
-    CatList: []
+    catList: []
+    cats: []
   DEBUG: 1
 --- !u!4 &620059654
 Transform:
@@ -31011,15 +31011,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e31274140eb0a46468f02f62707907f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CatDataList:
-  - Cat: {fileID: 0}
-    Name: "\uC9C0\uB098\uAC00\uB358 \uACE0\uC591\uC774"
-    AbilityRating: 1
-    GoldAbilityType: 3
-    AbilitySprite: {fileID: 21300000, guid: 5852412d8d648334e8050c7f5ceb2a4d, type: 3}
-    CatSkinType: 1
-    CatSprite: {fileID: 21300000, guid: f2d470437a09fa64f84e9bf7cf7ac594, type: 3}
-  CatList: []
+  CatDataList: []
+  CatList:
+  - {fileID: 1826526957}
   catInfos:
   - {fileID: 11400000, guid: cf2028746987ae241a9a099965bc6598, type: 2}
   CatAnimators:
@@ -31208,6 +31202,7 @@ MonoBehaviour:
   gridLayout: {fileID: 2087564496}
   TempTilemap: {fileID: 1151875349}
   BuildingTilemap: {fileID: 2042922048}
+  TreeTilemap: {fileID: 1108967962}
   CurBuildingName: 
   CurBuilding: {fileID: 0}
   BuildingInstallationEffect: {fileID: 6392570179548458414, guid: a5cc52e46ae4dac4cbbba547dae66005, type: 3}
@@ -31238,7 +31233,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resource:
-    catCount: 0
     coin: 31971238931290612
     energy: 0
     ice: 0
@@ -32436,7 +32430,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resource:
-    catCount: 100
     coin: 10000
     energy: 10
     ice: 100
@@ -45117,12 +45110,12 @@ MonoBehaviour:
   SpriteRenderer: {fileID: 0}
   catData:
     Cat: {fileID: 0}
-    Name: 
-    AbilityRating: 0
-    GoldAbilityType: 0
-    AbilitySprite: {fileID: 0}
+    Name: "\uC9C0\uB098\uAC00\uB358 \uD3AD\uD3AD"
+    AbilityRating: 1
+    GoldAbilityType: 2
+    AbilitySprite: {fileID: 21300000, guid: 77ff9077ce2bf3645a9ce76783827133, type: 3}
     CatSkinType: 2
-    CatSprite: {fileID: 0}
+    CatSprite: {fileID: 21300000, guid: 407e89842f7b68842b295dd70f05f36d, type: 3}
   CatState: 0
   BuildingName: 
   Animator: {fileID: 0}
