@@ -16,6 +16,7 @@ public class CatInvite : MonoBehaviour
     private TMP_InputField catNameTextArea;
     private CatData curCatData;
 
+    private Image mySelfImage;
 
     [Header("Result UI")]
 
@@ -38,6 +39,10 @@ public class CatInvite : MonoBehaviour
     {
         slowSnow.Play();
         CostTextAccept();
+    }
+    private void Start()
+    {
+        mySelfImage = transform.parent.GetComponent<Image>();
     }
     private void CostTextAccept()
     {
@@ -64,7 +69,7 @@ public class CatInvite : MonoBehaviour
 
         for (int i = 0; i < Stars.Length; i++)
             Stars[i].SetActive(i < curCatData.AbilityRating);
-        
+
         catSprite.sprite = curCatData.CatSprite;
         catName.text = curCatData.Name;
         skillIcon.sprite = curCatData.AbilitySprite;
@@ -82,6 +87,7 @@ public class CatInvite : MonoBehaviour
             CostTextAccept();
             catNameTextArea.text = null;
             curCatData = null;
+            UIManager.Instance.ResourcesApply();
         }
         else
         {
@@ -108,5 +114,18 @@ public class CatInvite : MonoBehaviour
             catData.AbilityRating = 1;
 
         return catData;
+    }
+
+    public void ScreenOn(bool onOff)
+    {
+        if (onOff)
+        {
+            mySelfImage.DOFade(0.5f, 0);
+            transform.DOScale(1, 0.3f);
+        }
+        else
+        {
+            transform.DOScale(0, 0.3f).OnComplete(() => mySelfImage.DOFade(0f, 0));
+        }
     }
 }

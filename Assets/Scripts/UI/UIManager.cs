@@ -15,7 +15,7 @@ public class UIManager : Singleton<UIManager>
 
     private bool onTitle = true;
 
-    [Header("Å¸ÀÌÆ²UI")]
+    [Header("íƒ€ì´í‹€UI")]
     [SerializeField]
     private Image title;
     [SerializeField]
@@ -31,8 +31,8 @@ public class UIManager : Singleton<UIManager>
 
     public void ResourcesApply()
     {
-        catText.text = $"{gameManager.resource.catCount}¸¶¸®";
-        coinText.text = gameManager.resource.coin.returnStr();  CalculatorManager.returnStr(gameManager.resource.coin);
+        catText.text = $"{CatManager.Instance.CatList.Count}ë§ˆë¦¬";
+        coinText.text = gameManager.resource.coin.returnStr(); CalculatorManager.returnStr(gameManager.resource.coin);
         iceText.text = CalculatorManager.returnStr(gameManager.resource.ice);
         energyText.text = CalculatorManager.returnStr(gameManager.resource.energy);
 
