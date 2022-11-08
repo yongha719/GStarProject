@@ -5,6 +5,12 @@ TextureImporter:
   - first:
       213: -8660005742267022310
     second: Text_Coin_0
+  - first:
+      213: -4167540607856574560
+    second: Text_Coin_1
+  - first:
+      213: -3868718463474461457
+    second: Text_Coin_2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -134,6 +140,48 @@ TextureImporter:
       bones: []
       spriteID: a14c45bf8aa71d780800000000000000
       internalID: -8660005742267022310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Text_Coin_1
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 0
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0af71b1d5ebe926c0800000000000000
+      internalID: -4167540607856574560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Text_Coin_2
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 0
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe41c980e0d8f4ac0800000000000000
+      internalID: -3868718463474461457
       vertices: []
       indices: 
       edges: []
