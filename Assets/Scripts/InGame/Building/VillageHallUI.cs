@@ -63,7 +63,11 @@ public class VillageHallUI : MonoBehaviour
             {
                 var catInfo = Instantiate(CatInfoPrefab, CatsContent).GetComponent<CatInfoUI>();
 
-                catInfo.SetData(CatList[i]);     
+                catInfo.SetData(CatList[i],
+                    call: () =>
+                    {
+                        CatManager.RemoveCat(CatList[i]);
+                    });     
             }
         }
     }

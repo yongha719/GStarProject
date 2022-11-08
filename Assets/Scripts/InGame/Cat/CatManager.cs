@@ -15,8 +15,8 @@ public class CatManager : Singleton<CatManager>
     {
         catInfos = Resources.LoadAll<CatInfo>("CatInfos");
         abiltySpritesList = Resources.LoadAll<Sprite>("AbiltySprites");
-        
-        foreach(var cat in CatList)
+
+        foreach (var cat in CatList)
         {
             CatDataList.Add(cat.catData);
         }
@@ -41,16 +41,24 @@ public class CatManager : Singleton<CatManager>
             CatList.Add(cat);
         }
     }
+
     /// <summary>
     /// 마을 내보내기
     /// </summary>
-    public void RemoveCat(CatData cat)
+    public void RemoveCat(Cat cat)
     {
-        CatDataList.Remove(cat);
+        if (CatList.Contains(cat))
+            CatList.Remove(cat);
+        else
+        {
+            print("뭘 지우라는거야\n 다시 확인해");
+            
+        }
 
         // 쫓겨나는 이벤트
+        Destroy(cat.gameObject);
     }
-    public Sprite GetCatAbiltySprite(GoldAbilityType type) => abiltySpritesList[(int)type];
 
+    public Sprite GetCatAbiltySprite(GoldAbilityType type) => abiltySpritesList[(int)type];
 
 }
