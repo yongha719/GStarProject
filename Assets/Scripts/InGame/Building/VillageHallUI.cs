@@ -49,15 +49,21 @@ public class VillageHallUI : MonoBehaviour
         NextLevelText.text = $"Lv. {VillageHall.Level + 1}";
         NextAreaText.text = $"{VillageHall.CurAreaSize + 2} * {VillageHall.CurAreaSize + 2}";
 
+
+        // 주민 리스트 출력
         if (CatManager.CatList != null)
         {
+            for (int i = 0; i < CatsContent.childCount; i++)
+                Destroy(CatsContent.GetChild(i).gameObject);
+
             var CatList = CatManager.CatList;
             var cnt = CatList.Count;
 
             for (int i = 0; i < cnt; i++)
             {
-                var cat = Instantiate(CatInfoPrefab, CatsContent);
+                var catInfo = Instantiate(CatInfoPrefab, CatsContent).GetComponent<CatInfoUI>();
 
+                catInfo.SetData(CatList[i]);     
             }
         }
     }

@@ -44,11 +44,14 @@ public class AStar
         targetPos *= 2;
         //bottomLeft = (startPos.x <= targetPos.x && startPos.y <= targetPos.y) ? startPos : targetPos;
         bottomLeft = Vector2Int.Min(startPos, targetPos);
-        topRight = bottomLeft == startPos ? targetPos : startPos;
+        topRight = Vector2Int.Max(startPos, targetPos);
 
+        Log($"sp {startPos} tp {targetPos}");
+        Log($"bt {bottomLeft} tr {topRight}");
         // NodeArray의 크기 정해주고, isWall, x, y 대입
         int sizeX = topRight.x - bottomLeft.x + 1;
         int sizeY = topRight.y - bottomLeft.y + 1;
+        Log($"size {sizeX} {sizeY}");
         NodeArray = new Node[sizeX, sizeY];
 
         for (int i = 0; i < sizeX; i++)
@@ -68,6 +71,7 @@ public class AStar
 
         // 시작과 끝 노드, 열린리스트와 닫힌리스트, 마지막리스트 초기화
         StartNode = NodeArray[startPos.x - bottomLeft.x, startPos.y - bottomLeft.y];
+        Log($"target {targetPos.x - bottomLeft.x} {targetPos.y - bottomLeft.y}");
         TargetNode = NodeArray[targetPos.x - bottomLeft.x, targetPos.y - bottomLeft.y];
 
         OpenList = new List<Node>() { StartNode };

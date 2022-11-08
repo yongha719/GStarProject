@@ -259,7 +259,7 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
 
     private void OnMouseDown()
     {
-        if (isDeploying && EventSystem.current.IsPointerOverGameObject())
+        if (IsDeploying && EventSystem.current.IsPointerOverGameObject())
             return;
 
         if (CollectMoneyButton.gameObject.activeSelf)

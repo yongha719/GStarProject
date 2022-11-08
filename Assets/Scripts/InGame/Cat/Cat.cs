@@ -116,13 +116,6 @@ public class Cat : MonoBehaviour
                 transform.DOMove(dest, 1f).SetEase(Ease.Linear);
             done = false;
         }
-        //position = Vector2.Lerp(transform.position, dest, _progress * 2f);
-        //if (_progress < 1f)
-        //{
-        //    _progress += Time.deltaTime;
-        //    if (_progress >= 1f)
-        //        _progress = 1f;
-        //}
     }
 
     IEnumerator RandomMove()
@@ -130,18 +123,10 @@ public class Cat : MonoBehaviour
         while (true)
         {
             targetPos = new Vector2Int(Random.Range(-3, 4), Random.Range(-3, 4));
+
             yield return StartCoroutine(MoveStep());
-            yield return new WaitForSeconds(2);
         }
     }
-
-    public void Move()
-    {
-        if (_moveCo != null)
-            StopCoroutine(_moveCo);
-        _moveCo = StartCoroutine(MoveStep());
-    }
-
     private IEnumerator MoveStep()
     {
         nodes = AStar.PathFinding(Vector2Int.CeilToInt(transform.position), targetPos);
@@ -157,6 +142,8 @@ public class Cat : MonoBehaviour
             dest = new Vector2(node.Pos.x, node.Pos.y);
             yield return new WaitForSeconds(1);
         }
+
+        yield return new WaitForSeconds(2);
     }
 
     public void SetData()
