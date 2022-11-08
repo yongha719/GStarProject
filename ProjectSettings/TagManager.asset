@@ -48,6 +48,9 @@ TagManager:
   - name: Building
     uniqueID: 3755925095
     locked: 0
+  - name: AcquisitionEffect
+    uniqueID: 1377191425
+    locked: 0
   - name: MainUI
     uniqueID: 1580634211
     locked: 0

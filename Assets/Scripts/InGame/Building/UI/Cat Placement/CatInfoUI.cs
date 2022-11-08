@@ -13,18 +13,18 @@ public class CatInfoUI : MonoBehaviour
     const string WORKING_TEXT = "에서 작업중.";
     const string RESTING_TEXT = "에서 휴식중.";
 
-    public void SetData(Sprite catSprite, string catName, CatState catState, string buildingName)
+    public void SetData(Cat cat)
     {
-        CatImage.sprite = catSprite;
-        CatNameText.text = catName;
+        CatImage.sprite = cat.catData.CatSprite;
+        CatNameText.text = cat.catData.Name;
 
-        if (catState == CatState.Working)
+        if (cat.CatState == CatState.Working)
         {
-            CatStateText.text = buildingName + WORKING_TEXT;
+            CatStateText.text = cat.BuildingName + WORKING_TEXT;
         }
         else
         {
-            CatStateText.text = buildingName + RESTING_TEXT;
+            CatStateText.text = cat.BuildingName + RESTING_TEXT;
         }
     }
 }
