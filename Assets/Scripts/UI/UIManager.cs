@@ -47,7 +47,7 @@ public class UIManager : Singleton<UIManager>
         while (true)
         {
             title.transform.position += Vector3.up * Time.deltaTime * Mathf.Cos(Time.time) / 5;
-            pressToStartText.color = new Color(1, 1, 1, Mathf.Abs(Mathf.Cos(Time.time)));
+            pressToStartText.DOFade(Mathf.Abs(Mathf.Cos(Time.time)), 0);
 
             if (Input.GetMouseButtonDown(0)) break;
             yield return null;
@@ -55,7 +55,6 @@ public class UIManager : Singleton<UIManager>
 
         title.DOFade(0, 1).SetEase(Ease.InBack);
         pressToStartText.DOFade(0, 1).SetEase(Ease.InBack);
-        pressToStartText.DOColor(new Color(1, 1, 1, 0), 1);
         yield return new WaitForSeconds(1);
 
         foreach (Image image in images)

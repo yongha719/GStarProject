@@ -47,6 +47,7 @@ public class SoundManager : Singleton<SoundManager>
     }
     private void Start()
     {
+        PlaySoundClip("BGM_01_Fat_Cat", SoundType.BGM);
         mySelfImage = GetComponent<Image>();
         sliderValueaApply();
     }
@@ -97,7 +98,7 @@ public class SoundManager : Singleton<SoundManager>
         }
         else
         {
-            transform.GetChild(0).transform.DOScale(onOff ? 1 : 0, 0.3f).OnComplete(() =>mySelfImage.DOFade(0f, 0));
+            transform.GetChild(0).transform.DOScale(onOff ? 1 : 0, 0.3f).OnComplete(() => mySelfImage.DOFade(0f, 0));
         }
     }
 
