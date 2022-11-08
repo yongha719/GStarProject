@@ -830,15 +830,16 @@ MonoBehaviour:
   InstallationButton: {fileID: 405574493701101109}
   DemolitionButton: {fileID: 5969899369050173961}
   RotateButton: {fileID: 7496639491388935465}
+  CatPlacement: {fileID: 0}
   buildingType: 7
   CollectMoneyButton: {fileID: 5444481926985826226}
   DefaultGold: 2c
   DefaultGoldChargingTime: 30
   IncreasePerLevelUp: 20
   ConstructionGoldText: {fileID: 3977098050459093906}
-  GoldAcquisitionEffect: {fileID: 0}
-  BuildingUI: {fileID: 0}
-  CatPlacementButton: {fileID: 0}
+  GoldAcquisitionEffect: {fileID: 4651143797973280713, guid: d1c3aa70df08bb943a114b0228f21908, type: 3}
+  BuildingUI: {fileID: 1888283804898186552}
+  CatPlacementButton: {fileID: 3621117686523416314}
 --- !u!61 &-2909863669077162326
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -905,7 +906,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 1}
-  m_SizeDelta: {x: 1920, y: 1080}
+  m_SizeDelta: {x: 1440, y: 2960}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &6290301211331412026
 Canvas:
@@ -925,8 +926,8 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 1580634211
+  m_SortingOrder: -1
   m_TargetDisplay: 0
 --- !u!114 &486691273573016492
 MonoBehaviour:

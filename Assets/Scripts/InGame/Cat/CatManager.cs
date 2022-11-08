@@ -16,6 +16,10 @@ public class CatManager : Singleton<CatManager>
         catInfos = Resources.LoadAll<CatInfo>("CatInfos");
         abiltySpritesList = Resources.LoadAll<Sprite>("AbiltySprites");
         
+        foreach(var cat in CatList)
+        {
+            CatDataList.Add(cat.catData);
+        }
 
         CatDataList[0].Cat = new Cat();
         CatList.Add(CatDataList[0].Cat);

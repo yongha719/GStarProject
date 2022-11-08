@@ -283,7 +283,7 @@ RectTransform:
   - {fileID: 1740190245657762826}
   - {fileID: 990186587538894454}
   m_Father: {fileID: 6211559787909298647}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -720,7 +720,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 1dae0d639cd992c47ac217884fe2f16d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.5}
   m_FlipX: 0
@@ -783,7 +783,7 @@ MonoBehaviour:
     m_Size: {x: 1, y: 1, z: 1}
   BuildingName: "\uAC10\uC790 \uB18D\uC0AC"
   Rating: 1
-  isDeploying: 0
+  isDeploying: 1
   DefaultConstructionCost: 500a
   BuildingInfo: {fileID: 0}
   MaxDeployableCat: 2
@@ -793,15 +793,16 @@ MonoBehaviour:
   InstallationButton: {fileID: 405574493701101109}
   DemolitionButton: {fileID: 5969899369050173961}
   RotateButton: {fileID: 7496639491388935465}
+  CatPlacement: {fileID: 0}
   buildingType: 3
   CollectMoneyButton: {fileID: 5444481926985826226}
   DefaultGold: 5a
   DefaultGoldChargingTime: 30
   IncreasePerLevelUp: 15
   ConstructionGoldText: {fileID: 3977098050459093906}
-  GoldAcquisitionEffect: {fileID: 0}
-  BuildingUI: {fileID: 0}
-  CatPlacementButton: {fileID: 0}
+  GoldAcquisitionEffect: {fileID: 4651143797973280713, guid: d1c3aa70df08bb943a114b0228f21908, type: 3}
+  BuildingUI: {fileID: 6290934285594354938}
+  CatPlacementButton: {fileID: 2019486028628958985}
 --- !u!61 &1788162273027447010
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -858,7 +859,7 @@ RectTransform:
   - {fileID: 5668302490287414100}
   - {fileID: 752848409324176051}
   m_Father: {fileID: 6211559787909298647}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -893,19 +894,19 @@ RectTransform:
   m_GameObject: {fileID: 7234473010087785592}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6141328734154275645}
   - {fileID: 6433020165839852332}
-  - {fileID: 3854345743032265918}
   - {fileID: 3780460194825332764}
+  - {fileID: 3854345743032265918}
   m_Father: {fileID: 7293558756560507725}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 1}
-  m_SizeDelta: {x: 1920, y: 1080}
+  m_SizeDelta: {x: 1440, y: 2960}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &6290301211331412026
 Canvas:
@@ -925,8 +926,8 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 1580634211
+  m_SortingOrder: -1
   m_TargetDisplay: 0
 --- !u!114 &486691273573016492
 MonoBehaviour:

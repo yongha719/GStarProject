@@ -26,10 +26,8 @@ public class VillageHall : MonoBehaviour
         }
     }
 
-
     public int Level = 1;
     public int CurAreaSize => (Level * 2) + 2;
-
 
     private const string DefaultLevelUpCost = "1000a";
     public string GetLevelUpCost => (DefaultLevelUpCost.returnValue() * Mathf.Pow(1000, Level - 1)).returnStr();
@@ -86,10 +84,10 @@ public class VillageHall : MonoBehaviour
 
     private void OnMouseDown()
     {
-        //if (EventSystem.current.currentSelectedGameObject != null &&EventSystem.current..layer.Equals(5))
-        //{
-        //    print("ds");
-        //}
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
 
         if (VillageHallUI.activeSelf)
         {

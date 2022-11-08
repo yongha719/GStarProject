@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class MobileTouchZoom : MonoBehaviour
 {
@@ -53,6 +54,8 @@ public class MobileTouchZoom : MonoBehaviour
 
     private void PCDebuging()
     {
+        if (EventSystem.current.IsPointerOverGameObject()) return;
+
         float scroll = Input.GetAxis("Mouse ScrollWheel");
 
         m_camSize -= scroll;

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
 using System.Linq;
+using UnityEngine.EventSystems;
 
 public class GoldProductionBuilding : Building, IResourceProductionBuilding
 {
@@ -130,10 +131,9 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
     // TODO : 너무 긴 거 같음 추후 리팩토링
     public void OnCatMemberChange(CatData catData, Action action)
     {
-        Cat cat = new Cat();
-        cat.catData = catData;
+        catData.Cat.GoToWork();
 
-        PlacedInBuildingCat.Add(cat);
+        PlacedInBuildingCat.Add(catData.Cat);
 
         // 생산 시간 감소 수치
         int decreasingfigure = 0;
@@ -259,7 +259,7 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
 
     private void OnMouseDown()
     {
-        if (isDeploying)
+        if (IsDeploying && EventSystem.current.IsPointerOverGameObject())
             return;
 
         if (CollectMoneyButton.gameObject.activeSelf)
