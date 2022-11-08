@@ -43,8 +43,20 @@ MonoBehaviour:
     m_Unicode: 65534
     m_GlyphIndex: 0
     m_Scale: 1
+    m_Name: Ice
+    m_HashCode: 76335
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 1
+    m_Scale: 1
     m_Name: Coin
     m_HashCode: 2451115
+  - m_ElementType: 2
+    m_Unicode: 65534
+    m_GlyphIndex: 2
+    m_Scale: 1
+    m_Name: Stamina
+    m_HashCode: 640712685
   m_SpriteGlyphTable:
   - m_Index: 0
     m_Metrics:
@@ -61,6 +73,36 @@ MonoBehaviour:
     m_Scale: 1.5
     m_AtlasIndex: 0
     sprite: {fileID: -8660005742267022310, guid: bdd1a23b3485c1e41876cb0df5b8b054, type: 3}
+  - m_Index: 1
+    m_Metrics:
+      m_Width: 56
+      m_Height: 56
+      m_HorizontalBearingX: -13
+      m_HorizontalBearingY: 45
+      m_HorizontalAdvance: 35
+    m_GlyphRect:
+      m_X: 56
+      m_Y: 0
+      m_Width: 56
+      m_Height: 56
+    m_Scale: 1.5
+    m_AtlasIndex: 0
+    sprite: {fileID: -4167540607856574560, guid: bdd1a23b3485c1e41876cb0df5b8b054, type: 3}
+  - m_Index: 2
+    m_Metrics:
+      m_Width: 56
+      m_Height: 56
+      m_HorizontalBearingX: -13
+      m_HorizontalBearingY: 45
+      m_HorizontalAdvance: 35
+    m_GlyphRect:
+      m_X: 112
+      m_Y: 0
+      m_Width: 56
+      m_Height: 56
+    m_Scale: 1.5
+    m_AtlasIndex: 0
+    sprite: {fileID: -3868718463474461457, guid: bdd1a23b3485c1e41876cb0df5b8b054, type: 3}
   spriteInfoList: []
   fallbackSpriteAssets: []
 --- !u!21 &7236186511483914344
