@@ -129,13 +129,34 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
     }
 
     // TODO : 너무 긴 거 같음 추후 리팩토링
-    public void OnCatMemberChange(CatData catData, Action action)
+    public void OnCatMemberChange(CatData catData, int index, Action action)
     {
-        catData.Cat.GoToWork();
+        if (catData.Cat.CatState != CatState.Working)
+            catData.Cat.GoToWork();
+        else if (catData.Cat.CatState != CatState.Resting)
+            catData.Cat.GoToRest();
 
-        PlacedInBuildingCat.Add(catData.Cat);
+        if (PlacedInBuildingCat.Count < MaxDeployableCat)
+        {
+            PlacedInBuildingCat.Add(catData.Cat);
+        }
+        else
+        {
+            PlacedInBuildingCat[index] = catData.Cat;
+        }
 
-        // 생산 시간 감소 수치
+        SetProductionTime();
+
+        action?.Invoke();
+    }
+
+    
+
+    /// <summary>
+    /// 생산 시간 재설정
+    /// </summary>
+    private void SetProductionTime()
+    {
         int decreasingfigure = 0;
 
         for (int i = 0; i < MaxDeployableCat; i++)
@@ -150,20 +171,15 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
             }
         }
 
-        double productiondelay = 0;
-
         if (decreasingfigure != 0)
         {
-            productiondelay = DefaultGoldChargingTime * Math.Round(decreasingfigure / 100f, 3);
+            waitGoldChargingTime = new WaitForSeconds((float)(DefaultGoldChargingTime * Math.Round(decreasingfigure / 100f, 3)));
+            StartCoroutine(ResourceProduction);
         }
         else
         {
-            productiondelay = DefaultGoldChargingTime;
+            StopCoroutine(ResourceProduction);
         }
-
-        waitGoldChargingTime = new WaitForSeconds((float)productiondelay);
-
-        action?.Invoke();
     }
 
     public override void Place()

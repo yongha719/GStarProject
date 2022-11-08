@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -9,11 +10,13 @@ public class CatInfoUI : MonoBehaviour
     [SerializeField] private Image CatImage;
     [SerializeField] private TextMeshProUGUI CatNameText;
     [SerializeField] private TextMeshProUGUI CatStateText;
+    [SerializeField] private Button ExportButton;
 
     const string WORKING_TEXT = "에서 작업중.";
     const string RESTING_TEXT = "에서 휴식중.";
 
-    public void SetData(Cat cat)
+    /// <param name="call">고양이 내보내기 버튼 클릭 이벤트</param>
+    public void SetData(Cat cat, Action call)
     {
         CatImage.sprite = cat.catData.CatSprite;
         CatNameText.text = cat.catData.Name;
@@ -26,5 +29,10 @@ public class CatInfoUI : MonoBehaviour
         {
             CatStateText.text = cat.BuildingName + RESTING_TEXT;
         }
+
+        ExportButton.onClick.AddListener(() =>
+        {
+            call();
+        });
     }
 }
