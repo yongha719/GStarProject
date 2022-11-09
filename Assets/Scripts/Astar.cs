@@ -46,23 +46,20 @@ public class AStar
         bottomLeft = Vector2Int.Min(startPos, targetPos);
         topRight = Vector2Int.Max(startPos, targetPos);
 
-        Log($"sp {startPos} tp {targetPos}");
-        Log($"bt {bottomLeft} tr {topRight}");
         // NodeArray의 크기 정해주고, isWall, x, y 대입
         int sizeX = topRight.x - bottomLeft.x + 1;
         int sizeY = topRight.y - bottomLeft.y + 1;
-        Log($"size {sizeX} {sizeY}");
         NodeArray = new Node[sizeX, sizeY];
 
+        // 장애물 판정
         for (int i = 0; i < sizeX; i++)
         {
             for (int j = 0; j < sizeY; j++)
             {
                 bool isWall = false;
-                // 장애물 판정
-                foreach (Collider2D col in Physics2D.OverlapCircleAll(new Vector2(i + bottomLeft.x, j + bottomLeft.y), 0.4f))
-                    if (col.gameObject.layer == LayerMask.NameToLayer("Wall"))
-                        isWall = true;
+                //foreach (Collider2D col in Physics2D.OverlapCircleAll(new Vector2(i + bottomLeft.x, j + bottomLeft.y), 0.4f))
+                //    if (col.gameObject.layer == LayerMask.NameToLayer("Wall"))
+                //        isWall = true;
 
                 NodeArray[i, j] = new Node(isWall, i + bottomLeft.x, j + bottomLeft.y);
             }
@@ -71,7 +68,6 @@ public class AStar
 
         // 시작과 끝 노드, 열린리스트와 닫힌리스트, 마지막리스트 초기화
         StartNode = NodeArray[startPos.x - bottomLeft.x, startPos.y - bottomLeft.y];
-        Log($"target {targetPos.x - bottomLeft.x} {targetPos.y - bottomLeft.y}");
         TargetNode = NodeArray[targetPos.x - bottomLeft.x, targetPos.y - bottomLeft.y];
 
         OpenList = new List<Node>() { StartNode };
@@ -124,6 +120,7 @@ public class AStar
             OpenListAdd(CurNode.x, CurNode.y - 1, false);
             OpenListAdd(CurNode.x - 1, CurNode.y, false);
         }
+
         return null;
     }
 

@@ -26,10 +26,6 @@ public class VillageHallUI : MonoBehaviour
     [SerializeField] private GameObject Warning;
     [SerializeField] private GameObject NotEnoughGold;
 
-    [Header("주민")]
-    [SerializeField] private RectTransform CatsContent;
-    [SerializeField] private GameObject CatInfoPrefab;
-
     private GameManager GameManager;
     private CatManager CatManager;
 
@@ -48,28 +44,6 @@ public class VillageHallUI : MonoBehaviour
         CurAreaText.text = $"{VillageHall.CurAreaSize} * {VillageHall.CurAreaSize}";
         NextLevelText.text = $"Lv. {VillageHall.Level + 1}";
         NextAreaText.text = $"{VillageHall.CurAreaSize + 2} * {VillageHall.CurAreaSize + 2}";
-
-
-        // 주민 리스트 출력
-        if (CatManager.CatList != null)
-        {
-            for (int i = 0; i < CatsContent.childCount; i++)
-                Destroy(CatsContent.GetChild(i).gameObject);
-
-            var CatList = CatManager.CatList;
-            var cnt = CatList.Count;
-
-            for (int i = 0; i < cnt; i++)
-            {
-                var catInfo = Instantiate(CatInfoPrefab, CatsContent).GetComponent<CatInfoUI>();
-
-                catInfo.SetData(CatList[i],
-                    call: () =>
-                    {
-                        CatManager.RemoveCat(CatList[i]);
-                    });     
-            }
-        }
     }
 
     void Start()

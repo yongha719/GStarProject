@@ -22,15 +22,24 @@ public class TaskText : MonoBehaviour
 
     private void OnEnable()
     {
-        StartCoroutine(TextChange());
+
     }
 
-    public void SetText(string text) => OriginalText = text;
+    public void SetText(string text = null)
+    {
+        if (text == null)
+        {
+            Tasktext.text = null;
+            return;
+        }
+
+        OriginalText = text;
+        StartCoroutine(TextChange());
+    }
 
     // 텍스트 뒤에 ... 이 바뀌는 연출
     IEnumerator TextChange()
     {
-
         while (true)
         {
             yield return wait;

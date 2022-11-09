@@ -44,9 +44,6 @@ public class VillageHall : MonoBehaviour
         area.position = new Vector3Int(-1, -1, 0);
 
         GridBuildingSystem.SetTilesBlock(area, TileType.Installed, GridBuildingSystem.BuildingTilemap);
-
-        GoldProductionBuilding daqe = new GoldProductionBuilding();
-        IResourceProductionBuilding da = daqe;
     }
 
 

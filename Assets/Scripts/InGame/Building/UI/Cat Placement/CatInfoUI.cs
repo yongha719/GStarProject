@@ -9,7 +9,7 @@ public class CatInfoUI : MonoBehaviour
 {
     [SerializeField] private Image CatImage;
     [SerializeField] private TextMeshProUGUI CatNameText;
-    [SerializeField] private TextMeshProUGUI CatStateText;
+    [SerializeField] private TaskText CatStateText;
     [SerializeField] private Button ExportButton;
 
     const string WORKING_TEXT = "에서 작업중.";
@@ -21,16 +21,21 @@ public class CatInfoUI : MonoBehaviour
         CatImage.sprite = cat.catData.CatSprite;
         CatNameText.text = cat.catData.Name;
 
-        if (cat.CatState == CatState.Working)
+        print(cat.CatState);
+        if (cat.CatState == CatState.NotProducting)
         {
-            CatStateText.text = cat.BuildingName + WORKING_TEXT;
+            CatStateText.SetText(null);
+        }
+        else if (cat.CatState == CatState.Working)
+        {
+            CatStateText.SetText(cat.BuildingName + WORKING_TEXT);
         }
         else
         {
-            CatStateText.text = cat.BuildingName + RESTING_TEXT;
+            CatStateText.SetText(cat.BuildingName + RESTING_TEXT);
         }
 
-        ExportButton.onClick.AddListener(() =>
+        ExportButton?.onClick.AddListener(() =>
         {
             call();
         });

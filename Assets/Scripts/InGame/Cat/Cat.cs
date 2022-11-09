@@ -66,16 +66,15 @@ public class Cat : MonoBehaviour
 
     public Animator Animator;
 
+    #region Astar Move
+
     public Vector2Int targetPos;
-
-    private Coroutine _moveCo = null;
-
     private Vector3 dest;
-    public float _progress;
     private bool done;
 
     private List<Node> nodes = new List<Node>();
 
+    #endregion
     // 골드 생산 횟수
     public int NumberOfGoldProduction;
     // 에너지 생산 횟수

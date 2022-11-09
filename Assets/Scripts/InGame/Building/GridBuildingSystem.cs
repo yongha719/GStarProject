@@ -30,6 +30,7 @@ public class GridBuildingSystem : MonoBehaviour
     private BoundsInt prevArea;
     private Vector3Int cellPos;
 
+
     private const string path = "Tile/";
 
     public static bool IsDeploying = false;
@@ -206,6 +207,8 @@ public class GridBuildingSystem : MonoBehaviour
         SetTilesBlock(area, TileType.Empty, TreeTilemap);
         BuildingTilemap.SetTilesBlock(area, tile);
     }
+
+
 
     public void SetTilesBlock(BoundsInt area, TileType type, Tilemap tilemap)
     {
