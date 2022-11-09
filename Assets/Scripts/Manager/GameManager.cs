@@ -42,6 +42,9 @@ public class GameManager : Singleton<GameManager>
             if (UIManager.Instance != null) UIManager.Instance.ResourcesApply();
         }
     }
+
+
+
     private void Awake()
     {
         DontDestroyOnLoad(this.gameObject);

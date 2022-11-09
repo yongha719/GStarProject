@@ -361,7 +361,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CatImage: {fileID: 468102091830322859}
   CatNameText: {fileID: 468102091992172129}
-  CatStateText: {fileID: 468102090433806341}
+  CatStateText: {fileID: 468102090433806347}
+  ExportButton: {fileID: 468102091414396583}
 --- !u!1 &468102091830322853
 GameObject:
   m_ObjectHideFlags: 0

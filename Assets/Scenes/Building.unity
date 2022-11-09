@@ -5678,6 +5678,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Village Hall
       objectReference: {fileID: 0}
+    - target: {fileID: 7853891399086733122, guid: 5e0ad18e9b2a20440b1819f71a213ace, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e0ad18e9b2a20440b1819f71a213ace, type: 3}
 --- !u!1 &109140649
@@ -12550,9 +12554,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1924830555882458988, guid: ec5b0a85b9bc18d40b8ce6e2d429d0c4, type: 3}
+      propertyPath: CatState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1924830555882458988, guid: ec5b0a85b9bc18d40b8ce6e2d429d0c4, type: 3}
+      propertyPath: BuildingName
+      value: "\uBFE1\uBFE1"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1924830555882458988, guid: ec5b0a85b9bc18d40b8ce6e2d429d0c4, type: 3}
       propertyPath: catData.Name
       value: "\uC5B4\uC9C4\uC774 \uD0C8\uBAA8"
       objectReference: {fileID: 0}
+    - target: {fileID: 1924830555882458988, guid: ec5b0a85b9bc18d40b8ce6e2d429d0c4, type: 3}
+      propertyPath: catData.CatSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c7617785653edaf4a933c4a59ba511e1, type: 3}
     - target: {fileID: 1924830555882458988, guid: ec5b0a85b9bc18d40b8ce6e2d429d0c4, type: 3}
       propertyPath: catData.CatSkinType
       value: 3
@@ -13012,6 +13028,11 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!224 &996972217 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2604347812161097550, guid: 5e0ad18e9b2a20440b1819f71a213ace, type: 3}
+  m_PrefabInstance: {fileID: 88513528}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &999700385
 GameObject:
   m_ObjectHideFlags: 0
@@ -19037,6 +19058,25 @@ RectTransform:
   m_AnchoredPosition: {x: 176.2, y: -1430}
   m_SizeDelta: {x: 1438.7, y: 233.9}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1080866619 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2604347811137122417, guid: 5e0ad18e9b2a20440b1819f71a213ace, type: 3}
+  m_PrefabInstance: {fileID: 88513528}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1080866623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1080866619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87ba276b2f46688429590892c1cbe243, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CatsContent: {fileID: 996972217}
+  CatInfoPrefab: {fileID: 468102091595410127, guid: dde07cdb3f133c64fb4ef82ad44013fb, type: 3}
 --- !u!1 &1085632257
 GameObject:
   m_ObjectHideFlags: 0
@@ -25610,6 +25650,10 @@ PrefabInstance:
       propertyPath: catData.Name
       value: "\uC7AC\uD5CC\uC774"
       objectReference: {fileID: 0}
+    - target: {fileID: 1924830555882458988, guid: ec5b0a85b9bc18d40b8ce6e2d429d0c4, type: 3}
+      propertyPath: catData.CatSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 452d7ef6c28f9824b8052f54e880731b, type: 3}
     - target: {fileID: 1924830555882458988, guid: ec5b0a85b9bc18d40b8ce6e2d429d0c4, type: 3}
       propertyPath: catData.CatSkinType
       value: 5
@@ -90697,6 +90741,10 @@ PrefabInstance:
       propertyPath: catData.AbilityRating
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1924830555882458989, guid: ec5b0a85b9bc18d40b8ce6e2d429d0c4, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 2c3f0b9a30bf95242acc0fc2ed13c774, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec5b0a85b9bc18d40b8ce6e2d429d0c4, type: 3}
 --- !u!114 &2751603834809869811
