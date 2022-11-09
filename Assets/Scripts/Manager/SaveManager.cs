@@ -49,7 +49,7 @@ public class SaveManager : Singleton<SaveManager>
     {
         saveData.ResourceClass = GameManager.Instance.resource;
         saveData.audioVolumes = SoundManager.Instance.audioVolumes;
-        saveData.dailyQuests = DailyQuest.dailyQuests;
+        saveData.dailyQuests = DailyQuestManager.dailyQuests;
         saveData.catList = CatManager.Instance.CatDataList;
         saveData.cats = CatManager.Instance.CatList;
         saveData.dailyQuests.nowTimeStr = System.DateTime.Now.ToString();
@@ -59,7 +59,7 @@ public class SaveManager : Singleton<SaveManager>
     {
         GameManager.Instance.resource = saveData.ResourceClass;
         SoundManager.Instance.audioVolumes = saveData.audioVolumes;
-        DailyQuest.dailyQuests = saveData.dailyQuests;
+        DailyQuestManager.dailyQuests = saveData.dailyQuests;
         CatManager.Instance.CatDataList = saveData.catList;
         CatManager.Instance.CatList = saveData.cats;
     }
