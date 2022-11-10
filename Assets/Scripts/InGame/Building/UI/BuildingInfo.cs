@@ -23,7 +23,11 @@ public class BuildingInfo : MonoBehaviour
         constructionCost = Building.ConstructionCost;
 
         buildingCostText = BuyButton.GetComponentInChildren<TextMeshProUGUI>();
-        buildingCostText.text = constructionCost;
+    }
+
+    private void OnEnable()
+    {
+        buildingCostText.text = Building.ConstructionCost;
     }
 
     public void BuyButtonOnclick(Action<Building> call)

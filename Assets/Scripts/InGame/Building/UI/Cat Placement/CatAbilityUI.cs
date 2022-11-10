@@ -19,14 +19,14 @@ public class CatAbilityUI : MonoBehaviour
     public void SetAbility(CatAbilityUI catAbilityUI)
     {
         this.AbilityImage = catAbilityUI.AbilityImage;
-        this.RatingStars = catAbilityUI.RatingStars;
+        //this.RatingStars = catAbilityUI.RatingStars;
         this.rectTransform = catAbilityUI.rectTransform;
     }
 
     public void SetAbility(Sprite abilitySprite, int Rating)
     {
         AbilityImage.sprite = abilitySprite;
-        
+
         foreach (var ratingStar in RatingStars)
             ratingStar.SetActive(false);
 

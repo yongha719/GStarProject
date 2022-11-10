@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class VillageHallUI : MonoBehaviour
 {
-    private VillageHall VillageHall;
 
     [Header("재화")]
     [SerializeField] private TextMeshProUGUI GoldText;
@@ -26,8 +25,10 @@ public class VillageHallUI : MonoBehaviour
     [SerializeField] private GameObject Warning;
     [SerializeField] private GameObject NotEnoughGold;
 
+    private VillageHall VillageHall;
     private GameManager GameManager;
     private CatManager CatManager;
+    private GridBuildingSystem GridBuildingSystem;
 
     private void Awake()
     {
@@ -35,15 +36,17 @@ public class VillageHallUI : MonoBehaviour
 
         GameManager = GameManager.Instance;
         CatManager = CatManager.Instance;
+        GridBuildingSystem = GridBuildingSystem.Instance;
     }
     private void OnEnable()
     {
         LevelUpCostText.text = VillageHall.GetLevelUpCost;
 
+        // 레벨업 텍스트
         CurLevelText.text = $"Lv. {VillageHall.Level}";
-        CurAreaText.text = $"{VillageHall.CurAreaSize} * {VillageHall.CurAreaSize}";
+        CurAreaText.text = $"{GridBuildingSystem.ViliageAreaSize.x} * {GridBuildingSystem.ViliageAreaSize.y}";
         NextLevelText.text = $"Lv. {VillageHall.Level + 1}";
-        NextAreaText.text = $"{VillageHall.CurAreaSize + 2} * {VillageHall.CurAreaSize + 2}";
+        NextAreaText.text = $"{GridBuildingSystem.ViliageAreaSize.x + 2} * {GridBuildingSystem.ViliageAreaSize.y + 2}";
     }
 
     void Start()

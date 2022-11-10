@@ -82,7 +82,6 @@ public class EnergyProductionBuilding : Building, IResourceProductionBuilding
             else
             {
                 var cats = PlacedInBuildingCat.Where(x => x.catData != null).Select(x => x.catData).ToArray();
-                print(cats.Length);
                 CatPlacement.SetBuildingInfo(BuildingType.Gold, this, cats, SpriteRenderer.sprite);
             }
 
@@ -158,7 +157,7 @@ public class EnergyProductionBuilding : Building, IResourceProductionBuilding
             {
                 if ((int)buildingType == (int)PlacedInBuildingCat[i].catData.GoldAbilityType)
                 {
-                    decreasingfigure += PlacedInBuildingCat[i].PercentageReductionbyGrade;
+                    decreasingfigure += PlacedInBuildingCat[i].PercentageReductionbyRating;
                 }
             }
         }

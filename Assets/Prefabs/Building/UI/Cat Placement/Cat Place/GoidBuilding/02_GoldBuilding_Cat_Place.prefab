@@ -55,6 +55,7 @@ MonoBehaviour:
   - {fileID: 3311236170794826644}
   CatAbilitys: []
   AbilityPrefab: {fileID: 5806247040724369428, guid: 704595c961f5a6344b690066934fc8ec, type: 3}
+  CatDatas: []
 --- !u!1 &3311236170794826642
 GameObject:
   m_ObjectHideFlags: 0

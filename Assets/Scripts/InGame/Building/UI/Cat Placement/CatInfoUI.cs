@@ -21,10 +21,9 @@ public class CatInfoUI : MonoBehaviour
         CatImage.sprite = cat.catData.CatSprite;
         CatNameText.text = cat.catData.Name;
 
-        print(cat.CatState);
         if (cat.CatState == CatState.NotProducting)
         {
-            CatStateText.SetText(null);
+            CatStateText.SetText();
         }
         else if (cat.CatState == CatState.Working)
         {

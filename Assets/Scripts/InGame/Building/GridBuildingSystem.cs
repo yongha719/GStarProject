@@ -8,7 +8,12 @@ using System.Diagnostics.SymbolStore;
 
 public enum TileType
 {
-    Empty, Uninstalled, Installed, Green, Red
+    Empty,                 // 빈 타일
+    Uninstalled,           // 확장된 범위안에 있지만 빈 타일
+    Installed,             // 확장된 범위안에 건물이 설치된 타일
+    NotExpanded,           // 확장되지 않은 영역
+    Green,                 // 설치 가능한 영역을 표시할 때 사용
+    Red                    // 설치 불가능한 영역을 표시할 때 사용
 }
 
 public class GridBuildingSystem : MonoBehaviour
@@ -20,16 +25,19 @@ public class GridBuildingSystem : MonoBehaviour
     public Tilemap BuildingTilemap;
     public Tilemap TreeTilemap;
 
-    private static Dictionary<TileType, TileBase> tileBases = new Dictionary<TileType, TileBase>();
+    private Dictionary<TileType, TileBase> tileBases = new Dictionary<TileType, TileBase>();
 
     public string CurBuildingName;
-    [SerializeField] private Building CurBuilding;
+    [HideInInspector]
+    public Building CurBuilding;
     [SerializeField] private ParticleSystem BuildingInstallationEffect;
 
     private Vector3 prevPos;
     private BoundsInt prevArea;
     private Vector3Int cellPos;
 
+    // 마을 땅 크기
+    public Vector2 ViliageAreaSize;
 
     private const string path = "Tile/";
 
@@ -45,6 +53,7 @@ public class GridBuildingSystem : MonoBehaviour
         tileBases.Add(TileType.Green, Resources.Load<TileBase>(path + nameof(TileType.Green)));
         tileBases.Add(TileType.Red, Resources.Load<TileBase>(path + nameof(TileType.Red)));
 
+        ViliageAreaSize = new Vector2(4, 4);
     }
 
     void Start()
@@ -88,12 +97,6 @@ public class GridBuildingSystem : MonoBehaviour
             }
         }
         #endregion
-
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            ExpandArea(2);
-            print("key");
-        }
     }
 
     private TileBase[] GetTilesBlock(BoundsInt area, Tilemap tilemap)
@@ -193,19 +196,21 @@ public class GridBuildingSystem : MonoBehaviour
     /// </summary>
     public void ExpandArea(int level)
     {
-        var areaincrementdividedby2 = ((level * 2) + 2) / 2;
+        ViliageAreaSize = Vector2.one * (level * 2 + 2);
 
-        BoundsInt area = new BoundsInt(new Vector3Int(areaincrementdividedby2 * -1, areaincrementdividedby2 * -1, 0), new Vector3Int((level * 2) + 2, (level * 2) + 2, 1));
-        // 영역 증가량 나누기 2
-        //area.position = Vector3Int.zero;
-        //area.min = new Vector3Int(areaincrementdividedby2 * -1, areaincrementdividedby2 * -1, 1);
-        //area.max = new Vector3Int(areaincrementdividedby2, areaincrementdividedby2, 1);
+        // 레벨당 영역 나누기 2
+        var areaDividedby2 = ((level * 2) + 2) / 2;
+        // 영역 크기 바꿔주기
+        BoundsInt area = new BoundsInt(new Vector3Int(areaDividedby2 * -1, areaDividedby2 * -1, 0), new Vector3Int((level * 2) + 2, (level * 2) + 2, 1));
 
-        // TODO : 이미 설치된 건물들 판별해야 함
+        CatManager.Instance.ChangeRangeCatMovement(level * 2 + 2);
+
+        // 타일 정보 바꿔주기
         var tile = GetTilesBlock(area, BuildingTilemap);
-        SetTilesBlock(area, TileType.Green, BuildingTilemap);
-        SetTilesBlock(area, TileType.Empty, TreeTilemap);
+        SetTilesBlock(area, TileType.Uninstalled, BuildingTilemap);
         BuildingTilemap.SetTilesBlock(area, tile);
+
+        SetTilesBlock(area, TileType.Empty, TreeTilemap);
     }
 
 

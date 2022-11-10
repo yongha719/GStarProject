@@ -13,28 +13,31 @@ public class TaskText : MonoBehaviour
 
     private string OriginalText;
 
+    IEnumerator TaskTextCoroutine;
+
     private void Awake()
     {
         Tasktext = GetComponent<TextMeshProUGUI>();
 
-        OriginalText = Tasktext.text;
+        //OriginalText = Tasktext.text;
     }
 
     private void OnEnable()
     {
-
+        if (TaskTextCoroutine != null)
+            StartCoroutine(TaskTextCoroutine);
     }
 
     public void SetText(string text = null)
     {
         if (text == null)
         {
-            Tasktext.text = null;
+            TaskTextCoroutine = null;
             return;
         }
 
         OriginalText = text;
-        StartCoroutine(TextChange());
+        TaskTextCoroutine = TextChange();
     }
 
     // 텍스트 뒤에 ... 이 바뀌는 연출

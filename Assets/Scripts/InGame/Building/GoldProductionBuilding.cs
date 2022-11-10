@@ -121,7 +121,6 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
             else
             {
                 var cats = PlacedInBuildingCat.Where(x => x.catData != null).Select(x => x.catData).ToArray();
-                print(cats.Length);
                 CatPlacement.SetBuildingInfo(BuildingType.Gold, this, cats, SpriteRenderer.sprite);
             }
 
@@ -166,7 +165,7 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
                 // 능력이 건물의 종류와 같을 때
                 if ((int)buildingType == (int)PlacedInBuildingCat[i].catData.GoldAbilityType)
                 {
-                    decreasingfigure += PlacedInBuildingCat[i].PercentageReductionbyGrade;
+                    decreasingfigure += PlacedInBuildingCat[i].PercentageReductionbyRating;
                 }
             }
         }
@@ -237,7 +236,6 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
                 CollectMoneyButton.gameObject.SetActive(false);
 
                 // 골드 획득 연출
-                print("coin effect");
                 Destroy(Instantiate(GoldAcquisitionEffect, transform.position + (Vector3.up * 0.5f), Quaternion.identity, CanvasRt), 1.5f);
 
                 yield break;
@@ -251,7 +249,6 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
 
                 autogetmoney = true;
                 didGetMoney = true;
-                print("auto get money");
             }
 
             yield return null;
@@ -264,6 +261,7 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
         yield return base.BuildingInstalltionEffect();
 
         ConstructionGoldText.gameObject.SetActive(true);
+        ConstructionGoldText.text = ConstructionCost;
         ConstructionGoldText.rectTransform.DOAnchorPosY(ConstructionGoldText.rectTransform.anchoredPosition.y + 150, 1);
         yield return ConstructionGoldText.DOFade(0f, 0.7f).WaitForCompletion();
 

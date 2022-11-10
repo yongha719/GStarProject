@@ -53,6 +53,18 @@ public class CatManager : Singleton<CatManager>
         Destroy(cat.gameObject);
     }
 
+    /// <summary>
+    /// 고양이가 움직일 수 있는 범위 바꾸기 
+    /// 마을 회관 레벨업시 호출
+    /// </summary>
+    public void ChangeRangeCatMovement(int area)
+    {
+        foreach(var cat in CatList)
+        {
+            cat.canMoveArea = area;
+        }
+    }
+
     public Sprite GetCatAbiltySprite(GoldAbilityType type) => abiltySpritesList[(int)type];
 
 }
