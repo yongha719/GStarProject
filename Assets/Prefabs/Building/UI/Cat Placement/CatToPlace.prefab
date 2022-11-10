@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2111896460161843307}
   - component: {fileID: 2111896460161843301}
   m_Layer: 0
-  m_Name: Placement Cat Info
+  m_Name: CatToPlace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -96,6 +96,7 @@ MonoBehaviour:
   Ability: {fileID: 5494882581833438104}
   PlacementButton: {fileID: 2111896460902856847}
   CatData:
+    Cat: {fileID: 0}
     Name: 
     AbilityRating: 0
     GoldAbilityType: 0
@@ -136,8 +137,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 10}
-  m_SizeDelta: {x: 200, y: 200}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 130, y: 130}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2111896460445596146
 CanvasRenderer:
@@ -167,7 +168,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9d459cbd4d29a1a4da098190363c6e51, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4a2c0995005cd7b4eb39e184036600f9, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

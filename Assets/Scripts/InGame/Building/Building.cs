@@ -66,7 +66,7 @@ public abstract class Building : MonoBehaviour
 
         Camera = Camera.main;
 
-        BuildingSprte = SpriteRenderer.gameObject;
+        BuildingSprte = SpriteRenderer?.gameObject;
 
         CanvasRt = GameObject.Find("ParticleCanvas").transform as RectTransform;
 
@@ -75,7 +75,7 @@ public abstract class Building : MonoBehaviour
             GridBuildingSystem.Place();
         });
 
-        DemolitionButton.onClick.AddListener(() =>
+        DemolitionButton?.onClick.AddListener(() =>
         {
             GridBuildingSystem.BuildingClear();
             BuildingInfo.BuildingInstalltionUI.SetActive(true);

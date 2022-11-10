@@ -20,7 +20,6 @@ public class ViliageInfoUI : MonoBehaviour
             var CatList = CatManager.CatList;
             var cnt = CatList.Count;
 
-            print(cnt);
             for (int i = 0; i < cnt; i++)
             {
                 var catInfo = Instantiate(CatInfoPrefab, CatsContent).GetComponent<CatInfoUI>();

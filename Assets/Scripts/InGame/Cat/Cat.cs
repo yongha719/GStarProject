@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.Experimental.Animations;
+using System.Runtime.InteropServices;
 
 /// <summary>
 /// 골드 생산 건물 고양이 능력
@@ -61,6 +62,7 @@ public class Cat : MonoBehaviour
     public SpriteRenderer SpriteRenderer;
 
     public CatData catData = new CatData();
+    [Space]
     public CatState CatState = CatState.NotProducting;
     public string BuildingName;
 
@@ -72,31 +74,42 @@ public class Cat : MonoBehaviour
     private Vector3 dest;
     private bool done;
 
+    public int canMoveArea;
+    // z fighting 방지를 위해 z 값 조절을 위한 변수
+    private float PosZ;
+
     private List<Node> nodes = new List<Node>();
 
     #endregion
     // 골드 생산 횟수
     public int NumberOfGoldProduction;
     // 에너지 생산 횟수
-    public int NunberOfEnergyProduction;
+    public int NumberOfEnergyProduction;
 
-    // 등급별 생산 감소 퍼센트
-    public int PercentageReductionbyGrade => catData.AbilityRating switch
+    // 능력 등급별 생산 감소 퍼센트
+    public int PercentageReductionbyRating => catData.AbilityRating switch
     {
         1 => 10,
         2 => 15,
         3 => 20,
-        _ => throw new System.Exception("Cat Ability Rating that does not exist")
+        _ => throw new System.Exception("고양이 능력 등급 값이 존재하지 않는 값임")
     };
 
+    private CatManager CatManager;
+    private GridBuildingSystem GridBuildingSystem;
 
     void Start()
     {
+        CatManager = CatManager.Instance;
+        GridBuildingSystem = GridBuildingSystem.Instance;
+
+        canMoveArea = (int)GridBuildingSystem.ViliageAreaSize.x;
+
         catData.Cat = this;
 
         SpriteRenderer = GetComponent<SpriteRenderer>();
         Animator = GetComponent<Animator>();
-         
+
         SpriteRenderer.sprite = catData.CatSprite;
         Animator.runtimeAnimatorController = CatManager.Instance.CatAnimators[(int)catData.CatSkinType];
 
@@ -105,6 +118,7 @@ public class Cat : MonoBehaviour
 
     private void Update()
     {
+        // 이동 로직
         if (done)
         {
             SpriteRenderer.flipX = (transform.position.x < dest.x);
@@ -117,15 +131,23 @@ public class Cat : MonoBehaviour
         }
     }
 
+    #region 이동
+
     IEnumerator RandomMove()
     {
         while (true)
         {
-            targetPos = new Vector2Int(Random.Range(-3, 4), Random.Range(-3, 4));
+            targetPos = RandomPos();
 
             yield return StartCoroutine(MoveStep());
         }
     }
+
+    /// <summary>
+    /// 영역안에서 움직일 수 있는 랜덤 좌표 
+    /// </summary>
+    private Vector2Int RandomPos() => new Vector2Int(Random.Range(-canMoveArea + 1, canMoveArea), Random.Range(-canMoveArea + 1, canMoveArea));
+
     private IEnumerator MoveStep()
     {
         nodes = AStar.PathFinding(Vector2Int.CeilToInt(transform.position), targetPos);
@@ -138,19 +160,16 @@ public class Cat : MonoBehaviour
         {
             done = true;
             node = nodes[cnt];
-            dest = new Vector2(node.Pos.x, node.Pos.y);
+            dest = new Vector3(node.Pos.x, node.Pos.y, PosZ);
             yield return new WaitForSeconds(1);
         }
 
         yield return new WaitForSeconds(2);
     }
 
-    public void SetData()
-    {
-        
+    #endregion
 
-
-    }
+    #region 고양이 일
 
     /// <summary>
     /// 고양이 휴식 
@@ -170,4 +189,6 @@ public class Cat : MonoBehaviour
     {
 
     }
+
+    #endregion
 }
