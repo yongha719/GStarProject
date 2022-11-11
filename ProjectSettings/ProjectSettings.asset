@@ -153,6 +153,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
+    Android: com.GoNyang.GStarProject
     Standalone: com.GoNyang.GStarProject
   buildNumber:
     Standalone: 0

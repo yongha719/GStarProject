@@ -80,6 +80,9 @@ public class Cat : MonoBehaviour
 
     private List<Node> nodes = new List<Node>();
 
+    IEnumerator RamdomMoveCoroutine;
+    public bool IsWorking;
+
     #endregion
     // 골드 생산 횟수
     public int NumberOfGoldProduction;
@@ -113,15 +116,18 @@ public class Cat : MonoBehaviour
         SpriteRenderer.sprite = catData.CatSprite;
         Animator.runtimeAnimatorController = CatManager.Instance.CatAnimators[(int)catData.CatSkinType];
 
+        RamdomMoveCoroutine = RandomMove();
         StartCoroutine(RandomMove());
     }
 
     private void Update()
     {
         // 이동 로직
-        if (done)
+        if (CatState == CatState.NotProducting && done)
         {
             SpriteRenderer.flipX = (transform.position.x < dest.x);
+
+
 
             if (transform.position.y == dest.y)
                 transform.DOMove(dest, 1.4f).SetEase(Ease.Linear);
@@ -133,7 +139,7 @@ public class Cat : MonoBehaviour
 
     #region 이동
 
-    IEnumerator RandomMove()
+    private IEnumerator RandomMove()
     {
         while (true)
         {

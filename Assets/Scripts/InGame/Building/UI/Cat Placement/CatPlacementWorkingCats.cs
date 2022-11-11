@@ -29,11 +29,15 @@ public class CatPlacementWorkingCats : MonoBehaviour
         });
     }
 
-    public void SetData(CatData CatData)
+    /// <summary>
+    /// 일하고 있는 고양이와 바꾸기
+    /// </summary>
+    public void SetData(int index, CatData CatData)
     {
-        CatDatas[curCatNum] = CatData;
-        CatImages[curCatNum].sprite = CatData.CatSprite;
-        CatAbilitys[curCatNum].SetAbility(CatData.AbilitySprite, CatData.AbilityRating);
+        print(index);
+        CatDatas[index] = CatData;
+        CatImages[index].sprite = CatData.CatSprite;
+        CatAbilitys[index].SetAbility(CatData.AbilitySprite, CatData.AbilityRating);
     }
 
     /// <summary>

@@ -50,6 +50,7 @@ public class GridBuildingSystem : MonoBehaviour
         tileBases.Add(TileType.Empty, null);
         tileBases.Add(TileType.Uninstalled, Resources.Load<TileBase>(path + nameof(TileType.Uninstalled)));
         tileBases.Add(TileType.Installed, Resources.Load<TileBase>(path + nameof(TileType.Installed)));
+        tileBases.Add(TileType.NotExpanded, Resources.Load<TileBase>(path + nameof(TileType.NotExpanded)));
         tileBases.Add(TileType.Green, Resources.Load<TileBase>(path + nameof(TileType.Green)));
         tileBases.Add(TileType.Red, Resources.Load<TileBase>(path + nameof(TileType.Red)));
 
@@ -102,6 +103,7 @@ public class GridBuildingSystem : MonoBehaviour
     private TileBase[] GetTilesBlock(BoundsInt area, Tilemap tilemap)
     {
         TileBase[] array = new TileBase[area.size.x * area.size.y];
+
         int cnt = 0;
 
         foreach (var v in area.allPositionsWithin)
@@ -116,8 +118,21 @@ public class GridBuildingSystem : MonoBehaviour
     public void BuildingClear()
     {
         TileBase[] toClear = new TileBase[prevArea.size.x * prevArea.size.y];
-        FillTiles(toClear, TileType.Uninstalled);
-        TempTilemap.SetTilesBlock(prevArea, toClear);
+
+        TileBase[] tempbase = GetTilesBlock(prevArea, BuildingTilemap);
+
+        int size = tempbase.Length;
+        TileBase[] tileArray = new TileBase[size];
+
+        for (int i = 0; i < size; i++)
+        {
+            if (tempbase[i] != tileBases[TileType.NotExpanded])
+            {
+                tileArray[i] = tileBases[TileType.Uninstalled];
+            }
+        }
+
+        TempTilemap.SetTilesBlock(prevArea, tileArray);
     }
 
     private void AllClearArea()
