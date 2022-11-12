@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
 using System.Runtime.ConstrainedExecution;
+using UnityEngine.EventSystems;
 
 public abstract class Building : MonoBehaviour
 {
@@ -126,4 +127,25 @@ public abstract class Building : MonoBehaviour
         yield return BuildingSprte.transform.DOScale(new Vector3(0.1f, 0.1f, 1f), 0.4f).WaitForCompletion();
     }
 
+    protected bool IsPointerOverGameObject()
+    {
+        // Check mouse
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return true;
+        }
+        // Check touches
+        for (int i = 0; i < Input.touchCount; i++)
+        {
+            var touch = Input.GetTouch(i);
+            if (touch.phase == TouchPhase.Began)
+            {
+                if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }

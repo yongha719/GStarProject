@@ -67,9 +67,9 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
     {
         get
         {
-            if (BuildingManager.s_GoldBuildings[buildingType] == 0)
+            if (BuildingManager.s_GoldBuildingCount[buildingType] == 0)
                 return DefaultConstructionCost;
-            return (DefaultConstructionCost.returnValue() * (BuildingManager.s_GoldBuildings[buildingType] * 3)).returnStr();
+            return (DefaultConstructionCost.returnValue() * (BuildingManager.s_GoldBuildingCount[buildingType] * 3)).returnStr();
         }
     }
 
@@ -131,9 +131,9 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
     public void OnCatMemberChange(CatData catData, int index, Action action)
     {
         if (catData.Cat.CatState != CatState.Working)
-            catData.Cat.GoToWork();
+            catData.Cat.GoToWork(area.position);
         else if (catData.Cat.CatState != CatState.Resting)
-            catData.Cat.GoToRest();
+            catData.Cat.GoToRest(Vector3Int.down);
 
         if (PlacedInBuildingCat.Count < MaxDeployableCat)
         {
@@ -149,7 +149,7 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
         action?.Invoke();
     }
 
-    
+
 
     /// <summary>
     /// 생산 시간 재설정
@@ -173,11 +173,11 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
         if (decreasingfigure != 0)
         {
             waitGoldChargingTime = new WaitForSeconds((float)(DefaultGoldChargingTime * Math.Round(decreasingfigure / 100f, 3)));
-            StartCoroutine(ResourceProduction);
+            StartCoroutine(ResourceProduction());
         }
         else
         {
-            StopCoroutine(ResourceProduction);
+            StopCoroutine(ResourceProduction());
         }
     }
 
@@ -185,40 +185,37 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
     {
         base.Place();
 
-        StartCoroutine(ResourceProduction);
+        StartCoroutine(ResourceProduction());
     }
 
-    public IEnumerator ResourceProduction
+    public IEnumerator ResourceProduction()
     {
-        get
+        while (true)
         {
-            while (true)
+            if (PlacedInBuildingCat.Count == 0)
             {
-                if (PlacedInBuildingCat.Count == 0)
-                {
-                    yield return null;
-                    continue;
-                }
-
-                yield return StartCoroutine(WaitGetResource());
-
-
-                for (int i = 0; i < MaxDeployableCat; i++)
-                {
-                    if (PlacedInBuildingCat[i] == null)
-                        continue;
-
-                    // 골드 생산 10번하면 쉬러 가야 함
-                    if (PlacedInBuildingCat[i].NumberOfGoldProduction++ >= 10)
-                    {
-                        PlacedInBuildingCat[i].GoToRest();
-                    }
-                }
-
-                yield return waitGoldChargingTime;
-
-                CollectMoneyButton.gameObject.SetActive(true);
+                yield return null;
+                continue;
             }
+
+            yield return StartCoroutine(WaitGetResource());
+
+
+            for (int i = 0; i < MaxDeployableCat; i++)
+            {
+                if (PlacedInBuildingCat[i] == null)
+                    continue;
+
+                // 골드 생산 10번하면 쉬러 가야 함
+                if (PlacedInBuildingCat[i].NumberOfGoldProduction++ >= 10)
+                {
+                    PlacedInBuildingCat[i].GoToRest(Vector3Int.right);
+                }
+            }
+
+            yield return waitGoldChargingTime;
+
+            CollectMoneyButton.gameObject.SetActive(true);
         }
     }
 
@@ -268,12 +265,12 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
         ConstructionGoldText.gameObject.SetActive(false);
 
         GridBuildingSystem.InitializeWithBuilding(BuildingInfo.BuildingPrefab);
-        BuildingManager.s_GoldBuildings[buildingType]++;
+        BuildingManager.s_GoldBuildingCount[buildingType]++;
     }
 
     private void OnMouseDown()
     {
-        if (IsDeploying && EventSystem.current.IsPointerOverGameObject())
+        if (IsDeploying && IsPointerOverGameObject())
             return;
 
         if (CollectMoneyButton.gameObject.activeSelf)

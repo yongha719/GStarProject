@@ -48,9 +48,9 @@ public class EnergyProductionBuilding : Building, IResourceProductionBuilding
     {
         get
         {
-            if (BuildingManager.s_EnergyBuildings[buildingType] == 0)
+            if (BuildingManager.s_EnergyBuildingCount[buildingType] == 0)
                 return DefaultConstructionCost;
-            return (DefaultConstructionCost.returnValue() * (BuildingManager.s_EnergyBuildings[buildingType] * 3)).returnStr();
+            return (DefaultConstructionCost.returnValue() * (BuildingManager.s_EnergyBuildingCount[buildingType] * 3)).returnStr();
         }
     }
 
@@ -96,30 +96,27 @@ public class EnergyProductionBuilding : Building, IResourceProductionBuilding
 
     }
 
-    public IEnumerator ResourceProduction
+    public IEnumerator ResourceProduction()
     {
-        get
+        while (true)
         {
-            while (true)
+            yield return waitEnergyChargingTime;
+
+            CollectEnergyButton.gameObject.SetActive(true);
+
+            for (int i = 0; i < MaxDeployableCat; i++)
             {
-                yield return waitEnergyChargingTime;
+                if (PlacedInBuildingCat[i] == null)
+                    continue;
 
-                CollectEnergyButton.gameObject.SetActive(true);
-
-                for (int i = 0; i < MaxDeployableCat; i++)
+                // 에너지 생산 10번하면 쉬러 가야 함
+                if (PlacedInBuildingCat[i].NumberOfGoldProduction++ >= 3)
                 {
-                    if (PlacedInBuildingCat[i] == null)
-                        continue;
-
-                    // 에너지 생산 10번하면 쉬러 가야 함
-                    if (PlacedInBuildingCat[i].NumberOfGoldProduction++ >= 3)
-                    {
-                        PlacedInBuildingCat[i].GoToRest();
-                    }
+                    PlacedInBuildingCat[i].GoToRest(Vector3Int.down);
                 }
-
-                yield return StartCoroutine(WaitGetResource());
             }
+
+            yield return StartCoroutine(WaitGetResource());
         }
     }
 
@@ -165,11 +162,11 @@ public class EnergyProductionBuilding : Building, IResourceProductionBuilding
         if (decreasingfigure != 0)
         {
             waitEnergyChargingTime = new WaitForSeconds((float)(DefaultEnergyChargingTime * Math.Round(decreasingfigure / 100f, 3)));
-            StartCoroutine(ResourceProduction);
+            StartCoroutine(ResourceProduction());
         }
         else
         {
-            StopCoroutine(ResourceProduction);
+            StopCoroutine(ResourceProduction());
         }
 
         action?.Invoke();

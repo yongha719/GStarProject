@@ -21,4 +21,9 @@ public class VilageHallWarning : Warning
             WarningUI.SetActive(false);
         });
     }
+
+    private void OnDisable()
+    {
+        gameObject.SetActive(false);
+    }
 }

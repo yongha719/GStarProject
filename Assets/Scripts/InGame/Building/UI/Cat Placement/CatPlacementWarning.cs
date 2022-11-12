@@ -24,7 +24,11 @@ public class CatPlacementWarning : Warning
         });
     }
 
-    public void OnClickYesButton(Action call) => YesButton.onClick.AddListener(() => call());
+    public void OnClickYesButton(Action call)
+    {
+        YesButton.onClick.RemoveAllListeners();
+        YesButton.onClick.AddListener(() => call());
+    }
 
     public void SetWaringData(string CatName)
     {

@@ -17,6 +17,7 @@ public class CatPlacementWorkingCats : MonoBehaviour
     public GameObject AbilityPrefab;
 
     public List<CatData> CatDatas = new List<CatData>();
+
     int curCatNum;
 
     /// <param name="call">고양이 눌렀을때 이벤트</param>
@@ -46,11 +47,13 @@ public class CatPlacementWorkingCats : MonoBehaviour
     /// <param name="call">고양이 눌렀을때 이벤트</param>
     public void SetData(int index, CatData CatData, Action<int> call)
     {
+        curCatNum = CatClickButtons.IndexOf(CatClickButtons[index]);
+
         CatImages[index].sprite = CatData.CatSprite;
 
         CatDatas.Add(CatData);
 
-        if (CatAbilitys.Count == 0 || CatAbilitys.Count <= index)
+        if (CatAbilitys.Count < index + 1)
         {
             var catAbilityUI = Instantiate(AbilityPrefab).GetComponent<CatAbilityUI>();
             catAbilityUI.SetAbility(CatData.AbilitySprite, CatData.AbilityRating);
@@ -61,9 +64,9 @@ public class CatPlacementWorkingCats : MonoBehaviour
             CatAbilitys[index].SetAbility(CatData.AbilitySprite, CatData.AbilityRating);
         }
 
+
         CatClickButtons[index].onClick.AddListener(() =>
-        {            
-            curCatNum = CatDatas.IndexOf(CatData);
+        {
             call(curCatNum);
         });
     }

@@ -127,7 +127,15 @@ public class Cat : MonoBehaviour
         {
             SpriteRenderer.flipX = (transform.position.x < dest.x);
 
-
+            if (transform.position.y < dest.y)
+            {
+                Animator.SetBool("Walkingback", true);
+                SpriteRenderer.flipX = !SpriteRenderer.flipX;
+            }
+            else
+            {
+                Animator.SetBool("Walkingback", false);
+            }
 
             if (transform.position.y == dest.y)
                 transform.DOMove(dest, 1.4f).SetEase(Ease.Linear);
@@ -182,7 +190,7 @@ public class Cat : MonoBehaviour
     /// 골드 10번 생산했을시 호출
     /// 에너지 생산 건물로 가서 에너지 생산
     /// </summary>
-    public void GoToRest()
+    public void GoToRest(Vector3Int buildingPos)
     {
 
     }
@@ -191,7 +199,7 @@ public class Cat : MonoBehaviour
     /// 일해라 고양이
     /// 골드 생산
     /// </summary>
-    public void GoToWork()
+    public void GoToWork(Vector3Int buildingPos)
     {
 
     }
