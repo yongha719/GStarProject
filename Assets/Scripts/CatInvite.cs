@@ -40,15 +40,18 @@ public class CatInvite : MonoBehaviour
         slowSnow.Play();
         CostTextAccept();
     }
+
     private void Start()
     {
         mySelfImage = transform.parent.GetComponent<Image>();
     }
+
     private void CostTextAccept()
     {
         needGoldValue = CatManager.Instance.CatDataList.Count * 500;
         needGoldText.text = CalculatorManager.returnStr(needGoldValue);
     }
+
     public void CatInviteBtnFunc()
     {
         if (needGoldValue <= GameManager.Instance._coin)
@@ -76,8 +79,6 @@ public class CatInvite : MonoBehaviour
     }
     public void CatNaming()
     {
-        print("Daw");
-
         if (catNameTextArea.text != null)
         {
             curCatData.Name = catNameTextArea.text;

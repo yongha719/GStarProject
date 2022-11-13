@@ -16,7 +16,6 @@ public abstract class Building : MonoBehaviour
     public string BuildingName;
     public int Rating = 1;
 
-
     #region Deploying
 
 
@@ -54,6 +53,7 @@ public abstract class Building : MonoBehaviour
     [SerializeField] private Button DemolitionButton;
     [SerializeField] private Button RotateButton;
     #endregion
+
     public CatPlacement CatPlacement;
 
     protected RectTransform CanvasRt;

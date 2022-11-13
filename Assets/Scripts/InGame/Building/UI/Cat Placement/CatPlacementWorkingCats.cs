@@ -12,33 +12,21 @@ public class CatPlacementWorkingCats : MonoBehaviour
     // 그냥 객체 하나 더 만들까 
     [SerializeField] List<Image> CatImages;
     [SerializeField] List<Button> CatClickButtons;
+    [SerializeField] List<Animator> CatAnimators;
     public List<CatAbilityUI> CatAbilitys = new List<CatAbilityUI>();
 
+    public Transform AbilityParent;
     public GameObject AbilityPrefab;
-
     public List<CatData> CatDatas = new List<CatData>();
 
+    public int MaxDeployableCat;
+
+    private Sprite TransparentImage;
     int curCatNum;
 
-    /// <param name="call">고양이 눌렀을때 이벤트</param>
-    public void SetData(int index, Sprite catSprite, Action call)
+    private void Start()
     {
-        CatImages[index].sprite = catSprite;
-        CatClickButtons[index].onClick.AddListener(() =>
-        {
-            call();
-        });
-    }
-
-    /// <summary>
-    /// 일하고 있는 고양이와 바꾸기
-    /// </summary>
-    public void SetData(int index, CatData CatData)
-    {
-        print(index);
-        CatDatas[index] = CatData;
-        CatImages[index].sprite = CatData.CatSprite;
-        CatAbilitys[index].SetAbility(CatData.AbilitySprite, CatData.AbilityRating);
+        TransparentImage = CatImages[0].sprite;
     }
 
     /// <summary>
@@ -50,24 +38,21 @@ public class CatPlacementWorkingCats : MonoBehaviour
         curCatNum = CatClickButtons.IndexOf(CatClickButtons[index]);
 
         CatImages[index].sprite = CatData.CatSprite;
+        CatAbilitys[index].SetAbility(CatData.AbilitySprite, CatData.AbilityRating);
 
-        CatDatas.Add(CatData);
-
-        if (CatAbilitys.Count < index + 1)
-        {
-            var catAbilityUI = Instantiate(AbilityPrefab).GetComponent<CatAbilityUI>();
-            catAbilityUI.SetAbility(CatData.AbilitySprite, CatData.AbilityRating);
-            CatAbilitys.Add(catAbilityUI);
-        }
+        if (CatDatas.Count < index + 1)
+            CatDatas.Add(CatData);
         else
-        {
-            CatAbilitys[index].SetAbility(CatData.AbilitySprite, CatData.AbilityRating);
-        }
-
+            CatDatas[index] = CatData;
 
         CatClickButtons[index].onClick.AddListener(() =>
         {
             call(curCatNum);
         });
+    }
+
+    private void OnDisable()
+    {
+        gameObject.SetActive(false);
     }
 }

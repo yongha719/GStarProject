@@ -16,7 +16,6 @@ public class CatPlacement : MonoBehaviour
     [Header("Parent Transform")]
     // 배치할 수 있는 고양이 Scroll Rect Content Transform
     [SerializeField] private RectTransform CatToPlacementContentTr;
-    [SerializeField] private Transform AbilityParentTr;
     private Transform WorkingCatParentTr;
 
     [Header("고양이 배치")]
@@ -36,19 +35,21 @@ public class CatPlacement : MonoBehaviour
     /// 현재 선택된 고양이의 인덱스
     /// </summary>
     private int CurSelectedCatIndex;
-    private CatPlacementWorkingCats workingCat;
+    private CatPlacementWorkingCats workingCats;
 
     private const string WORKING_TEXT = "(이)가 일하는 중.";
 
-    private CatManager CatManager;
-    Building dadada;
     IResourceProductionBuilding productionBuilding;
     BuildingType BuildingType;
     List<CatAbilityUI> catAbilityUIs = new List<CatAbilityUI>();
 
+    private CatManager CatManager;
+    private GridBuildingSystem GridBuildingSystem;
+
     private void Awake()
     {
         CatManager = CatManager.Instance;
+        GridBuildingSystem = GridBuildingSystem.Instance;
 
         WorkingCatParentTr = BuildingImage.transform.parent;
     }
@@ -58,13 +59,12 @@ public class CatPlacement : MonoBehaviour
     /// </summary>
     /// <param name="catData">고양이 정보</param>
     /// <param name="buildingSprite">건물 이미지</param>
-    public void SetBuildingInfo(BuildingType buildingType, IResourceProductionBuilding building, CatData[] catData, Sprite buildingSprite)
+    public void SetBuildingInfo(BuildingType buildingType, IResourceProductionBuilding building, CatData[] catData, CatPlacementWorkingCats _workingCats, Sprite buildingSprite)
     {
         productionBuilding = building;
         BuildingType = buildingType;
 
-        if (workingCat == null)
-            CreateWorkingCat(building);
+        SetWorkingCat(building);
 
         if (catData == null)
         {
@@ -75,47 +75,73 @@ public class CatPlacement : MonoBehaviour
             return;
         }
 
-        int catDataLen = catData.Length;
-
-        catAbilityUIs = new List<CatAbilityUI>();
-
-        bool jump = false;
-
-        for (int index = 0; index < catDataLen; index++)
-        {
-            for (int i = 0; i < workingCat.CatDatas.Count; i++)
-            {
-                // 중복이면 생성안함
-                if (workingCat.CatDatas[index] == catData[index])
-                {
-                    jump = true;
-                    break;
-                }
-            }
-
-            if (jump) continue;
-
-            // 스킬 정보 넣어야됨
-            var ability = Instantiate(AbilityPrefab, AbilityParentTr).GetComponent<CatAbilityUI>();
-            ability.SetAbility(catData[index].AbilitySprite, catData[index].AbilityRating);
-            catAbilityUIs.Add(ability);
-        }
-
+        WorkText.gameObject.SetActive(true);
         WorkText.SetText(catData[0].Name + WORKING_TEXT);
 
-        workingCat.CatAbilitys = catAbilityUIs;
+        SetCatList();
+    }
 
-        for (int i = 0; i < catDataLen; i++)
+    /// <summary>
+    /// 배치된 고양이 생성
+    /// </summary>
+    /// <param name="null">working cat이 null인지 체크</param>
+    private void SetWorkingCat(IResourceProductionBuilding Productionbuilding)
+    {
+        if (Productionbuilding is GoldProductionBuilding gold)
         {
-            workingCat.SetData(i, catData[i].CatSprite, call: () =>
-            {
-                CurSelectedCat = catData[i];
+            gold = Productionbuilding as GoldProductionBuilding;
 
-                WorkText.SetText(catData[i].Name + WORKING_TEXT);
-            });
+            if (gold.WorkingCats == null)
+            {
+                workingCats = Instantiate(GoldBuildingWorkingCatPlacements[(int)gold.buildingType], WorkingCatParentTr).GetComponent<CatPlacementWorkingCats>();
+                gold.WorkingCats = workingCats;
+            }
+            else
+            {
+                workingCats = gold.WorkingCats;
+                workingCats.gameObject.SetActive(true);
+            }
+
+            workingCats.MaxDeployableCat = gold.MaxDeployableCat;
+        }
+        else if (Productionbuilding is EnergyProductionBuilding energy)
+        {
+            energy = Productionbuilding as EnergyProductionBuilding;
+
+            if (energy.WorkingCats == null)
+                workingCats = EnergyBuildingWorkingCatPlacements[(int)energy.buildingType].GetComponent<CatPlacementWorkingCats>();
+            else
+                workingCats = energy.WorkingCats;
+
+            EnergyBuildingWorkingCatPlacements[(int)energy.buildingType].SetActive(true);
+        }
+    }
+
+    /// <summary>
+    /// 현재 배치할 건물 정보 가져오기
+    /// </summary>
+    private T GetSelectedBuilding<T>(IResourceProductionBuilding Productionbuilding) where T : Building, IResourceProductionBuilding
+    {
+        T building = null;
+
+        if (typeof(T) == typeof(GoldProductionBuilding))
+        {
+            var gold = Productionbuilding as GoldProductionBuilding;
+
+            return building = gold as T;
+        }
+        else if (typeof(T) == typeof(EnergyProductionBuilding))
+        {
+            var energy = Productionbuilding as EnergyProductionBuilding;
+
+            return building = energy as T;
+        }
+        else
+        {
+            print($"{nameof(GetSelectedBuilding)} 야야 이거 뭔가 잘못됐어");
+            return null;
         }
 
-        SetCatList();
     }
 
     /// <summary>
@@ -123,34 +149,33 @@ public class CatPlacement : MonoBehaviour
     /// </summary>
     private void SetCatList()
     {
+        CurSelectedCat = null;
+
+        DestroyChild(CatToPlacementContentTr);
+
         // 고양이 리스트 출력
         var CatList = CatManager.CatList.Select(x => x.catData).ToList();
         var cnt = CatList.Count;
 
-        for (int i = 0; i < CatToPlacementContentTr.childCount; i++)
-        {
-            Destroy(CatToPlacementContentTr.GetChild(i).gameObject);
-        }
-
-        bool jump = false;
+        bool jump;
 
         for (int index = 0, j = 0; index < cnt; index++)
         {
-            if (workingCat != null)
+            jump = false;
+
+            for (j = 0; j < workingCats.CatDatas.Count; j++)
             {
-                for (j = 0; j < workingCat.CatDatas.Count; j++)
+                if (workingCats.CatDatas[j] == CatList[index])
                 {
-                    if (workingCat.CatDatas[j] == CatList[index])
-                    {
-                        jump = true;
-                        break;
-                    }
+                    jump = true;
+                    break;
                 }
             }
+            if (workingCats.CatDatas.Count != 0)
+                CurSelectedCat = workingCats.CatDatas[0];
 
             if (jump) continue;
 
-            // TODO : 리팩토링
             var catToPlacement = Instantiate(CatToPlacementPrefab, CatToPlacementContentTr).GetComponent<CatToPlace>();
 
             catToPlacement.SetData(CatList[index],
@@ -165,7 +190,7 @@ public class CatPlacement : MonoBehaviour
                 CatPlacementWarning.OnClickYesButton(() =>
                 {
                     // 건물에서 일하는 고양이가 없을 때
-                    if (CurSelectedCat == null)
+                    if (CurSelectedCat == null || workingCats.CatDatas.Count < workingCats.MaxDeployableCat)
                     {
                         CurSelectedCat = catData;
 
@@ -173,13 +198,11 @@ public class CatPlacement : MonoBehaviour
 
                         Destroy(cattoplace.gameObject);
 
-                        // 골드 생산 건물 일때
-
-                        var ability = Instantiate(AbilityPrefab, AbilityParentTr).GetComponent<CatAbilityUI>();
+                        var ability = Instantiate(AbilityPrefab, workingCats.AbilityParent).GetComponent<CatAbilityUI>();
                         ability.SetAbility(catData.AbilitySprite, catData.AbilityRating);
-                        workingCat.CatAbilitys.Add(ability);
+                        workingCats.CatAbilitys.Add(ability);
 
-                        workingCat.SetData(CurSelectedCatIndex, catData, call: (catnum) =>
+                        workingCats.SetData(CurSelectedCatIndex, catData, call: (catnum) =>
                         {
                             CurSelectedCatIndex = catnum;
                         });
@@ -189,7 +212,7 @@ public class CatPlacement : MonoBehaviour
                         // 고양이를 바꿔야 하는거임
 
                         // 배치된 고양이와 정보 교체
-                        workingCat.SetData(CurSelectedCatIndex, catData, call: (catnum) =>
+                        workingCats.SetData(CurSelectedCatIndex, catData, call: (catnum) =>
                         {
                         });
                         cattoplace.SetData(CurSelectedCat);
@@ -200,22 +223,25 @@ public class CatPlacement : MonoBehaviour
                     // 건물에서 일하는 고양이 바꾸기
                     if (BuildingType == BuildingType.Gold)
                     {
-                        var goldBuilding = CreateWorkingCat<GoldProductionBuilding>(productionBuilding);
+                        var goldBuilding = GetSelectedBuilding<GoldProductionBuilding>(productionBuilding);
+
                         // 건물에서 일하는 고양이가 바뀌었을때
                         goldBuilding.OnCatMemberChange(catData, CurSelectedCatIndex,
                             action: () =>
                             {
-
+                                var pos = GridBuildingSystem.gridLayout.LocalToCell(goldBuilding.transform.position);
+                                catData.Cat.building = goldBuilding;
+                                catData.Cat.GoToWork(goldBuilding.transform.position);
                             });
                     }
                     else if (BuildingType == BuildingType.Energy)
                     {
-                        var energyBuilding = CreateWorkingCat<EnergyProductionBuilding>(productionBuilding);
+                        var energyBuilding = GetSelectedBuilding<EnergyProductionBuilding>(productionBuilding);
                         // 건물에서 일하는 고양이가 바뀌었을때
                         energyBuilding.OnCatMemberChange(catData, CurSelectedCatIndex,
                             action: () =>
                             {
-
+                                catData.Cat.GoToRest(energyBuilding.area.position);
                             });
                     }
                 });
@@ -223,55 +249,18 @@ public class CatPlacement : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 배치된 고양이 생성
-    /// </summary>
-    private void CreateWorkingCat(IResourceProductionBuilding Productionbuilding)
+    void DestroyChild(Transform parent)
     {
-        if (Productionbuilding is GoldProductionBuilding gold)
+        for (int i = 0; i < parent.childCount; i++)
         {
-            gold = Productionbuilding as GoldProductionBuilding;
-
-            workingCat = Instantiate(GoldBuildingWorkingCatPlacements[(int)gold.buildingType], WorkingCatParentTr).GetComponent<CatPlacementWorkingCats>();
+            Destroy(parent.GetChild(i).gameObject);
         }
-        else if (Productionbuilding is EnergyProductionBuilding energy)
-        {
-            energy = Productionbuilding as EnergyProductionBuilding;
-
-            workingCat = Instantiate(EnergyBuildingWorkingCatPlacements[(int)energy.buildingType], WorkingCatParentTr).GetComponent<CatPlacementWorkingCats>();
-        }
-    }
-
-    /// <summary>
-    /// 배치된 고양이 생성
-    /// </summary>
-    private T CreateWorkingCat<T>(IResourceProductionBuilding Productionbuilding) where T : Building, IResourceProductionBuilding
-    {
-        T building = null;
-
-        if (typeof(T) == typeof(GoldProductionBuilding))
-        {
-            var gold = Productionbuilding as GoldProductionBuilding;
-
-            // workingCat = Instantiate(GoldBuildingWorkingCatPlacements[(int)gold.buildingType], WorkingCatParentTr).GetComponent<CatPlacementWorkingCats>();
-            building = gold as T;
-        }
-        else if (typeof(T) == typeof(EnergyProductionBuilding))
-        {
-            var energy = Productionbuilding as EnergyProductionBuilding;
-
-            workingCat = Instantiate(EnergyBuildingWorkingCatPlacements[(int)energy.buildingType], WorkingCatParentTr).GetComponent<CatPlacementWorkingCats>();
-            building = energy as T;
-        }
-        else
-        {
-            print($"{nameof(CreateWorkingCat)} 야야 이거 뭔가 잘못됐어");
-        }
-
-        return building;
     }
 
     private void OnDisable()
     {
+        WorkText.SetText();
+        workingCats.gameObject.SetActive(false);
+        workingCats = null;
     }
 }

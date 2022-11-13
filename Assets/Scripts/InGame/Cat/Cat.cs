@@ -4,6 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.Experimental.Animations;
 using System.Runtime.InteropServices;
+using UnityEngineInternal;
 
 /// <summary>
 /// 골드 생산 건물 고양이 능력
@@ -50,8 +51,8 @@ public class CatData
 [System.Serializable]
 public enum CatState
 {
-    NotProducting,          // 아무것도 안하는 중
-    Idle,                   // 걷는 중
+    NotProducting = 0,      // 아무것도 안하는 중
+    Idle = 0,               // 걷는 중
     Working,                // 일하는 중
     Resting,                // 휴식하는 중
 }
@@ -63,10 +64,24 @@ public class Cat : MonoBehaviour
 
     public CatData catData = new CatData();
     [Space]
-    public CatState CatState = CatState.NotProducting;
+    private CatState catState = CatState.NotProducting;
+    public CatState CatState
+    {
+        get => catState;
+
+        set
+        {
+            catState = value;
+            if (catState == CatState.NotProducting)
+            {
+
+            }
+        }
+    }
     public string BuildingName;
 
     public Animator Animator;
+    public RuntimeAnimatorController AnimatorController => Animator.runtimeAnimatorController;
 
     #region Astar Move
 
@@ -80,10 +95,18 @@ public class Cat : MonoBehaviour
 
     private List<Node> nodes = new List<Node>();
 
-    IEnumerator RamdomMoveCoroutine;
+    public Coroutine RandomMoveCoroutine;
+    public IEnumerator MoveCoroutine;
+    public bool StopMove;
+
     public bool IsWorking;
+    public bool IsResting;
+
+    // 도착했는지 체크
+    private bool IsArrived;
 
     #endregion
+
     // 골드 생산 횟수
     public int NumberOfGoldProduction;
     // 에너지 생산 횟수
@@ -98,33 +121,45 @@ public class Cat : MonoBehaviour
         _ => throw new System.Exception("고양이 능력 등급 값이 존재하지 않는 값임")
     };
 
+    public IResourceProductionBuilding building;
+
     private CatManager CatManager;
     private GridBuildingSystem GridBuildingSystem;
+
 
     void Start()
     {
         CatManager = CatManager.Instance;
         GridBuildingSystem = GridBuildingSystem.Instance;
 
+        SpriteRenderer = GetComponent<SpriteRenderer>();
+        Animator = GetComponent<Animator>();
+
+        Animator.runtimeAnimatorController = CatManager.CatAnimators[(int)catData.CatSkinType];
+
         canMoveArea = (int)GridBuildingSystem.ViliageAreaSize.x;
 
         catData.Cat = this;
 
-        SpriteRenderer = GetComponent<SpriteRenderer>();
-        Animator = GetComponent<Animator>();
-
         SpriteRenderer.sprite = catData.CatSprite;
-        Animator.runtimeAnimatorController = CatManager.Instance.CatAnimators[(int)catData.CatSkinType];
 
-        RamdomMoveCoroutine = RandomMove();
-        StartCoroutine(RandomMove());
+        transform.position = transform.position + (Vector3.back * 0.01f * CatManager.CatList.IndexOf(this));
+        PosZ = transform.position.z;
+
+        RandomMoveCoroutine = StartCoroutine(RandomMove());
+
     }
 
     private void Update()
     {
         // 이동 로직
-        if (CatState == CatState.NotProducting && done)
+        if (done)
         {
+            if (transform.position.y == dest.y)
+                transform.DOMove(dest, 1.4f).SetEase(Ease.Linear);
+            else
+                transform.DOMove(dest, 1f).SetEase(Ease.Linear);
+
             SpriteRenderer.flipX = (transform.position.x < dest.x);
 
             if (transform.position.y < dest.y)
@@ -137,10 +172,6 @@ public class Cat : MonoBehaviour
                 Animator.SetBool("Walkingback", false);
             }
 
-            if (transform.position.y == dest.y)
-                transform.DOMove(dest, 1.4f).SetEase(Ease.Linear);
-            else
-                transform.DOMove(dest, 1f).SetEase(Ease.Linear);
             done = false;
         }
     }
@@ -157,6 +188,14 @@ public class Cat : MonoBehaviour
         }
     }
 
+    public IEnumerator Move(Vector3 Pos)
+    {
+        var pos = new Vector2(Pos.x, Pos.y * 2);
+        targetPos = Vector2Int.CeilToInt(Pos);
+
+        yield return StartCoroutine(MoveStep());
+    }
+
     /// <summary>
     /// 영역안에서 움직일 수 있는 랜덤 좌표 
     /// </summary>
@@ -165,19 +204,28 @@ public class Cat : MonoBehaviour
     private IEnumerator MoveStep()
     {
         nodes = AStar.PathFinding(Vector2Int.CeilToInt(transform.position), targetPos);
-        var cnt = 0;
-        Node node = null;
 
+        var cnt = 0;
+
+        Node node = null;
         int nodesCnt = nodes.Count;
 
-        while (nodesCnt - 1 != cnt++)
+        while (cnt++ != nodesCnt - 1)
         {
+
             done = true;
             node = nodes[cnt];
             dest = new Vector3(node.Pos.x, node.Pos.y, PosZ);
             yield return new WaitForSeconds(1);
+
+            if (StopMove)
+            {
+                StopMove = false;
+                yield break;
+            }
         }
 
+        CatState = CatState.Idle;
         yield return new WaitForSeconds(2);
     }
 
@@ -190,18 +238,36 @@ public class Cat : MonoBehaviour
     /// 골드 10번 생산했을시 호출
     /// 에너지 생산 건물로 가서 에너지 생산
     /// </summary>
-    public void GoToRest(Vector3Int buildingPos)
+    public void GoToRest(Vector3 buildingPos)
     {
-
+        StopCoroutine(RandomMoveCoroutine);
+        StartCoroutine(Move(buildingPos));
+        IsWorking = false;
     }
 
     /// <summary>
     /// 일해라 고양이
     /// 골드 생산
     /// </summary>
-    public void GoToWork(Vector3Int buildingPos)
+    public void GoToWork(Vector3 buildingPos)
     {
+        StopCoroutine(RandomMoveCoroutine);
+        StartCoroutine(Move(buildingPos));
+        IsWorking = true;
+    }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (IsWorking && collision.gameObject.TryGetComponent(out GoldProductionBuilding building))
+        {
+            transform.DOKill();
+            StopMove = true;
+
+            SpriteRenderer.flipX = false;
+            var pos = building.transform.position;
+
+            transform.position = new Vector3(pos.x, pos.y + 0.675f, PosZ);
+        }
     }
 
     #endregion

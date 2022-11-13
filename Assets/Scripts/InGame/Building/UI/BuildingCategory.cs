@@ -39,7 +39,7 @@ public class BuildingCategory : Category
     {
         base.Unselect();         
 
-        rect.DOAnchorPosY(20f, 0.3f);
+        rect.DOAnchorPosY(60f, 0.3f);
     }
 
 }
