@@ -10,6 +10,14 @@ public class ResourceClass
     public double energy;
     public double ice;
 }
+[System.Serializable]
+public enum EResourcesType
+{
+    Coin,
+    Ice,
+    Stamina,
+    End
+}
 public class GameManager : Singleton<GameManager>
 {
 
