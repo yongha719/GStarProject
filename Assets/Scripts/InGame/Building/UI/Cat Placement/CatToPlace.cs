@@ -22,18 +22,18 @@ public class CatToPlace : MonoBehaviour
     /// 배치할 고양이 정보 설정
     /// </summary>
     /// <param name="onclick">배치 버튼에 들어갈 onclick 이벤트</param>
-    public void SetData(CatData catData, Action<CatData> onclick)
+    public void SetData(CatData catData, Action<CatToPlace, CatData> onclick)
     {
         CatData = catData;
 
         CatImage.sprite = CatData.CatSprite;
         CatNameText.text = CatData.Name;
-        
+
         Ability.SetAbility(CatData.AbilitySprite, CatData.AbilityRating);
 
         PlacementButton.onClick.AddListener(() =>
         {
-            onclick?.Invoke(CatData);
+            onclick?.Invoke(this, CatData);
         });
     }
 

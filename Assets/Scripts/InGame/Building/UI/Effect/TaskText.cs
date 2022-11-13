@@ -33,6 +33,9 @@ public class TaskText : MonoBehaviour
         if (text == null)
         {
             TaskTextCoroutine = null;
+            if (Tasktext != null)
+                Tasktext.text = "";
+
             return;
         }
 

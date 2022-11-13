@@ -70,7 +70,7 @@ public class GridBuildingSystem : MonoBehaviour
             {
                 // 클릭한 오브젝트가 UI면 return
 #if UNITY_EDITOR
-                if (EventSystem.current.IsPointerOverGameObject())
+                if (IsPointerOverGameObject())
                 {
                     return;
                 }
@@ -258,5 +258,26 @@ public class GridBuildingSystem : MonoBehaviour
         }
     }
 
+    private bool IsPointerOverGameObject()
+    {
+        // Check mouse
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return true;
+        }
+        // Check touches
+        for (int i = 0; i < Input.touchCount; i++)
+        {
+            var touch = Input.GetTouch(i);
+            if (touch.phase == TouchPhase.Began)
+            {
+                if (EventSystem.current.IsPointerOverGameObject(touch.fingerId)) // 장실
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
 

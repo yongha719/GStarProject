@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -40,25 +41,25 @@ public enum EnergyBuildingType
 
 public static class BuildingManager
 {
-    public static Dictionary<GoldBuildingType, int> s_GoldBuildings = new Dictionary<GoldBuildingType, int>();
-    public static Dictionary<EnergyBuildingType, int> s_EnergyBuildings = new Dictionary<EnergyBuildingType, int>();
+    public static Dictionary<GoldBuildingType, int> s_GoldBuildingCount = new Dictionary<GoldBuildingType, int>();
+    public static Dictionary<EnergyBuildingType, int> s_EnergyBuildingCount = new Dictionary<EnergyBuildingType, int>();
+
+    public static List<GoldProductionBuilding> s_GoldProductionBuildings = new List<GoldProductionBuilding>();
+    public static List<EnergyProductionBuilding> s_EnergyProductionBuildings = new List<EnergyProductionBuilding>();
 
     public static void Init()
     {
         for (int buildingtype = 0; buildingtype < (int)GoldBuildingType.End; buildingtype++)
         {
-            s_GoldBuildings.Add((GoldBuildingType)buildingtype, 0);
+            s_GoldBuildingCount.Add((GoldBuildingType)buildingtype, 0);
         }
         
         for (int buildingtype = 0; buildingtype < (int)EnergyBuildingType.End; buildingtype++)
         {
-            s_EnergyBuildings.Add((EnergyBuildingType)buildingtype, 0);
+            s_EnergyBuildingCount.Add((EnergyBuildingType)buildingtype, 0);
         }
     }
 
-    public static void BuildingLevelUp(GoldBuildingType buildingType) => s_GoldBuildings[buildingType]++;
-
-    public static void BuildingLevelUp(EnergyBuildingType buildingType) => s_EnergyBuildings[buildingType]++;
 }
 
 

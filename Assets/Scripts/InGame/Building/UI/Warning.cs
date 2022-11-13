@@ -10,15 +10,4 @@ public class Warning : MonoBehaviour
     [SerializeField] protected TextMeshProUGUI WarningText;
     [SerializeField] protected Button YesButton;
     [SerializeField] protected Button NoButton;
-
-
-
-    private void Awake()
-    {
-
-    }
-    private void Start()
-    {
-    }
-
 }

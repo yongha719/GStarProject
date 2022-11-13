@@ -6,8 +6,7 @@ using UnityEngine;
 public interface IResourceProductionBuilding
 {
     public void OnCatMemberChange(CatData catData,int index, Action action);
-    public IEnumerator ResourceProduction { get; }
-
+    IEnumerator ResourceProduction();
     public IEnumerator WaitGetResource();
 
 }

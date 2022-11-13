@@ -52,7 +52,7 @@ public class VillageHall : Building
 
     private void OnMouseDown()
     {
-        if (EventSystem.current.IsPointerOverGameObject())
+        if (IsPointerOverGameObject())
         {
             return;
         }
