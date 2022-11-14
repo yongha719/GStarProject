@@ -351,7 +351,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &23551609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1536,6 +1536,10 @@ PrefabInstance:
     - target: {fileID: 1924830555882458984, guid: ec5b0a85b9bc18d40b8ce6e2d429d0c4, type: 3}
       propertyPath: m_Name
       value: Cat (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1924830555882458984, guid: ec5b0a85b9bc18d40b8ce6e2d429d0c4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1924830555882458986, guid: ec5b0a85b9bc18d40b8ce6e2d429d0c4, type: 3}
       propertyPath: m_RootOrder
@@ -15714,6 +15718,7 @@ MonoBehaviour:
   CurBuilding: {fileID: 0}
   BuildingInstallationEffect: {fileID: 6392570179548458414, guid: a5cc52e46ae4dac4cbbba547dae66005, type: 3}
   ViliageAreaSize: {x: 0, y: 0}
+  VillageHall: {fileID: 0}
 --- !u!4 &674695991
 Transform:
   m_ObjectHideFlags: 0
@@ -92432,6 +92437,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cat (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 1924830555882458984, guid: ec5b0a85b9bc18d40b8ce6e2d429d0c4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1924830555882458986, guid: ec5b0a85b9bc18d40b8ce6e2d429d0c4, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -103183,7 +103192,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resource:
-    coin: 125342453
+    coin: 1.2312331232132133e+24
     energy: 10
     ice: 100
 --- !u!4 &1615006987

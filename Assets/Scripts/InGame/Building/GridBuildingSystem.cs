@@ -61,6 +61,18 @@ public class GridBuildingSystem : Singleton<GridBuildingSystem>
     {
     }
 
+    // 마을회관 체크
+    public bool WallCheck(Vector2Int pos)
+    {
+        var max = gridLayout.CellToLocal(VillageHall.area.position - VillageHall.area.max) * -2;
+        var min = gridLayout.CellToLocal(VillageHall.area.position) * 2;
+
+        if ((pos.x < max.x && pos.y < max.y) && (pos.x >= min.x && pos.y >= min.y))
+            return true;
+
+        return false;
+    }
+
     void Update()
     {
         #region Building Installation
@@ -204,27 +216,31 @@ public class GridBuildingSystem : Singleton<GridBuildingSystem>
 
         // 레벨당 영역 나누기 2
         var areaDividedby2 = ((level * 2) + 2) / 2;
-        // 영역 크기 바꿔주기                                                 
-        BoundsInt area = new BoundsInt(new Vector3Int(-areaDividedby2 - 1, -areaDividedby2 - 1, 0)
+        // 바꿀 영역                                               
+        BoundsInt toChangeArea = new BoundsInt(new Vector3Int(-areaDividedby2 - 1, -areaDividedby2 - 1, 0)
             // 땅 공간 여유남겨두기
             , new Vector3Int((level * 2) + 3, (level * 2) + 3, 1));
+
+        // 바뀐 영역
+        BoundsInt changedArea = new BoundsInt(new Vector3Int(-(level * 2) / 2, -(level * 2) / 2, 0)
+            // 땅 공간 여유남겨두기
+            , new Vector3Int((level * 2), (level * 2), 1));
 
         // 고양이가 이동 가능한 범위 변경
         CatManager.Instance.ChangeRangeCatMovement(level * 2 + 2);
 
         // 타일 정보 바꿔주기
-        var tile = GetTilesBlock(prevArea, BuildingTilemap);
-        SetTilesBlock(area, TileType.Uninstalled, BuildingTilemap);
-        area.position = area.position + new Vector3Int(1, 1, 0);
-        area.size = new Vector3Int((level * 2) + 2, (level * 2) + 2, 1);
-        BuildingTilemap.SetTilesBlock(prevArea, tile);
+        var tile = GetTilesBlock(changedArea, BuildingTilemap);
+        SetTilesBlock(toChangeArea, TileType.Empty, TreeTilemap);
+        SetTilesBlock(toChangeArea, TileType.NotExpanded, BuildingTilemap);
 
-        SetTilesBlock(area, TileType.Empty, TreeTilemap);
+        toChangeArea.position = toChangeArea.position + new Vector3Int(1, 1, 0);
+        toChangeArea.size = new Vector3Int((level * 2) + 2, (level * 2) + 2, 1);
+        SetTilesBlock(toChangeArea, TileType.Uninstalled, BuildingTilemap);
+        BuildingTilemap.SetTilesBlock(changedArea, tile);
 
-        prevArea = area;
+        prevArea = toChangeArea;
     }
-
-
 
     public void SetTilesBlock(BoundsInt area, TileType type, Tilemap tilemap)
     {
@@ -234,8 +250,6 @@ public class GridBuildingSystem : Singleton<GridBuildingSystem>
         FillTiles(tileArray, type);
         tilemap.SetTilesBlock(area, tileArray);
     }
-
-    private void FillTile(TileBase[] tile, TileType tiletype, int index) => tile[index] = tileBases[tiletype];
 
     private void FillTiles(TileBase[] arr, TileType type)
     {

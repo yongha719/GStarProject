@@ -126,17 +126,9 @@ public class EnergyProductionBuilding : Building, IResourceProductionBuilding
 
     }
 
-    public void OnCatMemberChange(CatData catData, int index, Action action)
+    public void OnCatMemberChange(CatData catData, int index = 0, Action action = null)
     {
-        if (PlacedInBuildingCat.Count < MaxDeployableCat)
-        {
-            PlacedInBuildingCat.Add(catData.Cat);
-        }
-        else
-        {
-            PlacedInBuildingCat[index] = catData.Cat;
-        }
-
+        PlacedInBuildingCat.Add(catData.Cat);
         SetProductionTime();
 
         action?.Invoke();
@@ -197,7 +189,12 @@ public class EnergyProductionBuilding : Building, IResourceProductionBuilding
                 if (++PlacedInBuildingCat[i].NumberOfEnergyProduction >= 3)
                 {
                     PlacedInBuildingCat[i].NumberOfEnergyProduction = 0;
-                    PlacedInBuildingCat[i].GoToWork(Vector3Int.down);
+                    PlacedInBuildingCat[i].GoWorking = true;
+                    PlacedInBuildingCat[i].GoResting = false;
+                    PlacedInBuildingCat[i].IsResting= false;
+                    PlacedInBuildingCat[i].GoToWork(PlacedInBuildingCat[i].building.transform.position);
+
+                    PlacedInBuildingCat.RemoveAt(i);
                 }
             }
 
@@ -250,8 +247,11 @@ public class EnergyProductionBuilding : Building, IResourceProductionBuilding
 
         ConstructionGoldText.gameObject.SetActive(false);
 
-        GridBuildingSystem.InitializeWithBuilding(BuildingInfo.BuildingPrefab);
         BuildingManager.s_EnergyBuildingCount[buildingType]++;
+        BuildingManager.s_EnergyProductionBuildings.Add(this);
+
+        GridBuildingSystem.InitializeWithBuilding(BuildingInfo.BuildingPrefab);
+
     }
 
     public bool CanDeploy()

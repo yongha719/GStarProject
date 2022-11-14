@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using static UnityEngine.Debug;
 
@@ -28,7 +29,7 @@ public class AStar
     public static Vector2Int bottomLeft, topRight;
     public static List<Node> FinalNodeList;
     public static bool allowDiagonal = true;
-    public static bool dontCrossCorner;
+    public static bool dontCrossCorner = true;
 
     static Node[,] NodeArray;
     static Node StartNode, TargetNode, CurNode;
@@ -38,7 +39,6 @@ public class AStar
     {
         startPos *= 2;
         targetPos *= 2;
-        //bottomLeft = (startPos.x <= targetPos.x && startPos.y <= targetPos.y) ? startPos : targetPos;
         bottomLeft = Vector2Int.Min(startPos, targetPos);
         topRight = Vector2Int.Max(startPos, targetPos);
 
@@ -53,9 +53,8 @@ public class AStar
             for (int j = 0; j < sizeY; j++)
             {
                 bool isWall = false;
-                foreach (var pos in GridBuildingSystem.Instance.VillageHall.area.allPositionsWithin)
-                    if ((Vector2Int)pos == new Vector2Int(i + bottomLeft.x, j + bottomLeft.y))
-                        isWall = true;
+
+                isWall = GridBuildingSystem.Instance.WallCheck(new Vector2Int(i + bottomLeft.x, j + bottomLeft.y));
 
                 NodeArray[i, j] = new Node(isWall, i + bottomLeft.x, j + bottomLeft.y);
             }
