@@ -123,6 +123,8 @@ public class CatInvite : MonoBehaviour
     {
         if (onOff)
         {
+            Vector3 pos = FindObjectOfType<VillageHall>().transform.position;
+            Camera.main.transform.DOMove(new Vector3(pos.x, pos.y + 1.25f, -10), 0.3f);
             mySelfImage.DOFade(0.5f, 0);
             transform.DOScale(1, 0.3f);
         }
