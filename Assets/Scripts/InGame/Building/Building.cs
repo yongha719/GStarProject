@@ -129,21 +129,26 @@ public abstract class Building : MonoBehaviour
 
     protected bool IsPointerOverGameObject()
     {
-        // Check mouse
-        if (EventSystem.current.IsPointerOverGameObject())
+        if (Application.platform == RuntimePlatform.WindowsEditor)
         {
-            return true;
-        }
-
-        // Check touches
-        for (int i = 0; i < Input.touchCount; i++)
-        {
-            var touch = Input.GetTouch(i);
-            if (touch.phase == TouchPhase.Began)
+            // Check mouse
+            if (EventSystem.current.IsPointerOverGameObject())
             {
-                if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
+                return true;
+            }
+        }
+        else if (Application.platform == RuntimePlatform.Android)
+        {
+            // Check touches
+            for (int i = 0; i < Input.touchCount; i++)
+            {
+                var touch = Input.GetTouch(i);
+                if (touch.phase == TouchPhase.Began)
                 {
-                    return true;
+                    if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
+                    {
+                        return true;
+                    }
                 }
             }
         }

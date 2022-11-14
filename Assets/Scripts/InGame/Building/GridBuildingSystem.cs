@@ -16,10 +16,8 @@ public enum TileType
     Red                    // 설치 불가능한 영역을 표시할 때 사용
 }
 
-public class GridBuildingSystem : MonoBehaviour
+public class GridBuildingSystem : Singleton<GridBuildingSystem>
 {
-    public static GridBuildingSystem Instance;
-
     public GridLayout gridLayout;
     public Tilemap TempTilemap;
     public Tilemap BuildingTilemap;
@@ -43,9 +41,11 @@ public class GridBuildingSystem : MonoBehaviour
 
     public static bool IsDeploying = false;
 
+    public VillageHall VillageHall;
+
     private void Awake()
     {
-        Instance = this;
+        VillageHall = FindObjectOfType<VillageHall>();
 
         tileBases.Add(TileType.Empty, null);
         tileBases.Add(TileType.Uninstalled, Resources.Load<TileBase>(path + nameof(TileType.Uninstalled)));
@@ -69,20 +69,10 @@ public class GridBuildingSystem : MonoBehaviour
             if (Input.GetMouseButton(0))
             {
                 // 클릭한 오브젝트가 UI면 return
-#if UNITY_EDITOR
                 if (IsPointerOverGameObject())
                 {
                     return;
                 }
-#elif UNITY_ANDROID
-                if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
-                {
-                    if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
-                    {
-                       return;
-                    }
-                }
-#endif
                 if (CurBuilding.Placed == false)
                 {
                     Vector2 touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -145,7 +135,6 @@ public class GridBuildingSystem : MonoBehaviour
 
     public void InitializeWithBuilding(GameObject building)
     {
-        //MainTilemap.color = new Color(1, 1, 1, 0.5f);
         CurBuilding = Instantiate(building, Vector3.zero, Quaternion.identity, transform).GetComponent<Building>();
         FollowBuiliding();
     }
@@ -215,17 +204,24 @@ public class GridBuildingSystem : MonoBehaviour
 
         // 레벨당 영역 나누기 2
         var areaDividedby2 = ((level * 2) + 2) / 2;
-        // 영역 크기 바꿔주기
-        BoundsInt area = new BoundsInt(new Vector3Int(areaDividedby2 * -1, areaDividedby2 * -1, 0), new Vector3Int((level * 2) + 2, (level * 2) + 2, 1));
+        // 영역 크기 바꿔주기                                                 
+        BoundsInt area = new BoundsInt(new Vector3Int(-areaDividedby2 - 1, -areaDividedby2 - 1, 0)
+            // 땅 공간 여유남겨두기
+            , new Vector3Int((level * 2) + 3, (level * 2) + 3, 1));
 
+        // 고양이가 이동 가능한 범위 변경
         CatManager.Instance.ChangeRangeCatMovement(level * 2 + 2);
 
         // 타일 정보 바꿔주기
-        var tile = GetTilesBlock(area, BuildingTilemap);
+        var tile = GetTilesBlock(prevArea, BuildingTilemap);
         SetTilesBlock(area, TileType.Uninstalled, BuildingTilemap);
-        BuildingTilemap.SetTilesBlock(area, tile);
+        area.position = area.position + new Vector3Int(1, 1, 0);
+        area.size = new Vector3Int((level * 2) + 2, (level * 2) + 2, 1);
+        BuildingTilemap.SetTilesBlock(prevArea, tile);
 
         SetTilesBlock(area, TileType.Empty, TreeTilemap);
+
+        prevArea = area;
     }
 
 
@@ -260,20 +256,26 @@ public class GridBuildingSystem : MonoBehaviour
 
     private bool IsPointerOverGameObject()
     {
-        // Check mouse
-        if (EventSystem.current.IsPointerOverGameObject())
+        if (Application.platform == RuntimePlatform.WindowsEditor)
         {
-            return true;
-        }
-        // Check touches
-        for (int i = 0; i < Input.touchCount; i++)
-        {
-            var touch = Input.GetTouch(i);
-            if (touch.phase == TouchPhase.Began)
+            // Check mouse
+            if (EventSystem.current.IsPointerOverGameObject())
             {
-                if (EventSystem.current.IsPointerOverGameObject(touch.fingerId)) // 장실
+                return true;
+            }
+        }
+        else if (Application.platform == RuntimePlatform.Android)
+        {
+            // Check touches
+            for (int i = 0; i < Input.touchCount; i++)
+            {
+                var touch = Input.GetTouch(i);
+                if (touch.phase == TouchPhase.Began)
                 {
-                    return true;
+                    if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
+                    {
+                        return true;
+                    }
                 }
             }
         }

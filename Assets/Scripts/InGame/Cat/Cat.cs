@@ -256,6 +256,12 @@ public class Cat : MonoBehaviour
         IsWorking = true;
     }
 
+    void WorkingMotion()
+    {
+
+    }
+
+    #endregion
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (IsWorking && collision.gameObject.TryGetComponent(out GoldProductionBuilding building))
@@ -269,6 +275,4 @@ public class Cat : MonoBehaviour
             transform.position = new Vector3(pos.x, pos.y + 0.675f, PosZ);
         }
     }
-
-    #endregion
 }

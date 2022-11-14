@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class VilageHallWarning : Warning
+public class VillageHallWarning : Warning
 {
     private VillageHall VillageHall;
 

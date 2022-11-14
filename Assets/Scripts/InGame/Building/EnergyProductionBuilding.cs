@@ -194,8 +194,9 @@ public class EnergyProductionBuilding : Building, IResourceProductionBuilding
                     continue;
 
                 // 에너지 생산 3번하면 일하러 가야함
-                if (PlacedInBuildingCat[i].NumberOfEnergyProduction++ >= 3)
+                if (++PlacedInBuildingCat[i].NumberOfEnergyProduction >= 3)
                 {
+                    PlacedInBuildingCat[i].NumberOfEnergyProduction = 0;
                     PlacedInBuildingCat[i].GoToWork(Vector3Int.down);
                 }
             }
@@ -259,7 +260,7 @@ public class EnergyProductionBuilding : Building, IResourceProductionBuilding
 
     private void OnMouseDown()
     {
-        if (isDeploying && IsPointerOverGameObject())
+        if (isDeploying || IsPointerOverGameObject())
             return;
 
         if (CollectEnergyButton.gameObject.activeSelf)

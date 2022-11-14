@@ -34,10 +34,6 @@ public class AStar
     static Node StartNode, TargetNode, CurNode;
     static List<Node> OpenList, ClosedList;
 
-    private void Awake()
-    {
-    }
-
     public static List<Node> PathFinding(Vector2Int startPos, Vector2Int targetPos)
     {
         startPos *= 2;
@@ -57,9 +53,9 @@ public class AStar
             for (int j = 0; j < sizeY; j++)
             {
                 bool isWall = false;
-                //foreach (Collider2D col in Physics2D.OverlapCircleAll(new Vector2(i + bottomLeft.x, j + bottomLeft.y), 0.4f))
-                //    if (col.gameObject.layer == LayerMask.NameToLayer("Wall"))
-                //        isWall = true;
+                foreach (var pos in GridBuildingSystem.Instance.VillageHall.area.allPositionsWithin)
+                    if ((Vector2Int)pos == new Vector2Int(i + bottomLeft.x, j + bottomLeft.y))
+                        isWall = true;
 
                 NodeArray[i, j] = new Node(isWall, i + bottomLeft.x, j + bottomLeft.y);
             }

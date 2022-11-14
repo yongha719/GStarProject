@@ -137,6 +137,7 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
         {
             print("change");
             StartCoroutine(PlacedInBuildingCat[index].RandomMove());
+            PlacedInBuildingCat[index].IsWorking = true;
             PlacedInBuildingCat[index] = catData.Cat;
         }
 
@@ -197,17 +198,21 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
                 if (PlacedInBuildingCat[i] == null)
                     continue;
 
+                print(BuildingManager.s_EnergyProductionBuildings.Count);
                 // 골드 생산 10번하면 쉬러 가야 함
                 if (++PlacedInBuildingCat[i].NumberOfGoldProduction >= 10 && BuildingManager.CanGoRest(out Vector3 buildingPos))
                 {
                     print("rest");
-                    // 에너지 생산 건물 위치 넣어주기
+                    PlacedInBuildingCat[i].NumberOfGoldProduction = 0;
+                    PlacedInBuildingCat[i].IsWorking = false;
+                    PlacedInBuildingCat[i].IsResting = true;
+
+                    // 랜덤한 에너지 생산 건물 위치로 가기
                     PlacedInBuildingCat[i].GoToRest(buildingPos);
                 }
             }
 
             yield return waitGoldChargingTime;
-
         }
     }
 
@@ -267,7 +272,6 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
         if (isDeploying || IsPointerOverGameObject())
             return;
 
-        print(isDeploying);
         if (CollectMoneyButton.gameObject.activeSelf)
         {
             didGetMoney = true;
