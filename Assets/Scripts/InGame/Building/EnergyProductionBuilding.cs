@@ -219,6 +219,7 @@ public class EnergyProductionBuilding : Building, IResourceProductionBuilding
                 CollectEnergyButton.gameObject.SetActive(false);
 
                 // 골드 획득 연출
+                SoundManager.Instance.PlaySoundClip("SFX_Goods", SoundType.SFX);
                 Destroy(Instantiate(EnergyAcquisitionEffect, transform.position + (Vector3.up * 0.5f), Quaternion.identity, CanvasRt), 1.5f);
 
                 yield break;

@@ -117,6 +117,8 @@ public abstract class Building : MonoBehaviour
             FirstTimeInstallation = false;
             StartCoroutine(BuildingInstalltionEffect());
         }
+
+        SoundManager.Instance.PlaySoundClip("SFX_Building",SoundType.SFX);
     }
 
     protected virtual IEnumerator BuildingInstalltionEffect()

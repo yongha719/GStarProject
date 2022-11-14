@@ -53,6 +53,7 @@ public class UIManager : Singleton<UIManager>
             yield return null;
         }
 
+        SoundManager.Instance.PlaySoundClip("SFX_Button_Touch", SoundType.SFX);
         title.DOFade(0, 1).SetEase(Ease.InBack);
         pressToStartText.DOFade(0, 1).SetEase(Ease.InBack);
         yield return new WaitForSeconds(1);
