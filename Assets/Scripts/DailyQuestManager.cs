@@ -1,17 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 using DateTime = System.DateTime;
 
-[CreateAssetMenu(fileName = "DailyQuestInfo", menuName = "DailyQuestInfo", order = int.MinValue)]
-public class DailyQuestUI_Info : ScriptableObject
-{
-    public QuestType questType;
-    public EResourcesType rewardType;
-    public double rewardValue;
-    public double addRewardValue;
-}
+
 public class BaseDailyQuest
 {
     public QuestType type;
@@ -72,13 +67,32 @@ public class DailyQuests
     public string nowTimeStr = null;
 }
 [System.Serializable]
-public class DailyQuestInfo
+public class DailyQuestUIInfo
 {
-    public bool isComplete;
-    public int Count;
+    public TextMeshProUGUI clearText;
+    public TextMeshProUGUI clearRewardValue;
+    public TextMeshProUGUI processingValue;
+    public Image processingBar;
+
 }
-public class DailyQuestManager : MonoBehaviour
+public class DailyQuestClearSaveData
 {
+    public int nowCount;
+    public int beforeClearCount;
+    public int returnRewardValue(int index)
+    {
+        index *= (beforeClearCount + 1) / 5;
+        return index;
+    }
+}
+public class DailyQuestManager : Singleton<DailyQuestManager>
+{
+    public List<DailyQuestClearSaveData> questDatas;
+
+    [SerializeField]
+    private Transform QuestPrefabParent;
+    private DailyQuestUIInfo[] dailyQuestUIInfos;
+
     public static DailyQuests dailyQuests = new DailyQuests();
     private void Awake()
     {
@@ -88,7 +102,12 @@ public class DailyQuestManager : MonoBehaviour
     public void Start()
     {
         CheckTimeToReset();
+        for (int i = 0; i < QuestPrefabParent.childCount; i++)
+        {
+            dailyQuestUIInfos[i] = QuestPrefabParent.GetChild(i).GetComponent<QuestUIHave>().QuestUIInfo;
+        }
     }
+
 
     /// <summary>
     /// 일일퀘스트는 새벽 4시마다 갱신된다

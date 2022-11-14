@@ -178,7 +178,7 @@ public class Cat : MonoBehaviour
 
     #region 이동
 
-    private IEnumerator RandomMove()
+    public IEnumerator RandomMove()
     {
         while (true)
         {
@@ -260,8 +260,8 @@ public class Cat : MonoBehaviour
     {
         if (IsWorking && collision.gameObject.TryGetComponent(out GoldProductionBuilding building))
         {
-            transform.DOKill();
             StopMove = true;
+            transform.DOKill();
 
             SpriteRenderer.flipX = false;
             var pos = building.transform.position;

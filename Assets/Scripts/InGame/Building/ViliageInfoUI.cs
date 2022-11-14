@@ -21,6 +21,7 @@ public class ViliageInfoUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI CurAreaText;
     [SerializeField] private TextMeshProUGUI NextAreaText;
 
+    private GameManager GameManager;
     private CatManager CatManager;
     private VillageHall VillageHall;
     private GridBuildingSystem GridBuildingSystem;
@@ -28,7 +29,31 @@ public class ViliageInfoUI : MonoBehaviour
     {
         CatManager = CatManager.Instance;
         GridBuildingSystem = GridBuildingSystem.Instance;
+        GameManager = GameManager.Instance;
+
         VillageHall = FindObjectOfType<VillageHall>();
+    }
+
+    private void Start()
+    {
+        GameManager.OnCoinValueChanged += () =>
+        {
+            GoldText.text = GameManager._coin.returnStr();
+        };
+
+        GameManager.OnEnergyValueChanged += () =>
+        {
+            EnergyText.text = GameManager._energy.returnStr();
+        };
+
+        GameManager.OnIceValueChanged += () =>
+        {
+            IceText.text = GameManager._ice.returnStr();
+        };
+
+        GoldText.text = GameManager._coin.returnStr();
+        EnergyText.text = GameManager._energy.returnStr();
+        IceText.text = GameManager._ice.returnStr();
     }
 
     private void OnEnable()

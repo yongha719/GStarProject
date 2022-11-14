@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,6 +31,7 @@ public class GameManager : Singleton<GameManager>
         {
             resource.coin = value;
             if (UIManager.Instance != null) UIManager.Instance.ResourcesApply();
+            OnCoinValueChanged?.Invoke();
         }
     }
     public double _energy
@@ -39,6 +41,7 @@ public class GameManager : Singleton<GameManager>
         {
             resource.energy = value;
             if (UIManager.Instance != null) UIManager.Instance.ResourcesApply();
+            OnEnergyValueChanged?.Invoke();
         }
     }
     public double _ice
@@ -48,8 +51,13 @@ public class GameManager : Singleton<GameManager>
         {
             resource.ice = value;
             if (UIManager.Instance != null) UIManager.Instance.ResourcesApply();
+            OnIceValueChanged?.Invoke();
         }
     }
+
+    public Action OnCoinValueChanged;
+    public Action OnEnergyValueChanged;
+    public Action OnIceValueChanged;
 
     private void Awake()
     {

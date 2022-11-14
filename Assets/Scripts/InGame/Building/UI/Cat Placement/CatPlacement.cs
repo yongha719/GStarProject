@@ -109,11 +109,17 @@ public class CatPlacement : MonoBehaviour
             energy = Productionbuilding as EnergyProductionBuilding;
 
             if (energy.WorkingCats == null)
-                workingCats = EnergyBuildingWorkingCatPlacements[(int)energy.buildingType].GetComponent<CatPlacementWorkingCats>();
+            {
+                workingCats = Instantiate(GoldBuildingWorkingCatPlacements[(int)energy.buildingType], WorkingCatParentTr).GetComponent<CatPlacementWorkingCats>();
+                energy.WorkingCats = workingCats;
+            }
             else
+            {
                 workingCats = energy.WorkingCats;
+                workingCats.gameObject.SetActive(true);
+            }
 
-            EnergyBuildingWorkingCatPlacements[(int)energy.buildingType].SetActive(true);
+            workingCats.MaxDeployableCat = energy.MaxDeployableCat;
         }
     }
 
@@ -202,7 +208,7 @@ public class CatPlacement : MonoBehaviour
                         ability.SetAbility(catData.AbilitySprite, catData.AbilityRating);
                         workingCats.CatAbilitys.Add(ability);
 
-                        workingCats.SetData(CurSelectedCatIndex, catData, call: (catnum) =>
+                        workingCats.SetData(workingCats.CatDatas.Count, catData, call: (catnum) =>
                         {
                             CurSelectedCatIndex = catnum;
                         });
@@ -241,6 +247,7 @@ public class CatPlacement : MonoBehaviour
                         energyBuilding.OnCatMemberChange(catData, CurSelectedCatIndex,
                             action: () =>
                             {
+                                catData.Cat.building = energyBuilding;
                                 catData.Cat.GoToRest(energyBuilding.area.position);
                             });
                     }

@@ -9,6 +9,8 @@ public class MobileTouchZoom : MonoBehaviour
     [SerializeField]
     private float m_camSize = 5f;     // 카메라의 Size의 기본값을 5로 정합니다.
 
+
+    private Vector3 touchPos;
     private Camera mainCam;
 
     private void Start()
@@ -28,6 +30,9 @@ public class MobileTouchZoom : MonoBehaviour
         float m_fToucDis = 0f;
         float fDis = 0f;
 
+        if (IsPointerOverGameObject())
+            return;
+
         // 터치가 두개이고, 두 터치중 하나라도 이동한다면 카메라의 fieldOfView를 조정합니다.
         if (nTouch == 2 && (Input.touches[0].phase == TouchPhase.Moved || Input.touches[1].phase == TouchPhase.Moved))
         {
@@ -46,8 +51,18 @@ public class MobileTouchZoom : MonoBehaviour
 
             m_oldCamSize = m_fToucDis;
         }
-        else if (nTouch == 1 && Input.touches[0].phase == TouchPhase.Moved)
+        else if (nTouch == 1)
         {
+            if (Input.touches[0].phase == TouchPhase.Moved)
+            {
+                Camera.main.transform.position += touchPos - (Vector3)Input.touches[0].position;
+                touchPos = Input.touches[0].position;
+            }
+            else if (Input.touches[0].phase == TouchPhase.Began)
+            {
+                touchPos = Input.touches[0].position;
+            }
+
 
         }
     }
@@ -65,5 +80,28 @@ public class MobileTouchZoom : MonoBehaviour
         {
             mainCam.transform.position += new Vector3(-Input.GetAxis("Mouse X"), -Input.GetAxis("Mouse Y"), 0) * Time.deltaTime * 5;
         }
+    }
+
+    private bool IsPointerOverGameObject()
+    {
+        // Check mouse
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return true;
+        }
+
+        // Check touches
+        for (int i = 0; i < Input.touchCount; i++)
+        {
+            var touch = Input.GetTouch(i);
+            if (touch.phase == TouchPhase.Began)
+            {
+                if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

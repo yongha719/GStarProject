@@ -134,6 +134,7 @@ public abstract class Building : MonoBehaviour
         {
             return true;
         }
+
         // Check touches
         for (int i = 0; i < Input.touchCount; i++)
         {
