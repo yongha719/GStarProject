@@ -11,8 +11,8 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 0}
   m_Name: 01
-  m_EditorClassIdentifier: Assembly-CSharp::DailyQuestUI_Info
+  m_EditorClassIdentifier: Assembly-CSharp::DailyQuestInfo
   questType: 0
+  needValueCount: 1
   rewardType: 1
   rewardValue: 20
-  addRewardValue: 0

@@ -57,6 +57,9 @@ public class UIManager : Singleton<UIManager>
         pressToStartText.DOFade(0, 1).SetEase(Ease.InBack);
         yield return new WaitForSeconds(1);
 
+        title.gameObject.SetActive(false);
+        pressToStartText.gameObject.SetActive(false);
+
         foreach (Image image in images)
             image.DOFade(1, 0.5f);
         foreach (TextMeshProUGUI text in texts)
