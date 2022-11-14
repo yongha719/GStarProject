@@ -55,7 +55,7 @@ public class MobileTouchZoom : MonoBehaviour
         {
             if (Input.touches[0].phase == TouchPhase.Moved)
             {
-                Camera.main.transform.position += touchPos - (Vector3)Input.touches[0].position;
+                Camera.main.transform.position += Vector3.Normalize(touchPos - (Vector3)Input.touches[0].position);
                 touchPos = Input.touches[0].position;
             }
             else if (Input.touches[0].phase == TouchPhase.Began)
