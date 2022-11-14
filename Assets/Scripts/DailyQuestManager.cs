@@ -91,7 +91,7 @@ public class DailyQuestManager : Singleton<DailyQuestManager>
 
     [SerializeField]
     private Transform QuestPrefabParent;
-    private DailyQuestUIInfo[] dailyQuestUIInfos;
+    private DailyQuestUIInfo[] dailyQuestUIInfos = new DailyQuestUIInfo[6];
 
     public static DailyQuests dailyQuests = new DailyQuests();
     private void Awake()
@@ -115,9 +115,10 @@ public class DailyQuestManager : Singleton<DailyQuestManager>
     private void CheckTimeToReset()
     {
         string lastTimeData = SaveManager.Instance.saveData.dailyQuests.nowTimeStr;
-        if (lastTimeData != null)
+        if (lastTimeData != null && lastTimeData != "")
         {
             DateTime nowtime = DateTime.Now;
+            Debug.Log(lastTimeData);
             DateTime lastTime = DateTime.Parse(lastTimeData);
             if (new DateTime(lastTime.Year, lastTime.Month, lastTime.Day + 1, 4, 0, 0) <= nowtime)
             {
@@ -139,7 +140,7 @@ public class DailyQuestManager : Singleton<DailyQuestManager>
     }
     private void QuestReset()
     {
-        dailyQuests.quests = null;
+        dailyQuests.quests = new List<BaseDailyQuest>();
         for (QuestType i = 0; i < QuestType.END; i++)
         {
             dailyQuests.quests.Add(new BaseDailyQuest() { type = i });
