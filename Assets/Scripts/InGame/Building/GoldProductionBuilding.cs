@@ -6,8 +6,6 @@ using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
 using System.Linq;
-using UnityEngine.EventSystems;
-using UnityEditorInternal;
 
 public class GoldProductionBuilding : Building, IResourceProductionBuilding
 {
@@ -198,11 +196,11 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
                     continue;
 
                 // 골드 생산 10번하면 쉬러 가야 함
-                if (PlacedInBuildingCat[i].NumberOfGoldProduction++ >= 10)
+                if (++PlacedInBuildingCat[i].NumberOfGoldProduction >= 10 && BuildingManager.CanGoRest(out Vector3 buildingPos))
                 {
                     print("rest");
                     // 에너지 생산 건물 위치 넣어주기
-                    PlacedInBuildingCat[i].GoToRest(Vector3.back);
+                    PlacedInBuildingCat[i].GoToRest(buildingPos);
                 }
             }
 

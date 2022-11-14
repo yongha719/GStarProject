@@ -803,6 +803,7 @@ MonoBehaviour:
   GoldAcquisitionEffect: {fileID: 4651143797973280713, guid: d1c3aa70df08bb943a114b0228f21908, type: 3}
   BuildingUI: {fileID: 6290934285594354938}
   CatPlacementButton: {fileID: 2019486028628958985}
+  WorkingCats: {fileID: 0}
 --- !u!61 &1788162273027447010
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -894,7 +895,7 @@ RectTransform:
   m_GameObject: {fileID: 7234473010087785592}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.01, y: 0.01, z: 1}
   m_Children:
   - {fileID: 6141328734154275645}
   - {fileID: 6433020165839852332}

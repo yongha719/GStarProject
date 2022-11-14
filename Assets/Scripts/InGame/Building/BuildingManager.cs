@@ -6,8 +6,8 @@ using UnityEngine.Profiling;
 
 class BuildingTypes
 {
-    public static System.Type  GoldBuildingType = typeof(GoldBuildingType);
-    public static System.Type  EnergyBuildingType = typeof(EnergyBuildingType);
+    public static System.Type GoldBuildingType = typeof(GoldBuildingType);
+    public static System.Type EnergyBuildingType = typeof(EnergyBuildingType);
 }
 
 public enum BuildingType
@@ -53,13 +53,28 @@ public static class BuildingManager
         {
             s_GoldBuildingCount.Add((GoldBuildingType)buildingtype, 0);
         }
-        
+
         for (int buildingtype = 0; buildingtype < (int)EnergyBuildingType.End; buildingtype++)
         {
             s_EnergyBuildingCount.Add((EnergyBuildingType)buildingtype, 0);
         }
     }
 
+    public static bool CanGoRest(out Vector3 pos)
+    {
+        pos = Vector3.zero;
+
+        for (int i = 0; i < s_EnergyProductionBuildings.Count; i++)
+            if (s_EnergyProductionBuildings[i].CanBePlaced())
+            {
+                pos = s_EnergyProductionBuildings[i].transform.position;
+                return true;
+            }
+
+        if (s_EnergyProductionBuildings.Count == 0)
+            return false;
+        return false;
+    }
 }
 
 

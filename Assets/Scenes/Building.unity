@@ -40369,6 +40369,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1924830555882458988, guid: ec5b0a85b9bc18d40b8ce6e2d429d0c4, type: 3}
+      propertyPath: BuildingName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1924830555882458988, guid: ec5b0a85b9bc18d40b8ce6e2d429d0c4, type: 3}
       propertyPath: catData.Name
       value: "\uC7AC\uD5CC\uC774"
       objectReference: {fileID: 0}
@@ -111930,10 +111934,10 @@ MonoBehaviour:
   - {fileID: 681514947699799139, guid: 154a2c0493dfba74590ac698fb085eff, type: 3}
   - {fileID: 4711566646519506401, guid: 5ab2c5107740350418f3b964789429b7, type: 3}
   EnergyBuildingWorkingCatPlacements:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1218830541384261307, guid: 4646bad192dee76418f76d8bb81cde0a, type: 3}
+  - {fileID: 8160361594501837135, guid: ebd57f7aaad1dfa48870a83599f6bc71, type: 3}
+  - {fileID: 9204714729044918274, guid: c340d174ebad17947848e5b076759a3a, type: 3}
+  - {fileID: 7729480423851691674, guid: c5ec9c8129f9ae1438661487defa3409, type: 3}
+  - {fileID: 961235739132923491, guid: eb9cd5895fa396f489f446d2a6ac31e2, type: 3}
   CatToPlacementPrefab: {fileID: 2111896460161843305, guid: 04992898a971d484aac8a54b3a3f4a69, type: 3}
   AbilityPrefab: {fileID: 5806247040724369428, guid: 3eb1aa23bf05a8a409a49ca7fcbc8c99, type: 3}

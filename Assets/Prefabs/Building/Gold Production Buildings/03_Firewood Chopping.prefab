@@ -720,6 +720,7 @@ MonoBehaviour:
   GoldAcquisitionEffect: {fileID: 0}
   BuildingUI: {fileID: 2901016615586140287}
   CatPlacementButton: {fileID: 8001693894536161551}
+  WorkingCats: {fileID: 0}
 --- !u!61 &3412580256665481385
 BoxCollider2D:
   m_ObjectHideFlags: 0

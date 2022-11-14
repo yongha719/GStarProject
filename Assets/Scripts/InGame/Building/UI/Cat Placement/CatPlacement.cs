@@ -109,11 +109,17 @@ public class CatPlacement : MonoBehaviour
             energy = Productionbuilding as EnergyProductionBuilding;
 
             if (energy.WorkingCats == null)
-                workingCats = EnergyBuildingWorkingCatPlacements[(int)energy.buildingType].GetComponent<CatPlacementWorkingCats>();
+            {
+                workingCats = Instantiate(GoldBuildingWorkingCatPlacements[(int)energy.buildingType], WorkingCatParentTr).GetComponent<CatPlacementWorkingCats>();
+                energy.WorkingCats = workingCats;
+            }
             else
+            {
                 workingCats = energy.WorkingCats;
+                workingCats.gameObject.SetActive(true);
+            }
 
-            EnergyBuildingWorkingCatPlacements[(int)energy.buildingType].SetActive(true);
+            workingCats.MaxDeployableCat = energy.MaxDeployableCat;
         }
     }
 
