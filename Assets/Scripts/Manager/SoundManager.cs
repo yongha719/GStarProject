@@ -49,11 +49,20 @@ public class SoundManager : Singleton<SoundManager>
     {
         PlaySoundClip("BGM_01_Fat_Cat", SoundType.BGM);
         mySelfImage = GetComponent<Image>();
+
+        foreach (Button btn in Resources.FindObjectsOfTypeAll<Button>())
+        {
+            btn.onClick.AddListener(() => PlaySoundClip("SFX_Button_Touch", SoundType.SFX));
+        }
         sliderValueaApply();
     }
     public AudioClip PlaySoundClip(string clipName, SoundType type, float volume = 0.5f, float pitch = 1)
     {
         AudioClip clip = audioClips[clipName];
+        return PlaySoundClip(clip, type, volume, pitch);
+    }
+    public AudioClip PlaySoundClip(AudioClip clip, SoundType type, float volume = 0.5f, float pitch = 1)
+    {
         audioSources[type].pitch = pitch;
 
         float curVolume = volume * audioVolumes[(int)type];

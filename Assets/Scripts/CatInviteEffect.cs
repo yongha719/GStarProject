@@ -23,5 +23,7 @@ public class CatInviteEffect : MonoBehaviour
         whiteScreen.color = new Color(1, 1, 1, 0);
         gameObject.SetActive(false);
         resultUI.SetActive(true);
+        SoundManager.Instance.PlaySoundClip("SFX_Cat_Inviter_Result", SoundType.SFX);
+        SoundManager.Instance.PlaySoundClip(CatInvite.nowBgm, SoundType.BGM);
     }
 }

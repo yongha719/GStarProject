@@ -18,9 +18,9 @@ public class MobileTouchZoom : MonoBehaviour
 
     void Update()
     {
-        // if (Input.touchCount > 0) CheckTouch();
+        if (Input.touchCount > 0) CheckTouch();
 
-        PCDebuging();
+        //PCDebuging();
     }
     void CheckTouch()
     {

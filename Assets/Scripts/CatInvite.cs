@@ -3,8 +3,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System.Globalization;
-using DG.Tweening.Core;
 
 public class CatInvite : MonoBehaviour
 {
@@ -15,6 +13,7 @@ public class CatInvite : MonoBehaviour
     [SerializeField]
     private TMP_InputField catNameTextArea;
     private CatData curCatData;
+    private bool nowCatInviting;
 
     private Image mySelfImage;
 
@@ -35,6 +34,8 @@ public class CatInvite : MonoBehaviour
     public GameObject resultUI;
     public ParticleSystem slowSnow;
     public ParticleSystem fastSnow;
+
+    public static AudioClip nowBgm;
     private void OnEnable()
     {
         slowSnow.Play();
@@ -54,16 +55,19 @@ public class CatInvite : MonoBehaviour
 
     public void CatInviteBtnFunc()
     {
-        if (needGoldValue <= GameManager.Instance._coin)
+        if (!nowCatInviting && needGoldValue <= GameManager.Instance._coin)
         {
             GameManager.Instance._coin -= needGoldValue;
             CatShadow.gameObject.SetActive(true);
             fastSnow.Play();
+            nowCatInviting = true;
+            nowBgm = SoundManager.Instance.audioSources[SoundType.BGM].clip;
+            SoundManager.Instance.PlaySoundClip("BGM_Cat_Invite", SoundType.BGM);
             GachaEffect();
         }
         else
         {
-            Debug.Log("소지 코인 부족");
+            SoundManager.Instance.PlaySoundClip("SFX_Error", SoundType.SFX);
         }
     }
     void GachaEffect()
@@ -91,10 +95,12 @@ public class CatInvite : MonoBehaviour
             catNameTextArea.text = null;
             curCatData = null;
             UIManager.Instance.ResourcesApply();
+
+            nowCatInviting = false;
         }
         else
         {
-            Debug.Log("이름 짓기 오류 문구 뛰워야함");
+            SoundManager.Instance.PlaySoundClip("SFX_Error", SoundType.SFX);
         }
     }
 
@@ -121,6 +127,7 @@ public class CatInvite : MonoBehaviour
 
     public void ScreenOn(bool onOff)
     {
+        if (nowCatInviting) return;
         if (onOff)
         {
             mySelfImage.DOFade(0.5f, 0);

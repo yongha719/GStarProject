@@ -51,16 +51,22 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-
-
     private void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
 
     }
-    void Start()
+    private void Start()
     {
-
+        StartCoroutine(doMeow());
     }
-
+    private IEnumerator doMeow()
+    {
+        WaitForSeconds meowDelay = new WaitForSeconds(25);
+        while (true)
+        {
+            yield return meowDelay;
+            SoundManager.Instance.PlaySoundClip("SFX_Meow", SoundType.SFX);
+        }
+    }
 }
