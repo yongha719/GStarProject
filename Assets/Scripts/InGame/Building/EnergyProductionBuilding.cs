@@ -100,6 +100,8 @@ public class EnergyProductionBuilding : Building, IResourceProductionBuilding
     {
         base.Start();
 
+        waitEnergyChargingTime = new WaitForSeconds(DefaultEnergyChargingTime);
+
         CollectEnergyButton.onClick.AddListener(() =>
         {
             didGetEnergy = true;
@@ -163,11 +165,6 @@ public class EnergyProductionBuilding : Building, IResourceProductionBuilding
         {
             if (decreasingfigure != 0)
                 waitEnergyChargingTime = new WaitForSeconds((float)(DefaultEnergyChargingTime * Math.Round(decreasingfigure / 100f, 3)));
-            StartCoroutine(ResourceProduction());
-        }
-        else
-        {
-            StopCoroutine(ResourceProduction());
         }
     }
 
@@ -188,6 +185,7 @@ public class EnergyProductionBuilding : Building, IResourceProductionBuilding
                 continue;
             }
 
+            CollectEnergyButton.gameObject.SetActive(true);
             yield return StartCoroutine(WaitGetResource());
 
             for (int i = 0; i < MaxDeployableCat; i++)
@@ -203,7 +201,6 @@ public class EnergyProductionBuilding : Building, IResourceProductionBuilding
             }
 
             yield return waitEnergyChargingTime;
-            CollectEnergyButton.gameObject.SetActive(true);
         }
     }
 
@@ -221,7 +218,7 @@ public class EnergyProductionBuilding : Building, IResourceProductionBuilding
                 CollectEnergyButton.gameObject.SetActive(false);
 
                 // 골드 획득 연출
-                Destroy(Instantiate(EnergyAcquisitionEffect, transform.position, Quaternion.identity));
+                Destroy(Instantiate(EnergyAcquisitionEffect, transform.position + (Vector3.up * 0.5f), Quaternion.identity, CanvasRt), 1.5f);
 
                 yield break;
             }
@@ -236,7 +233,7 @@ public class EnergyProductionBuilding : Building, IResourceProductionBuilding
                 didGetEnergy = true;
             }
 
-            yield return waitEnergyChargingTime;
+            yield return null;
         }
     }
 

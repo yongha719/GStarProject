@@ -35,8 +35,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 149, y: -145}
-  m_SizeDelta: {x: 83, y: 83}
+  m_AnchoredPosition: {x: 140, y: -130}
+  m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2139381818212145419
 CanvasRenderer:
@@ -445,8 +445,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 128}
-  m_SizeDelta: {x: 83, y: 83}
+  m_AnchoredPosition: {x: 0, y: 67.9}
+  m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8884796223699180084
 CanvasRenderer:
@@ -840,6 +840,7 @@ MonoBehaviour:
   GoldAcquisitionEffect: {fileID: 4651143797973280713, guid: d1c3aa70df08bb943a114b0228f21908, type: 3}
   BuildingUI: {fileID: 3484483086135613009}
   CatPlacementButton: {fileID: 6364412589285863032}
+  WorkingCats: {fileID: 0}
 --- !u!61 &636245451371842871
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1138,8 +1139,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -149, y: -145}
-  m_SizeDelta: {x: 83, y: 83}
+  m_AnchoredPosition: {x: -140, y: -130}
+  m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4842662616739110947
 CanvasRenderer:

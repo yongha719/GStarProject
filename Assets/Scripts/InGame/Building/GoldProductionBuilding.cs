@@ -130,13 +130,15 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
     {
         if (PlacedInBuildingCat.Count < MaxDeployableCat)
         {
+            print("add");
             PlacedInBuildingCat.Add(catData.Cat);
         }
         else
         {
+            print("change");
+            StartCoroutine(PlacedInBuildingCat[index].RandomMove());
             PlacedInBuildingCat[index] = catData.Cat;
         }
-        print(PlacedInBuildingCat.Count);
 
         SetProductionTime();
 
@@ -262,9 +264,10 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
 
     private void OnMouseDown()
     {
-        if (IsDeploying && IsPointerOverGameObject())
+        if (isDeploying || IsPointerOverGameObject())
             return;
 
+        print(isDeploying);
         if (CollectMoneyButton.gameObject.activeSelf)
         {
             didGetMoney = true;
