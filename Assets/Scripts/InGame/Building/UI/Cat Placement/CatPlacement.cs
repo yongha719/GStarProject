@@ -240,17 +240,6 @@ public class CatPlacement : MonoBehaviour
                                 catData.Cat.GoToWork(goldBuilding.transform.position);
                             });
                     }
-                    else if (BuildingType == BuildingType.Energy)
-                    {
-                        var energyBuilding = GetSelectedBuilding<EnergyProductionBuilding>(productionBuilding);
-                        // 건물에서 일하는 고양이가 바뀌었을때
-                        energyBuilding.OnCatMemberChange(catData, CurSelectedCatIndex,
-                            action: () =>
-                            {
-                                catData.Cat.building = energyBuilding;
-                                catData.Cat.GoToRest(energyBuilding.area.position);
-                            });
-                    }
                 });
             });
         }

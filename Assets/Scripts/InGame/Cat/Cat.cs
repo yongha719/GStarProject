@@ -101,6 +101,8 @@ public class Cat : MonoBehaviour
 
     public bool IsWorking;
     public bool IsResting;
+    public bool GoWorking;
+    public bool GoResting;
 
     // 도착했는지 체크
     private bool IsArrived;
@@ -121,7 +123,7 @@ public class Cat : MonoBehaviour
         _ => throw new System.Exception("고양이 능력 등급 값이 존재하지 않는 값임")
     };
 
-    public IResourceProductionBuilding building;
+    public GoldProductionBuilding building;
 
     private CatManager CatManager;
     private GridBuildingSystem GridBuildingSystem;
@@ -155,10 +157,6 @@ public class Cat : MonoBehaviour
         // 이동 로직
         if (done)
         {
-            if (transform.position.y == dest.y)
-                transform.DOMove(dest, 1.4f).SetEase(Ease.Linear);
-            else
-                transform.DOMove(dest, 1f).SetEase(Ease.Linear);
 
             SpriteRenderer.flipX = (transform.position.x < dest.x);
 
@@ -172,6 +170,11 @@ public class Cat : MonoBehaviour
                 Animator.SetBool("Walkingback", false);
             }
 
+            if (transform.position.y == dest.y)
+                transform.DOMove(dest, 1.4f).SetEase(Ease.Linear);
+            else
+                transform.DOMove(dest, 1f).SetEase(Ease.Linear);
+
             done = false;
         }
     }
@@ -183,6 +186,8 @@ public class Cat : MonoBehaviour
         while (true)
         {
             targetPos = RandomPos();
+
+
 
             yield return StartCoroutine(MoveStep());
         }
@@ -199,7 +204,22 @@ public class Cat : MonoBehaviour
     /// <summary>
     /// 영역안에서 움직일 수 있는 랜덤 좌표 
     /// </summary>
-    private Vector2Int RandomPos() => new Vector2Int(Random.Range(-canMoveArea + 1, canMoveArea), Random.Range(-canMoveArea + 1, canMoveArea));
+    private Vector2Int RandomPos()
+    {
+        var randomPos = new Vector2Int(Random.Range(-canMoveArea + 1, canMoveArea), Random.Range(-canMoveArea + 1, canMoveArea));
+
+        while (true)
+        {
+            if (GridBuildingSystem.WallCheck(randomPos) == false)
+            {
+                return randomPos;
+            }
+            else
+            {
+                randomPos = new Vector2Int(Random.Range(-canMoveArea + 1, canMoveArea), Random.Range(-canMoveArea + 1, canMoveArea));
+            }
+        }
+    }
 
     private IEnumerator MoveStep()
     {
@@ -242,7 +262,11 @@ public class Cat : MonoBehaviour
     {
         StopCoroutine(RandomMoveCoroutine);
         StartCoroutine(Move(buildingPos));
+        
+
+        GoWorking = false;
         IsWorking = false;
+        GoResting = true;
     }
 
     /// <summary>
@@ -253,7 +277,7 @@ public class Cat : MonoBehaviour
     {
         StopCoroutine(RandomMoveCoroutine);
         StartCoroutine(Move(buildingPos));
-        IsWorking = true;
+        GoWorking = true;
     }
 
     void WorkingMotion()
@@ -264,15 +288,39 @@ public class Cat : MonoBehaviour
     #endregion
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (IsWorking && collision.gameObject.TryGetComponent(out GoldProductionBuilding building))
+        if (IsWorking || IsResting)
+            return;
+
+        if (GoWorking && collision.gameObject.TryGetComponent(out GoldProductionBuilding goldbuilding))
         {
-            StopMove = true;
             transform.DOKill();
+            StopMove = true;
 
             SpriteRenderer.flipX = false;
-            var pos = building.transform.position;
+            var pos = goldbuilding.transform.position;
 
+            IsWorking = true;
             transform.position = new Vector3(pos.x, pos.y + 0.675f, PosZ);
         }
+        else if (GoResting && collision.gameObject.TryGetComponent(out EnergyProductionBuilding energybuilding))
+        {
+            transform.DOKill();
+            StopMove = true;
+
+            SpriteRenderer.flipX = false;
+            var pos = energybuilding.transform.position;
+
+            IsResting = true;
+            transform.position = new Vector3(pos.x, pos.y + 0.675f, PosZ);
+
+            energybuilding.OnCatMemberChange(catData);
+        }
+    }
+
+    void OnDrawGizmos()
+    {
+        if (nodes.Count != 0)
+            for (int i = 0; i < nodes.Count - 1; i++)
+                Gizmos.DrawLine(nodes[i].Pos, nodes[i + 1].Pos);
     }
 }

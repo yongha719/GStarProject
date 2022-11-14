@@ -137,7 +137,7 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
         {
             print("change");
             StartCoroutine(PlacedInBuildingCat[index].RandomMove());
-            PlacedInBuildingCat[index].IsWorking = true;
+            PlacedInBuildingCat[index].GoWorking = true;
             PlacedInBuildingCat[index] = catData.Cat;
         }
 
@@ -177,6 +177,8 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
     {
         base.Place();
 
+
+
         StartCoroutine(ResourceProduction());
     }
 
@@ -204,11 +206,12 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
                 {
                     print("rest");
                     PlacedInBuildingCat[i].NumberOfGoldProduction = 0;
-                    PlacedInBuildingCat[i].IsWorking = false;
-                    PlacedInBuildingCat[i].IsResting = true;
+                    PlacedInBuildingCat[i].GoWorking = false;
+                    PlacedInBuildingCat[i].GoResting = true;
 
                     // 랜덤한 에너지 생산 건물 위치로 가기
                     PlacedInBuildingCat[i].GoToRest(buildingPos);
+                    PlacedInBuildingCat.RemoveAt(i);
                 }
             }
 
@@ -263,8 +266,10 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
 
         ConstructionGoldText.gameObject.SetActive(false);
 
-        GridBuildingSystem.InitializeWithBuilding(BuildingInfo.BuildingPrefab);
         BuildingManager.s_GoldBuildingCount[buildingType]++;
+        BuildingManager.s_GoldProductionBuildings.Add(this);
+
+        GridBuildingSystem.InitializeWithBuilding(BuildingInfo.BuildingPrefab);
     }
 
     private void OnMouseDown()
