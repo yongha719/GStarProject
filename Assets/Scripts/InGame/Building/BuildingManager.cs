@@ -64,15 +64,16 @@ public static class BuildingManager
     {
         pos = Vector3.zero;
 
+        if (s_EnergyProductionBuildings.Count == 0)
+            return false;
+
         for (int i = 0; i < s_EnergyProductionBuildings.Count; i++)
-            if (s_EnergyProductionBuildings[i].CanBePlaced())
+            if (s_EnergyProductionBuildings[i].CanDeploy())
             {
                 pos = s_EnergyProductionBuildings[i].transform.position;
                 return true;
             }
 
-        if (s_EnergyProductionBuildings.Count == 0)
-            return false;
         return false;
     }
 }
