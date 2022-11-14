@@ -113,12 +113,12 @@ public class EnergyProductionBuilding : Building, IResourceProductionBuilding
 
             if (PlacedInBuildingCat.Count == 0)
             {
-                CatPlacement.SetBuildingInfo(BuildingType.Gold, this, null, WorkingCats, SpriteRenderer.sprite);
+                CatPlacement.SetBuildingInfo(BuildingType.Energy, this, null, WorkingCats, SpriteRenderer.sprite);
             }
             else
             {
                 var cats = PlacedInBuildingCat.Where(x => x.catData != null).Select(x => x.catData).ToArray();
-                CatPlacement.SetBuildingInfo(BuildingType.Gold, this, cats, WorkingCats, SpriteRenderer.sprite);
+                CatPlacement.SetBuildingInfo(BuildingType.Energy, this, cats, WorkingCats, SpriteRenderer.sprite);
             }
         });
 
@@ -255,6 +255,10 @@ public class EnergyProductionBuilding : Building, IResourceProductionBuilding
         BuildingManager.s_EnergyBuildingCount[buildingType]++;
     }
 
+    public bool CanDeploy()
+    {
+        return PlacedInBuildingCat.Count < MaxDeployableCat;
+    }
 
     private void OnMouseDown()
     {
