@@ -78,7 +78,7 @@ public abstract class Building : MonoBehaviour
 
         DemolitionButton?.onClick.AddListener(() =>
         {
-            GridBuildingSystem.BuildingClear();
+            GridBuildingSystem.BuildingClear(true);
             BuildingInfo.BuildingInstalltionUI.SetActive(true);
             Destroy(gameObject);
         });
@@ -141,13 +141,21 @@ public abstract class Building : MonoBehaviour
         }
         else if (Application.platform == RuntimePlatform.Android)
         {
+            if (Input.touchCount > 0 && (Input.GetTouch(0).phase == TouchPhase.Moved || Input.GetTouch(0).phase == TouchPhase.Began))
+            {
+                if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
+                {
+                    return true;
+                }
+            }
+
             // Check touches
             for (int i = 0; i < Input.touchCount; i++)
             {
                 var touch = Input.GetTouch(i);
                 if (touch.phase == TouchPhase.Began)
                 {
-                    if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
+                    if (EventSystem.current.IsPointerOverGameObject(touch.fingerId)) // 장실
                     {
                         return true;
                     }

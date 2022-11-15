@@ -129,7 +129,6 @@ public class Cat : MonoBehaviour
     private CatManager CatManager;
     private GridBuildingSystem GridBuildingSystem;
 
-
     void Start()
     {
         CatManager = CatManager.Instance;
@@ -295,8 +294,8 @@ public class Cat : MonoBehaviour
 
         if (GoWorking && collision.gameObject.TryGetComponent(out GoldProductionBuilding goldbuilding))
         {
-            transform.DOKill();
             StopMove = true;
+            transform.DOKill();
 
             SpriteRenderer.flipX = false;
             var pos = goldbuilding.transform.position;

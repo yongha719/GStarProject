@@ -81,6 +81,7 @@ public class ViliageInfoUI : MonoBehaviour
                 catInfo.SetData(CatList[i],
                     call: () =>
                     {
+                        Destroy(catInfo.gameObject);
                         CatManager.RemoveCat(CatList[i]);
                     });
             }

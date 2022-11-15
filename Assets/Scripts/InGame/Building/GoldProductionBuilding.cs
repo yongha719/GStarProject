@@ -86,6 +86,9 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
 
     [SerializeField] private Button CatPlacementButton;
 
+    private bool IsClicked;
+    private static GameObject s_buildingUI;
+
     // 건물에 배치된 고양이
     private List<Cat> PlacedInBuildingCat = new List<Cat>();
     public CatPlacementWorkingCats WorkingCats;
@@ -125,6 +128,9 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
         });
     }
 
+    void Update()
+    {
+    }
 
     public void OnCatMemberChange(CatData catData, int index, Action action = null)
     {
@@ -177,9 +183,8 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
     {
         base.Place();
 
-
-
         StartCoroutine(ResourceProduction());
+
     }
 
     public IEnumerator ResourceProduction()
@@ -285,9 +290,15 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
         else if (BuildingUI.activeSelf)
         {
             BuildingUI.SetActive(false);
+            s_buildingUI = BuildingUI;
         }
-        else
+        else 
         {
+            if (s_buildingUI != null)
+            {
+                s_buildingUI.SetActive(false);
+            }
+            s_buildingUI = BuildingUI;
             BuildingUI.SetActive(true);
         }
     }

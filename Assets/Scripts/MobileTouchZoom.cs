@@ -20,7 +20,7 @@ public class MobileTouchZoom : MonoBehaviour
 
     void Update()
     {
-        if (Input.touchCount > 0) CheckTouch();
+        if (Input.touchCount > 0 && GridBuildingSystem.IsDeploying == false) CheckTouch();
 
         //PCDebuging();
     }
@@ -55,15 +55,13 @@ public class MobileTouchZoom : MonoBehaviour
         {
             if (Input.touches[0].phase == TouchPhase.Moved)
             {
-                Camera.main.transform.position += Vector3.Normalize(touchPos - (Vector3)Input.touches[0].position) * Time.deltaTime;
+                Camera.main.transform.position += Vector3.Normalize(touchPos - (Vector3)Input.touches[0].position) * Time.deltaTime * 5;
                 touchPos = Input.touches[0].position;
             }
             else if (Input.touches[0].phase == TouchPhase.Began)
             {
                 touchPos = Input.touches[0].position;
             }
-
-
         }
     }
 
@@ -91,13 +89,14 @@ public class MobileTouchZoom : MonoBehaviour
             return true;
         }
 #elif UNITY_ANDROID
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        if (Input.touchCount > 0 && (Input.GetTouch(0).phase == TouchPhase.Moved || Input.GetTouch(0).phase == TouchPhase.Began))
         {
             if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
             {
                 return true;
             }
         }
+
         // Check touches
         for (int i = 0; i < Input.touchCount; i++)
         {
@@ -111,7 +110,6 @@ public class MobileTouchZoom : MonoBehaviour
             }
         }
 #endif
-
         return false;
     }
 }

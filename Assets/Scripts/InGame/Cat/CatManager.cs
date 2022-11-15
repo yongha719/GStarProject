@@ -43,6 +43,7 @@ public class CatManager : Singleton<CatManager>
         if (CatList.Contains(cat))
         {
             CatList.Remove(cat);
+            Destroy(cat.gameObject);
         }
         else
         {
@@ -50,7 +51,6 @@ public class CatManager : Singleton<CatManager>
         }
 
         // 쫓겨나는 이벤트
-        Destroy(cat.gameObject);
     }
 
     /// <summary>
@@ -59,7 +59,7 @@ public class CatManager : Singleton<CatManager>
     /// </summary>
     public void ChangeRangeCatMovement(int area)
     {
-        foreach(var cat in CatList)
+        foreach (var cat in CatList)
         {
             cat.canMoveArea = area;
         }

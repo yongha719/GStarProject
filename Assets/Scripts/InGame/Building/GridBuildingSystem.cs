@@ -22,13 +22,17 @@ public class GridBuildingSystem : Singleton<GridBuildingSystem>
     public Tilemap TempTilemap;
     public Tilemap BuildingTilemap;
     public Tilemap TreeTilemap;
+    [SerializeField] private GameObject MainCanvas;
 
     private Dictionary<TileType, TileBase> tileBases = new Dictionary<TileType, TileBase>();
 
+    [Space]
     public string CurBuildingName;
     [HideInInspector]
     public Building CurBuilding;
     [SerializeField] private ParticleSystem BuildingInstallationEffect;
+
+
 
     private Vector3 prevPos;
     private BoundsInt prevArea;
@@ -78,13 +82,12 @@ public class GridBuildingSystem : Singleton<GridBuildingSystem>
         #region Building Installation
         if (CurBuilding != null)
         {
+            // 클릭한 오브젝트가 UI면 return
+            if (IsPointerOverGameObject())
+                return;
+
             if (Input.GetMouseButton(0))
             {
-                // 클릭한 오브젝트가 UI면 return
-                if (IsPointerOverGameObject())
-                {
-                    return;
-                }
                 if (CurBuilding.Placed == false)
                 {
                     Vector2 touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -117,7 +120,7 @@ public class GridBuildingSystem : Singleton<GridBuildingSystem>
         return array;
     }
 
-    public void BuildingClear()
+    public void BuildingClear(bool Destroy = false)
     {
         TileBase[] toClear = new TileBase[prevArea.size.x * prevArea.size.y];
 
@@ -135,6 +138,12 @@ public class GridBuildingSystem : Singleton<GridBuildingSystem>
         }
 
         TempTilemap.SetTilesBlock(prevArea, tileArray);
+
+        if (Destroy)
+        {
+            IsDeploying = false;
+            MainCanvas.SetActive(true);
+        }
     }
 
     private void AllClearArea()
@@ -149,10 +158,13 @@ public class GridBuildingSystem : Singleton<GridBuildingSystem>
     {
         CurBuilding = Instantiate(building, Vector3.zero, Quaternion.identity, transform).GetComponent<Building>();
         FollowBuiliding();
+
+        IsDeploying = true;
     }
 
     private void FollowBuiliding()
     {
+        MainCanvas.SetActive(false);
         BuildingClear();
 
         CurBuilding.area.position = gridLayout.WorldToCell(CurBuilding.gameObject.transform.position);
@@ -265,34 +277,32 @@ public class GridBuildingSystem : Singleton<GridBuildingSystem>
         {
             CurBuilding.transform.localPosition = gridLayout.CellToLocalInterpolated(cellPos);
             CurBuilding.Place();
+
+            MainCanvas.SetActive(true);
+            IsDeploying = false;
         }
     }
 
     private bool IsPointerOverGameObject()
     {
-        if (Application.platform == RuntimePlatform.WindowsEditor)
+        #if UNITY_EDITOR
+                // Check mouse
+                if (EventSystem.current.IsPointerOverGameObject())
+                {
+                    return true;
+                }
+        #elif UNITY_ANDROID
+
+        // Check touches
+        for (int i = 0; i < Input.touchCount; i++)
         {
-            // Check mouse
-            if (EventSystem.current.IsPointerOverGameObject())
+            var touch = Input.GetTouch(i);
+            if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
             {
                 return true;
             }
         }
-        else if (Application.platform == RuntimePlatform.Android)
-        {
-            // Check touches
-            for (int i = 0; i < Input.touchCount; i++)
-            {
-                var touch = Input.GetTouch(i);
-                if (touch.phase == TouchPhase.Began)
-                {
-                    if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
-                    {
-                        return true;
-                    }
-                }
-            }
-        }
+#endif
         return false;
     }
 }
