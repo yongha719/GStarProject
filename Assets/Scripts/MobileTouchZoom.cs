@@ -20,9 +20,11 @@ public class MobileTouchZoom : MonoBehaviour
 
     void Update()
     {
+#if UNITY_EDITOR
+        PCDebuging();
+#elif UNITY_ANDROID
         if (Input.touchCount > 0) CheckTouch();
-
-        //PCDebuging();
+#endif
     }
     void CheckTouch()
     {
@@ -102,12 +104,9 @@ public class MobileTouchZoom : MonoBehaviour
         for (int i = 0; i < Input.touchCount; i++)
         {
             var touch = Input.GetTouch(i);
-            if (touch.phase == TouchPhase.Began)
+            if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
             {
-                if (EventSystem.current.IsPointerOverGameObject(touch.fingerId)) // 장실
-                {
-                    return true;
-                }
+                return true;
             }
         }
 #endif
