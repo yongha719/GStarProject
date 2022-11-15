@@ -39,6 +39,13 @@ public class CatInvite : MonoBehaviour
     public ParticleSystem fastSnow;
 
     public static AudioClip nowBgm;
+    [Header("Naming Tap")]
+    [SerializeField]
+    private GameObject spriteMask;
+    [SerializeField]
+    private GameObject setCatNameObj;
+
+
     private void OnEnable()
     {
         slowSnow.Play();
@@ -89,24 +96,27 @@ public class CatInvite : MonoBehaviour
         if (catNameTextArea.text != null && catNameTextArea.text != "")
         {
             curCatData.Name = catNameTextArea.text;
-            Cat cat = new Cat();
-            cat.catData = curCatData;
-
-            CatManager.Instance.CatList.Add(cat);
-            CatManager.Instance.CatDataList.Add(curCatData);
 
             GameObject catObj = Instantiate(CatObj, Vector3.zero, Quaternion.identity);
             catObj.GetComponent<Cat>().catData = curCatData;
+
+            curCatData.Cat = CatObj.GetComponent<Cat>();
+            CatManager.Instance.CatList.Add(curCatData.Cat);
+            CatManager.Instance.CatDataList.Add(curCatData);
+
             CostTextAccept();
             catNameTextArea.text = null;
             curCatData = null;
             UIManager.Instance.ResourcesApply();
 
             nowCatInviting = false;
+
+            spriteMask.SetActive(true);
+            setCatNameObj.SetActive(false);
         }
         else
         {
-            SoundManager.Instance.PlaySoundClip("SFX_Error", SoundType.SFX);
+            SoundManager.Instance.PlaySoundClip("SFX_Error", SoundType.SFX, 2);
         }
     }
 
