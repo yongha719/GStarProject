@@ -29,6 +29,19 @@ public class CatPlacementWorkingCats : MonoBehaviour
         TransparentImage = CatImages[0].sprite;
     }
 
+    public void RemoveCat(CatData catData)
+    {
+        int index = CatDatas.IndexOf(catData);
+
+        CatImages[index].sprite = TransparentImage;
+
+    }
+
+    public void SetData(int index, Animator animator)
+    {
+        CatAnimators[index] = animator;
+    }
+
     /// <summary>
     /// 고양이 배치에서 건물에서 일하는 고양이 정보 설정
     /// </summary>    
@@ -39,6 +52,7 @@ public class CatPlacementWorkingCats : MonoBehaviour
 
         CatImages[index].sprite = CatData.CatSprite;
         CatAbilitys[index].SetAbility(CatData.AbilitySprite, CatData.AbilityRating);
+        CatAnimators[index] = CatData.Cat.Animator;
 
         if (CatDatas.Count < index + 1)
             CatDatas.Add(CatData);

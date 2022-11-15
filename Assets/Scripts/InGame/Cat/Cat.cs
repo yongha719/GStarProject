@@ -53,6 +53,7 @@ public enum CatState
 {
     NotProducting = 0,      // 아무것도 안하는 중
     Idle = 0,               // 걷는 중
+    Moving,                 // 이동하는중
     Working,                // 일하는 중
     Resting,                // 휴식하는 중
 }
@@ -72,10 +73,8 @@ public class Cat : MonoBehaviour
         set
         {
             catState = value;
-            if (catState == CatState.NotProducting)
-            {
 
-            }
+            Animator.SetInteger("State", (int)catState);
         }
     }
     public string BuildingName;
@@ -157,16 +156,18 @@ public class Cat : MonoBehaviour
         // 이동 로직
         if (done)
         {
+            CatState = CatState.Moving;
+
             SpriteRenderer.flipX = (transform.position.x < dest.x);
 
             if (transform.position.y < dest.y)
             {
-                Animator.SetBool("Walkingback", true);
+                Animator.SetBool("Isback", true);
                 SpriteRenderer.flipX = !SpriteRenderer.flipX;
             }
             else
             {
-                Animator.SetBool("Walkingback", false);
+                Animator.SetBool("Isback", false);
             }
 
             if (transform.position.y == dest.y)
@@ -241,8 +242,8 @@ public class Cat : MonoBehaviour
                 yield break;
             }
         }
-
         CatState = CatState.Idle;
+
         yield return new WaitForSeconds(2);
     }
 

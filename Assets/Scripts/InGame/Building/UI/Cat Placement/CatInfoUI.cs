@@ -37,6 +37,7 @@ public class CatInfoUI : MonoBehaviour
         ExportButton?.onClick.AddListener(() =>
         {
             call();
+            CatManager.Instance.RemoveCat(cat);
         });
     }
 }

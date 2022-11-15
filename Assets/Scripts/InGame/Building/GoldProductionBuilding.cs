@@ -85,12 +85,13 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
     [SerializeField] private GameObject BuildingUI;
 
     [SerializeField] private Button CatPlacementButton;
+    [SerializeField] private Button BuildingInformationButton;
 
     private bool IsClicked;
     private static GameObject s_buildingUI;
 
     // 건물에 배치된 고양이
-    private List<Cat> PlacedInBuildingCat = new List<Cat>();
+    private List<Cat> PlacedInBuildingCats = new List<Cat>();
     public CatPlacementWorkingCats WorkingCats;
 
     private void Awake()
@@ -114,15 +115,15 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
         {
             CatPlacement.gameObject.SetActive(true);
 
-            PlacedInBuildingCat = PlacedInBuildingCat.Where(x => (object)x.building == this).ToList();
+            PlacedInBuildingCats = PlacedInBuildingCats.Where(x => (object)x.building == this).ToList();
 
-            if (PlacedInBuildingCat.Count == 0)
+            if (PlacedInBuildingCats.Count == 0)
             {
                 CatPlacement.SetBuildingInfo(BuildingType.Gold, this, null, WorkingCats, SpriteRenderer.sprite);
             }
             else
             {
-                var cats = PlacedInBuildingCat.Where(x => x.catData != null).Select(x => x.catData).ToArray();
+                var cats = PlacedInBuildingCats.Where(x => x.catData != null).Select(x => x.catData).ToArray();
                 CatPlacement.SetBuildingInfo(BuildingType.Gold, this, cats, WorkingCats, SpriteRenderer.sprite);
             }
         });
@@ -134,14 +135,14 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
 
     public void OnCatMemberChange(CatData catData, int index, Action action = null)
     {
-        if (PlacedInBuildingCat.Count < MaxDeployableCat)
+        if (PlacedInBuildingCats.Count < MaxDeployableCat)
         {
-            PlacedInBuildingCat.Add(catData.Cat);
+            PlacedInBuildingCats.Add(catData.Cat);
         }
         else
         {
-            var cat = PlacedInBuildingCat[index];
-            cat.RandomMoveCoroutine = StartCoroutine(PlacedInBuildingCat[index].RandomMove());
+            var cat = PlacedInBuildingCats[index];
+            cat.RandomMoveCoroutine = StartCoroutine(PlacedInBuildingCats[index].RandomMove());
             cat.GoWorking = true;
             if (cat.IsWorking)
             {
@@ -163,19 +164,19 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
     {
         int decreasingfigure = 0;
 
-        for (int i = 0; i < PlacedInBuildingCat.Count; i++)
+        for (int i = 0; i < PlacedInBuildingCats.Count; i++)
         {
-            if (PlacedInBuildingCat[i] != null)
+            if (PlacedInBuildingCats[i] != null)
             {
                 // 능력이 건물의 종류와 같을 때
-                if ((int)buildingType == (int)PlacedInBuildingCat[i].catData.GoldAbilityType)
+                if ((int)buildingType == (int)PlacedInBuildingCats[i].catData.GoldAbilityType)
                 {
-                    decreasingfigure += PlacedInBuildingCat[i].PercentageReductionbyRating;
+                    decreasingfigure += PlacedInBuildingCats[i].PercentageReductionbyRating;
                 }
             }
         }
 
-        if (PlacedInBuildingCat.Count != 0)
+        if (PlacedInBuildingCats.Count != 0)
         {
             if (decreasingfigure != 0)
                 waitGoldChargingTime = new WaitForSeconds((float)(DefaultGoldChargingTime * Math.Round(decreasingfigure / 100f, 3)));
@@ -194,7 +195,7 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
     {
         while (true)
         {
-            if (PlacedInBuildingCat.Count == 0)
+            if (PlacedInBuildingCats.Count == 0)
             {
                 yield return null;
                 continue;
@@ -203,23 +204,23 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
             CollectMoneyButton.gameObject.SetActive(true);
             yield return StartCoroutine(WaitGetResource());
 
-            for (int i = 0; i < PlacedInBuildingCat.Count; i++)
+            for (int i = 0; i < PlacedInBuildingCats.Count; i++)
             {
-                if (PlacedInBuildingCat[i] == null)
+                if (PlacedInBuildingCats[i] == null)
                     continue;
 
                 print(BuildingManager.s_EnergyProductionBuildings.Count);
                 // 골드 생산 10번하면 쉬러 가야 함
-                if (++PlacedInBuildingCat[i].NumberOfGoldProduction >= 10 && BuildingManager.CanGoRest(out Vector3 buildingPos))
+                if (++PlacedInBuildingCats[i].NumberOfGoldProduction >= 10 && BuildingManager.CanGoRest(out Vector3 buildingPos))
                 {
                     print("rest");
-                    PlacedInBuildingCat[i].NumberOfGoldProduction = 0;
-                    PlacedInBuildingCat[i].GoWorking = false;
-                    PlacedInBuildingCat[i].GoResting = true;
+                    PlacedInBuildingCats[i].NumberOfGoldProduction = 0;
+                    PlacedInBuildingCats[i].GoWorking = false;
+                    PlacedInBuildingCats[i].GoResting = true;
 
                     // 랜덤한 에너지 생산 건물 위치로 가기
-                    PlacedInBuildingCat[i].GoToRest(buildingPos);
-                    PlacedInBuildingCat.RemoveAt(i);
+                    PlacedInBuildingCats[i].GoToRest(buildingPos);
+                    PlacedInBuildingCats.RemoveAt(i);
                 }
             }
 

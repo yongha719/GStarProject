@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
+using UnityEngine.UI;
+[RequireComponent(typeof(Button))]
 public class UIPopup : MonoBehaviour
 {
     // 뒷배경 오브젝트가 따로 있어서 그 오브젝트를 Active false로 하면
@@ -14,6 +16,9 @@ public class UIPopup : MonoBehaviour
     private void Awake()
     {
         rect = GetComponent<RectTransform>();
+        var colorblock = GetComponent<Button>().colors;
+        colorblock.pressedColor= Color.white;
+        GetComponent<Button>().colors = colorblock;
     }
 
     private void OnEnable()

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CatManager : Singleton<CatManager>
 {
-    public List<CatData> CatDataList = new List<CatData>();
     public List<Cat> CatList = new List<Cat>();
     public CatInfo[] catInfos;
     public List<RuntimeAnimatorController> CatAnimators = new List<RuntimeAnimatorController>();
@@ -30,7 +29,6 @@ public class CatManager : Singleton<CatManager>
             Cat cat = new Cat();
             cat.catData = CatInvite.RandomCatEarn();
             cat.catData.Name = "고양이";
-            CatDataList.Add(cat.catData);
             CatList.Add(cat);
         }
     }

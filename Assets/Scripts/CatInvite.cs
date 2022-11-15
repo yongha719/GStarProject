@@ -59,7 +59,7 @@ public class CatInvite : MonoBehaviour
 
     private void CostTextAccept()
     {
-        needGoldValue = CatManager.Instance.CatDataList.Count * 500;
+        needGoldValue = CatManager.Instance.CatList.Count * 500;
         needGoldText.text = CalculatorManager.returnStr(needGoldValue); 
     }
 
@@ -97,12 +97,10 @@ public class CatInvite : MonoBehaviour
         {
             curCatData.Name = catNameTextArea.text;
 
-            GameObject catObj = Instantiate(CatObj, Vector3.zero, Quaternion.identity);
-            catObj.GetComponent<Cat>().catData = curCatData;
+            var cat = Instantiate(CatObj, Vector3.zero, Quaternion.identity).GetComponent<Cat>();
+            cat.catData = curCatData;
 
-            curCatData.Cat = CatObj.GetComponent<Cat>();
             CatManager.Instance.CatList.Add(curCatData.Cat);
-            CatManager.Instance.CatDataList.Add(curCatData);
 
             CostTextAccept();
             catNameTextArea.text = null;
