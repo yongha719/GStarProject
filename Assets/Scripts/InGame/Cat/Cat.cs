@@ -124,6 +124,7 @@ public class Cat : MonoBehaviour
     };
 
     public GoldProductionBuilding building;
+    public int catNum;
 
     private CatManager CatManager;
     private GridBuildingSystem GridBuildingSystem;
@@ -157,7 +158,6 @@ public class Cat : MonoBehaviour
         // 이동 로직
         if (done)
         {
-
             SpriteRenderer.flipX = (transform.position.x < dest.x);
 
             if (transform.position.y < dest.y)
@@ -277,7 +277,9 @@ public class Cat : MonoBehaviour
     {
         StopCoroutine(RandomMoveCoroutine);
         StartCoroutine(Move(buildingPos));
+
         GoWorking = true;
+
     }
 
     void WorkingMotion()
@@ -301,6 +303,8 @@ public class Cat : MonoBehaviour
 
             IsWorking = true;
             transform.position = new Vector3(pos.x, pos.y + 0.675f, PosZ);
+
+            //goldbuilding.OnCatMemberChange(catData, catNum);
         }
         else if (GoResting && collision.gameObject.TryGetComponent(out EnergyProductionBuilding energybuilding))
         {

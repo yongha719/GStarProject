@@ -126,7 +126,7 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
     }
 
 
-    public void OnCatMemberChange(CatData catData, int index, Action action)
+    public void OnCatMemberChange(CatData catData, int index, Action action = null)
     {
         if (PlacedInBuildingCat.Count < MaxDeployableCat)
         {

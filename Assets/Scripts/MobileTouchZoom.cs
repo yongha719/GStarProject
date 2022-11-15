@@ -84,29 +84,34 @@ public class MobileTouchZoom : MonoBehaviour
 
     private bool IsPointerOverGameObject()
     {
-        if (Application.platform == RuntimePlatform.WindowsEditor)
+#if UNITY_EDITOR
+        // Check mouse
+        if (EventSystem.current.IsPointerOverGameObject())
         {
-            // Check mouse
-            if (EventSystem.current.IsPointerOverGameObject())
+            return true;
+        }
+#elif UNITY_ANDROID
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        {
+            if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
             {
                 return true;
             }
         }
-        else if (Application.platform == RuntimePlatform.Android)
+        // Check touches
+        for (int i = 0; i < Input.touchCount; i++)
         {
-            // Check touches
-            for (int i = 0; i < Input.touchCount; i++)
+            var touch = Input.GetTouch(i);
+            if (touch.phase == TouchPhase.Began)
             {
-                var touch = Input.GetTouch(i);
-                if (touch.phase == TouchPhase.Began)
+                if (EventSystem.current.IsPointerOverGameObject(touch.fingerId)) // 장실
                 {
-                    if (EventSystem.current.IsPointerOverGameObject(touch.fingerId)) // 장실
-                    {
-                        return true;
-                    }
+                    return true;
                 }
             }
         }
+#endif
+
         return false;
     }
 }

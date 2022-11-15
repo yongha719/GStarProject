@@ -193,6 +193,7 @@ public class EnergyProductionBuilding : Building, IResourceProductionBuilding
                     PlacedInBuildingCat[i].GoResting = false;
                     PlacedInBuildingCat[i].IsResting= false;
                     PlacedInBuildingCat[i].GoToWork(PlacedInBuildingCat[i].building.transform.position);
+                    PlacedInBuildingCat[i].building.OnCatMemberChange(PlacedInBuildingCat[i].catData, PlacedInBuildingCat[i].catNum);
 
                     PlacedInBuildingCat.RemoveAt(i);
                 }

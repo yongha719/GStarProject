@@ -236,6 +236,7 @@ public class CatPlacement : MonoBehaviour
                             action: () =>
                             {
                                 var pos = GridBuildingSystem.gridLayout.LocalToCell(goldBuilding.transform.position);
+                                catData.Cat.catNum = CurSelectedCatIndex;
                                 catData.Cat.building = goldBuilding;
                                 catData.Cat.GoToWork(goldBuilding.transform.position);
                             });

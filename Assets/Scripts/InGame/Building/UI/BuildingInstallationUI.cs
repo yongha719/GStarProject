@@ -13,8 +13,8 @@ public class BuildingInstallationUI : MonoBehaviour
     #region Buildings
 
     [Header("WorkShop Buildings")]
-    [SerializeField] private List<BuildingInfo> GoldProductionBuildingInfos;
-    [SerializeField] private List<BuildingInfo> EnergyProductionBuildingInfos;
+    [SerializeField] private List<BuyBuildingInfo> GoldProductionBuildingInfos;
+    [SerializeField] private List<BuyBuildingInfo> EnergyProductionBuildingInfos;
 
     [Header("Warning UIs")]
     [SerializeField] private BuildingInstallWarning Warning;
