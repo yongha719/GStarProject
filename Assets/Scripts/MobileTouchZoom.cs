@@ -38,7 +38,7 @@ public class MobileTouchZoom : MonoBehaviour
         {
             m_fToucDis = (Input.touches[0].position - Input.touches[1].position).sqrMagnitude;
 
-            fDis = (m_fToucDis - m_oldCamSize) ;
+            fDis = (m_fToucDis - m_oldCamSize);
 
             // 이전 두 터치의 거리와 지금 두 터치의 거리의 차이를 FleldOfView를 차감합니다.
             m_camSize -= fDis;
@@ -47,7 +47,7 @@ public class MobileTouchZoom : MonoBehaviour
             m_camSize = Mathf.Clamp(m_camSize, 2, 10);
 
             // 확대 / 축소가 갑자기 되지않도록 보간합니다.
-            mainCam.orthographicSize = Mathf.Lerp(mainCam.fieldOfView, m_camSize, Time.deltaTime * 5);
+            mainCam.orthographicSize = Mathf.Lerp(mainCam.orthographicSize, m_camSize, Time.deltaTime * 5);
 
             m_oldCamSize = m_fToucDis;
         }
@@ -96,12 +96,9 @@ public class MobileTouchZoom : MonoBehaviour
             for (int i = 0; i < Input.touchCount; i++)
             {
                 var touch = Input.GetTouch(i);
-                if (touch.phase == TouchPhase.Began)
+                if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
                 {
-                    if (EventSystem.current.IsPointerOverGameObject(touch.fingerId)) // 장실00
-                    {
-                        return true;
-                    }
+                    return true;
                 }
             }
         }
