@@ -38,7 +38,7 @@ public class MobileTouchZoom : MonoBehaviour
         {
             m_fToucDis = (Input.touches[0].position - Input.touches[1].position).sqrMagnitude;
 
-            fDis = (m_fToucDis - m_oldCamSize) * 0.01f;
+            fDis = (m_fToucDis - m_oldCamSize) ;
 
             // 이전 두 터치의 거리와 지금 두 터치의 거리의 차이를 FleldOfView를 차감합니다.
             m_camSize -= fDis;
