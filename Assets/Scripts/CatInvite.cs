@@ -9,6 +9,9 @@ public class CatInvite : MonoBehaviour
     public double needGoldValue;
 
     [SerializeField]
+    private GameObject CatObj;
+
+    [SerializeField]
     private TextMeshProUGUI needGoldText;
     [SerializeField]
     private TMP_InputField catNameTextArea;
@@ -36,6 +39,13 @@ public class CatInvite : MonoBehaviour
     public ParticleSystem fastSnow;
 
     public static AudioClip nowBgm;
+    [Header("Naming Tap")]
+    [SerializeField]
+    private GameObject spriteMask;
+    [SerializeField]
+    private GameObject setCatNameObj;
+
+
     private void OnEnable()
     {
         slowSnow.Play();
@@ -83,24 +93,30 @@ public class CatInvite : MonoBehaviour
     }
     public void CatNaming()
     {
-        if (catNameTextArea.text != null)
+        if (catNameTextArea.text != null && catNameTextArea.text != "")
         {
             curCatData.Name = catNameTextArea.text;
-            Cat cat = new Cat();
-            cat.catData = curCatData;
 
-            CatManager.Instance.CatList.Add(cat);
+            GameObject catObj = Instantiate(CatObj, Vector3.zero, Quaternion.identity);
+            catObj.GetComponent<Cat>().catData = curCatData;
+
+            curCatData.Cat = CatObj.GetComponent<Cat>();
+            CatManager.Instance.CatList.Add(curCatData.Cat);
             CatManager.Instance.CatDataList.Add(curCatData);
+
             CostTextAccept();
             catNameTextArea.text = null;
             curCatData = null;
             UIManager.Instance.ResourcesApply();
 
             nowCatInviting = false;
+
+            spriteMask.SetActive(true);
+            setCatNameObj.SetActive(false);
         }
         else
         {
-            SoundManager.Instance.PlaySoundClip("SFX_Error", SoundType.SFX);
+            SoundManager.Instance.PlaySoundClip("SFX_Error", SoundType.SFX, 2);
         }
     }
 
