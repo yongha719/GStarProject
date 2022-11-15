@@ -60,7 +60,7 @@ public class CatInvite : MonoBehaviour
     private void CostTextAccept()
     {
         needGoldValue = CatManager.Instance.CatDataList.Count * 500;
-        needGoldText.text = CalculatorManager.returnStr(needGoldValue);
+        needGoldText.text = CalculatorManager.returnStr(needGoldValue); 
     }
 
     public void CatInviteBtnFunc()

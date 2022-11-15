@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public class MobileTouchZoom : MonoBehaviour
 {
-    private float m_oldCamSize = 0f;       // 터치 이전 거리를 저장합니다.
+    private float m_oldCamSize = 5f;       // 터치 이전 거리를 저장합니다.
     [SerializeField]
     private float m_camSize = 5f;     // 카메라의 Size의 기본값을 5로 정합니다.
 
@@ -43,8 +43,8 @@ public class MobileTouchZoom : MonoBehaviour
             // 이전 두 터치의 거리와 지금 두 터치의 거리의 차이를 FleldOfView를 차감합니다.
             m_camSize -= fDis;
 
-            // 최대는 100, 최소는 20으로 더이상 증가 혹은 감소가 되지 않도록 합니다.
-            m_camSize = Mathf.Clamp(m_camSize, 20.0f, 100.0f);
+            // 최대는 10, 최소는 2으로 더이상 증가 혹은 감소가 되지 않도록 합니다.
+            m_camSize = Mathf.Clamp(m_camSize, 2, 10);
 
             // 확대 / 축소가 갑자기 되지않도록 보간합니다.
             mainCam.fieldOfView = Mathf.Lerp(mainCam.fieldOfView, m_camSize, Time.deltaTime * 5);
