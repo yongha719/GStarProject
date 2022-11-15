@@ -47,7 +47,7 @@ public class MobileTouchZoom : MonoBehaviour
             m_camSize = Mathf.Clamp(m_camSize, 2, 10);
 
             // 확대 / 축소가 갑자기 되지않도록 보간합니다.
-            mainCam.fieldOfView = Mathf.Lerp(mainCam.fieldOfView, m_camSize, Time.deltaTime * 5);
+            mainCam.orthographicSize = Mathf.Lerp(mainCam.fieldOfView, m_camSize, Time.deltaTime * 5);
 
             m_oldCamSize = m_fToucDis;
         }
