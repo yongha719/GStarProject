@@ -9,6 +9,9 @@ public class CatInvite : MonoBehaviour
     public double needGoldValue;
 
     [SerializeField]
+    private GameObject CatObj;
+
+    [SerializeField]
     private TextMeshProUGUI needGoldText;
     [SerializeField]
     private TMP_InputField catNameTextArea;
@@ -83,7 +86,7 @@ public class CatInvite : MonoBehaviour
     }
     public void CatNaming()
     {
-        if (catNameTextArea.text != null)
+        if (catNameTextArea.text != null && catNameTextArea.text != "")
         {
             curCatData.Name = catNameTextArea.text;
             Cat cat = new Cat();
@@ -91,6 +94,9 @@ public class CatInvite : MonoBehaviour
 
             CatManager.Instance.CatList.Add(cat);
             CatManager.Instance.CatDataList.Add(curCatData);
+
+            GameObject catObj = Instantiate(CatObj, Vector3.zero, Quaternion.identity);
+            catObj.GetComponent<Cat>().catData = curCatData;
             CostTextAccept();
             catNameTextArea.text = null;
             curCatData = null;
