@@ -136,15 +136,18 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
     {
         if (PlacedInBuildingCat.Count < MaxDeployableCat)
         {
-            print("add");
             PlacedInBuildingCat.Add(catData.Cat);
         }
         else
         {
-            print("change");
-            StartCoroutine(PlacedInBuildingCat[index].RandomMove());
-            PlacedInBuildingCat[index].GoWorking = true;
-            PlacedInBuildingCat[index] = catData.Cat;
+            var cat = PlacedInBuildingCat[index];
+            cat.RandomMoveCoroutine = StartCoroutine(PlacedInBuildingCat[index].RandomMove());
+            cat.GoWorking = true;
+            if (cat.IsWorking)
+            {
+                cat.IsWorking = false;
+            }
+            cat = catData.Cat;
         }
 
         SetProductionTime();
@@ -292,7 +295,7 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
             BuildingUI.SetActive(false);
             s_buildingUI = BuildingUI;
         }
-        else 
+        else
         {
             if (s_buildingUI != null)
             {
