@@ -186,8 +186,6 @@ public class Cat : MonoBehaviour
         {
             targetPos = RandomPos();
 
-
-
             yield return StartCoroutine(MoveStep());
         }
     }
@@ -300,6 +298,7 @@ public class Cat : MonoBehaviour
             SpriteRenderer.flipX = false;
             var pos = goldbuilding.transform.position;
 
+            GoWorking = false;
             IsWorking = true;
             transform.position = new Vector3(pos.x, pos.y + 0.675f, PosZ);
 
@@ -313,6 +312,7 @@ public class Cat : MonoBehaviour
             SpriteRenderer.flipX = false;
             var pos = energybuilding.transform.position;
 
+            GoResting = false;
             IsResting = true;
             transform.position = new Vector3(pos.x, pos.y + 0.675f, PosZ);
 
