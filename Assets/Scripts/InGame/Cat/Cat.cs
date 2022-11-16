@@ -291,6 +291,7 @@ public class Cat : MonoBehaviour
         if (IsWorking || IsResting)
             return;
 
+
         if (GoWorking && collision.gameObject.TryGetComponent(out GoldProductionBuilding goldbuilding))
         {
             StopMove = true;

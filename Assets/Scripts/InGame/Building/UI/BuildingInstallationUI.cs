@@ -34,6 +34,7 @@ public class BuildingInstallationUI : MonoBehaviour
 
     [SerializeField] private GameObject BuildingInstallation;
     [SerializeField] private CatPlacement CatPlacement;
+    [SerializeField] private BuildingInfomation BuildingInfomation;
     #endregion
 
     private GridBuildingSystem GridBuildingSystem;
@@ -95,6 +96,7 @@ public class BuildingInstallationUI : MonoBehaviour
                 buildingInfo.Building.FirstTimeInstallation = true;
 
                 Building.CatPlacement = CatPlacement;
+                Building.BuildingInfomation = BuildingInfomation;
 
                 if (GameManager._coin > 0 && GameManager._coin >= goldprodutionbuilding.ConstructionCost.returnValue())
                 {
@@ -125,6 +127,7 @@ public class BuildingInstallationUI : MonoBehaviour
                 buildingInfo.Building.FirstTimeInstallation = true;
 
                 Building.CatPlacement = CatPlacement;
+                Building.BuildingInfomation = BuildingInfomation;
 
                 if (GameManager._coin > 0 && GameManager._coin >= energyprodutionbuilding.ConstructionCost.returnValue())
                 {

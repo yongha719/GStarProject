@@ -711,15 +711,18 @@ MonoBehaviour:
   DemolitionButton: {fileID: 5969899369050173961}
   RotateButton: {fileID: 7496639491388935465}
   CatPlacement: {fileID: 0}
+  BuildingInfomation: {fileID: 0}
   buildingType: 2
   CollectMoneyButton: {fileID: 5444481926985826226}
   DefaultGold: 3000
   DefaultGoldChargingTime: 20
   IncreasePerLevelUp: 15
+  DefaultLevelUpCost: 8a
   ConstructionGoldText: {fileID: 3977098050459093906}
   GoldAcquisitionEffect: {fileID: 0}
   BuildingUI: {fileID: 2901016615586140287}
   CatPlacementButton: {fileID: 8001693894536161551}
+  BuildingInfomationButton: {fileID: 8479970792459239098}
   WorkingCats: {fileID: 0}
 --- !u!61 &3412580256665481385
 BoxCollider2D:

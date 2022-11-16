@@ -8,18 +8,27 @@ using TMPro;
 public class BuildingInfomation : MonoBehaviour
 {
     [SerializeField] private Canvas canvas;
-    [SerializeField] private TextMeshProUGUI LevelUpCostText;
+
+    [Header("UI")]
+    [SerializeField] private Image BuildingImage;
+    [SerializeField] private Animator Animator;
+    [SerializeField] private TextMeshProUGUI CurLevelText;
+    [SerializeField] private TextMeshProUGUI CurLevelUpCostText;
+    [SerializeField] private TextMeshProUGUI NextLevelText;
+    [SerializeField] private TextMeshProUGUI NextLevelUpCostText;
     [SerializeField] private Button LevelUpButton;
     private RectTransform LevelUpButtonRt;
-    [SerializeField] private GameObject LevelUpEffect;
 
     [Space]
+    [SerializeField] private GameObject LevelUpEffect;
     [SerializeField] private Transform WoringcatParent;
     [SerializeField] List<GameObject> GoldBuildingWorkingCats;
     [SerializeField] List<GameObject> EnergyBuildingWorkingCats;
     [SerializeField] private NotEnoughGold NotEnoughGold;
 
-
+    private BuildingType BuildingType;
+    private GoldProductionBuilding goldBuilding;
+    private EnergyProductionBuilding energyBuilding;
 
     void Start()
     {
@@ -43,25 +52,42 @@ public class BuildingInfomation : MonoBehaviour
 
     void ValueChange()
     {
-
+        if (BuildingType == BuildingType.Gold)
+        {
+            CurLevelText.text = $"Lv. {goldBuilding.Rating}";
+            CurLevelUpCostText.text = goldBuilding.LevelUpCost(goldBuilding.Rating);
+            NextLevelText.text = $"Lv. {goldBuilding.Rating + 1}";
+            NextLevelUpCostText.text = goldBuilding.LevelUpCost(goldBuilding.Rating + 1);
+        }
+        else if (BuildingType == BuildingType.Energy)
+        {
+            CurLevelText.text = $"Lv. {energyBuilding.Rating}";
+            CurLevelUpCostText.text = energyBuilding.LevelUpCost(energyBuilding.Rating);
+            NextLevelText.text = $"Lv. {energyBuilding.Rating + 1}";
+            NextLevelUpCostText.text = energyBuilding.LevelUpCost(energyBuilding.Rating + 1);
+        }
     }
 
-    void SetData(IResourceProductionBuilding building, List<Cat> placedInBuildingCats)
+    public void SetData(BuildingType buildingType, IResourceProductionBuilding building, List<Cat> placedInBuildingCats, Sprite builldingSprite)
     {
-        if (building is GoldProductionBuilding gold)
+        BuildingType = buildingType;
+        BuildingImage.sprite = builldingSprite;
+
+        if (building is GoldProductionBuilding)
         {
-            gold = building as GoldProductionBuilding;
-            var workingcat = Instantiate(GoldBuildingWorkingCats[(int)gold.buildingType], WoringcatParent).GetComponent<CatPlacementWorkingCats>();
+            goldBuilding = building as GoldProductionBuilding;
+            var workingcat = Instantiate(GoldBuildingWorkingCats[(int)goldBuilding.buildingType], WoringcatParent).GetComponent<CatPlacementWorkingCats>();
 
             for (int i = 0; i < placedInBuildingCats.Count; i++)
             {
                 workingcat.SetData(i, placedInBuildingCats[i].Animator);
             }
+
         }
-        else if (building is EnergyProductionBuilding energy)
+        else if (building is EnergyProductionBuilding)
         {
-            energy = building as EnergyProductionBuilding;
-            var workingcat = Instantiate(GoldBuildingWorkingCats[(int)energy.buildingType], WoringcatParent).GetComponent<CatPlacementWorkingCats>();
+            energyBuilding = building as EnergyProductionBuilding;
+            var workingcat = Instantiate(EnergyBuildingWorkingCats[(int)energyBuilding.buildingType], WoringcatParent).GetComponent<CatPlacementWorkingCats>();
 
             for (int i = 0; i < placedInBuildingCats.Count; i++)
             {

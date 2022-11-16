@@ -35,8 +35,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 149, y: -145}
-  m_SizeDelta: {x: 83, y: 83}
+  m_AnchoredPosition: {x: 140, y: -120}
+  m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2139381818212145419
 CanvasRenderer:
@@ -155,7 +155,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 118}
+  m_AnchoredPosition: {x: 0, y: 90}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1700650263022351890
@@ -361,8 +361,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 128}
-  m_SizeDelta: {x: 83, y: 83}
+  m_AnchoredPosition: {x: 0, y: 80}
+  m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8884796223699180084
 CanvasRenderer:
@@ -710,16 +710,18 @@ MonoBehaviour:
   DemolitionButton: {fileID: 5969899369050173961}
   RotateButton: {fileID: 7496639491388935465}
   CatPlacement: {fileID: 0}
+  BuildingInfomation: {fileID: 0}
   buildingType: 3
   CollectEnergyButton: {fileID: 5444481926985826226}
   DefaultEnergy: 1000a
   DefaultEnergyChargingTime: 10
   IncreasePerLevelUp: 15
   ProductionsNeededToRecover: 4
+  DefaultLevelUpCost: 18b
   ConstructionGoldText: {fileID: 3977098050459093906}
   EnergyAcquisitionEffect: {fileID: 9115134678134367406, guid: 4392498c23cc9364aae001a468805695, type: 3}
   BuildingUI: {fileID: 1324746891899426039}
-  CatPlacementButton: {fileID: 0}
+  BuildingInfomationButton: {fileID: 8053822820063243181}
   WorkingCats: {fileID: 0}
 --- !u!61 &8733694798616607229
 BoxCollider2D:
@@ -884,7 +886,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 125}
+  m_AnchoredPosition: {x: 0, y: 90}
   m_SizeDelta: {x: 200, y: 45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2039698541139640233
@@ -1019,8 +1021,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -149, y: -145}
-  m_SizeDelta: {x: 83, y: 83}
+  m_AnchoredPosition: {x: -140, y: -120}
+  m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4842662616739110947
 CanvasRenderer:

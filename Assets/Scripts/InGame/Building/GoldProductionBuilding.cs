@@ -46,6 +46,7 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
     [SerializeField] private float DefaultGoldChargingTime;
     [SerializeField] private float IncreasePerLevelUp;
 
+
     public string ProductionGold
     {
         get
@@ -71,11 +72,27 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
         }
     }
 
+    [Header("Level Up")]
+    [SerializeField] private string DefaultLevelUpCost;
+
+    public string LevelUpCost(int level)
+    {
+        var cost = DefaultLevelUpCost.returnValue();
+
+        for (int i = 0; i < level - 1; i++)
+        {
+            cost += cost * Math.Round((double)(8f / 100f), 3);
+        }
+
+        return cost.returnStr();
+    }
+
     private bool didGetMoney;
 
     private WaitForSeconds waitGoldChargingTime;
     private const float AUTO_GET_GOLD_DELAY = 20f;
 
+    [Space]
     [SerializeField] private TextMeshProUGUI ConstructionGoldText;
     [SerializeField] private GameObject GoldAcquisitionEffect;
 
@@ -85,7 +102,7 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
     [SerializeField] private GameObject BuildingUI;
 
     [SerializeField] private Button CatPlacementButton;
-    [SerializeField] private Button BuildingInformationButton;
+    [SerializeField] private Button BuildingInfomationButton;
 
     private bool IsClicked;
     private static GameObject s_buildingUI;
@@ -125,6 +142,22 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
             {
                 var cats = PlacedInBuildingCats.Where(x => x.catData != null).Select(x => x.catData).ToArray();
                 CatPlacement.SetBuildingInfo(BuildingType.Gold, this, cats, WorkingCats, SpriteRenderer.sprite);
+            }
+        });
+
+        BuildingInfomationButton.onClick.AddListener(() =>
+        {
+            BuildingInfomation.gameObject.SetActive(true);
+
+            PlacedInBuildingCats = PlacedInBuildingCats.Where(x => (object)x.building == this).ToList();
+
+            if (PlacedInBuildingCats.Count == 0)
+            {
+                BuildingInfomation.SetData(BuildingType.Gold, this, null, SpriteRenderer.sprite);
+            }
+            else
+            {
+                BuildingInfomation.SetData(BuildingType.Gold, this, PlacedInBuildingCats, SpriteRenderer.sprite);
             }
         });
     }

@@ -710,16 +710,18 @@ MonoBehaviour:
   DemolitionButton: {fileID: 5969899369050173961}
   RotateButton: {fileID: 7496639491388935465}
   CatPlacement: {fileID: 0}
+  BuildingInfomation: {fileID: 0}
   buildingType: 0
   CollectEnergyButton: {fileID: 5444481926985826226}
   DefaultEnergy: 1000
   DefaultEnergyChargingTime: 10
   IncreasePerLevelUp: 15
   ProductionsNeededToRecover: 3
+  DefaultLevelUpCost: 800
   ConstructionGoldText: {fileID: 3977098050459093906}
   EnergyAcquisitionEffect: {fileID: 9115134678134367406, guid: 4392498c23cc9364aae001a468805695, type: 3}
   BuildingUI: {fileID: 4496664496675265360}
-  CatPlacementButton: {fileID: 0}
+  BuildingInfomationButton: {fileID: 9120928394495099627}
   WorkingCats: {fileID: 0}
 --- !u!61 &5590015987093081977
 BoxCollider2D:

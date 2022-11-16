@@ -54,7 +54,8 @@ public abstract class Building : MonoBehaviour
     [SerializeField] private Button RotateButton;
     #endregion
 
-    public CatPlacement CatPlacement;
+    [HideInInspector] public CatPlacement CatPlacement;
+    [HideInInspector] public BuildingInfomation BuildingInfomation;
 
     protected RectTransform CanvasRt;
     protected Camera Camera;
@@ -118,7 +119,7 @@ public abstract class Building : MonoBehaviour
             StartCoroutine(BuildingInstalltionEffect());
         }
 
-        SoundManager.Instance.PlaySoundClip("SFX_Building",SoundType.SFX);
+        SoundManager.Instance.PlaySoundClip("SFX_Building", SoundType.SFX);
     }
 
     protected virtual IEnumerator BuildingInstalltionEffect()

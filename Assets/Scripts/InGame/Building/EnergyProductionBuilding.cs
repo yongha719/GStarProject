@@ -78,21 +78,37 @@ public class EnergyProductionBuilding : Building, IResourceProductionBuilding
         }
     }
 
+    [Header("Level Up")]
+    [SerializeField] private string DefaultLevelUpCost;
+
+    public string LevelUpCost(int level)
+    {
+        var cost = DefaultLevelUpCost.returnValue();
+
+        for (int i = 0; i < level - 1; i++)
+        {
+            cost += cost * Math.Round((double)(8f / 100f), 3);
+        }
+
+        return cost.returnStr();
+    }
+
 
     private bool didGetEnergy;
 
     private WaitForSeconds waitEnergyChargingTime;
     private const float AUTO_GET_ENERGY_DELAY = 10f;
 
+    [Space]
     [SerializeField] private TextMeshProUGUI ConstructionGoldText;
     [SerializeField] private GameObject EnergyAcquisitionEffect;
 
     #endregion
 
     [SerializeField] private GameObject BuildingUI;
-    [SerializeField] private Button CatPlacementButton;
+    [SerializeField] private Button BuildingInfomationButton;
 
-    private List<Cat> PlacedInBuildingCat = new List<Cat>();
+    private List<Cat> PlacedInBuildingCats = new List<Cat>();
     public CatPlacementWorkingCats WorkingCats;
 
 
@@ -107,28 +123,26 @@ public class EnergyProductionBuilding : Building, IResourceProductionBuilding
             didGetEnergy = true;
         });
 
-        CatPlacementButton?.onClick.AddListener(() =>
+        BuildingInfomationButton.onClick.AddListener(() =>
         {
-            CatPlacement.gameObject.SetActive(true);
+            BuildingInfomation.gameObject.SetActive(true);
 
-            PlacedInBuildingCat = PlacedInBuildingCat.Where(x => (object)x.building == this).ToList();
+            PlacedInBuildingCats = PlacedInBuildingCats.Where(x => (object)x.building == this).ToList();
 
-            if (PlacedInBuildingCat.Count == 0)
+            if (PlacedInBuildingCats.Count == 0)
             {
-                CatPlacement.SetBuildingInfo(BuildingType.Energy, this, null, WorkingCats, SpriteRenderer.sprite);
+                BuildingInfomation.SetData(BuildingType.Gold, this, null, SpriteRenderer.sprite);
             }
             else
             {
-                var cats = PlacedInBuildingCat.Where(x => x.catData != null).Select(x => x.catData).ToArray();
-                CatPlacement.SetBuildingInfo(BuildingType.Energy, this, cats, WorkingCats, SpriteRenderer.sprite);
+                BuildingInfomation.SetData(BuildingType.Gold, this, PlacedInBuildingCats, SpriteRenderer.sprite);
             }
         });
-
     }
 
     public void OnCatMemberChange(CatData catData, int index = 0, Action action = null)
     {
-        PlacedInBuildingCat.Add(catData.Cat);
+        PlacedInBuildingCats.Add(catData.Cat);
         SetProductionTime();
 
         action?.Invoke();
@@ -141,19 +155,19 @@ public class EnergyProductionBuilding : Building, IResourceProductionBuilding
     {
         int decreasingfigure = 0;
 
-        for (int i = 0; i < PlacedInBuildingCat.Count; i++)
+        for (int i = 0; i < PlacedInBuildingCats.Count; i++)
         {
-            if (PlacedInBuildingCat[i] != null)
+            if (PlacedInBuildingCats[i] != null)
             {
                 // 능력이 건물의 종류와 같을 때
-                if ((int)buildingType == (int)PlacedInBuildingCat[i].catData.GoldAbilityType)
+                if ((int)buildingType == (int)PlacedInBuildingCats[i].catData.GoldAbilityType)
                 {
-                    decreasingfigure += PlacedInBuildingCat[i].PercentageReductionbyRating;
+                    decreasingfigure += PlacedInBuildingCats[i].PercentageReductionbyRating;
                 }
             }
         }
 
-        if (PlacedInBuildingCat.Count != 0)
+        if (PlacedInBuildingCats.Count != 0)
         {
             if (decreasingfigure != 0)
                 waitEnergyChargingTime = new WaitForSeconds((float)(DefaultEnergyChargingTime * Math.Round(decreasingfigure / 100f, 3)));
@@ -171,7 +185,7 @@ public class EnergyProductionBuilding : Building, IResourceProductionBuilding
     {
         while (true)
         {
-            if (PlacedInBuildingCat.Count == 0)
+            if (PlacedInBuildingCats.Count == 0)
             {
                 yield return null;
                 continue;
@@ -182,20 +196,20 @@ public class EnergyProductionBuilding : Building, IResourceProductionBuilding
 
             for (int i = 0; i < MaxDeployableCat; i++)
             {
-                if (PlacedInBuildingCat[i] == null)
+                if (PlacedInBuildingCats[i] == null)
                     continue;
 
                 // 에너지 생산 3번하면 일하러 가야함
-                if (++PlacedInBuildingCat[i].NumberOfEnergyProduction >= 3)
+                if (++PlacedInBuildingCats[i].NumberOfEnergyProduction >= 3)
                 {
-                    PlacedInBuildingCat[i].NumberOfEnergyProduction = 0;
-                    PlacedInBuildingCat[i].GoWorking = true;
-                    PlacedInBuildingCat[i].GoResting = false;
-                    PlacedInBuildingCat[i].IsResting= false;
-                    PlacedInBuildingCat[i].GoToWork(PlacedInBuildingCat[i].building.transform.position);
-                    PlacedInBuildingCat[i].building.OnCatMemberChange(PlacedInBuildingCat[i].catData, PlacedInBuildingCat[i].catNum);
+                    PlacedInBuildingCats[i].NumberOfEnergyProduction = 0;
+                    PlacedInBuildingCats[i].GoWorking = true;
+                    PlacedInBuildingCats[i].GoResting = false;
+                    PlacedInBuildingCats[i].IsResting = false;
+                    PlacedInBuildingCats[i].GoToWork(PlacedInBuildingCats[i].building.transform.position);
+                    PlacedInBuildingCats[i].building.OnCatMemberChange(PlacedInBuildingCats[i].catData, PlacedInBuildingCats[i].catNum);
 
-                    PlacedInBuildingCat.RemoveAt(i);
+                    PlacedInBuildingCats.RemoveAt(i);
                 }
             }
 
@@ -257,7 +271,7 @@ public class EnergyProductionBuilding : Building, IResourceProductionBuilding
 
     public bool CanDeploy()
     {
-        return PlacedInBuildingCat.Count < MaxDeployableCat;
+        return PlacedInBuildingCats.Count < MaxDeployableCat;
     }
 
     private void OnMouseDown()
