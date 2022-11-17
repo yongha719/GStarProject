@@ -20,9 +20,11 @@ public class MobileTouchZoom : MonoBehaviour
 
     void Update()
     {
+#if UNITY_ANDROID
         if (Input.touchCount > 0 && GridBuildingSystem.IsDeploying == false) CheckTouch();
-
-        //PCDebuging();
+#elif UNITY_EDITOR
+        PCDebuging();
+#endif
     }
     void CheckTouch()
     {
