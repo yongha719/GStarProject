@@ -41,6 +41,24 @@ public class BaseDailyQuest
     {
         switch (type)
         {
+            case QuestType.Survive:
+                return 1;
+                break;
+            case QuestType.Gold:
+                return 50;
+                break;
+            case QuestType.Stamina:
+                return 50;
+                break;
+            case QuestType.Gift:
+                return 3;
+                break;
+            case QuestType.Photo:
+                return 3;
+                break;
+            case QuestType.Adventure:
+                return 3;
+                break;
             default:
                 Debug.Log("DailyQuestLog Eror");
                 break;
@@ -117,7 +135,6 @@ public class DailyQuestManager : Singleton<DailyQuestManager>
         if (lastTimeData != null && lastTimeData != "")
         {
             DateTime nowtime = DateTime.Now;
-            Debug.Log(lastTimeData);
             DateTime lastTime = DateTime.Parse(lastTimeData);
             if (new DateTime(lastTime.Year, lastTime.Month, lastTime.Day + 1, 4, 0, 0) <= nowtime)
             {
