@@ -46,6 +46,7 @@ public class CatData
     public Sprite AbilitySprite;                  // 능력 이미지
     public CatSkinType CatSkinType;               // 스킨 종류
     public Sprite CatSprite;                      // 스킨 이미지
+    public RuntimeAnimatorController CatAnimator;
 }
 
 [System.Serializable]
@@ -136,19 +137,17 @@ public class Cat : MonoBehaviour
         SpriteRenderer = GetComponent<SpriteRenderer>();
         Animator = GetComponent<Animator>();
 
-        Animator.runtimeAnimatorController = CatManager.CatAnimators[(int)catData.CatSkinType];
+        SpriteRenderer.sprite = catData.CatSprite;
+        //Animator.runtimeAnimatorController = catData.CatAnimator;
 
         canMoveArea = (int)GridBuildingSystem.ViliageAreaSize.x;
 
         catData.Cat = this;
 
-        SpriteRenderer.sprite = catData.CatSprite;
-
         transform.position = transform.position + (Vector3.back * 0.01f * CatManager.CatList.IndexOf(this));
         PosZ = transform.position.z;
 
         RandomMoveCoroutine = StartCoroutine(RandomMove());
-
     }
 
     private void Update()
