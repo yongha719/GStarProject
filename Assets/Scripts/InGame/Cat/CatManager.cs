@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CatManager : Singleton<CatManager>
 {
     public List<Cat> CatList = new List<Cat>();
     public CatInfo[] catInfos;
-    public List<RuntimeAnimatorController> CatAnimators = new List<RuntimeAnimatorController>();
 
     private Sprite[] abiltySpritesList;
 
@@ -18,19 +18,7 @@ public class CatManager : Singleton<CatManager>
 
     private void Start()
     {
-        //ifNoCatDebuging();
-    }
-
-    //만약 고양이가 없을경우를 방지한 디버깅 함수 (튜토리얼이 생긴다면 삭제한다.)
-    private void ifNoCatDebuging()
-    {
-        if (CatList.Count == 0)
-        {
-            Cat cat = new Cat();
-            cat.catData = CatInvite.RandomCatEarn();
-            cat.catData.Name = "고양이";
-            CatList.Add(cat);
-        }
+        
     }
 
     /// <summary>

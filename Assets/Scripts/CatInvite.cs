@@ -127,6 +127,7 @@ public class CatInvite : MonoBehaviour
         catData.AbilitySprite = CatManager.Instance.GetCatAbiltySprite(catData.GoldAbilityType);
         catData.CatSprite = CatManager.Instance.catInfos[(int)catData.CatSkinType].CatSprite;
         catData.Name = CatManager.Instance.catInfos[(int)catData.CatSkinType].CatName;
+        //catData.CatAnimator = CatManager.Instance.catInfos[(int)catData.CatSkinType].CatAnimator;
 
         int value = Random.Range(0, 20);
         if (value < 3)

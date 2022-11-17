@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c5a0dba286ac3942989181be272f45d, type: 3}
   m_Name: 02
   m_EditorClassIdentifier: Assembly-CSharp::DailyQuestInfo
-  questType: 1
-  needValueCount: 50
+  questType: 0
+  needValueCount: 0
   rewardType: 0
-  rewardValue: 1000
+  rewardValue: 0

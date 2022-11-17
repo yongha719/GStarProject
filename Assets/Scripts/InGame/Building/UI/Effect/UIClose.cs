@@ -10,13 +10,6 @@ public class UIClose : MonoBehaviour, IPointerDownHandler
 {
     public UIPopup UIPopup;
 
-    void Awake()
-    {
-        var colorblock = GetComponent<Button>().colors;
-        colorblock.pressedColor = Color.white;
-        GetComponent<Button>().colors = colorblock;
-    }
-
     public void OnPointerDown(PointerEventData eventData)
     {
         if (gameObject == EventSystem.current.currentSelectedGameObject)

@@ -13,7 +13,7 @@ public class UIManager : Singleton<UIManager>
     public TextMeshProUGUI energyText;
     public TextMeshProUGUI iceText;
 
-    private bool onTitle = true;
+    //private bool onTitle = true;
 
     [Header("타이틀UI")]
     [SerializeField]

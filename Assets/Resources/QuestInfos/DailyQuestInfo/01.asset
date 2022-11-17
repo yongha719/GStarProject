@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: 01
   m_EditorClassIdentifier: Assembly-CSharp::DailyQuestInfo
   questType: 0
-  needValueCount: 1
-  rewardType: 1
-  rewardValue: 20
+  needValueCount: 0
+  rewardType: 0
+  rewardValue: 0

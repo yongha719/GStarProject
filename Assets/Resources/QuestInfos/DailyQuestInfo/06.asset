@@ -11,8 +11,8 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3c5a0dba286ac3942989181be272f45d, type: 3}
   m_Name: 06
-  m_EditorClassIdentifier: 
-  questType: 5
-  needValueCount: 2
+  m_EditorClassIdentifier: Assembly-CSharp::DailyQuestInfo
+  questType: 0
+  needValueCount: 0
   rewardType: 0
-  rewardValue: 2000
+  rewardValue: 0
