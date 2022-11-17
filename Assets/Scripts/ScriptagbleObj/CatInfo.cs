@@ -6,5 +6,6 @@ public class CatInfo : ScriptableObject
 {
     public string CatName;
     public Sprite CatSprite;
+    public RuntimeAnimatorController CatAnimator;
     public CatSkinType CatType;
 }

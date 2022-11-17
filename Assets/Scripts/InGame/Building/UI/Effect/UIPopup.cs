@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-
 using UnityEngine.UI;
+
 [RequireComponent(typeof(Button))]
 public class UIPopup : MonoBehaviour
 {
@@ -12,14 +12,6 @@ public class UIPopup : MonoBehaviour
     // 그 뒤에 뒷배경 오브젝트를 끄는 걸로 함
     public RectTransform BackgroundRt;
     private RectTransform rect;
-
-    private void Awake()
-    {
-        rect = GetComponent<RectTransform>();
-        var colorblock = GetComponent<Button>().colors;
-        colorblock.pressedColor= Color.white;
-        GetComponent<Button>().colors = colorblock;
-    }
 
     private void OnEnable()
     {
