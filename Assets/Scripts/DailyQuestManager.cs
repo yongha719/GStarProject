@@ -12,24 +12,13 @@ public class BaseDailyQuest
     public QuestType type;
     public bool isCompleted;
     public int index;
+    public int beforeClearCount;
     public int _index
     {
         get { return index; }
         set
         {
-            if (value < index)
-            {
-                index = value;
-                return;
-            }
-            if (value > GetClearCount())
-            {
-                value = GetClearCount();
-            }
-            else
-            {
-                index = value;
-            }
+            index = Mathf.Clamp(value, 0, GetClearCount());
         }
     }
     public bool isClear()
@@ -39,13 +28,20 @@ public class BaseDailyQuest
     }
     public int GetClearCount()
     {
-        switch (type)
+        return type switch
         {
-            default:
-                Debug.Log("DailyQuestLog Eror");
-                break;
-        }
-        return 0;
+            QuestType.Survive => 1,
+            QuestType.Gold => 50,
+            QuestType.Stamina => 50,
+            QuestType.Gift => 3,
+            QuestType.Photo => 3,
+            QuestType.Adventure => 3,
+        };
+    }
+    public int returnRewardValue(int index)
+    {
+        index *= (beforeClearCount + 1) / 5;
+        return index;
     }
 }
 
@@ -73,25 +69,15 @@ public class DailyQuestUIInfo
     public TextMeshProUGUI clearRewardValue;
     public TextMeshProUGUI processingValue;
     public Image processingBar;
+}
 
-}
-public class DailyQuestClearSaveData
-{
-    public int nowCount;
-    public int beforeClearCount;
-    public int returnRewardValue(int index)
-    {
-        index *= (beforeClearCount + 1) / 5;
-        return index;
-    }
-}
 public class DailyQuestManager : Singleton<DailyQuestManager>
 {
-    public List<DailyQuestClearSaveData> questDatas;
 
     [SerializeField]
     private Transform QuestPrefabParent;
     private DailyQuestUIInfo[] dailyQuestUIInfos = new DailyQuestUIInfo[6];
+    private DailyQuestInfo[] dailyQuestInfos;
 
     public static DailyQuests dailyQuests = new DailyQuests();
     private void Awake()
@@ -102,6 +88,7 @@ public class DailyQuestManager : Singleton<DailyQuestManager>
     public void Start()
     {
         CheckTimeToReset();
+        dailyQuestInfos = Resources.LoadAll<DailyQuestInfo>("QuestInfos/DailyQuestInfo");
         for (int i = 0; i < QuestPrefabParent.childCount; i++)
         {
             dailyQuestUIInfos[i] = QuestPrefabParent.GetChild(i).GetComponent<QuestUIHave>().QuestUIInfo;
@@ -117,7 +104,6 @@ public class DailyQuestManager : Singleton<DailyQuestManager>
         if (lastTimeData != null && lastTimeData != "")
         {
             DateTime nowtime = DateTime.Now;
-            Debug.Log(lastTimeData);
             DateTime lastTime = DateTime.Parse(lastTimeData);
             if (new DateTime(lastTime.Year, lastTime.Month, lastTime.Day + 1, 4, 0, 0) <= nowtime)
             {

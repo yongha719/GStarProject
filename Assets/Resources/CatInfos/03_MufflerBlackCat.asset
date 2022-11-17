@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CatName: "\uAC80\uC740 \uBAA9\uB3C4\uB9AC \uACE0\uC591\uC774"
   CatSprite: {fileID: 21300000, guid: de44e259daaeeb24c819b39b32e9f052, type: 3}
-  CatAnimator: {fileID: 9100000, guid: c67d3cb634bcdf348a6f9bfde9ffacbe, type: 2}
+  CatAnimator: {fileID: 9100000, guid: 2c3f0b9a30bf95242acc0fc2ed13c774, type: 2}
   CatType: 2

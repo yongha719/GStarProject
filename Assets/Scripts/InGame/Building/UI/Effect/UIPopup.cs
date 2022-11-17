@@ -13,6 +13,11 @@ public class UIPopup : MonoBehaviour
     public RectTransform BackgroundRt;
     private RectTransform rect;
 
+    private void Awake()
+    {
+        rect = GetComponent<RectTransform>();
+    }
+
     private void OnEnable()
     {
         rect.localScale = Vector3.zero;
