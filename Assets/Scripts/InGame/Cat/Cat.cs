@@ -96,7 +96,7 @@ public class Cat : MonoBehaviour
     private List<Node> nodes = new List<Node>();
 
     public Coroutine RandomMoveCoroutine;
-    public IEnumerator MoveCoroutine;
+    public Coroutine MoveCoroutine;
     public bool StopMove;
 
     public bool IsWorking;
@@ -138,9 +138,10 @@ public class Cat : MonoBehaviour
         Animator = GetComponent<Animator>();
 
         SpriteRenderer.sprite = catData.CatSprite;
-        //Animator.runtimeAnimatorController = catData.CatAnimator;
 
         canMoveArea = (int)GridBuildingSystem.ViliageAreaSize.x;
+
+        Animator.runtimeAnimatorController = catData.CatAnimator;
 
         catData.Cat = this;
 
@@ -155,7 +156,6 @@ public class Cat : MonoBehaviour
         // 이동 로직
         if (done)
         {
-            CatState = CatState.Moving;
 
             SpriteRenderer.flipX = (transform.position.x < dest.x);
 
@@ -186,7 +186,8 @@ public class Cat : MonoBehaviour
         {
             targetPos = RandomPos();
 
-            yield return StartCoroutine(MoveStep());
+            MoveCoroutine = StartCoroutine(MoveStep());
+            yield return MoveCoroutine;
         }
     }
 
@@ -195,7 +196,8 @@ public class Cat : MonoBehaviour
         var pos = new Vector2(Pos.x, Pos.y * 2);
         targetPos = Vector2Int.CeilToInt(Pos);
 
-        yield return StartCoroutine(MoveStep());
+        MoveCoroutine = StartCoroutine(MoveStep());
+        yield return MoveCoroutine;
     }
 
     /// <summary>
@@ -233,16 +235,19 @@ public class Cat : MonoBehaviour
             done = true;
             node = nodes[cnt];
             dest = new Vector3(node.Pos.x, node.Pos.y, PosZ);
-            yield return new WaitForSeconds(1);
+
+            CatState = CatState.Moving;
 
             if (StopMove)
             {
                 StopMove = false;
                 yield break;
             }
-        }
-        CatState = CatState.Idle;
+            yield return new WaitForSeconds(1);
 
+        }
+
+        CatState = CatState.Idle;
         yield return new WaitForSeconds(2);
     }
 
@@ -259,7 +264,7 @@ public class Cat : MonoBehaviour
     {
         StopCoroutine(RandomMoveCoroutine);
         StartCoroutine(Move(buildingPos));
-        
+
 
         GoWorking = false;
         IsWorking = false;
@@ -285,6 +290,13 @@ public class Cat : MonoBehaviour
     }
 
     #endregion
+
+
+    public void SetFishingPos()
+    {
+        transform.position += new Vector3(0.08f, -0.1f, 0);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (IsWorking || IsResting)
@@ -295,14 +307,17 @@ public class Cat : MonoBehaviour
         {
             StopMove = true;
             transform.DOKill();
+            StopCoroutine(MoveCoroutine);
 
             SpriteRenderer.flipX = false;
-            var pos = goldbuilding.transform.position;
 
             GoWorking = false;
             IsWorking = true;
-            transform.position = new Vector3(pos.x, pos.y + 0.675f, PosZ);
 
+            goldbuilding.SetPos();
+            done = false;
+            CatState = CatState.Working;
+            Animator.SetInteger("WorkingState", (int)catData.GoldAbilityType);
             //goldbuilding.OnCatMemberChange(catData, catNum);
         }
         else if (GoResting && collision.gameObject.TryGetComponent(out EnergyProductionBuilding energybuilding))
