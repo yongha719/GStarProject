@@ -22495,6 +22495,7 @@ GameObject:
   - component: {fileID: 813556952}
   - component: {fileID: 813556951}
   - component: {fileID: 813556950}
+  - component: {fileID: 813556953}
   m_Layer: 5
   m_Name: Camera
   m_TagString: Untagged
@@ -22564,7 +22565,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 813556951}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 813556953}
+        m_TargetAssemblyTypeName: ScreenShot, Assembly-CSharp
+        m_MethodName: CaptureScreenForMobile
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: WinterCat_ScreenShot
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &813556951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22603,6 +22616,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 813556948}
   m_CullTransparentMesh: 1
+--- !u!114 &813556953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 813556948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b254f75bf0933504d90a0dfdeb77709d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &816137026
 GameObject:
   m_ObjectHideFlags: 0
