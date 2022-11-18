@@ -21,7 +21,7 @@ public class CatInfoUI : MonoBehaviour
         CatImage.sprite = cat.catData.CatSprite;
         CatNameText.text = cat.catData.Name;
 
-        if (cat.CatState == CatState.NotProducting)
+        if (cat.CatState == CatState.NotProducting || cat.CatState == CatState.Idle)
         {
             CatStateText.SetText();
         }
@@ -29,7 +29,7 @@ public class CatInfoUI : MonoBehaviour
         {
             CatStateText.SetText(cat.BuildingName + WORKING_TEXT);
         }
-        else
+        else if(cat.CatState == CatState.Resting)
         {
             CatStateText.SetText(cat.BuildingName + RESTING_TEXT);
         }

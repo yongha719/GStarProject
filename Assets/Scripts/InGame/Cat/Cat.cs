@@ -291,10 +291,16 @@ public class Cat : MonoBehaviour
 
     #endregion
 
-
     public void SetFishingPos()
     {
-        transform.position += new Vector3(0.08f, -0.1f, 0);
+        if (catData.CatSkinType == CatSkinType.beanieCat)
+        {
+            transform.position += new Vector3(0.085f, -0.13f, 0);
+        }
+        else
+        {
+            transform.position += new Vector3(0.08f, -0.13f, 0);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -307,18 +313,23 @@ public class Cat : MonoBehaviour
         {
             StopMove = true;
             transform.DOKill();
-            StopCoroutine(MoveCoroutine);
 
             SpriteRenderer.flipX = false;
 
             GoWorking = false;
             IsWorking = true;
 
-            goldbuilding.SetPos();
-            done = false;
+            StopCoroutine(MoveCoroutine);
             CatState = CatState.Working;
-            Animator.SetInteger("WorkingState", (int)catData.GoldAbilityType);
-            //goldbuilding.OnCatMemberChange(catData, catNum);
+
+            var index = goldbuilding.PlacedInBuildingCats.IndexOf(this);
+            if (index == -1)
+                goldbuilding.SetPos();
+            else
+                goldbuilding.SetPos(index);
+
+            done = false;
+            Animator.SetInteger("WorkingState", (int)goldbuilding.buildingType);
         }
         else if (GoResting && collision.gameObject.TryGetComponent(out EnergyProductionBuilding energybuilding))
         {

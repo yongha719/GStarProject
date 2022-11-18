@@ -29,6 +29,7 @@ public class CatManager : Singleton<CatManager>
         if (CatList.Contains(cat))
         {
             CatList.Remove(cat);
+            cat.building.PlacedInBuildingCats.Remove(cat);
             Destroy(cat.gameObject);
         }
         else

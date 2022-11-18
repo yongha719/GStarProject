@@ -104,7 +104,6 @@ public class CatInvite : MonoBehaviour
             var cat = Instantiate(CatObj, Vector3.zero, Quaternion.identity).GetComponent<Cat>();
             cat.catData = curCatData;
 
-            print(cat.catData.CatAnimator);
             CatManager.Instance.CatList.Add(cat);
 
             CostTextAccept();
@@ -132,8 +131,7 @@ public class CatInvite : MonoBehaviour
         catData.AbilitySprite = CatManager.GetCatAbiltySprite(catData.GoldAbilityType);
         catData.CatSprite = CatManager.catInfos[(int)catData.CatSkinType].CatSprite;
         catData.Name = CatManager.catInfos[(int)catData.CatSkinType].CatName;
-        print(CatManager.catInfos[(int)catData.CatSkinType].CatAnimator);
-        //catData.CatAnimator = CatManager.Instance.catInfos[(int)catData.CatSkinType].CatAnimator;
+        catData.CatAnimator = CatManager.catInfos[(int)catData.CatSkinType].CatAnimator;
 
         int value = Random.Range(0, 20);
         if (value < 3)
