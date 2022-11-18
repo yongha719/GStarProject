@@ -4,16 +4,19 @@ using UnityEngine;
 
 public class BgmSelect : MonoBehaviour
 {
-    public bool[] canTurnOnBgm = new bool[6];
+    public bool[] canTurnOnBgm = new bool[7];
 
     [SerializeField]
     private AudioClip[] bgms;
     [SerializeField]
     private Transform parentObj;
-    private BgmUIInfo[] bgmUIInfos = new BgmUIInfo[6];
+    [SerializeField]
+    private Sprite[] sprites;
+    private BgmUIInfo[] bgmUIInfos = new BgmUIInfo[7];
+    private int nowPlayBgmIndex = 0;
     private void Start()
     {
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < canTurnOnBgm.Length; i++)
         {
             bgmUIInfos[i] = parentObj.GetChild(i).GetComponent<BgmUIInfo>();
         }
@@ -24,6 +27,9 @@ public class BgmSelect : MonoBehaviour
         if (canTurnOnBgm[index])
         {
             SoundManager.Instance.PlaySoundClip(bgms[index], SoundType.BGM);
+            bgmUIInfos[nowPlayBgmIndex].playBtn.image.sprite = sprites[1];
+            nowPlayBgmIndex = index;
+            bgmUIInfos[index].playBtn.image.sprite = sprites[0];
         }
         else
         {
@@ -32,9 +38,9 @@ public class BgmSelect : MonoBehaviour
     }
     public void purchaseBgm(int index)
     {
-        if (GameManager.Instance._energy >= 40000)
+        if (GameManager.Instance._energy >= 4000000)
         {
-            GameManager.Instance._energy -= 40000;
+            GameManager.Instance._energy -= 4000000;
             canTurnOnBgm[index] = true;
             bgmUIInfos[index].purchaseBtn.gameObject.SetActive(false);
         }

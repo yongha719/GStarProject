@@ -8,10 +8,10 @@ public class BgmUIInfo : MonoBehaviour
     public Toggle favoriteSettingBtn;
     public Button purchaseBtn;
     public Button playBtn;
-    void Start()
+    void Awake()
     {
         favoriteSettingBtn = transform.GetChild(0).GetComponent<Toggle>();
-        purchaseBtn = transform.GetChild(1).GetComponent<Button>();
-        playBtn = transform.GetChild(2).GetComponent<Button>();
+        purchaseBtn = transform.GetChild(2).GetComponent<Button>();
+        playBtn = transform.GetChild(3).GetComponent<Button>();
     }
 }
