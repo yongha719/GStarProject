@@ -3,39 +3,63 @@
     "m_SelectedPackage": {
         "deviceId": "R3CM500X2KR",
         "name": "com.GoNyang.WinterCat",
-        "processId": 4621,
-        "exited": true
+        "processId": 28178,
+        "exited": false
     },
-    "m_SelectedPriority": 2,
+    "m_SelectedPriority": 3,
     "m_KnownPackagesForSerialization": [
         {
             "deviceId": "R3CM500X2KR",
             "name": "com.GoNyang.WinterCat",
-            "processId": 3218,
+            "processId": 18126,
             "exited": true
         },
         {
             "deviceId": "R3CM500X2KR",
             "name": "com.GoNyang.WinterCat",
-            "processId": 4621,
+            "processId": 18841,
             "exited": true
         },
         {
             "deviceId": "R3CM500X2KR",
             "name": "com.GoNyang.WinterCat",
-            "processId": 5475,
+            "processId": 19353,
             "exited": true
         },
         {
             "deviceId": "R3CM500X2KR",
             "name": "com.GoNyang.WinterCat",
-            "processId": 9895,
+            "processId": 20390,
             "exited": true
         },
         {
             "deviceId": "R3CM500X2KR",
             "name": "com.GoNyang.WinterCat",
-            "processId": 11420,
+            "processId": 23028,
+            "exited": false
+        },
+        {
+            "deviceId": "R3CM500X2KR",
+            "name": "com.GoNyang.WinterCat",
+            "processId": 25263,
+            "exited": false
+        },
+        {
+            "deviceId": "R3CM500X2KR",
+            "name": "com.GoNyang.WinterCat",
+            "processId": 25639,
+            "exited": false
+        },
+        {
+            "deviceId": "R3CM500X2KR",
+            "name": "com.GoNyang.WinterCat",
+            "processId": 26912,
+            "exited": false
+        },
+        {
+            "deviceId": "R3CM500X2KR",
+            "name": "com.GoNyang.WinterCat",
+            "processId": 28178,
             "exited": false
         },
         {

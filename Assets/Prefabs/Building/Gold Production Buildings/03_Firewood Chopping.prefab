@@ -719,10 +719,11 @@ MonoBehaviour:
   IncreasePerLevelUp: 15
   DefaultLevelUpCost: 8a
   ConstructionGoldText: {fileID: 3977098050459093906}
-  GoldAcquisitionEffect: {fileID: 0}
+  GoldAcquisitionEffect: {fileID: 4651143797973280713, guid: d1c3aa70df08bb943a114b0228f21908, type: 3}
   BuildingUI: {fileID: 2901016615586140287}
   CatPlacementButton: {fileID: 8001693894536161551}
   BuildingInfomationButton: {fileID: 8479970792459239098}
+  PlacedInBuildingCats: []
   WorkingCats: {fileID: 0}
 --- !u!61 &3412580256665481385
 BoxCollider2D:

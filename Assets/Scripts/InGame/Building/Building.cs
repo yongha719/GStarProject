@@ -142,27 +142,15 @@ public abstract class Building : MonoBehaviour
         }
         else if (Application.platform == RuntimePlatform.Android)
         {
-            if (Input.touchCount > 0 && (Input.GetTouch(0).phase == TouchPhase.Moved || Input.GetTouch(0).phase == TouchPhase.Began))
-            {
-                if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
-                {
-                    return true;
-                }
-            }
+            Debug.Log("touch");
 
-            // Check touches
-            for (int i = 0; i < Input.touchCount; i++)
-            {
-                var touch = Input.GetTouch(i);
-                if (touch.phase == TouchPhase.Began)
-                {
-                    if (EventSystem.current.IsPointerOverGameObject(touch.fingerId)) // 장실
-                    {
-                        return true;
-                    }
-                }
-            }
+            PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+            eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+            List<RaycastResult> results = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+            return results.Count > 0;
         }
+
         return false;
     }
 }

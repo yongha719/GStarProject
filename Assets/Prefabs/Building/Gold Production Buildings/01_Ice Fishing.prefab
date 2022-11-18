@@ -843,6 +843,7 @@ MonoBehaviour:
   BuildingUI: {fileID: 3901589955428253113}
   CatPlacementButton: {fileID: 7869419501257218185}
   BuildingInfomationButton: {fileID: 8263345439618379447}
+  PlacedInBuildingCats: []
   WorkingCats: {fileID: 0}
 --- !u!61 &1225053044882868628
 BoxCollider2D:

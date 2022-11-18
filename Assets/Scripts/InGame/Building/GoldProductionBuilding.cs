@@ -108,7 +108,7 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
     private static GameObject s_buildingUI;
 
     // 건물에 배치된 고양이
-    private List<Cat> PlacedInBuildingCats = new List<Cat>();
+    public List<Cat> PlacedInBuildingCats = new List<Cat>();
     public CatPlacementWorkingCats WorkingCats;
 
     private void Awake()
@@ -162,9 +162,8 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
         });
     }
 
-    void Update()
-    {
-    }
+
+    protected virtual void OnCatMemberChange(int index) { }
 
     public void OnCatMemberChange(CatData catData, int index, Action action = null)
     {
@@ -187,6 +186,8 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
         SetProductionTime();
 
         action?.Invoke();
+
+        OnCatMemberChange(index);
     }
 
 
@@ -212,7 +213,7 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
         if (PlacedInBuildingCats.Count != 0)
         {
             if (decreasingfigure != 0)
-                waitGoldChargingTime = new WaitForSeconds((float)(DefaultGoldChargingTime * Math.Round(decreasingfigure / 100f, 3)));
+                waitGoldChargingTime = new WaitForSeconds(DefaultGoldChargingTime - (float)(DefaultGoldChargingTime * Math.Round(decreasingfigure / 100f, 3)));
         }
     }
 
@@ -316,27 +317,49 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
         GridBuildingSystem.InitializeWithBuilding(BuildingInfo.BuildingPrefab);
     }
 
-    public void SetPos()
+    public void SetPos(int index = 0)
     {
+        var cat = PlacedInBuildingCats[index];
+
         switch (buildingType)
         {
             case GoldBuildingType.IceFishing:
-                PlacedInBuildingCats[0].transform.position = transform.position + new Vector3(0.07f, 1.2f, 0);
-                break;
-            case GoldBuildingType.GoldMine:
+                if (cat.catData.CatSkinType == CatSkinType.beanieCat)
+                {
+                    cat.transform.position = transform.position + new Vector3(0.15f, 1.2f, 0);
+                }
+                else if (cat.catData.CatSkinType == CatSkinType.PinkCloakCat)
+                {
+
+                }
+                else
+                    cat.transform.position = transform.position + new Vector3(0.07f, 1.2f, 0);
                 break;
             case GoldBuildingType.FirewoodChopping:
-                PlacedInBuildingCats[0].transform.position = transform.position + new Vector3(0.13f, 0.8f, 0);
-                break;
-            case GoldBuildingType.PotatoFarming:
+                cat.transform.position = transform.position + new Vector3(0.13f, 0.8f, 0);
                 break;
             case GoldBuildingType.BlastFurnace:
+                cat.transform.position = transform.position + new Vector3(0.4f, 0.7f, 0);
                 break;
             case GoldBuildingType.WinterClothesWorkshop:
+                if (index == 0)
+                {
+                    PlacedInBuildingCats[0].transform.position = transform.position + new Vector3(0.4f, 0.8f);
+                    PlacedInBuildingCats[0].Animator.SetInteger("Clothes", index);
+                }
+                else
+                {
+                    PlacedInBuildingCats[1].transform.position = transform.position + new Vector3(0.2f, 0.9f);
+                    PlacedInBuildingCats[1].Animator.SetInteger("Clothes", index);
+                }
                 break;
             case GoldBuildingType.Cauldron:
+                PlacedInBuildingCats[0].transform.position = transform.position + new Vector3(-0.026f, 0.86f);
                 break;
+            case GoldBuildingType.GoldMine:
+            case GoldBuildingType.PotatoFarming:
             case GoldBuildingType.PowerPlant:
+                cat.gameObject.SetActive(false);
                 break;
             case GoldBuildingType.End:
                 break;
