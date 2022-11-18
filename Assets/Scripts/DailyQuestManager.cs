@@ -4,6 +4,7 @@ using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 using DateTime = System.DateTime;
 
 
@@ -18,15 +19,15 @@ public class BaseDailyQuest
         get { return index; }
         set
         {
-            index = Mathf.Clamp(value, 0, GetClearCount());
+            index = Mathf.Clamp(value, 0, GetClearValue());
         }
     }
     public bool isClear()
     {
-        if (GetClearCount() <= _index) return true;
+        if (GetClearValue() <= _index) return true;
         else return false;
     }
-    public int GetClearCount()
+    public int GetClearValue()
     {
         return type switch
         {
@@ -38,9 +39,10 @@ public class BaseDailyQuest
             QuestType.Adventure => 3,
         };
     }
-    public int returnRewardValue(int index)
+    public double returnRewardValue(double index)
     {
-        index *= (beforeClearCount + 1) / 5;
+        index *= (float)(beforeClearCount + 1) / 5;
+        System.Math.Truncate(index);
         return index;
     }
 }
@@ -65,6 +67,7 @@ public class DailyQuests
 [System.Serializable]
 public class DailyQuestUIInfo
 {
+    public Button clearBtn;
     public TextMeshProUGUI clearText;
     public TextMeshProUGUI clearRewardValue;
     public TextMeshProUGUI processingValue;
@@ -79,22 +82,60 @@ public class DailyQuestManager : Singleton<DailyQuestManager>
     private DailyQuestUIInfo[] dailyQuestUIInfos = new DailyQuestUIInfo[6];
     private DailyQuestInfo[] dailyQuestInfos;
 
+    [SerializeField] private Sprite[] questBtn;
+
     public static DailyQuests dailyQuests = new DailyQuests();
     private void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
     }
-
-    public void Start()
+    private void OnEnable()
     {
         CheckTimeToReset();
-        dailyQuestInfos = Resources.LoadAll<DailyQuestInfo>("QuestInfos/DailyQuestInfo");
+
         for (int i = 0; i < QuestPrefabParent.childCount; i++)
         {
             dailyQuestUIInfos[i] = QuestPrefabParent.GetChild(i).GetComponent<QuestUIHave>().QuestUIInfo;
         }
+        QuestReset();
+        dailyQuestInfos = Resources.LoadAll<DailyQuestInfo>("QuestInfos/DailyQuestInfo");
+        UIApply();
     }
+    private void Start()
+    {
+    }
+    private void UIApply()
+    {
+        for (QuestType i = 0; i < QuestType.END; i++)
+        {
+            DailyQuestInfo dailyQuestInfo = dailyQuestInfos[(int)i];
+            DailyQuestUIInfo dailyQuestUIInfo = dailyQuestUIInfos[(int)i];
+            BaseDailyQuest curQuest = dailyQuests.quests[(int)i];
 
+            int questNeedValue = curQuest.GetClearValue();
+            int questClearValue = curQuest.index;
+
+            dailyQuestUIInfo.processingValue.text = $"{questClearValue} / {questNeedValue}";
+            dailyQuestUIInfo.processingBar.fillAmount = questClearValue / questNeedValue;
+            dailyQuestUIInfo.clearRewardValue.text = $"<sprite name={returnResourceTypeString(dailyQuestInfo.rewardType)}> {CalculatorManager.returnStr(curQuest.returnRewardValue(dailyQuestInfo.rewardValue))}";
+
+            dailyQuestUIInfo.clearText.DOFade(curQuest.isClear() ? 1f : 0.5f, 0);
+            dailyQuestUIInfo.clearRewardValue.DOFade(curQuest.isClear() ? 1f : 0.5f, 0);
+        }
+    }
+    private string returnResourceTypeString(EResourcesType type)
+    {
+        switch (type)
+        {
+            case EResourcesType.Coin:
+                return "Coin";
+            case EResourcesType.Ice:
+                return "Ice";
+            case EResourcesType.Stamina:
+                return "Stamina";
+        }
+        return null;
+    }
     /// <summary>
     /// 일일퀘스트는 새벽 4시마다 갱신된다
     /// </summary>
@@ -129,6 +170,31 @@ public class DailyQuestManager : Singleton<DailyQuestManager>
         for (QuestType i = 0; i < QuestType.END; i++)
         {
             dailyQuests.quests.Add(new BaseDailyQuest() { type = i });
+        }
+    }
+    public void QuestRewardReceive(int index)
+    {
+        if (dailyQuests.quests[index].isClear())
+        {
+            switch (dailyQuestInfos[index].rewardType)
+            {
+                case EResourcesType.Coin:
+                    GameManager.Instance._coin += dailyQuests.quests[index].returnRewardValue(dailyQuestInfos[index].rewardValue);
+                    break;
+                case EResourcesType.Ice:
+                    GameManager.Instance._ice += dailyQuests.quests[index].returnRewardValue(dailyQuestInfos[index].rewardValue);
+                    break;
+                case EResourcesType.Stamina:
+                    GameManager.Instance._energy += dailyQuests.quests[index].returnRewardValue(dailyQuestInfos[index].rewardValue);
+                    break;
+            }
+            int clearCount = dailyQuests.quests[index].beforeClearCount;
+            dailyQuests.quests[index] = new BaseDailyQuest() { type = (QuestType)index };
+            dailyQuests.quests[index].beforeClearCount = clearCount + 1;
+        }
+        else
+        {
+            SoundManager.Instance.PlaySoundClip("SFX_Error", SoundType.SFX);
         }
     }
 }

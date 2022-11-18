@@ -278,6 +278,7 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
                 CollectMoneyButton.gameObject.SetActive(false);
 
                 SoundManager.Instance.PlaySoundClip("SFX_Goods", SoundType.SFX);
+                DailyQuestManager.dailyQuests.quests[(int)QuestType.Gold]._index++;
                 // 골드 획득 연출
                 Destroy(Instantiate(GoldAcquisitionEffect, transform.position + (Vector3.up * 0.5f), Quaternion.identity, CanvasRt), 1.5f);
 

@@ -52,8 +52,9 @@ public class SoundManager : Singleton<SoundManager>
 
         foreach (Button btn in Resources.FindObjectsOfTypeAll<Button>())
         {
-            btn.onClick.AddListener(() => PlaySoundClip("SFX_Button_Touch", SoundType.SFX));
+            btn.onClick.AddListener(() => UIClickSound());
         }
+
         sliderValueaApply();
     }
     public AudioClip PlaySoundClip(string clipName, SoundType type, float volume = 0.5f, float pitch = 1)
@@ -110,5 +111,5 @@ public class SoundManager : Singleton<SoundManager>
             transform.GetChild(0).transform.DOScale(onOff ? 1 : 0, 0.3f).OnComplete(() => mySelfImage.DOFade(0f, 0));
         }
     }
-
+    public void UIClickSound() => PlaySoundClip("SFX_Button_Touch", SoundType.SFX);
 }
