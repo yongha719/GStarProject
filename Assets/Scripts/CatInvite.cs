@@ -45,6 +45,7 @@ public class CatInvite : MonoBehaviour
     [SerializeField]
     private GameObject setCatNameObj;
 
+    private CatManager CatManager;
 
     private void OnEnable()
     {
@@ -55,6 +56,8 @@ public class CatInvite : MonoBehaviour
     private void Start()
     {
         mySelfImage = transform.parent.GetComponent<Image>();
+
+        CatManager = CatManager.Instance;
     }
 
     private void CostTextAccept()
@@ -91,6 +94,7 @@ public class CatInvite : MonoBehaviour
         catName.text = curCatData.Name;
         skillIcon.sprite = curCatData.AbilitySprite;
     }
+
     public void CatNaming()
     {
         if (catNameTextArea.text != null && catNameTextArea.text != "")
@@ -100,11 +104,12 @@ public class CatInvite : MonoBehaviour
             var cat = Instantiate(CatObj, Vector3.zero, Quaternion.identity).GetComponent<Cat>();
             cat.catData = curCatData;
 
-            CatManager.Instance.CatList.Add(curCatData.Cat);
+            print(cat.catData.CatAnimator);
+            CatManager.Instance.CatList.Add(cat);
 
             CostTextAccept();
             catNameTextArea.text = null;
-            curCatData = null;
+            //curCatData = null;
             UIManager.Instance.ResourcesApply();
 
             nowCatInviting = false;
@@ -118,15 +123,16 @@ public class CatInvite : MonoBehaviour
         }
     }
 
-    static public CatData RandomCatEarn()
+    public CatData RandomCatEarn()
     {
         CatData catData = new CatData();
 
         catData.GoldAbilityType = (GoldAbilityType)Random.Range(0, (int)GoldAbilityType.End);
-        catData.CatSkinType = (CatSkinType)Random.Range(0, (int)CatSkinType.End);
-        catData.AbilitySprite = CatManager.Instance.GetCatAbiltySprite(catData.GoldAbilityType);
-        catData.CatSprite = CatManager.Instance.catInfos[(int)catData.CatSkinType].CatSprite;
-        catData.Name = CatManager.Instance.catInfos[(int)catData.CatSkinType].CatName;
+        catData.CatSkinType = (CatSkinType)Random.Range(0, CatManager.catInfos.Length);
+        catData.AbilitySprite = CatManager.GetCatAbiltySprite(catData.GoldAbilityType);
+        catData.CatSprite = CatManager.catInfos[(int)catData.CatSkinType].CatSprite;
+        catData.Name = CatManager.catInfos[(int)catData.CatSkinType].CatName;
+        print(CatManager.catInfos[(int)catData.CatSkinType].CatAnimator);
         //catData.CatAnimator = CatManager.Instance.catInfos[(int)catData.CatSkinType].CatAnimator;
 
         int value = Random.Range(0, 20);

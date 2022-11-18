@@ -315,6 +315,33 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
         GridBuildingSystem.InitializeWithBuilding(BuildingInfo.BuildingPrefab);
     }
 
+    public void SetPos()
+    {
+        switch (buildingType)
+        {
+            case GoldBuildingType.IceFishing:
+                PlacedInBuildingCats[0].transform.position = transform.position + new Vector3(0.07f, 1.2f, 0);
+                break;
+            case GoldBuildingType.GoldMine:
+                break;
+            case GoldBuildingType.FirewoodChopping:
+                PlacedInBuildingCats[0].transform.position = transform.position + new Vector3(0.13f, 0.8f, 0);
+                break;
+            case GoldBuildingType.PotatoFarming:
+                break;
+            case GoldBuildingType.BlastFurnace:
+                break;
+            case GoldBuildingType.WinterClothesWorkshop:
+                break;
+            case GoldBuildingType.Cauldron:
+                break;
+            case GoldBuildingType.PowerPlant:
+                break;
+            case GoldBuildingType.End:
+                break;
+        }
+    }
+
     private void OnMouseDown()
     {
         if (isDeploying || IsPointerOverGameObject())
