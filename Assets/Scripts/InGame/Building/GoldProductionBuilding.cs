@@ -53,7 +53,7 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
         {
             var gold = DefaultGold.returnValue();
 
-            for (var i = 0; i < Rating - 1; i++)
+            for (var i = 0; i < Level - 1; i++)
             {
                 gold += gold * Math.Round((double)(IncreasePerLevelUp / 100f), 3);
             }
@@ -174,13 +174,18 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
         else
         {
             var cat = PlacedInBuildingCats[index];
-            cat.RandomMoveCoroutine = StartCoroutine(PlacedInBuildingCats[index].RandomMove());
-            cat.GoWorking = true;
-            if (cat.IsWorking)
+
+            switch (buildingType)
             {
-                cat.IsWorking = false;
+                case GoldBuildingType.GoldMine:
+                case GoldBuildingType.PotatoFarming:
+                case GoldBuildingType.PowerPlant:
+                    cat.gameObject.SetActive(true);
+                    break;
             }
-            cat = catData.Cat;
+
+            cat.FinishWork();
+            PlacedInBuildingCats[index] = catData.Cat;
         }
 
         SetProductionTime();
@@ -243,7 +248,6 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
                 if (PlacedInBuildingCats[i] == null)
                     continue;
 
-                print(BuildingManager.s_EnergyProductionBuildings.Count);
                 // 골드 생산 10번하면 쉬러 가야 함
                 if (++PlacedInBuildingCats[i].NumberOfGoldProduction >= 10 && BuildingManager.CanGoRest(out Vector3 buildingPos))
                 {
@@ -321,6 +325,7 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
     {
         var cat = PlacedInBuildingCats[index];
 
+        print(buildingType);
         switch (buildingType)
         {
             case GoldBuildingType.IceFishing:

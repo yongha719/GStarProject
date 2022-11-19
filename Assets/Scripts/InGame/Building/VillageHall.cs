@@ -21,7 +21,7 @@ public class VillageHall : Building
         }
     }
 
-    public int Level = 1;
+    //public int Level = 1;
 
     private const string DefaultLevelUpCost = "1000a";
 

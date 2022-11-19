@@ -17,6 +17,7 @@ public class BuildingInfomation : MonoBehaviour
     [SerializeField] private TextMeshProUGUI NextLevelText;
     [SerializeField] private TextMeshProUGUI NextLevelUpCostText;
     [SerializeField] private Button LevelUpButton;
+    [SerializeField] private TextMeshProUGUI LevelUpCostText;
     private RectTransform LevelUpButtonRt;
 
     [Space]
@@ -41,30 +42,38 @@ public class BuildingInfomation : MonoBehaviour
             RectTransformUtility.ScreenPointToWorldPointInRectangle(LevelUpButtonRt, screenPos, canvas.worldCamera, out result);
             Instantiate(LevelUpEffect, result, Quaternion.identity);
 
+            if(BuildingType == BuildingType.Gold)
+            {
+                goldBuilding.Level++;
+            }
+            else if(BuildingType == BuildingType.Energy)
+            {
+                energyBuilding.Level++;
+
+            }
+
             ValueChange();
         });
     }
 
-    private void OnEnable()
-    {
-        ValueChange();
-    }
-
     void ValueChange()
     {
+        print("Daw");
         if (BuildingType == BuildingType.Gold)
         {
-            CurLevelText.text = $"Lv. {goldBuilding.Rating}";
-            CurLevelUpCostText.text = goldBuilding.LevelUpCost(goldBuilding.Rating);
-            NextLevelText.text = $"Lv. {goldBuilding.Rating + 1}";
-            NextLevelUpCostText.text = goldBuilding.LevelUpCost(goldBuilding.Rating + 1);
+            CurLevelText.text = $"Lv. {goldBuilding.Level}";
+            CurLevelUpCostText.text = goldBuilding.LevelUpCost(goldBuilding.Level);
+            NextLevelText.text = $"Lv. {goldBuilding.Level + 1}";
+            NextLevelUpCostText.text = goldBuilding.LevelUpCost(goldBuilding.Level + 1);
+            LevelUpCostText.text = goldBuilding.LevelUpCost(goldBuilding.Level);
         }
         else if (BuildingType == BuildingType.Energy)
         {
-            CurLevelText.text = $"Lv. {energyBuilding.Rating}";
-            CurLevelUpCostText.text = energyBuilding.LevelUpCost(energyBuilding.Rating);
-            NextLevelText.text = $"Lv. {energyBuilding.Rating + 1}";
-            NextLevelUpCostText.text = energyBuilding.LevelUpCost(energyBuilding.Rating + 1);
+            CurLevelText.text = $"Lv. {energyBuilding.Level}";
+            CurLevelUpCostText.text = energyBuilding.LevelUpCost(energyBuilding.Level);
+            NextLevelText.text = $"Lv. {energyBuilding.Level + 1}";
+            NextLevelUpCostText.text = energyBuilding.LevelUpCost(energyBuilding.Level + 1);
+            LevelUpCostText.text = goldBuilding.LevelUpCost(energyBuilding.Level);
         }
     }
 
@@ -77,11 +86,13 @@ public class BuildingInfomation : MonoBehaviour
         {
             goldBuilding = building as GoldProductionBuilding;
             var workingcat = Instantiate(GoldBuildingWorkingCats[(int)goldBuilding.buildingType], WoringcatParent).GetComponent<CatPlacementWorkingCats>();
+            workingcat.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 20);
 
-            for (int i = 0; i < placedInBuildingCats.Count; i++)
-            {
-                workingcat.SetData(i, placedInBuildingCats[i].Animator);
-            }
+            if (placedInBuildingCats != null)
+                for (int i = 0; i < placedInBuildingCats.Count; i++)
+                {
+                    workingcat.SetData(i, placedInBuildingCats[i].Animator);
+                }
 
         }
         else if (building is EnergyProductionBuilding)
@@ -89,10 +100,13 @@ public class BuildingInfomation : MonoBehaviour
             energyBuilding = building as EnergyProductionBuilding;
             var workingcat = Instantiate(EnergyBuildingWorkingCats[(int)energyBuilding.buildingType], WoringcatParent).GetComponent<CatPlacementWorkingCats>();
 
-            for (int i = 0; i < placedInBuildingCats.Count; i++)
-            {
-                workingcat.SetData(i, placedInBuildingCats[i].Animator);
-            }
+            if (placedInBuildingCats != null)
+                for (int i = 0; i < placedInBuildingCats.Count; i++)
+                {
+                    workingcat.SetData(i, placedInBuildingCats[i].Animator);
+                }
         }
+
+        ValueChange();
     }
 }

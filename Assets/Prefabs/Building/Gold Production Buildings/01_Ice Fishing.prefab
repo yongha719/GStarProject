@@ -819,7 +819,7 @@ MonoBehaviour:
     m_Position: {x: 0, y: 0, z: 0}
     m_Size: {x: 1, y: 1, z: 1}
   BuildingName: "\uC5BC\uC74C \uB09A\uC2DC\uD130"
-  Rating: 1
+  Level: 1
   isDeploying: 1
   DefaultConstructionCost: 500
   BuildingInfo: {fileID: 0}

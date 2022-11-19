@@ -14,7 +14,7 @@ public abstract class Building : MonoBehaviour
 
     [Header("Building Info")]
     public string BuildingName;
-    public int Rating = 1;
+    public int Level = 1;
 
     #region Deploying
 
