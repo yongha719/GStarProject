@@ -34,7 +34,10 @@ public class CatPlacementWorkingCats : MonoBehaviour
         int index = CatDatas.IndexOf(catData);
 
         CatImages[index].sprite = TransparentImage;
-
+        //CatClickButtons[index].onClick.RemoveAllListeners();
+        CatAbilitys.RemoveAt(index);
+        Destroy(AbilityParent.GetChild(index).gameObject);
+        CatDatas.Remove(catData);
     }
 
     public void SetData(int index, Animator animator)

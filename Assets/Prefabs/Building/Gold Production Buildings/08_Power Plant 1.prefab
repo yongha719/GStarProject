@@ -819,7 +819,7 @@ MonoBehaviour:
     m_Position: {x: 0, y: 0, z: 0}
     m_Size: {x: 1, y: 1, z: 1}
   BuildingName: "\uBC1C\uC804\uC18C"
-  Rating: 1
+  Level: 1
   isDeploying: 1
   DefaultConstructionCost: 25d
   BuildingInfo: {fileID: 0}
@@ -843,6 +843,7 @@ MonoBehaviour:
   BuildingUI: {fileID: 1888283804898186552}
   CatPlacementButton: {fileID: 3621117686523416314}
   BuildingInfomationButton: {fileID: 889802787241303494}
+  PlacedInBuildingCats: []
   WorkingCats: {fileID: 0}
 --- !u!61 &-2909863669077162326
 BoxCollider2D:
@@ -1007,7 +1008,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 150}
+  m_AnchoredPosition: {x: 0, y: 159.99998}
   m_SizeDelta: {x: 200, y: 45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2039698541139640233

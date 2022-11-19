@@ -1,12 +1,12 @@
 {
     "m_SelectedDeviceId": "R3CM500X2KR",
     "m_SelectedPackage": {
-        "deviceId": "R3CM500X2KR",
+        "deviceId": "R9PT10LZMYN",
         "name": "com.GoNyang.WinterCat",
-        "processId": 7946,
+        "processId": 3055,
         "exited": false
     },
-    "m_SelectedPriority": 3,
+    "m_SelectedPriority": 0,
     "m_KnownPackagesForSerialization": [
         {
             "deviceId": "R3CM500X2KR",
@@ -71,43 +71,49 @@
         {
             "deviceId": "R9PT10LZMYN",
             "name": "com.GoNyang.WinterCat",
-            "processId": 5066,
+            "processId": 5176,
             "exited": true
         },
         {
             "deviceId": "R9PT10LZMYN",
             "name": "com.GoNyang.WinterCat",
-            "processId": 7209,
-            "exited": true
-        },
-        {
-            "deviceId": "R9PT10LZMYN",
-            "name": "com.GoNyang.WinterCat",
-            "processId": 9228,
-            "exited": true
-        },
-        {
-            "deviceId": "R9PT10LZMYN",
-            "name": "com.GoNyang.WinterCat",
-            "processId": 9623,
-            "exited": true
-        },
-        {
-            "deviceId": "R9PT10LZMYN",
-            "name": "com.GoNyang.WinterCat",
-            "processId": 9861,
+            "processId": 5525,
             "exited": true
         },
         {
             "deviceId": "R9PT10LZMYN",
             "name": "com.sec.android.app.launcher",
-            "processId": 10979,
+            "processId": 15811,
             "exited": false
         },
         {
             "deviceId": "R9PT10LZMYN",
             "name": "com.GoNyang.WinterCat",
-            "processId": 12648,
+            "processId": 5731,
+            "exited": true
+        },
+        {
+            "deviceId": "R9PT10LZMYN",
+            "name": "com.OhRockGames.BrightBurn",
+            "processId": 7138,
+            "exited": true
+        },
+        {
+            "deviceId": "R9PT10LZMYN",
+            "name": "com.BeefStewdio.CountDown",
+            "processId": 9285,
+            "exited": false
+        },
+        {
+            "deviceId": "R9PT10LZMYN",
+            "name": "com.GoNyang.WinterCat",
+            "processId": 11124,
+            "exited": false
+        },
+        {
+            "deviceId": "R9PT10LZMYN",
+            "name": "com.GoNyang.WinterCat",
+            "processId": 3055,
             "exited": false
         }
     ],
