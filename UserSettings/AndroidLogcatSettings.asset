@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "R3CM500X2KR",
         "name": "com.GoNyang.WinterCat",
-        "processId": 28178,
+        "processId": 7946,
         "exited": false
     },
     "m_SelectedPriority": 3,
@@ -60,6 +60,12 @@
             "deviceId": "R3CM500X2KR",
             "name": "com.GoNyang.WinterCat",
             "processId": 28178,
+            "exited": false
+        },
+        {
+            "deviceId": "R3CM500X2KR",
+            "name": "com.GoNyang.WinterCat",
+            "processId": 7946,
             "exited": false
         },
         {

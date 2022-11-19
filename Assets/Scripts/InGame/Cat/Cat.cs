@@ -5,6 +5,7 @@ using DG.Tweening;
 using UnityEngine.Experimental.Animations;
 using System.Runtime.InteropServices;
 using UnityEngineInternal;
+using System.Reflection;
 
 /// <summary>
 /// 골드 생산 건물 고양이 능력
@@ -271,6 +272,18 @@ public class Cat : MonoBehaviour
         GoResting = true;
     }
 
+    public void FinishWork()
+    {
+        RandomMoveCoroutine = StartCoroutine(RandomMove());
+        GoWorking = true;
+        if (IsWorking)
+        {
+            IsWorking = false;
+        }
+        CatState = CatState.Moving;
+        Animator.SetInteger("State", (int)catState);
+    }
+
     /// <summary>
     /// 일해라 고양이
     /// 골드 생산
@@ -320,7 +333,6 @@ public class Cat : MonoBehaviour
             IsWorking = true;
 
             StopCoroutine(MoveCoroutine);
-            CatState = CatState.Working;
 
             var index = goldbuilding.PlacedInBuildingCats.IndexOf(this);
             if (index == -1)
@@ -329,7 +341,9 @@ public class Cat : MonoBehaviour
                 goldbuilding.SetPos(index);
 
             done = false;
-            Animator.SetInteger("WorkingState", (int)goldbuilding.buildingType);
+            print(goldbuilding.buildingType);
+            Animator.SetInteger("WorkState", (int)goldbuilding.buildingType);
+            CatState = CatState.Working;
         }
         else if (GoResting && collision.gameObject.TryGetComponent(out EnergyProductionBuilding energybuilding))
         {
