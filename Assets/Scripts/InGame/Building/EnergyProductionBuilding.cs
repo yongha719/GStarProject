@@ -58,7 +58,7 @@ public class EnergyProductionBuilding : Building, IResourceProductionBuilding
         {
             var energy = DefaultEnergy.returnValue();
 
-            for (var i = 0; i < Rating - 1; i++)
+            for (var i = 0; i < Level - 1; i++)
             {
                 energy += energy * Math.Round((double)(IncreasePerLevelUp / 100f), 3);
             }

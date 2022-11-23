@@ -42,8 +42,8 @@ public class UIManager : Singleton<UIManager>
         Image[] images = transform.GetChild(0).GetComponentsInChildren<Image>();
         TextMeshProUGUI[] texts = transform.GetChild(0).GetComponentsInChildren<TextMeshProUGUI>();
 
-        foreach (Image image in images) image.color = new Color(1, 1, 1, 0);
-        foreach (TextMeshProUGUI text in texts) text.color = new Color(1, 1, 1, 0);
+        foreach (Image image in images) image.color = image.color - Color.black;
+        foreach (TextMeshProUGUI text in texts) text.color = text.color - Color.black;
         while (true)
         {
             title.transform.position += Vector3.up * Time.deltaTime * Mathf.Cos(Time.time) / 5;

@@ -53,7 +53,7 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
         {
             var gold = DefaultGold.returnValue();
 
-            for (var i = 0; i < Rating - 1; i++)
+            for (var i = 0; i < Level - 1; i++)
             {
                 gold += gold * Math.Round((double)(IncreasePerLevelUp / 100f), 3);
             }
@@ -173,14 +173,17 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
         }
         else
         {
-            var cat = PlacedInBuildingCats[index];
-            cat.RandomMoveCoroutine = StartCoroutine(PlacedInBuildingCats[index].RandomMove());
-            cat.GoWorking = true;
-            if (cat.IsWorking)
+            switch (buildingType)
             {
-                cat.IsWorking = false;
+                case GoldBuildingType.GoldMine:
+                case GoldBuildingType.PotatoFarming:
+                case GoldBuildingType.PowerPlant:
+                    PlacedInBuildingCats[index].gameObject.SetActive(true);
+                    break;
             }
-            cat = catData.Cat;
+
+            PlacedInBuildingCats[index].FinishWork();
+            PlacedInBuildingCats[index] = catData.Cat;
         }
 
         SetProductionTime();
@@ -243,7 +246,6 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
                 if (PlacedInBuildingCats[i] == null)
                     continue;
 
-                print(BuildingManager.s_EnergyProductionBuildings.Count);
                 // 골드 생산 10번하면 쉬러 가야 함
                 if (++PlacedInBuildingCats[i].NumberOfGoldProduction >= 10 && BuildingManager.CanGoRest(out Vector3 buildingPos))
                 {
@@ -278,7 +280,7 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
                 CollectMoneyButton.gameObject.SetActive(false);
 
                 SoundManager.Instance.PlaySoundClip("SFX_Goods", SoundType.SFX);
-                DailyQuestManager.dailyQuests.quests[(int)QuestType.Gold]._index++;
+                //DailyQuestManager.dailyQuests.quests[(int)QuestType.Gold]._index++;
                 // 골드 획득 연출
                 Destroy(Instantiate(GoldAcquisitionEffect, transform.position + (Vector3.up * 0.5f), Quaternion.identity, CanvasRt), 1.5f);
 
@@ -321,6 +323,7 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
     {
         var cat = PlacedInBuildingCats[index];
 
+        print(buildingType);
         switch (buildingType)
         {
             case GoldBuildingType.IceFishing:
@@ -349,7 +352,7 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
                 }
                 else
                 {
-                    PlacedInBuildingCats[1].transform.position = transform.position + new Vector3(0.2f, 0.9f);
+                    PlacedInBuildingCats[1].transform.position = transform.position + new Vector3(-0.24f, 0.8f);
                     PlacedInBuildingCats[1].Animator.SetInteger("Clothes", index);
                 }
                 break;

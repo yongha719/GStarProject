@@ -5,6 +5,7 @@ using DG.Tweening;
 using UnityEngine.Experimental.Animations;
 using System.Runtime.InteropServices;
 using UnityEngineInternal;
+using System.Reflection;
 
 /// <summary>
 /// 골드 생산 건물 고양이 능력
@@ -186,6 +187,7 @@ public class Cat : MonoBehaviour
         {
             targetPos = RandomPos();
 
+            MoveCoroutine = null;
             MoveCoroutine = StartCoroutine(MoveStep());
             yield return MoveCoroutine;
         }
@@ -195,7 +197,9 @@ public class Cat : MonoBehaviour
     {
         var pos = new Vector2(Pos.x, Pos.y * 2);
         targetPos = Vector2Int.CeilToInt(Pos);
+        print("move");
 
+        MoveCoroutine = null;
         MoveCoroutine = StartCoroutine(MoveStep());
         yield return MoveCoroutine;
     }
@@ -240,6 +244,7 @@ public class Cat : MonoBehaviour
 
             if (StopMove)
             {
+                print("stopmove");
                 StopMove = false;
                 yield break;
             }
@@ -263,6 +268,8 @@ public class Cat : MonoBehaviour
     public void GoToRest(Vector3 buildingPos)
     {
         StopCoroutine(RandomMoveCoroutine);
+        RandomMoveCoroutine = null;
+
         StartCoroutine(Move(buildingPos));
 
 
@@ -271,22 +278,37 @@ public class Cat : MonoBehaviour
         GoResting = true;
     }
 
+    public void FinishWork()
+    {
+        StopCoroutine(MoveCoroutine);
+        MoveCoroutine = null;
+        RandomMoveCoroutine = StartCoroutine(RandomMove());
+
+        GoWorking = true;
+
+        IsWorking = false;
+        CatState = CatState.Moving;
+        Animator.SetInteger("State", (int)catState);
+    }
+
     /// <summary>
     /// 일해라 고양이
     /// 골드 생산
     /// </summary>
     public void GoToWork(Vector3 buildingPos)
     {
-        StopCoroutine(RandomMoveCoroutine);
+        if (MoveCoroutine != null)
+        {
+            StopCoroutine(MoveCoroutine);
+            MoveCoroutine = null;
+        }
+
+        //if (RandomMoveCoroutine != null)
+        //StopCoroutine(RandomMoveCoroutine);
+
         StartCoroutine(Move(buildingPos));
 
         GoWorking = true;
-
-    }
-
-    void WorkingMotion()
-    {
-
     }
 
     #endregion
@@ -303,24 +325,35 @@ public class Cat : MonoBehaviour
         }
     }
 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.gameObject.TryGetComponent(out GoldProductionBuilding goldbuilding) && building != goldbuilding)
+        {
+            IsWorking = false;
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (IsWorking || IsResting)
             return;
 
+        print("1234567890");
 
-        if (GoWorking && collision.gameObject.TryGetComponent(out GoldProductionBuilding goldbuilding))
+        if (GoWorking && collision.gameObject.TryGetComponent(out GoldProductionBuilding goldbuilding) && building == goldbuilding)
         {
-            StopMove = true;
+            print("argiugriubgliubgra;iubg;oubagr;ouageo;ubaegiugraouiagroihwefouigaro;ub");
+            //StopMove = true;
             transform.DOKill();
+            Animator.SetBool("Isback", false);
 
             SpriteRenderer.flipX = false;
 
             GoWorking = false;
             IsWorking = true;
 
+
             StopCoroutine(MoveCoroutine);
-            CatState = CatState.Working;
 
             var index = goldbuilding.PlacedInBuildingCats.IndexOf(this);
             if (index == -1)
@@ -329,7 +362,9 @@ public class Cat : MonoBehaviour
                 goldbuilding.SetPos(index);
 
             done = false;
-            Animator.SetInteger("WorkingState", (int)goldbuilding.buildingType);
+
+            Animator.SetInteger("WorkState", (int)goldbuilding.buildingType);
+            CatState = CatState.Working;
         }
         else if (GoResting && collision.gameObject.TryGetComponent(out EnergyProductionBuilding energybuilding))
         {

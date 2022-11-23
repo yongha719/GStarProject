@@ -169,6 +169,7 @@ public class CatPlacement : MonoBehaviour
         {
             jump = false;
 
+            print(workingCats.CatDatas.Count);
             for (j = 0; j < workingCats.CatDatas.Count; j++)
             {
                 if (workingCats.CatDatas[j] == CatList[index])
@@ -231,12 +232,26 @@ public class CatPlacement : MonoBehaviour
                     {
                         var goldBuilding = GetSelectedBuilding<GoldProductionBuilding>(productionBuilding);
 
+                        print(goldBuilding.name);
                         // 건물에서 일하는 고양이가 바뀌었을때
                         goldBuilding.OnCatMemberChange(catData, CurSelectedCatIndex,
                             action: () =>
                             {
                                 var pos = GridBuildingSystem.gridLayout.LocalToCell(goldBuilding.transform.position);
                                 catData.Cat.catNum = CurSelectedCatIndex;
+                                if (catData.Cat.building != null)
+                                {
+                                    if (catData.Cat.building.PlacedInBuildingCats.Contains(catData.Cat))
+                                    {
+                                        catData.Cat.building.PlacedInBuildingCats.Remove(catData.Cat);
+                                        workingCats.CatDatas.Remove(catData);
+                                    }
+
+                                    if(catData.Cat.building.WorkingCats.CatDatas.Contains(catData))
+                                    {
+                                        catData.Cat.building.WorkingCats.RemoveCat(catData);
+                                    }
+                                }
                                 catData.Cat.building = goldBuilding;
                                 catData.Cat.GoToWork(goldBuilding.transform.position);
                             });

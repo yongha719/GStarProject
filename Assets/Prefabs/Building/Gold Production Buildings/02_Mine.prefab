@@ -699,7 +699,7 @@ MonoBehaviour:
     m_Position: {x: 0, y: 0, z: 0}
     m_Size: {x: 1, y: 1, z: 1}
   BuildingName: "\uAE08 \uAD11\uC0B0"
-  Rating: 1
+  Level: 1
   isDeploying: 1
   DefaultConstructionCost: 5000
   BuildingInfo: {fileID: 0}
@@ -723,6 +723,7 @@ MonoBehaviour:
   BuildingUI: {fileID: 664102612895960325}
   CatPlacementButton: {fileID: 7623452876967842567}
   BuildingInfomationButton: {fileID: 8311452563161868753}
+  PlacedInBuildingCats: []
   WorkingCats: {fileID: 0}
 --- !u!61 &-7530547053688273797
 BoxCollider2D:
