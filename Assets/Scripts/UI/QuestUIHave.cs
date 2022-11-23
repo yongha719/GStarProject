@@ -6,5 +6,5 @@ using UnityEngine.UI;
 
 public class QuestUIHave : MonoBehaviour
 { 
-    public DailyQuestUIInfo QuestUIInfo;
+    public QuestUIInfo QuestUIInfo;
 }
