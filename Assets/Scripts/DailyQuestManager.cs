@@ -65,7 +65,7 @@ public class DailyQuests
     public string nowTimeStr = null;
 }
 [System.Serializable]
-public class DailyQuestUIInfo
+public class QuestUIInfo
 {
     public Button clearBtn;
     public TextMeshProUGUI clearText;
@@ -79,7 +79,7 @@ public class DailyQuestManager : Singleton<DailyQuestManager>
 
     [SerializeField]
     private Transform QuestPrefabParent;
-    private DailyQuestUIInfo[] dailyQuestUIInfos = new DailyQuestUIInfo[6];
+    private QuestUIInfo[] questUIInfos = new QuestUIInfo[6];
     private DailyQuestInfo[] dailyQuestInfos;
 
     [SerializeField] private Sprite[] questBtn;
@@ -95,21 +95,18 @@ public class DailyQuestManager : Singleton<DailyQuestManager>
 
         for (int i = 0; i < QuestPrefabParent.childCount; i++)
         {
-            dailyQuestUIInfos[i] = QuestPrefabParent.GetChild(i).GetComponent<QuestUIHave>().QuestUIInfo;
+            questUIInfos[i] = QuestPrefabParent.GetChild(i).GetComponent<QuestUIHave>().QuestUIInfo;
         }
         QuestReset();
         dailyQuestInfos = Resources.LoadAll<DailyQuestInfo>("QuestInfos/DailyQuestInfo");
         UIApply();
-    }
-    private void Start()
-    {
     }
     private void UIApply()
     {
         for (QuestType i = 0; i < QuestType.END; i++)
         {
             DailyQuestInfo dailyQuestInfo = dailyQuestInfos[(int)i];
-            DailyQuestUIInfo dailyQuestUIInfo = dailyQuestUIInfos[(int)i];
+            QuestUIInfo dailyQuestUIInfo = questUIInfos[(int)i];
             BaseDailyQuest curQuest = dailyQuests.quests[(int)i];
 
             int questNeedValue = curQuest.GetClearValue();

@@ -21373,11 +21373,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 729044206}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b11c6f1e861b6dd4386b51d19712f3e8, type: 3}
+  m_Script: {fileID: 11500000, guid: 8e77eb058c732ed499d43975da7517da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  QuestPrefabParent: {fileID: 147078313}
-  questBtn: []
+  AchivementsPrefabParent: {fileID: 147078313}
+  questBtn:
+  - {fileID: 21300000, guid: 44dbb12f128bd6849807ef0e578af419, type: 3}
+  - {fileID: 21300000, guid: 7bc990cc0a06c7043ae3cba6abae578e, type: 3}
 --- !u!114 &729044209
 MonoBehaviour:
   m_ObjectHideFlags: 0
