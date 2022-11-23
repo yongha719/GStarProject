@@ -1,12 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.ComTypes;
 using UnityEngine;
 
 public class ScreenShot : MonoBehaviour
 {
 
-    public void CaptureScreenForMobile(string fileName = "WinterCat_ScreenShot")
+    public void PlayScreenShot()
     {
+        StartCoroutine(CaptureScreenForMobile());
+    }
+    private IEnumerator CaptureScreenForMobile(string fileName = "WinterCat_ScreenShot")
+    {
+        yield return new WaitForEndOfFrame();
         Texture2D texture = ScreenCapture.CaptureScreenshotAsTexture();
 
         // do something with texture

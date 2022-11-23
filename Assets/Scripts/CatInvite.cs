@@ -63,7 +63,7 @@ public class CatInvite : MonoBehaviour
     private void CostTextAccept()
     {
         needGoldValue = CatManager.Instance.CatList.Count * 500;
-        needGoldText.text = CalculatorManager.returnStr(needGoldValue); 
+        needGoldText.text = CalculatorManager.returnStr(needGoldValue);
     }
 
     public void CatInviteBtnFunc()
@@ -149,8 +149,11 @@ public class CatInvite : MonoBehaviour
         if (nowCatInviting) return;
         if (onOff)
         {
-            Vector3 pos = FindObjectOfType<VillageHall>().transform.position;
-            Camera.main.transform.DOMove(new Vector3(pos.x, pos.y + 1.25f, -10), 0.3f);
+            if (FindObjectOfType<VillageHall>())
+            {
+                Vector3 pos = FindObjectOfType<VillageHall>().transform.position;
+                Camera.main.transform.DOMove(new Vector3(pos.x, pos.y + 1.25f, -10), 0.3f);
+            }
             mySelfImage.DOFade(0.5f, 0);
             transform.DOScale(1, 0.3f);
         }
