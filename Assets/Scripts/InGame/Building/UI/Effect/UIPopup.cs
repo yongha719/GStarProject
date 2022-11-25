@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
 
+[RequireComponent(typeof(Button))]
 public class UIPopup : MonoBehaviour
 {
     // 뒷배경 오브젝트가 따로 있어서 그 오브젝트를 Active false로 하면
@@ -18,7 +20,7 @@ public class UIPopup : MonoBehaviour
 
     private void OnEnable()
     {
-        rect.localScale = new Vector3(0.4f, 0.4f, 1);
+        rect.localScale = Vector3.zero;
         rect.DOScale(1, 0.3f);
     }
 
@@ -29,7 +31,7 @@ public class UIPopup : MonoBehaviour
 
     IEnumerator PopupDisable()
     {
-        rect.DOScale(0.4f, 0.3f).WaitForCompletion();
+        rect.DOScale(0f, 0.3f);
         yield return new WaitForSeconds(0.2f);
         BackgroundRt.gameObject.SetActive(false);
 

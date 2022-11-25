@@ -6,14 +6,9 @@ using UnityEngine.UI;
 using System.Linq;
 using UnityEngine.EventSystems;
 
-public class VillageHall : MonoBehaviour
+public class VillageHall : Building
 {
-    public bool Placed { get; private set; }
-    public BoundsInt area;
-
-    private bool isDeploying;
-
-    public bool IsDeploying
+    public override bool IsDeploying
     {
         get
         {
@@ -26,53 +21,26 @@ public class VillageHall : MonoBehaviour
         }
     }
 
-    public int Level = 1;
-    public int CurAreaSize => (Level * 2) + 2;
+    //public int Level = 1;
 
     private const string DefaultLevelUpCost = "1000a";
+
+    // 레벨업 비용 = 기본 레벨업 비용 * 1000의 (Level - 1) 제곱
     public string GetLevelUpCost => (DefaultLevelUpCost.returnValue() * Mathf.Pow(1000, Level - 1)).returnStr();
 
     [Tooltip("마을 회관 UI"), SerializeField] private GameObject VillageHallUI;
 
-    private GridBuildingSystem GridBuildingSystem;
-
-    void Start()
+    protected override void Start()
     {
-        GridBuildingSystem = GridBuildingSystem.Instance;
+        base.Start();
+
+        //GridBuildingSystem.CurBuilding = this;
 
         // z 값 조정 잘하자
         area.position = new Vector3Int(-1, -1, 0);
 
         GridBuildingSystem.SetTilesBlock(area, TileType.Installed, GridBuildingSystem.BuildingTilemap);
-
-        GoldProductionBuilding daqe = new GoldProductionBuilding();
-        IResourceProductionBuilding da = daqe;
     }
-
-
-    public bool CanBePlaced()
-    {
-        Vector3Int positionInt = GridBuildingSystem.gridLayout.LocalToCell(transform.position);
-        BoundsInt areaTemp = area;
-        areaTemp.position = positionInt;
-
-        return GridBuildingSystem.CanTakeArea(areaTemp);
-    }
-
-
-    public void Place()
-    {
-        Vector3Int positionInt = GridBuildingSystem.gridLayout.LocalToCell(transform.position);
-        BoundsInt areaTemp = area;
-        areaTemp.position = positionInt;
-        Placed = true;
-
-        GridBuildingSystem.TakeArea(areaTemp);
-
-        IsDeploying = false;
-
-    }
-
 
     public void LevelUp()
     {
@@ -84,7 +52,7 @@ public class VillageHall : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (EventSystem.current.IsPointerOverGameObject())
+        if (IsPointerOverGameObject())
         {
             return;
         }

@@ -13,12 +13,11 @@ public class SaveManager : Singleton<SaveManager>
         public ResourceClass ResourceClass = new ResourceClass();
         public DailyQuests dailyQuests = new DailyQuests();
         public float[] audioVolumes = new float[(int)SoundType.END];
-        public List<CatData> catList = new List<CatData>();
         public List<Cat> cats = new List<Cat>();
     }
     public SaveData saveData;
 
-    //세이브 날리기
+    [Tooltip("세이브 날리기")]
     [SerializeField] private bool DEBUG;
     private string savePath = "DataSavePath";
     private void Awake()
@@ -49,8 +48,7 @@ public class SaveManager : Singleton<SaveManager>
     {
         saveData.ResourceClass = GameManager.Instance.resource;
         saveData.audioVolumes = SoundManager.Instance.audioVolumes;
-        saveData.dailyQuests = DailyQuest.dailyQuests;
-        saveData.catList = CatManager.Instance.CatDataList;
+        saveData.dailyQuests = DailyQuestManager.dailyQuests;
         saveData.cats = CatManager.Instance.CatList;
         saveData.dailyQuests.nowTimeStr = System.DateTime.Now.ToString();
     }
@@ -59,8 +57,7 @@ public class SaveManager : Singleton<SaveManager>
     {
         GameManager.Instance.resource = saveData.ResourceClass;
         SoundManager.Instance.audioVolumes = saveData.audioVolumes;
-        DailyQuest.dailyQuests = saveData.dailyQuests;
-        CatManager.Instance.CatDataList = saveData.catList;
+        DailyQuestManager.dailyQuests = saveData.dailyQuests;
         CatManager.Instance.CatList = saveData.cats;
     }
 

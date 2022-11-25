@@ -36,7 +36,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 149, y: -145}
-  m_SizeDelta: {x: 83, y: 83}
+  m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2139381818212145419
 CanvasRenderer:
@@ -483,7 +483,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 128}
-  m_SizeDelta: {x: 83, y: 83}
+  m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8884796223699180084
 CanvasRenderer:
@@ -592,7 +592,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5222438331946837666}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 1.25, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_Children: []
   m_Father: {fileID: 7293558756560507725}
@@ -699,7 +699,7 @@ MonoBehaviour:
     m_Position: {x: 0, y: 0, z: 0}
     m_Size: {x: 1, y: 1, z: 1}
   BuildingName: "\uAE08 \uAD11\uC0B0"
-  Rating: 1
+  Level: 1
   isDeploying: 1
   DefaultConstructionCost: 5000
   BuildingInfo: {fileID: 0}
@@ -711,15 +711,20 @@ MonoBehaviour:
   DemolitionButton: {fileID: 5969899369050173961}
   RotateButton: {fileID: 7496639491388935465}
   CatPlacement: {fileID: 0}
+  BuildingInfomation: {fileID: 0}
   buildingType: 1
   CollectMoneyButton: {fileID: 5444481926985826226}
   DefaultGold: 800
   DefaultGoldChargingTime: 30
   IncreasePerLevelUp: 15
+  DefaultLevelUpCost: 4000
   ConstructionGoldText: {fileID: 3977098050459093906}
   GoldAcquisitionEffect: {fileID: 4651143797973280713, guid: d1c3aa70df08bb943a114b0228f21908, type: 3}
   BuildingUI: {fileID: 664102612895960325}
   CatPlacementButton: {fileID: 7623452876967842567}
+  BuildingInfomationButton: {fileID: 8311452563161868753}
+  PlacedInBuildingCats: []
+  WorkingCats: {fileID: 0}
 --- !u!61 &-7530547053688273797
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -917,7 +922,7 @@ MonoBehaviour:
   m_text: -100
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 295d71f17b9545d48bb95686f58adfcb, type: 2}
-  m_sharedMaterial: {fileID: -6049952126849204303, guid: eec22635edb9f254cb3eaed61c74d4b0, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: dde2ff8044d0472488e93dde7d5c5422, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1019,7 +1024,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -149, y: -145}
-  m_SizeDelta: {x: 83, y: 83}
+  m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4842662616739110947
 CanvasRenderer:

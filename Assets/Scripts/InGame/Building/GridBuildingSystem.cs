@@ -8,46 +8,73 @@ using System.Diagnostics.SymbolStore;
 
 public enum TileType
 {
-    Empty, Uninstalled, Installed, Green, Red
+    Empty,                 // 빈 타일
+    Uninstalled,           // 확장된 범위안에 있지만 빈 타일
+    Installed,             // 확장된 범위안에 건물이 설치된 타일
+    NotExpanded,           // 확장되지 않은 영역
+    Green,                 // 설치 가능한 영역을 표시할 때 사용
+    Red                    // 설치 불가능한 영역을 표시할 때 사용
 }
 
-public class GridBuildingSystem : MonoBehaviour
+public class GridBuildingSystem : Singleton<GridBuildingSystem>
 {
-    public static GridBuildingSystem Instance;
-
     public GridLayout gridLayout;
     public Tilemap TempTilemap;
     public Tilemap BuildingTilemap;
     public Tilemap TreeTilemap;
+    [SerializeField] private GameObject MainCanvas;
 
-    private static Dictionary<TileType, TileBase> tileBases = new Dictionary<TileType, TileBase>();
+    private Dictionary<TileType, TileBase> tileBases = new Dictionary<TileType, TileBase>();
 
+    [Space]
     public string CurBuildingName;
-    [SerializeField] private Building CurBuilding;
+    [HideInInspector]
+    public Building CurBuilding;
     [SerializeField] private ParticleSystem BuildingInstallationEffect;
+
+
 
     private Vector3 prevPos;
     private BoundsInt prevArea;
     private Vector3Int cellPos;
 
+    // 마을 땅 크기
+    public Vector2 ViliageAreaSize;
+
     private const string path = "Tile/";
 
     public static bool IsDeploying = false;
 
+    public VillageHall VillageHall;
+
     private void Awake()
     {
-        Instance = this;
+        VillageHall = FindObjectOfType<VillageHall>();
 
         tileBases.Add(TileType.Empty, null);
         tileBases.Add(TileType.Uninstalled, Resources.Load<TileBase>(path + nameof(TileType.Uninstalled)));
         tileBases.Add(TileType.Installed, Resources.Load<TileBase>(path + nameof(TileType.Installed)));
+        tileBases.Add(TileType.NotExpanded, Resources.Load<TileBase>(path + nameof(TileType.NotExpanded)));
         tileBases.Add(TileType.Green, Resources.Load<TileBase>(path + nameof(TileType.Green)));
         tileBases.Add(TileType.Red, Resources.Load<TileBase>(path + nameof(TileType.Red)));
 
+        ViliageAreaSize = new Vector2(4, 4);
     }
 
     void Start()
     {
+    }
+
+    // 마을회관 체크
+    public bool WallCheck(Vector2Int pos)
+    {
+        var max = gridLayout.CellToLocal(VillageHall.area.position - VillageHall.area.max) * -2;
+        var min = gridLayout.CellToLocal(VillageHall.area.position) * 2;
+
+        if ((pos.x < max.x && pos.y < max.y) && (pos.x >= min.x && pos.y >= min.y))
+            return true;
+
+        return false;
     }
 
     void Update()
@@ -55,23 +82,12 @@ public class GridBuildingSystem : MonoBehaviour
         #region Building Installation
         if (CurBuilding != null)
         {
+            // 클릭한 오브젝트가 UI면 return
+            if (IsPointerOverGameObject())
+                return;
+
             if (Input.GetMouseButton(0))
             {
-                // 클릭한 오브젝트가 UI면 return
-#if UNITY_EDITOR
-                if (EventSystem.current.IsPointerOverGameObject())
-                {
-                    return;
-                }
-#elif UNITY_ANDROID
-                if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
-                {
-                    if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
-                    {
-                       return;
-                    }
-                }
-#endif
                 if (CurBuilding.Placed == false)
                 {
                     Vector2 touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -87,17 +103,12 @@ public class GridBuildingSystem : MonoBehaviour
             }
         }
         #endregion
-
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            ExpandArea(2);
-            print("key");
-        }
     }
 
     private TileBase[] GetTilesBlock(BoundsInt area, Tilemap tilemap)
     {
         TileBase[] array = new TileBase[area.size.x * area.size.y];
+
         int cnt = 0;
 
         foreach (var v in area.allPositionsWithin)
@@ -109,11 +120,30 @@ public class GridBuildingSystem : MonoBehaviour
         return array;
     }
 
-    public void BuildingClear()
+    public void BuildingClear(bool Destroy = false)
     {
         TileBase[] toClear = new TileBase[prevArea.size.x * prevArea.size.y];
-        FillTiles(toClear, TileType.Uninstalled);
-        TempTilemap.SetTilesBlock(prevArea, toClear);
+
+        TileBase[] tempbase = GetTilesBlock(prevArea, BuildingTilemap);
+
+        int size = tempbase.Length;
+        TileBase[] tileArray = new TileBase[size];
+
+        for (int i = 0; i < size; i++)
+        {
+            if (tempbase[i] != tileBases[TileType.NotExpanded])
+            {
+                tileArray[i] = tileBases[TileType.Uninstalled];
+            }
+        }
+
+        TempTilemap.SetTilesBlock(prevArea, tileArray);
+
+        if (Destroy)
+        {
+            IsDeploying = false;
+            MainCanvas.SetActive(true);
+        }
     }
 
     private void AllClearArea()
@@ -126,13 +156,15 @@ public class GridBuildingSystem : MonoBehaviour
 
     public void InitializeWithBuilding(GameObject building)
     {
-        //MainTilemap.color = new Color(1, 1, 1, 0.5f);
         CurBuilding = Instantiate(building, Vector3.zero, Quaternion.identity, transform).GetComponent<Building>();
         FollowBuiliding();
+
+        IsDeploying = true;
     }
 
     private void FollowBuiliding()
     {
+        MainCanvas.SetActive(false);
         BuildingClear();
 
         CurBuilding.area.position = gridLayout.WorldToCell(CurBuilding.gameObject.transform.position);
@@ -192,19 +224,34 @@ public class GridBuildingSystem : MonoBehaviour
     /// </summary>
     public void ExpandArea(int level)
     {
-        var areaincrementdividedby2 = ((level * 2) + 2) / 2;
+        ViliageAreaSize = Vector2.one * (level * 2 + 2);
 
-        BoundsInt area = new BoundsInt(new Vector3Int(areaincrementdividedby2 * -1, areaincrementdividedby2 * -1, 0), new Vector3Int((level * 2) + 2, (level * 2) + 2, 1));
-        // 영역 증가량 나누기 2
-        //area.position = Vector3Int.zero;
-        //area.min = new Vector3Int(areaincrementdividedby2 * -1, areaincrementdividedby2 * -1, 1);
-        //area.max = new Vector3Int(areaincrementdividedby2, areaincrementdividedby2, 1);
+        // 레벨당 영역 나누기 2
+        var areaDividedby2 = ((level * 2) + 2) / 2;
+        // 바꿀 영역                                               
+        BoundsInt toChangeArea = new BoundsInt(new Vector3Int(-areaDividedby2 - 1, -areaDividedby2 - 1, 0)
+            // 땅 공간 여유남겨두기
+            , new Vector3Int((level * 2) + 3, (level * 2) + 3, 1));
 
-        // TODO : 이미 설치된 건물들 판별해야 함
-        var tile = GetTilesBlock(area, BuildingTilemap);
-        SetTilesBlock(area, TileType.Green, BuildingTilemap);
-        SetTilesBlock(area, TileType.Empty, TreeTilemap);
-        BuildingTilemap.SetTilesBlock(area, tile);
+        // 바뀐 영역
+        BoundsInt changedArea = new BoundsInt(new Vector3Int(-(level * 2) / 2, -(level * 2) / 2, 0)
+            // 땅 공간 여유남겨두기
+            , new Vector3Int((level * 2), (level * 2), 1));
+
+        // 고양이가 이동 가능한 범위 변경
+        CatManager.Instance.ChangeRangeCatMovement(level * 2 + 2);
+
+        // 타일 정보 바꿔주기
+        var tile = GetTilesBlock(changedArea, BuildingTilemap);
+        SetTilesBlock(toChangeArea, TileType.Empty, TreeTilemap);
+        SetTilesBlock(toChangeArea, TileType.NotExpanded, BuildingTilemap);
+
+        toChangeArea.position = toChangeArea.position + new Vector3Int(1, 1, 0);
+        toChangeArea.size = new Vector3Int((level * 2) + 2, (level * 2) + 2, 1);
+        SetTilesBlock(toChangeArea, TileType.Uninstalled, BuildingTilemap);
+        BuildingTilemap.SetTilesBlock(changedArea, tile);
+
+        prevArea = toChangeArea;
     }
 
     public void SetTilesBlock(BoundsInt area, TileType type, Tilemap tilemap)
@@ -215,8 +262,6 @@ public class GridBuildingSystem : MonoBehaviour
         FillTiles(tileArray, type);
         tilemap.SetTilesBlock(area, tileArray);
     }
-
-    private void FillTile(TileBase[] tile, TileType tiletype, int index) => tile[index] = tileBases[tiletype];
 
     private void FillTiles(TileBase[] arr, TileType type)
     {
@@ -232,8 +277,33 @@ public class GridBuildingSystem : MonoBehaviour
         {
             CurBuilding.transform.localPosition = gridLayout.CellToLocalInterpolated(cellPos);
             CurBuilding.Place();
+
+            MainCanvas.SetActive(true);
+            IsDeploying = false;
         }
     }
 
+    private bool IsPointerOverGameObject()
+    {
+        #if UNITY_EDITOR
+                // Check mouse
+                if (EventSystem.current.IsPointerOverGameObject())
+                {
+                    return true;
+                }
+        #elif UNITY_ANDROID
+
+        // Check touches
+        for (int i = 0; i < Input.touchCount; i++)
+        {
+            var touch = Input.GetTouch(i);
+            if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
+            {
+                return true;
+            }
+        }
+#endif
+        return false;
+    }
 }
 

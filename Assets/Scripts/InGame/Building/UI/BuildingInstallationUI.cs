@@ -13,8 +13,8 @@ public class BuildingInstallationUI : MonoBehaviour
     #region Buildings
 
     [Header("WorkShop Buildings")]
-    [SerializeField] private List<BuildingInfo> GoldProductionBuildingInfos;
-    [SerializeField] private List<BuildingInfo> EnergyProductionBuildingInfos;
+    [SerializeField] private List<BuyBuildingInfo> GoldProductionBuildingInfos;
+    [SerializeField] private List<BuyBuildingInfo> EnergyProductionBuildingInfos;
 
     [Header("Warning UIs")]
     [SerializeField] private BuildingInstallWarning Warning;
@@ -34,6 +34,7 @@ public class BuildingInstallationUI : MonoBehaviour
 
     [SerializeField] private GameObject BuildingInstallation;
     [SerializeField] private CatPlacement CatPlacement;
+    [SerializeField] private BuildingInfomation BuildingInfomation;
     #endregion
 
     private GridBuildingSystem GridBuildingSystem;
@@ -50,6 +51,30 @@ public class BuildingInstallationUI : MonoBehaviour
         GameManager = GameManager.Instance;
 
         UISetting();
+
+        //SetResolution();
+    }
+
+    private void SetResolution()
+    {
+        int setWidth = 1440; // 사용자 설정 너비
+        int setHeight = 2960; // 사용자 설정 높이
+
+        int deviceWidth = Screen.width; // 기기 너비 저장
+        int deviceHeight = Screen.height; // 기기 높이 저장
+
+        Screen.SetResolution(setWidth, (int)(((float)deviceHeight / deviceWidth) * setWidth), true); // SetResolution 함수 제대로 사용하기
+
+        if ((float)setWidth / setHeight < (float)deviceWidth / deviceHeight) // 기기의 해상도 비가 더 큰 경우
+        {
+            float newWidth = ((float)setWidth / setHeight) / ((float)deviceWidth / deviceHeight); // 새로운 너비
+            Camera.main.rect = new Rect((1f - newWidth) / 2f, 0f, newWidth, 1f); // 새로운 Rect 적용
+        }
+        else // 게임의 해상도 비가 더 큰 경우
+        {
+            float newHeight = ((float)deviceWidth / deviceHeight) / ((float)setWidth / setHeight); // 새로운 높이
+            Camera.main.rect = new Rect(0f, (1f - newHeight) / 2f, 1f, newHeight); // 새로운 Rect 적용
+        }
     }
 
     private void UISetting()
@@ -71,6 +96,7 @@ public class BuildingInstallationUI : MonoBehaviour
                 buildingInfo.Building.FirstTimeInstallation = true;
 
                 Building.CatPlacement = CatPlacement;
+                Building.BuildingInfomation = BuildingInfomation;
 
                 if (GameManager._coin > 0 && GameManager._coin >= goldprodutionbuilding.ConstructionCost.returnValue())
                 {
@@ -101,6 +127,7 @@ public class BuildingInstallationUI : MonoBehaviour
                 buildingInfo.Building.FirstTimeInstallation = true;
 
                 Building.CatPlacement = CatPlacement;
+                //Building.BuildingInfomation = BuildingInfomation;
 
                 if (GameManager._coin > 0 && GameManager._coin >= energyprodutionbuilding.ConstructionCost.returnValue())
                 {

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
@@ -21,7 +20,7 @@ public class BuildingCategory : Category
 
     protected override void Select()
     {
-        base .Select();
+        base.Select();
 
         if (s_CurCategory == this)
             return;
@@ -29,13 +28,11 @@ public class BuildingCategory : Category
         s_CurCategory.Unselect();
         s_CurCategory = this;
 
-
         s_CurCategoryBuildings.SetActive(false);
         CurCategoryObject.SetActive(true);
         s_CurCategoryBuildings = CurCategoryObject;
 
-
-        rect.DOAnchorPosY(-70f, 0.3f);
+        rect.DOAnchorPosY(-100f, 0.3f);
     }
 
     public override void Unselect()

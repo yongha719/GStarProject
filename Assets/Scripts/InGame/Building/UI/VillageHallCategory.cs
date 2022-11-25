@@ -37,14 +37,14 @@ public class VillageHallCategory : Category
         s_curCategoryObj = CurCategoryObject;
 
 
-        rect.DOAnchorPosY(200f, 0.3f);
+        rect.DOAnchorPosY(-100f, 0.3f);
     }
 
     public override void Unselect()
     {
         base.Unselect();
 
-        rect.DOAnchorPosY(250f, 0.3f);
+        rect.DOAnchorPosY(20, 0.3f);
     }
 
 }

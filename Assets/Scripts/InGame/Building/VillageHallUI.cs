@@ -7,31 +7,16 @@ using UnityEngine.UI;
 
 public class VillageHallUI : MonoBehaviour
 {
-    private VillageHall VillageHall;
-
-    [Header("재화")]
-    [SerializeField] private TextMeshProUGUI GoldText;
-    [SerializeField] private TextMeshProUGUI EnergyText;
-    [SerializeField] private TextMeshProUGUI IceText;
     [SerializeField] private Button LevelUpButton;
-    [SerializeField] private TextMeshProUGUI LevelUpCostText;
-
-    [Header("레벨")]
-    [SerializeField] private TextMeshProUGUI CurLevelText;
-    [SerializeField] private TextMeshProUGUI NextLevelText;
-    [SerializeField] private TextMeshProUGUI CurAreaText;
-    [SerializeField] private TextMeshProUGUI NextAreaText;
 
     [Header("경고창")]
     [SerializeField] private GameObject Warning;
     [SerializeField] private GameObject NotEnoughGold;
 
-    [Header("주민")]
-    [SerializeField] private RectTransform CatsContent;
-    [SerializeField] private GameObject CatInfoPrefab;
-
+    private VillageHall VillageHall;
     private GameManager GameManager;
     private CatManager CatManager;
+    private GridBuildingSystem GridBuildingSystem;
 
     private void Awake()
     {
@@ -39,33 +24,7 @@ public class VillageHallUI : MonoBehaviour
 
         GameManager = GameManager.Instance;
         CatManager = CatManager.Instance;
-    }
-    private void OnEnable()
-    {
-        LevelUpCostText.text = VillageHall.GetLevelUpCost;
-
-        CurLevelText.text = $"Lv. {VillageHall.Level}";
-        CurAreaText.text = $"{VillageHall.CurAreaSize} * {VillageHall.CurAreaSize}";
-        NextLevelText.text = $"Lv. {VillageHall.Level + 1}";
-        NextAreaText.text = $"{VillageHall.CurAreaSize + 2} * {VillageHall.CurAreaSize + 2}";
-
-
-        // 주민 리스트 출력
-        if (CatManager.CatList != null)
-        {
-            for (int i = 0; i < CatsContent.childCount; i++)
-                Destroy(CatsContent.GetChild(i).gameObject);
-
-            var CatList = CatManager.CatList;
-            var cnt = CatList.Count;
-
-            for (int i = 0; i < cnt; i++)
-            {
-                var catInfo = Instantiate(CatInfoPrefab, CatsContent).GetComponent<CatInfoUI>();
-
-                catInfo.SetData(CatList[i]);     
-            }
-        }
+        GridBuildingSystem = GridBuildingSystem.Instance;
     }
 
     void Start()

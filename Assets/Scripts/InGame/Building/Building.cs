@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
 using System.Runtime.ConstrainedExecution;
+using UnityEngine.EventSystems;
 
 public abstract class Building : MonoBehaviour
 {
@@ -13,8 +14,7 @@ public abstract class Building : MonoBehaviour
 
     [Header("Building Info")]
     public string BuildingName;
-    public int Rating = 1;
-
+    public int Level = 1;
 
     #region Deploying
 
@@ -37,7 +37,7 @@ public abstract class Building : MonoBehaviour
     public virtual string ConstructionCost { get; }
 
 
-    [HideInInspector] public BuildingInfo BuildingInfo;
+    [HideInInspector] public BuyBuildingInfo BuildingInfo;
 
 
     [Header("Deploying")]
@@ -53,7 +53,9 @@ public abstract class Building : MonoBehaviour
     [SerializeField] private Button DemolitionButton;
     [SerializeField] private Button RotateButton;
     #endregion
-    public CatPlacement CatPlacement;
+
+    [HideInInspector] public CatPlacement CatPlacement;
+    [HideInInspector] public BuildingInfomation BuildingInfomation;
 
     protected RectTransform CanvasRt;
     protected Camera Camera;
@@ -66,7 +68,7 @@ public abstract class Building : MonoBehaviour
 
         Camera = Camera.main;
 
-        BuildingSprte = SpriteRenderer.gameObject;
+        BuildingSprte = SpriteRenderer?.gameObject;
 
         CanvasRt = GameObject.Find("ParticleCanvas").transform as RectTransform;
 
@@ -75,9 +77,9 @@ public abstract class Building : MonoBehaviour
             GridBuildingSystem.Place();
         });
 
-        DemolitionButton.onClick.AddListener(() =>
+        DemolitionButton?.onClick.AddListener(() =>
         {
-            GridBuildingSystem.BuildingClear();
+            GridBuildingSystem.BuildingClear(true);
             BuildingInfo.BuildingInstalltionUI.SetActive(true);
             Destroy(gameObject);
         });
@@ -116,6 +118,8 @@ public abstract class Building : MonoBehaviour
             FirstTimeInstallation = false;
             StartCoroutine(BuildingInstalltionEffect());
         }
+
+        SoundManager.Instance.PlaySoundClip("SFX_Building", SoundType.SFX);
     }
 
     protected virtual IEnumerator BuildingInstalltionEffect()
@@ -126,4 +130,27 @@ public abstract class Building : MonoBehaviour
         yield return BuildingSprte.transform.DOScale(new Vector3(0.1f, 0.1f, 1f), 0.4f).WaitForCompletion();
     }
 
+    protected bool IsPointerOverGameObject()
+    {
+        if (Application.platform == RuntimePlatform.WindowsEditor)
+        {
+            // Check mouse
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                return true;
+            }
+        }
+        else if (Application.platform == RuntimePlatform.Android)
+        {
+            Debug.Log("touch");
+
+            PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+            eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+            List<RaycastResult> results = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+            return results.Count > 0;
+        }
+
+        return false;
+    }
 }

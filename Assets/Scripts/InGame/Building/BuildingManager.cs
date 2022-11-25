@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,8 +6,8 @@ using UnityEngine.Profiling;
 
 class BuildingTypes
 {
-    public static System.Type  GoldBuildingType = typeof(GoldBuildingType);
-    public static System.Type  EnergyBuildingType = typeof(EnergyBuildingType);
+    public static System.Type GoldBuildingType = typeof(GoldBuildingType);
+    public static System.Type EnergyBuildingType = typeof(EnergyBuildingType);
 }
 
 public enum BuildingType
@@ -40,25 +41,41 @@ public enum EnergyBuildingType
 
 public static class BuildingManager
 {
-    public static Dictionary<GoldBuildingType, int> s_GoldBuildings = new Dictionary<GoldBuildingType, int>();
-    public static Dictionary<EnergyBuildingType, int> s_EnergyBuildings = new Dictionary<EnergyBuildingType, int>();
+    public static Dictionary<GoldBuildingType, int> s_GoldBuildingCount = new Dictionary<GoldBuildingType, int>();
+    public static Dictionary<EnergyBuildingType, int> s_EnergyBuildingCount = new Dictionary<EnergyBuildingType, int>();
+
+    public static List<GoldProductionBuilding> s_GoldProductionBuildings = new List<GoldProductionBuilding>();
+    public static List<EnergyProductionBuilding> s_EnergyProductionBuildings = new List<EnergyProductionBuilding>();
 
     public static void Init()
     {
         for (int buildingtype = 0; buildingtype < (int)GoldBuildingType.End; buildingtype++)
         {
-            s_GoldBuildings.Add((GoldBuildingType)buildingtype, 0);
+            s_GoldBuildingCount.Add((GoldBuildingType)buildingtype, 0);
         }
-        
+
         for (int buildingtype = 0; buildingtype < (int)EnergyBuildingType.End; buildingtype++)
         {
-            s_EnergyBuildings.Add((EnergyBuildingType)buildingtype, 0);
+            s_EnergyBuildingCount.Add((EnergyBuildingType)buildingtype, 0);
         }
     }
 
-    public static void BuildingLevelUp(GoldBuildingType buildingType) => s_GoldBuildings[buildingType]++;
+    public static bool CanGoRest(out Vector3 pos)
+    {
+        pos = Vector3.zero;
 
-    public static void BuildingLevelUp(EnergyBuildingType buildingType) => s_EnergyBuildings[buildingType]++;
+        if (s_EnergyProductionBuildings.Count == 0)
+            return false;
+
+        for (int i = 0; i < s_EnergyProductionBuildings.Count; i++)
+            if (s_EnergyProductionBuildings[i].CanDeploy())
+            {
+                pos = s_EnergyProductionBuildings[i].transform.position;
+                return true;
+            }
+
+        return false;
+    }
 }
 
 
