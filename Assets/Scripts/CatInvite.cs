@@ -129,9 +129,13 @@ public class CatInvite : MonoBehaviour
         catData.GoldAbilityType = (GoldAbilityType)Random.Range(0, (int)GoldAbilityType.End);
         catData.CatSkinType = (CatSkinType)Random.Range(0, CatManager.catInfos.Length);
         catData.AbilitySprite = CatManager.GetCatAbiltySprite(catData.GoldAbilityType);
-        catData.CatSprite = CatManager.catInfos[(int)catData.CatSkinType].CatSprite;
-        catData.Name = CatManager.catInfos[(int)catData.CatSkinType].CatName;
-        catData.CatAnimator = CatManager.catInfos[(int)catData.CatSkinType].CatAnimator;
+
+        //TODO: 배열에 접근하지말고 배열 인덱스를 얻을수 있는 함수를 만들어 사용하자
+        CatInfo catInfo = CatManager.catInfos[(int)catData.CatSkinType];
+
+        catData.CatSprite = catInfo.CatSprite;
+        catData.Name = catInfo.CatName;
+        catData.CatAnimator = catInfo.CatAnimator;
 
         int value = Random.Range(0, 20);
         if (value < 3)
