@@ -18,8 +18,8 @@ public enum GoldAbilityType
     Mining,                 // 광질
     Axing,                  // 도끼질
     Farming,                // 농사
-    Kiln,                   // 가마질
-    Knitting,               // 뜨개질 
+    Stove,                   // 화로질
+    Sewing,               // 뜨개질 
     Boiling,                // 끓이기
     GeneratorOperating,     // 발전기
     End

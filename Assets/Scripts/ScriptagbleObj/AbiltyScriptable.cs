@@ -6,7 +6,8 @@ using UnityEngine;
 [System.Serializable]
 public class AbiltyScriptable : ScriptableObject
 {
-
-
-
+    public GoldAbilityType type;
+    public Sprite icon;
+    [TextArea]
+    public string abiltyDesc;
 }
