@@ -76,6 +76,13 @@ public static class BuildingManager
 
         return false;
     }
+
+    /// <summary>
+    /// 현재 배치할 건물 정보 가져오기
+    /// 
+    /// 어차피 골드 생산하는 건물밖에 설치 못함
+    /// </summary>
+    public static GoldProductionBuilding GetBuilding(IResourceProductionBuilding Productionbuilding) => Productionbuilding as GoldProductionBuilding;
 }
 
 

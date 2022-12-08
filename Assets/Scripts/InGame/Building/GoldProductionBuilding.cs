@@ -165,7 +165,7 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
 
     protected virtual void OnCatMemberChange(int index) { }
 
-    public void OnCatMemberChange(CatData catData, int index, Action action = null)
+    public void OnCatMemberChange(CatData catData, int index, CatPlacementWorkingCats workingCats)
     {
         if (PlacedInBuildingCats.Count < MaxDeployableCat)
         {
@@ -188,7 +188,25 @@ public class GoldProductionBuilding : Building, IResourceProductionBuilding
 
         SetProductionTime();
 
-        action?.Invoke();
+        var pos = GridBuildingSystem.gridLayout.LocalToCell(transform.position);
+        catData.Cat.catNum = index;
+
+        if (catData.Cat.building != null)
+        {
+            if (catData.Cat.building.PlacedInBuildingCats.Contains(catData.Cat))
+            {
+                catData.Cat.building.PlacedInBuildingCats.Remove(catData.Cat);
+                workingCats.CatDatas.Remove(catData);
+            }
+
+            if (catData.Cat.building.WorkingCats.CatDatas.Contains(catData))
+            {
+                catData.Cat.building.WorkingCats.RemoveCat(catData);
+            }
+        }
+
+        catData.Cat.building = this;
+        catData.Cat.GoToWork(transform.position);
 
         OnCatMemberChange(index);
     }
