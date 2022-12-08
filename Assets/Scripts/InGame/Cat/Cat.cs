@@ -297,6 +297,12 @@ public class Cat : MonoBehaviour
     /// </summary>
     public void GoToWork(Vector3 buildingPos)
     {
+        NumberOfEnergyProduction = 0;
+
+        GoWorking = true;
+        GoResting = false;
+        IsResting = false;
+
         if (MoveCoroutine != null)
         {
             StopCoroutine(MoveCoroutine);

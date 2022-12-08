@@ -82,7 +82,7 @@ public static class BuildingManager
     /// 
     /// 어차피 골드 생산하는 건물밖에 설치 못함
     /// </summary>
-    public static GoldProductionBuilding GetBuilding(IResourceProductionBuilding Productionbuilding) => Productionbuilding as GoldProductionBuilding;
+    public static GoldProductionBuilding GetGoldProductionBuilding(ProductionBuilding Productionbuilding) => Productionbuilding as GoldProductionBuilding;
 }
 
 

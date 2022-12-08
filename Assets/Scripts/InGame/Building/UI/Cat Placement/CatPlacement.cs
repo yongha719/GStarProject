@@ -38,7 +38,7 @@ public class CatPlacement : MonoBehaviour
 
     private const string WORKING_TEXT = "(이)가 일하는 중.";
 
-    IResourceProductionBuilding productionBuilding;
+    ProductionBuilding productionBuilding;
     BuildingType BuildingType;
     List<CatAbilityUI> catAbilityUIs = new List<CatAbilityUI>();
 
@@ -58,7 +58,7 @@ public class CatPlacement : MonoBehaviour
     /// </summary>
     /// <param name="catData">고양이 정보</param>
     /// <param name="buildingSprite">건물 이미지</param>
-    public void SetBuildingInfo(BuildingType buildingType, IResourceProductionBuilding building, CatData[] catData, CatPlacementWorkingCats _workingCats, Sprite buildingSprite)
+    public void SetBuildingInfo(BuildingType buildingType, ProductionBuilding building, CatData[] catData)
     {
         productionBuilding = building;
         BuildingType = buildingType;
@@ -68,7 +68,7 @@ public class CatPlacement : MonoBehaviour
         if (catData == null)
         {
             WorkText.gameObject.SetActive(false);
-            BuildingImage.sprite = buildingSprite;
+            BuildingImage.sprite = building.Spri;
             SetCatList();
 
             return;
@@ -80,27 +80,28 @@ public class CatPlacement : MonoBehaviour
         SetCatList();
     }
 
-    private bool Unknown<T>(Building source)
-        where T : Building
+    // Create Working cat
+    private bool Unknown<T>(ProductionBuilding building)
+        where T : ProductionBuilding
     {
-        var value = source as T;
+        var value = building as T;
 
         if (value == null) return false;
 
         // TODO: ProductionBuilding 클래스를 만들어서 Gold~, Energy~ 클래스의 부모로 만들고
         // 같이 사용하는 변수들을 ProductionBuilding로 옮기기 (코드의 중복을 줄이기)
 
-        // WorkingCats ( ProductionBuilding.WorkingCats )
-        //if (value.WorkingCats == null)
-        //{
-        //    workingCats = Instantiate(GoldBuildingWorkingCatPlacements[(int)value.buildingType], WorkingCatParentTr).GetComponent<CatPlacementWorkingCats>();
-        //    value.WorkingCats = workingCats;
-        //}
-        //else
-        //{
-        //    workingCats = value.WorkingCats;
-        //    workingCats.gameObject.SetActive(true);
-        //}
+        
+        if (value.WorkingCats == null)
+        {
+            workingCats = Instantiate(GoldBuildingWorkingCatPlacements[(int)value.buildingType], WorkingCatParentTr).GetComponent<CatPlacementWorkingCats>();
+            value.WorkingCats = workingCats;
+        }
+        else
+        {
+            workingCats = value.WorkingCats;
+            workingCats.gameObject.SetActive(true);
+        }
 
         workingCats.MaxDeployableCat = value.MaxDeployableCat;
 
@@ -111,7 +112,7 @@ public class CatPlacement : MonoBehaviour
     /// 배치된 고양이 생성
     /// </summary>
     /// <param name="null">working cat이 null인지 체크</param>
-    private void SetWorkingCat(IResourceProductionBuilding Productionbuilding)
+    private void SetWorkingCat(ProductionBuilding Productionbuilding)
     {
         {
             //if (Productionbuilding is GoldProductionBuilding gold)

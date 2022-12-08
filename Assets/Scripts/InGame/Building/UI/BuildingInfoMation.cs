@@ -77,7 +77,7 @@ public class BuildingInfomation : MonoBehaviour
         }
     }
 
-    public void SetData(BuildingType buildingType, IResourceProductionBuilding building, List<Cat> placedInBuildingCats, Sprite builldingSprite)
+    public void SetData(BuildingType buildingType, ProductionBuilding building, List<Cat> placedInBuildingCats, Sprite builldingSprite)
     {
         BuildingType = buildingType;
         BuildingImage.sprite = builldingSprite;
