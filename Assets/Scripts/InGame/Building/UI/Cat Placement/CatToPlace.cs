@@ -4,12 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
-using UnityEngine.Events;
 
 /// <summary>
 /// 건물에서 배치할 수 고양이 리스트에 있는 UI
 /// </summary>
-public class CatToPlace : MonoBehaviour
+public class CatToPlaceUI : MonoBehaviour
 {
     [SerializeField] private Image CatImage;
     [SerializeField] private TextMeshProUGUI CatNameText;
@@ -22,7 +21,7 @@ public class CatToPlace : MonoBehaviour
     /// 배치할 고양이 정보 설정
     /// </summary>
     /// <param name="onclick">배치 버튼에 들어갈 onclick 이벤트</param>
-    public void SetData(CatData catData, Action<CatToPlace, CatData> onclick)
+    public void SetData(CatData catData, Action<CatToPlaceUI, CatData> onclick)
     {
         CatData = catData;
 

@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
 
@@ -77,7 +75,7 @@ public class BuildingInfomation : MonoBehaviour
         }
     }
 
-    public void SetData(BuildingType buildingType, IResourceProductionBuilding building, List<Cat> placedInBuildingCats, Sprite builldingSprite)
+    public void SetData(BuildingType buildingType, ProductionBuilding building, List<Cat> placedInBuildingCats, Sprite builldingSprite)
     {
         BuildingType = buildingType;
         BuildingImage.sprite = builldingSprite;

@@ -1,7 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class CatPlacementWarning : Warning
 {
@@ -24,7 +20,7 @@ public class CatPlacementWarning : Warning
         });
     }
 
-    public void OnClickYesButton(Action call)
+    public void OnClickYesButton(System.Action call)
     {
         YesButton.onClick.RemoveAllListeners();
         YesButton.onClick.AddListener(() => call());

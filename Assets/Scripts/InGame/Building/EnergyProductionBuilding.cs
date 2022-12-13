@@ -8,66 +8,14 @@ using UnityEngine.EventSystems;
 using System.Linq;
 using DG.Tweening;
 
-public class EnergyProductionBuilding : Building, IResourceProductionBuilding
+public class EnergyProductionBuilding : ProductionBuilding
 {
-    public override bool IsDeploying
-    {
-        get
-        {
-            return isDeploying;
-        }
-
-        set
-        {
-            isDeploying = value;
-
-            if (isDeploying)
-            {
-                SpriteRenderer.color = new Color(1, 1, 1, 0.5f);
-                SpriteRenderer.sortingOrder = 3;
-                DeployingUIParent.SetActive(true);
-                CollectEnergyButton.gameObject.SetActive(false);
-            }
-            else
-            {
-                SpriteRenderer.color = Color.white;
-                SpriteRenderer.sortingOrder = 0;
-                DeployingUIParent.SetActive(false);
-            }
-        }
-    }
+    public override int BuildinTypeToInt => (int)buildingType;
 
     [Header("Energy Production Building")]
     public EnergyBuildingType buildingType;
 
-    #region Energy
-    [Header("Energy")]
-    [SerializeField] private Button CollectEnergyButton;
-    [SerializeField] private string DefaultEnergy;
-    [SerializeField] private float DefaultEnergyChargingTime;
-    [SerializeField] private float IncreasePerLevelUp;
-
-    [Tooltip("회복하기까지 필요한 생산량")]
-    [SerializeField] private int ProductionsNeededToRecover;
-
-
-    // 생산 에너지
-    public string ProductionEnergy
-    {
-        get
-        {
-            var energy = DefaultEnergy.returnValue();
-
-            for (var i = 0; i < Level - 1; i++)
-            {
-                energy += energy * Math.Round((double)(IncreasePerLevelUp / 100f), 3);
-            }
-
-            return energy.returnStr();
-        }
-    }
-
-    // 건설 비용
+    private const float AUTO_GET_ENERGY_DELAY = 10f;
     public override string ConstructionCost
     {
         get
@@ -78,69 +26,29 @@ public class EnergyProductionBuilding : Building, IResourceProductionBuilding
         }
     }
 
-    [Header("Level Up")]
-    [SerializeField] private string DefaultLevelUpCost;
-
-    public string LevelUpCost(int level)
-    {
-        var cost = DefaultLevelUpCost.returnValue();
-
-        for (int i = 0; i < level - 1; i++)
-        {
-            cost += cost * Math.Round((double)(8f / 100f), 3);
-        }
-
-        return cost.returnStr();
-    }
-
-
-    private bool didGetEnergy;
-
-    private WaitForSeconds waitEnergyChargingTime;
-    private const float AUTO_GET_ENERGY_DELAY = 10f;
-
-    [Space]
-    [SerializeField] private TextMeshProUGUI ConstructionGoldText;
-    [SerializeField] private GameObject EnergyAcquisitionEffect;
-
-    #endregion
-
-    [SerializeField] private GameObject BuildingUI;
-    [SerializeField] private Button BuildingInfomationButton;
-
-    private List<Cat> PlacedInBuildingCats = new List<Cat>();
-    public CatPlacementWorkingCats WorkingCats;
-
 
     protected override void Start()
     {
         base.Start();
 
-        waitEnergyChargingTime = new WaitForSeconds(DefaultEnergyChargingTime);
-
-        CollectEnergyButton.onClick.AddListener(() =>
-        {
-            didGetEnergy = true;
-        });
-
         BuildingInfomationButton.onClick.AddListener(() =>
         {
             BuildingInfomation.gameObject.SetActive(true);
 
-            PlacedInBuildingCats = PlacedInBuildingCats.Where(x => (object)x.building == this).ToList();
+            PlacedInBuildingCats = PlacedInBuildingCats.Where(x => x.building == this).ToList();
 
             if (PlacedInBuildingCats.Count == 0)
             {
-                BuildingInfomation.SetData(BuildingType.Gold, this, null, SpriteRenderer.sprite);
+                BuildingInfomation.SetData(BuildingType.Energy, this, null, SpriteRenderer.sprite);
             }
             else
             {
-                BuildingInfomation.SetData(BuildingType.Gold, this, PlacedInBuildingCats, SpriteRenderer.sprite);
+                BuildingInfomation.SetData(BuildingType.Energy, this, PlacedInBuildingCats, SpriteRenderer.sprite);
             }
         });
     }
 
-    public void OnCatMemberChange(CatData catData, int index = 0, Action action = null)
+    public override void OnCatMemberChange(CatData catData, int index = 0, Action action = null)
     {
         PlacedInBuildingCats.Add(catData.Cat);
         SetProductionTime();
@@ -170,7 +78,7 @@ public class EnergyProductionBuilding : Building, IResourceProductionBuilding
         if (PlacedInBuildingCats.Count != 0)
         {
             if (decreasingfigure != 0)
-                waitEnergyChargingTime = new WaitForSeconds((float)(DefaultEnergyChargingTime * Math.Round(decreasingfigure / 100f, 3)));
+                waitResourceChargingTime = new WaitForSeconds((float)(DefaultResourceChargingTime * Math.Round(decreasingfigure / 100f, 3)));
         }
     }
 
@@ -181,7 +89,7 @@ public class EnergyProductionBuilding : Building, IResourceProductionBuilding
         StartCoroutine(ResourceProduction());
     }
 
-    public IEnumerator ResourceProduction()
+    protected override IEnumerator ResourceProduction()
     {
         while (true)
         {
@@ -191,7 +99,7 @@ public class EnergyProductionBuilding : Building, IResourceProductionBuilding
                 continue;
             }
 
-            CollectEnergyButton.gameObject.SetActive(true);
+            CollectResourceButton.gameObject.SetActive(true);
             yield return StartCoroutine(WaitGetResource());
 
             for (int i = 0; i < MaxDeployableCat; i++)
@@ -202,10 +110,6 @@ public class EnergyProductionBuilding : Building, IResourceProductionBuilding
                 // 에너지 생산 3번하면 일하러 가야함
                 if (++PlacedInBuildingCats[i].NumberOfEnergyProduction >= 3)
                 {
-                    PlacedInBuildingCats[i].NumberOfEnergyProduction = 0;
-                    PlacedInBuildingCats[i].GoWorking = true;
-                    PlacedInBuildingCats[i].GoResting = false;
-                    PlacedInBuildingCats[i].IsResting = false;
                     PlacedInBuildingCats[i].GoToWork(PlacedInBuildingCats[i].building.transform.position);
                     PlacedInBuildingCats[i].building.OnCatMemberChange(PlacedInBuildingCats[i].catData, PlacedInBuildingCats[i].catNum);
 
@@ -213,27 +117,27 @@ public class EnergyProductionBuilding : Building, IResourceProductionBuilding
                 }
             }
 
-            yield return waitEnergyChargingTime;
+            yield return waitResourceChargingTime;
         }
     }
 
-    public IEnumerator WaitGetResource()
+    public override IEnumerator WaitGetResource()
     {
         var curtime = 0f;
         var autogetenergy = false;
 
         while (true)
         {
-            if (didGetEnergy)
+            if (didGetResource)
             {
-                GameManager.Instance._energy += autogetenergy ? ProductionEnergy.returnValue() : ProductionEnergy.returnValue() * 0.5f;
-                didGetEnergy = false;
-                CollectEnergyButton.gameObject.SetActive(false);
+                GameManager.Instance._energy += autogetenergy ? ProductionResource.returnValue() : ProductionResource.returnValue() * 0.5f;
+                didGetResource = false;
+                CollectResourceButton.gameObject.SetActive(false);
 
                 // 골드 획득 연출
                 DailyQuestManager.dailyQuests.quests[(int)QuestType.Stamina]._index++;
                 SoundManager.Instance.PlaySoundClip("SFX_Goods", SoundType.SFX);
-                Destroy(Instantiate(EnergyAcquisitionEffect, transform.position + (Vector3.up * 0.5f), Quaternion.identity, CanvasRt), 1.5f);
+                Destroy(Instantiate(ResourceAcquisitionEffect, transform.position + (Vector3.up * 0.5f), Quaternion.identity, CanvasRt), 1.5f);
 
                 yield break;
             }
@@ -245,7 +149,7 @@ public class EnergyProductionBuilding : Building, IResourceProductionBuilding
                 curtime = 0;
 
                 autogetenergy = true;
-                didGetEnergy = true;
+                didGetResource = true;
             }
 
             yield return null;
@@ -256,12 +160,12 @@ public class EnergyProductionBuilding : Building, IResourceProductionBuilding
     {
         yield return base.BuildingInstalltionEffect();
 
-        ConstructionGoldText.gameObject.SetActive(true);
-        ConstructionGoldText.text = ConstructionCost;
-        ConstructionGoldText.rectTransform.DOAnchorPosY(ConstructionGoldText.rectTransform.anchoredPosition.y + 150, 1);
-        yield return ConstructionGoldText.DOFade(0f, 0.7f).WaitForCompletion();
+        ConstructionResourceText.gameObject.SetActive(true);
+        ConstructionResourceText.text = ConstructionCost;
+        ConstructionResourceText.rectTransform.DOAnchorPosY(ConstructionResourceText.rectTransform.anchoredPosition.y + 150, 1);
+        yield return ConstructionResourceText.DOFade(0f, 0.7f).WaitForCompletion();
 
-        ConstructionGoldText.gameObject.SetActive(false);
+        ConstructionResourceText.gameObject.SetActive(false);
 
         BuildingManager.s_EnergyBuildingCount[buildingType]++;
         BuildingManager.s_EnergyProductionBuildings.Add(this);
@@ -273,24 +177,5 @@ public class EnergyProductionBuilding : Building, IResourceProductionBuilding
     public bool CanDeploy()
     {
         return PlacedInBuildingCats.Count < MaxDeployableCat;
-    }
-
-    private void OnMouseDown()
-    {
-        if (isDeploying || IsPointerOverGameObject())
-            return;
-
-        if (CollectEnergyButton.gameObject.activeSelf)
-        {
-            didGetEnergy = true;
-        }
-        else if (BuildingUI.activeSelf)
-        {
-            BuildingUI.SetActive(false);
-        }
-        else
-        {
-            BuildingUI.SetActive(true);
-        }
     }
 }
