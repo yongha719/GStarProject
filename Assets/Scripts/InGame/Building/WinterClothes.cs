@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WinterClothes : GoldProductionBuilding
 {
+    // 제봉
     [SerializeField] private GameObject Filature;
 
     protected override void OnCatMemberChange(int index)
@@ -15,7 +14,6 @@ public class WinterClothes : GoldProductionBuilding
         else
         {
             Filature.SetActive(false);
-
         }
     }
 }

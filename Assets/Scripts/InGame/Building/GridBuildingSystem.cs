@@ -1,10 +1,6 @@
-using System.Collections;
-using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
-using System.Diagnostics.SymbolStore;
 
 public enum TileType
 {
@@ -287,7 +283,7 @@ public class GridBuildingSystem : Singleton<GridBuildingSystem>
     {
         #if UNITY_EDITOR
                 // Check mouse
-                if (EventSystem.current.IsPointerOverGameObject())
+                if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
                 {
                     return true;
                 }

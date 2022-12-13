@@ -10,6 +10,8 @@ using DG.Tweening;
 
 public class EnergyProductionBuilding : ProductionBuilding
 {
+    public override int BuildinTypeToInt => (int)buildingType;
+
     [Header("Energy Production Building")]
     public EnergyBuildingType buildingType;
 

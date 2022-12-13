@@ -1,15 +1,13 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 using DG.Tweening;
 using System.Linq;
 
 public class GoldProductionBuilding : ProductionBuilding
 {
     private const float AUTO_GET_GOLD_DELAY = 20f;
+    public override int BuildinTypeToInt => (int)buildingType;
 
     [Header("Gold Production Building")]
     public GoldBuildingType buildingType;
@@ -24,7 +22,7 @@ public class GoldProductionBuilding : ProductionBuilding
         }
     }
 
-    [SerializeField] private Button CatPlacementButton;
+    [SerializeField] private UnityEngine.UI.Button CatPlacementButton;
 
     protected override void Start()
     {
@@ -68,8 +66,9 @@ public class GoldProductionBuilding : ProductionBuilding
 
     protected virtual void OnCatMemberChange(int index) { }
 
-    public void OnCatMemberChange(CatData catData, int index, CatPlacementWorkingCats workingCats)
+    public void OnCatMemberChange(CatData catData, int index)
     {
+        CatPlacementWorkingCats workingCats = catData.Cat.building.WorkingCats;
 
         if (PlacedInBuildingCats.Count < MaxDeployableCat)
         {
@@ -94,21 +93,23 @@ public class GoldProductionBuilding : ProductionBuilding
 
         catData.Cat.catNum = index;
 
-        if (catData.Cat.building != null)
+        var catBuilding = catData.Cat.building;
+
+        if (catBuilding != null)
         {
-            if (catData.Cat.building.PlacedInBuildingCats.Contains(catData.Cat))
+            if (catBuilding.PlacedInBuildingCats.Contains(catData.Cat))
             {
-                catData.Cat.building.PlacedInBuildingCats.Remove(catData.Cat);
+                catBuilding.PlacedInBuildingCats.Remove(catData.Cat);
                 workingCats.CatDatas.Remove(catData);
             }
 
-            if (catData.Cat.building.WorkingCats.CatDatas.Contains(catData))
+            if (catBuilding.WorkingCats.CatDatas.Contains(catData))
             {
-                catData.Cat.building.WorkingCats.RemoveCat(catData);
+                catBuilding.WorkingCats.RemoveCat(catData);
             }
         }
 
-        catData.Cat.building = this;
+        catBuilding = this;
         catData.Cat.GoToWork(transform.position);
 
         OnCatMemberChange(index);

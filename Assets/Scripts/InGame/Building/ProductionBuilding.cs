@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class ProductionBuilding : Building
 {
@@ -33,9 +32,9 @@ public class ProductionBuilding : Building
             }
         }
     }
+    public virtual int BuildinTypeToInt { get; }
 
-
-    [SerializeField] protected Button CollectResourceButton;
+    [SerializeField] protected UnityEngine.UI.Button CollectResourceButton;
     [Header("Resource")]
     [SerializeField] protected string DefaultResource;
     [SerializeField] protected float DefaultResourceChargingTime;
@@ -84,7 +83,7 @@ public class ProductionBuilding : Building
 
     [Space(10)]
     [SerializeField] protected GameObject BuildingUI;
-    [SerializeField] protected Button BuildingInfomationButton;
+    [SerializeField] protected UnityEngine.UI.Button BuildingInfomationButton;
 
     protected static GameObject s_buildingUI;
 

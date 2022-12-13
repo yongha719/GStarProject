@@ -2,10 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using UnityEngine.Experimental.Animations;
-using System.Runtime.InteropServices;
-using UnityEngineInternal;
-using System.Reflection;
 
 /// <summary>
 /// 골드 생산 건물 고양이 능력
@@ -115,7 +111,9 @@ public class Cat : MonoBehaviour
     // 에너지 생산 횟수
     public int NumberOfEnergyProduction;
 
-    // 능력 등급별 생산 감소 퍼센트
+    /// <summary>
+    /// 능력 등급별 생산 감소 퍼센트
+    /// </summary>
     public int PercentageReductionbyRating => catData.AbilityRating switch
     {
         1 => 10,
