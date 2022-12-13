@@ -16,6 +16,7 @@ public class CatInvite : MonoBehaviour
     private TMP_InputField catNameTextArea;
     private CatData curCatData;
     private bool nowCatInviting;
+    private AbiltyScriptable[] abiltyInfos;
 
     private Image mySelfImage;
 
@@ -30,6 +31,7 @@ public class CatInvite : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI catName;
 
+    public static AudioClip nowBgm;
     [Header("Animation Effect")]
     public GameObject CatShadow;
     public Image whiteScreen;
@@ -37,7 +39,6 @@ public class CatInvite : MonoBehaviour
     public ParticleSystem slowSnow;
     public ParticleSystem fastSnow;
 
-    public static AudioClip nowBgm;
     [Header("Naming Tap")]
     [SerializeField]
     private GameObject spriteMask;
@@ -54,6 +55,7 @@ public class CatInvite : MonoBehaviour
 
     private void Start()
     {
+        abiltyInfos = Resources.LoadAll<AbiltyScriptable>("AbiltyInfo/");
         mySelfImage = transform.parent.GetComponent<Image>();
 
         CatManager = CatManager.Instance;
