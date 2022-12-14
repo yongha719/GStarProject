@@ -7,13 +7,13 @@ public class WinterClothes : GoldProductionBuilding
 
     protected override void OnCatMemberChange(int index)
     {
-        if (index == 1)
+        if (index == 0)
         {
-            Filature.SetActive(true);
+            Filature.SetActive(false);
         }
         else
         {
-            Filature.SetActive(false);
+            Filature.SetActive(true);
         }
     }
 }
