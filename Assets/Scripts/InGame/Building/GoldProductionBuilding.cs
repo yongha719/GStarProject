@@ -29,7 +29,7 @@ public class GoldProductionBuilding : ProductionBuilding
         base.Start();
 
 
-        CatPlacementButton?.onClick.AddListener(() =>
+        CatPlacementButton.onClick.AddListener(() =>
         {
             CatPlacement.gameObject.SetActive(true);
 
@@ -37,7 +37,7 @@ public class GoldProductionBuilding : ProductionBuilding
 
             if (PlacedInBuildingCats.Count == 0)
             {
-                CatPlacement.SetBuildingInfo(BuildingType.Gold, this, null);
+                CatPlacement.SetBuildingInfo(BuildingType.Gold,this, null);
             }
             else
             {
@@ -50,7 +50,7 @@ public class GoldProductionBuilding : ProductionBuilding
         {
             BuildingInfomation.gameObject.SetActive(true);
 
-            PlacedInBuildingCats = PlacedInBuildingCats.Where(x => (object)x.building == this).ToList();
+            PlacedInBuildingCats = PlacedInBuildingCats.Where(x => x.building == this).ToList();
 
             if (PlacedInBuildingCats.Count == 0)
             {
@@ -66,7 +66,7 @@ public class GoldProductionBuilding : ProductionBuilding
 
     protected virtual void OnCatMemberChange(int index) { }
 
-    public void OnCatMemberChange(CatData catData, int index)
+    public virtual void OnCatMemberChange(CatData catData, int index)
     {
         CatPlacementWorkingCats workingCats = catData.Cat.building.WorkingCats;
 
@@ -81,7 +81,7 @@ public class GoldProductionBuilding : ProductionBuilding
                 case GoldBuildingType.GoldMine:
                 case GoldBuildingType.PotatoFarming:
                 case GoldBuildingType.PowerPlant:
-                    PlacedInBuildingCats[index].gameObject.SetActive(true);
+                    PlacedInBuildingCats[index].gameObject.SetActive(false);
                     break;
             }
 
@@ -101,11 +101,6 @@ public class GoldProductionBuilding : ProductionBuilding
             {
                 catBuilding.PlacedInBuildingCats.Remove(catData.Cat);
                 workingCats.CatDatas.Remove(catData);
-            }
-
-            if (catBuilding.WorkingCats.CatDatas.Contains(catData))
-            {
-                catBuilding.WorkingCats.RemoveCat(catData);
             }
         }
 
@@ -150,7 +145,7 @@ public class GoldProductionBuilding : ProductionBuilding
 
     }
 
-    public IEnumerator ResourceProduction()
+    protected override IEnumerator ResourceProduction()
     {
         while (true)
         {
@@ -186,7 +181,7 @@ public class GoldProductionBuilding : ProductionBuilding
         }
     }
 
-    public IEnumerator WaitGetResource()
+    public override IEnumerator WaitGetResource()
     {
         print(nameof(WaitGetResource));
 

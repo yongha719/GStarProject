@@ -2,6 +2,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Runtime.InteropServices.ComTypes;
 
 public class CatInvite : MonoBehaviour
 {
@@ -63,9 +64,10 @@ public class CatInvite : MonoBehaviour
 
     private void CostTextAccept()
     {
-        needGoldValue = CatManager.Instance.CatList.Count * 500;
-        needGoldText.text = CalculatorManager.returnStr(needGoldValue);
+        needGoldValue = CatManager.CatList.Count * 500;
+        needGoldText.text = needGoldValue.returnStr();
     }
+
 
     public void CatInviteBtnFunc()
     {
@@ -96,6 +98,34 @@ public class CatInvite : MonoBehaviour
         skillIcon.sprite = curCatData.AbilitySprite;
     }
 
+    public void SetCatInfo(CatData catData, in CatInfo catInfo)
+    {
+        catData.CatSprite = catInfo.CatSprite;
+        catData.Name = catInfo.CatName;
+        catData.CatAnimator = catInfo.CatAnimator;
+    }
+
+    public CatData RandomCatEarn()
+    {
+        CatData catData = new CatData();
+
+        catData.GoldAbilityType = (GoldAbilityType)Random.Range(0, (int)GoldAbilityType.End);
+        catData.CatSkinType = (CatSkinType)Random.Range(0, CatManager.catInfos.Length);
+        catData.AbilitySprite = CatManager.GetCatAbiltySprite(catData.GoldAbilityType);
+
+        SetCatInfo(catData, CatManager.GetCatInfo((int)catData.CatSkinType));
+
+        int value = Random.Range(0, 20);
+        if (value < 3)
+            catData.AbilityRating = 3;
+        else if (value < 7)
+            catData.AbilityRating = 2;
+        else
+            catData.AbilityRating = 1;
+
+        return catData;
+    }
+
     public void CatNaming()
     {
         if (catNameTextArea.text != null && catNameTextArea.text != "")
@@ -123,31 +153,7 @@ public class CatInvite : MonoBehaviour
         }
     }
 
-    public CatData RandomCatEarn()
-    {
-        CatData catData = new CatData();
 
-        catData.GoldAbilityType = (GoldAbilityType)Random.Range(0, (int)GoldAbilityType.End);
-        catData.CatSkinType = (CatSkinType)Random.Range(0, CatManager.catInfos.Length);
-        catData.AbilitySprite = CatManager.GetCatAbiltySprite(catData.GoldAbilityType);
-
-        //TODO: 배열에 접근하지말고 배열 인덱스를 얻을수 있는 함수를 만들어 사용하자
-        CatInfo catInfo = CatManager.catInfos[(int)catData.CatSkinType];
-
-        catData.CatSprite = catInfo.CatSprite;
-        catData.Name = catInfo.CatName;
-        catData.CatAnimator = catInfo.CatAnimator;
-
-        int value = Random.Range(0, 20);
-        if (value < 3)
-            catData.AbilityRating = 3;
-        else if (value < 7)
-            catData.AbilityRating = 2;
-        else
-            catData.AbilityRating = 1;
-
-        return catData;
-    }
 
     public void ScreenOn(bool onOff)
     {

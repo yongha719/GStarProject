@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,7 +17,7 @@ public class CatManager : Singleton<CatManager>
 
     private void Start()
     {
-        
+
     }
 
     /// <summary>
@@ -50,6 +51,10 @@ public class CatManager : Singleton<CatManager>
         }
     }
 
-    public Sprite GetCatAbiltySprite(GoldAbilityType type) => abiltySpritesList[(int)type];
+    public CatInfo GetCatInfo(int index)
+    {
+        return catInfos[index];
+    }
 
+    public Sprite GetCatAbiltySprite(GoldAbilityType type) => abiltySpritesList[(int)type];
 }

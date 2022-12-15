@@ -41,34 +41,36 @@ public class BaseAchivement
         if (GetClearValue() <= _index) return true;
         else return false;
     }
-    public int GetClearValue()
+    public int GetClearValue() => type switch
     {
-        return type switch
-        {
-            EAchivementsType.Survive => 1 + beforeClearCount,
-            EAchivementsType.GoldProduction => 100 + beforeClearCount * 100,
-            EAchivementsType.EnergyProduction => 100 + beforeClearCount * 100,
-            EAchivementsType.Gift => 10 + beforeClearCount * 5,
-            EAchivementsType.Photo => 10 + beforeClearCount * 5,
-            EAchivementsType.Adventure => 3 + beforeClearCount * 3,
-            EAchivementsType.Research => 3 + beforeClearCount * 3,
-            EAchivementsType.BuildingUpgrade => 50 + beforeClearCount * 50,
-            EAchivementsType.Trade => 2 + beforeClearCount * 2,
-            EAchivementsType.CatInvite => 3 + beforeClearCount * 3,
-            EAchivementsType.TownUpgrade => 1 + beforeClearCount,
-            EAchivementsType.BuildingPlace => 2 + beforeClearCount * 2,
-        };
-    }
+        EAchivementsType.Survive => 1 + beforeClearCount,
+        EAchivementsType.GoldProduction => 100 + beforeClearCount * 100,
+        EAchivementsType.EnergyProduction => 100 + beforeClearCount * 100,
+        EAchivementsType.Gift => 10 + beforeClearCount * 5,
+        EAchivementsType.Photo => 10 + beforeClearCount * 5,
+        EAchivementsType.Adventure => 3 + beforeClearCount * 3,
+        EAchivementsType.Research => 3 + beforeClearCount * 3,
+        EAchivementsType.BuildingUpgrade => 50 + beforeClearCount * 50,
+        EAchivementsType.Trade => 2 + beforeClearCount * 2,
+        EAchivementsType.CatInvite => 3 + beforeClearCount * 3,
+        EAchivementsType.TownUpgrade => 1 + beforeClearCount,
+        EAchivementsType.BuildingPlace => 2 + beforeClearCount * 2,
+        _ => throw new Exception("붸")
+    };
+
+
     public double returnRewardValue(double index)
     {
         return 20;
     }
 }
+
 [System.Serializable]
 public class AchiveMents
 {
     public List<BaseAchivement> baseAchivements;
 }
+
 public class AchivementsManager : Singleton<AchivementsManager>
 {
 
@@ -79,10 +81,12 @@ public class AchivementsManager : Singleton<AchivementsManager>
     [SerializeField] private Sprite[] questBtn;
 
     public static AchiveMents achiveMents = new AchiveMents();
+
     private void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
     }
+
     private void OnEnable()
     {
         for (int i = 0; i < AchivementsPrefabParent.childCount; i++)

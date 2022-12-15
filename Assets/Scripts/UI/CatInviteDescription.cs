@@ -30,16 +30,14 @@ public class CatInviteDescription : MonoBehaviour
     private void SkillInfoApply(GoldAbilityType type, int index)
     {
         string[] desc = Desription[(int)type].Split('@');
-        text.text = $"{desc[0]} {RatingCount(index)}{desc[1]}";
+        text.text = $"{desc[0]} {GetRatingCount(index)}{desc[1]}";
     }
 
-    private int RatingCount(int index)
+    private int GetRatingCount(int index) => Mathf.Clamp(index, 1, 3) switch
     {
-        return Mathf.Clamp(index, 1, 3) switch
-        {
-            1 => 10,
-            2 => 15,
-            3 => 20
-        };
-    }
+        1 => 10,
+        2 => 15,
+        3 => 20,
+        _ => throw new System.Exception("이게 뭐야")
+    };
 }

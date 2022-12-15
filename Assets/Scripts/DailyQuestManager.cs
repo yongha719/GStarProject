@@ -27,18 +27,18 @@ public class BaseDailyQuest
         if (GetClearValue() <= _index) return true;
         else return false;
     }
-    public int GetClearValue()
+
+    public int GetClearValue() => type switch
     {
-        return type switch
-        {
-            QuestType.Survive => 1,
-            QuestType.Gold => 50,
-            QuestType.Stamina => 50,
-            QuestType.Gift => 3,
-            QuestType.Photo => 3,
-            QuestType.Adventure => 3,
-        };
-    }
+        QuestType.Survive => 1,
+        QuestType.Gold => 50,
+        QuestType.Stamina => 50,
+        QuestType.Gift => 3,
+        QuestType.Photo => 3,
+        QuestType.Adventure => 3,
+        _ => throw new System.Exception("붸")
+    };
+
     public double returnRewardValue(double index)
     {
         index *= (float)(beforeClearCount + 1) / 5;
