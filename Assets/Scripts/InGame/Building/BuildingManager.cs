@@ -1,12 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-class BuildingTypes
-{
-    public static System.Type GoldBuildingType = typeof(GoldBuildingType);
-    public static System.Type EnergyBuildingType = typeof(EnergyBuildingType);
-}
-
 public enum BuildingType
 {
     Gold,
