@@ -34,6 +34,8 @@ public class CatInvite : MonoBehaviour
     private TextMeshProUGUI catName;
     [SerializeField]
     private TextMeshProUGUI skillText;
+    [SerializeField]
+    private Image skillInfoBallon;
 
     public static AudioClip nowBgm;
     [Header("Animation Effect")]
@@ -130,7 +132,7 @@ public class CatInvite : MonoBehaviour
 
         string[] abiltyInfoTexts = abilty.abiltyDesc.Split('@');
 
-
+        skillText.text = $"{abiltyInfoTexts[0]}{catData.AbilityRating * 5}{abiltyInfoTexts[1]}";
 
         return catData;
     }

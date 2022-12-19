@@ -43541,6 +43541,7 @@ MonoBehaviour:
   skillIcon: {fileID: 2019871776}
   catName: {fileID: 1469278598}
   skillText: {fileID: 1929661871}
+  skillInfoBallon: {fileID: 711679242}
   CatShadow: {fileID: 1382761761}
   whiteScreen: {fileID: 230046984}
   resultUI: {fileID: 1337318887}
