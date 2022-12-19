@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Runtime.InteropServices.ComTypes;
+using System.Linq;
 
 public class CatInvite : MonoBehaviour
 {
@@ -108,10 +109,12 @@ public class CatInvite : MonoBehaviour
     public CatData RandomCatEarn()
     {
         CatData catData = new CatData();
+        AbiltyScriptable abilty = GetAbiltyScriptable((GoldAbilityType)Random.Range(0, (int)GoldAbilityType.End));
 
-        catData.GoldAbilityType = (GoldAbilityType)Random.Range(0, (int)GoldAbilityType.End);
+
+        catData.GoldAbilityType = abilty.type;
+        catData.AbilitySprite = abilty.icon;
         catData.CatSkinType = (CatSkinType)Random.Range(0, CatManager.catInfos.Length);
-        catData.AbilitySprite = CatManager.GetCatAbiltySprite(catData.GoldAbilityType);
 
         SetCatInfo(catData, CatManager.GetCatInfo((int)catData.CatSkinType));
 
@@ -122,6 +125,10 @@ public class CatInvite : MonoBehaviour
             catData.AbilityRating = 2;
         else
             catData.AbilityRating = 1;
+
+        string[] abiltyInfoTexts = abilty.abiltyDesc.Split('@');
+
+
 
         return catData;
     }
@@ -173,4 +180,6 @@ public class CatInvite : MonoBehaviour
             transform.DOScale(0, 0.3f).OnComplete(() => mySelfImage.DOFade(0f, 0));
         }
     }
+    private AbiltyScriptable GetAbiltyScriptable(GoldAbilityType type) => abiltyInfos.ToList().Find((x) => x.type == type);
+
 }

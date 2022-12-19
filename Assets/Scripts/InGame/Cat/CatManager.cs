@@ -7,12 +7,10 @@ public class CatManager : Singleton<CatManager>
     public List<Cat> CatList = new List<Cat>();
     public CatInfo[] catInfos;
 
-    private Sprite[] abiltySpritesList;
 
     private void Awake()
     {
         catInfos = Resources.LoadAll<CatInfo>("CatInfos");
-        abiltySpritesList = Resources.LoadAll<Sprite>("AbiltySprites");
     }
 
     private void Start()
@@ -56,5 +54,4 @@ public class CatManager : Singleton<CatManager>
         return catInfos[index];
     }
 
-    public Sprite GetCatAbiltySprite(GoldAbilityType type) => abiltySpritesList[(int)type];
 }
