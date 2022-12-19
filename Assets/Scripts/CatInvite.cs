@@ -31,6 +31,8 @@ public class CatInvite : MonoBehaviour
     private Image skillIcon;
     [SerializeField]
     private TextMeshProUGUI catName;
+    [SerializeField]
+    private TextMeshProUGUI skillText;
 
     public static AudioClip nowBgm;
     [Header("Animation Effect")]
