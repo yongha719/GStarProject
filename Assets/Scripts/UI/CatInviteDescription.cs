@@ -18,13 +18,20 @@ public class CatInviteDescription : MonoBehaviour
         "06. Boiling,                // 끓이기\n" +
         "07. GeneratorOperating,     // 발전기\n")
         ]
-    private string[] Desription;
+    private string[] Desription;  
 
     [SerializeField]
     private TextMeshProUGUI text;
+    private Image img;
+    private Vector2 originalImgSize;
+    private void Start()
+    {
+        img = GetComponent<Image>();
+        originalImgSize = img.rectTransform.sizeDelta;
+    }
     public void TextBallonActive(bool inOn)
     {
-        transform.DOScale(inOn ? 1 : 0, 1);
+        img.rectTransform.DOSizeDelta(inOn ? originalImgSize : new Vector2(0, originalImgSize.y), 1);
     }
 
     private void SkillInfoApply(GoldAbilityType type, int index)
