@@ -9,6 +9,8 @@ public class CatInviteDescription : MonoBehaviour
 {
     [SerializeField]
     private TextMeshProUGUI text;
+    [SerializeField]
+    private Button onOffBtn;
     private Image img;
     private Vector2 originalImgSize;
     private void Start()
@@ -31,6 +33,6 @@ public class CatInviteDescription : MonoBehaviour
         1 => 10,
         2 => 15,
         3 => 20,
-        _ => throw new System.Exception("이게 뭐야")
+        _ => throw new System.Exception("ㄴㅇㄱ")
     };
 }

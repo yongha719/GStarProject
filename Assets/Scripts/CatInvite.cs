@@ -33,8 +33,6 @@ public class CatInvite : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI catName;
     [SerializeField]
-    private TextMeshProUGUI skillText;
-    [SerializeField]
     private Image skillInfoBallon;
     [SerializeField]
     private CatInviteDescription catInviteDescriptionScripts;
@@ -134,7 +132,7 @@ public class CatInvite : MonoBehaviour
 
         string[] abiltyInfoTexts = abilty.abiltyDesc.Split('@');
 
-        skillText.text = $"{abiltyInfoTexts[0]}{catData.AbilityRating * 5}{abiltyInfoTexts[1]}";
+        catInviteDescriptionScripts.SkillInfoApply(abiltyInfoTexts, catData.AbilityRating);
 
         return catData;
     }

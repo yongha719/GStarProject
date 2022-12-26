@@ -131,6 +131,7 @@ public class AchivementsManager : Singleton<AchivementsManager>
         {
             int clearCount = achiveMents.baseAchivements[index].beforeClearCount;
             int processingValue = achiveMents.baseAchivements[index]._index;
+
             achiveMents.baseAchivements[index] = new BaseAchivement() { type = (EAchivementsType)index };
             achiveMents.baseAchivements[index].beforeClearCount = clearCount + 1;
             achiveMents.baseAchivements[index]._index = processingValue;
