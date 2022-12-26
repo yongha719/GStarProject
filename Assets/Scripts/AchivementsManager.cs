@@ -55,7 +55,7 @@ public class BaseAchivement
         EAchivementsType.CatInvite => 3 + beforeClearCount * 3,
         EAchivementsType.TownUpgrade => 1 + beforeClearCount,
         EAchivementsType.BuildingPlace => 2 + beforeClearCount * 2,
-        _ => throw new Exception("붸")
+        _ => throw new Exception("블리얏")
     };
 
 

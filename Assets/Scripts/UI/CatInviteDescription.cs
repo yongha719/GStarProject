@@ -8,19 +8,6 @@ using TMPro;
 public class CatInviteDescription : MonoBehaviour
 {
     [SerializeField]
-    [Tooltip
-        ("00. Fishing,                // 낚시\n" +
-        "01. Mining,                 // 광질\n" +
-        "02. Axing,                  // 도끼질\n" +
-        "03. Farming,                // 농사\n" +
-        "04. Kiln,                   // 가마질\n" +
-        "05. Knitting,               // 뜨개질\n" +
-        "06. Boiling,                // 끓이기\n" +
-        "07. GeneratorOperating,     // 발전기\n")
-        ]
-    private string[] Desription;  
-
-    [SerializeField]
     private TextMeshProUGUI text;
     private Image img;
     private Vector2 originalImgSize;
@@ -31,12 +18,11 @@ public class CatInviteDescription : MonoBehaviour
     }
     public void TextBallonActive(bool inOn)
     {
-        img.rectTransform.DOSizeDelta(inOn ? originalImgSize : new Vector2(0, originalImgSize.y), 1);
+        img.rectTransform.DOSizeDelta(inOn ? originalImgSize : Vector2.zero, 0.3f);
     }
 
-    private void SkillInfoApply(GoldAbilityType type, int index)
+    public void SkillInfoApply(string[] desc, int index)
     {
-        string[] desc = Desription[(int)type].Split('@');
         text.text = $"{desc[0]} {GetRatingCount(index)}{desc[1]}";
     }
 

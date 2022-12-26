@@ -36,6 +36,8 @@ public class CatInvite : MonoBehaviour
     private TextMeshProUGUI skillText;
     [SerializeField]
     private Image skillInfoBallon;
+    [SerializeField]
+    private CatInviteDescription catInviteDescriptionScripts;
 
     public static AudioClip nowBgm;
     [Header("Animation Effect")]
@@ -184,6 +186,7 @@ public class CatInvite : MonoBehaviour
             transform.DOScale(0, 0.3f).OnComplete(() => mySelfImage.DOFade(0f, 0));
         }
     }
+
     private AbiltyScriptable GetAbiltyScriptable(GoldAbilityType type) => abiltyInfos.ToList().Find((x) => x.type == type);
 
 }
