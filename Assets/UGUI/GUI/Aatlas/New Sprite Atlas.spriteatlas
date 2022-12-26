@@ -1,0 +1,209 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: New Sprite Atlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 2
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: fbb3b0649242c924b855566b2bf2b47e, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 8bd6e4108b8d6bb4c8f26052fd0da58c, type: 3}
+  - {fileID: 21300000, guid: 6ed315209fe64d345b2bbf1367fd5da9, type: 3}
+  - {fileID: 21300000, guid: c0f365603661f4943810ed3851597db5, type: 3}
+  - {fileID: 21300000, guid: 98320c70829cb2e4c89a419bdaee2c08, type: 3}
+  - {fileID: 21300000, guid: 7670e7c0b05a61f4289b7daa8191debf, type: 3}
+  - {fileID: 21300000, guid: 23dcb8c0c45349d438412356da3e76c2, type: 3}
+  - {fileID: 21300000, guid: 709f32d008547f145971aabe7ddfdf82, type: 3}
+  - {fileID: 21300000, guid: 20e1e0f00eb37e7438ded7a58e5b176c, type: 3}
+  - {fileID: 21300000, guid: a73bf301ae6336249a17855a75ae8215, type: 3}
+  - {fileID: 21300000, guid: b95197115f45e404a8a02eb7554cef81, type: 3}
+  - {fileID: 21300000, guid: 875257212787b6440ace2aeb49bf9f5c, type: 3}
+  - {fileID: 21300000, guid: b7dcbb41134ca7744ae60b4bb8a3e086, type: 3}
+  - {fileID: 21300000, guid: 3618a75198e8c3940a817a915073ee7a, type: 3}
+  - {fileID: 21300000, guid: 8627a1a1cd16e7945b4da4f0c05cec67, type: 3}
+  - {fileID: 21300000, guid: 577cd7d1088b475459539d90410256f8, type: 3}
+  - {fileID: 21300000, guid: b559a6f1bf75c134c844ef897795a515, type: 3}
+  - {fileID: 21300000, guid: 360712324a9c7b34d84d9399377c8bfa, type: 3}
+  - {fileID: 21300000, guid: 966be0625b3a2e449af003ed8c38f000, type: 3}
+  - {fileID: 21300000, guid: fe6beb623b2488e4d87bdfbdd6965cf7, type: 3}
+  - {fileID: 21300000, guid: d45a71d227c14794e8d751168a220426, type: 3}
+  - {fileID: 21300000, guid: 4dc37e139c09ba546a0ece784e30d32c, type: 3}
+  - {fileID: 21300000, guid: efd98643d5ba5034fb50efba4d0e5f4d, type: 3}
+  - {fileID: 21300000, guid: 90b5b473a6b3e414e84be0ba91ccf140, type: 3}
+  - {fileID: 21300000, guid: 406b39b324413a548861c75cfefd8e91, type: 3}
+  - {fileID: 21300000, guid: 8e9d90c3e81c1f243897362b196932c1, type: 3}
+  - {fileID: 21300000, guid: 13e2eb542d789894ea5dd33255ab5011, type: 3}
+  - {fileID: 21300000, guid: 631be374af6c51f479be2023e9868782, type: 3}
+  - {fileID: 21300000, guid: ad1e5ab4b5ba37a43bef918513e7042e, type: 3}
+  - {fileID: 21300000, guid: 7e8adcd41b8a92c4eb551c2398427c40, type: 3}
+  - {fileID: 21300000, guid: 054d4e5586b67814fbb57ab8e6282818, type: 3}
+  - {fileID: 21300000, guid: b21e059504bae6a45a5f25c6bb4dc6d9, type: 3}
+  - {fileID: 21300000, guid: 970c40c51cf59e44794c295529968963, type: 3}
+  - {fileID: 21300000, guid: 37cb86e57e212624dae73e9f91bf4915, type: 3}
+  - {fileID: 21300000, guid: efecd936c4310ac40ad3dc76841f8bbb, type: 3}
+  - {fileID: 21300000, guid: bd433a5607d832542960dc8b9219f39a, type: 3}
+  - {fileID: 21300000, guid: 6d838a76a0b81204aaa0b6dfbe5179e5, type: 3}
+  - {fileID: 21300000, guid: 3736c896af6e70047ad25f18e1f6f70c, type: 3}
+  - {fileID: 21300000, guid: 5fb2ed9614c23f54ba41bdd7cff39cac, type: 3}
+  - {fileID: 21300000, guid: 4089c3a6d24cefc4e9293770e8ddad37, type: 3}
+  - {fileID: 21300000, guid: f6a874a64ebbfe54890b45f7ae780327, type: 3}
+  - {fileID: 21300000, guid: 18bc9be673d90db4992ed0040fa5629f, type: 3}
+  - {fileID: 21300000, guid: e434bff66e3e7724cb646a308c403712, type: 3}
+  - {fileID: 21300000, guid: 28f07b0717673714e9b5475925dc36ed, type: 3}
+  - {fileID: 21300000, guid: f7a4ad077b3704c4b9eceb7e09f63b36, type: 3}
+  - {fileID: 21300000, guid: 28871037f408a8d40a0adfdae901012f, type: 3}
+  - {fileID: 21300000, guid: e5c4398766a31a74d90529d8fd3db8b3, type: 3}
+  - {fileID: 21300000, guid: 8468b31828b306443a21cfd05f07d63e, type: 3}
+  - {fileID: 21300000, guid: fc5ea0483fd99d2419eda72cd2a5c0ce, type: 3}
+  - {fileID: 21300000, guid: ce5d4bc8ba2ba4d4e94443109b102f20, type: 3}
+  - {fileID: 21300000, guid: 488332190c50d6b4eaebe5877756452a, type: 3}
+  - {fileID: 21300000, guid: e4b76b7975f8b224694ddc91e4e607d3, type: 3}
+  - {fileID: 21300000, guid: 3f2f9ca96bf92154bac9360a0596765b, type: 3}
+  - {fileID: 21300000, guid: bd8c4fd972602774da8ae15c83979f10, type: 3}
+  - {fileID: 21300000, guid: 6edd402a04cfbb94d886f51571671d93, type: 3}
+  - {fileID: 21300000, guid: bc75442a0ea80424d926c40f665b25c7, type: 3}
+  - {fileID: 21300000, guid: 0c649a3abda99e740898492164c104b0, type: 3}
+  - {fileID: 21300000, guid: 3912f15a67f6b864384b8df82f2c16ee, type: 3}
+  - {fileID: 21300000, guid: 1436f87a8e5eb2c49a28d05594e49cac, type: 3}
+  - {fileID: 21300000, guid: 7975ff4ba937d6846b7517b436628c13, type: 3}
+  - {fileID: 21300000, guid: 9a3976ab914747a4d8f60853738e5268, type: 3}
+  - {fileID: 21300000, guid: 6e7140ebc0469584ba73f20a011dcfcf, type: 3}
+  - {fileID: 21300000, guid: 1a99dbfb050b7cc4580b323eafe88a72, type: 3}
+  - {fileID: 21300000, guid: 5f97a86c82aee944caf60353e11cc969, type: 3}
+  - {fileID: 21300000, guid: d41d5a7cb9ea0034f807895cdbce84d7, type: 3}
+  - {fileID: 21300000, guid: c0b15e6dc753afb4fa03a57b2c964599, type: 3}
+  - {fileID: 21300000, guid: 4f88df6db2347f84a9198796ccb23641, type: 3}
+  - {fileID: 21300000, guid: fdfe85cdeecf3a641895bec195aeb22d, type: 3}
+  - {fileID: 21300000, guid: 1a5c42ed991601f4e9315b264eee4f56, type: 3}
+  - {fileID: 21300000, guid: 86b3ceed0137cf24ab43ee4c9d6747a6, type: 3}
+  - {fileID: 21300000, guid: cce0e0fd874d3064dad3b73e6a961678, type: 3}
+  - {fileID: 21300000, guid: d69bea3e0a64ade48a187c008def8aaa, type: 3}
+  - {fileID: 21300000, guid: a5b49e6e466bffc4f8b0d0dad0f2f352, type: 3}
+  - {fileID: 21300000, guid: e07a627e2283251418da784a135c9c9d, type: 3}
+  - {fileID: 21300000, guid: aa6fa9ee332729c45999a5b252a3ee11, type: 3}
+  - {fileID: 21300000, guid: 8d55a8fe292f9334485ef5dbce03b51f, type: 3}
+  - {fileID: 21300000, guid: d23afe6f2db16c048a16e22bd27a17a1, type: 3}
+  - {fileID: 21300000, guid: ddc4678fe8af50548b070563d3bcf53b, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - build_button_stoke
+  - left_butten_big
+  - Gray_scarf_black_cat
+  - greenhouse
+  - shop_button
+  - X
+  - skill_option_bubble
+  - right_butten_big
+  - Basics_cat
+  - skill_7
+  - note_button
+  - popup_title_background
+  - ice_icon
+  - cat_tower
+  - chaek_button
+  - cat_gacha_off
+  - X 1
+  - build_butten_back
+  - sang_plat
+  - center_left_butten
+  - Beanie_cat
+  - upjuuk_bar 1
+  - star
+  - skill_2
+  - camera_button
+  - coin
+  - fishing_hole
+  - research_instiute
+  - coin_big
+  - butten
+  - enargy_icon
+  - power_station
+  - skill_5
+  - clothes_workshop
+  - Red_scarf_cat
+  - coin_icon
+  - stove
+  - cat_button
+  - backgorund_bar
+  - cat_icon
+  - upjuk_button
+  - enarge_big
+  - firewood_chopping
+  - right_butten
+  - skill_8
+  - glow_circle
+  - cat_up_button
+  - skill_6
+  - arrow
+  - skill_back
+  - hot_spring
+  - Red_frill_cat
+  - hot_air_ballon_plat
+  - bil_stack
+  - hot_air_balloon
+  - coin_big_stroke
+  - Pink_beret_cat
+  - popup_up
+  - option_plat
+  - skill_4
+  - popup_background
+  - Village_hall
+  - cat_plat
+  - option_button
+  - build_button
+  - cauldron
+  - campfore
+  - center_right_butten
+  - left_butten
+  - skill_1
+  - box
+  - skill_3
+  - title_back
+  - scratch
+  - mine
+  - cat_gacha_on
+  - glow_point
+  m_RenderDataMap: {}
+  m_Tag: New Sprite Atlas
+  m_IsVariant: 0
