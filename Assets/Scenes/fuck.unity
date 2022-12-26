@@ -15207,23 +15207,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cdeaa7162d840d4ab26e73566035b2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Desription:
-  - "\uC774 \uACE0\uC591\uC774\uB97C \uC5BC\uC74C \uB09A\uC2DC\uD130\uC5D0 \uBC30\uCE58\uD588\uC744
-    \uB54C \uC0DD\uC0B0 \uC2DC\uAC04\uC774 @% \uB2E8\uCD95\uB41C\uB2E4."
-  - "\uC774 \uACE0\uC591\uC774\uB97C \uAD11\uC0B0\uC5D0 \uBC30\uCE58\uD588\uC744
-    \uB54C \uC0DD\uC0B0 \uC2DC\uAC04\uC774 @% \uB2E8\uCD95\uB41C\uB2E4."
-  - "\uC774 \uACE0\uC591\uC774\uB97C \uC7A5\uC791 \uD328\uAE30\uC5D0 \uBC30\uCE58\uD588\uC744
-    \uB54C \uC0DD\uC0B0 \uC2DC\uAC04\uC774 @% \uB2E8\uCD95\uB41C\uB2E4."
-  - "\uC774 \uACE0\uC591\uC774\uB97C \uC628\uC2E4 \uB18D\uC0AC\uC5D0 \uBC30\uCE58\uD588\uC744
-    \uB54C \uC0DD\uC0B0 \uC2DC\uAC04\uC774 @% \uB2E8\uCD95\uB41C\uB2E4."
-  - "\uC774 \uACE0\uC591\uC774\uB97C \uD654\uB85C\uC5D0 \uBC30\uCE58\uD588\uC744
-    \uB54C \uC0DD\uC0B0 \uC2DC\uAC04\uC774 @% \uB2E8\uCD95\uB41C\uB2E4."
-  - "\uC774 \uACE0\uC591\uC774\uB97C \uACA8\uC6B8\uC637 \uACF5\uBC29\uC5D0 \uBC30\uCE58\uD588\uC744
-    \uB54C \uC0DD\uC0B0 \uC2DC\uAC04\uC774 @% \uB2E8\uCD95\uB41C\uB2E4."
-  - "\uC774 \uACE0\uC591\uC774\uB97C \uC1A5\uAC00\uB9C8\uC5D0 \uBC30\uCE58\uD588\uC744
-    \uB54C \uC0DD\uC0B0 \uC2DC\uAC04\uC774 @% \uB2E8\uCD95\uB41C\uB2E4."
-  - "\uC774 \uACE0\uC591\uC774\uB97C \uBC1C\uC804\uC18C\uC5D0 \uBC30\uCE58\uD588\uC744
-    \uB54C \uC0DD\uC0B0 \uC2DC\uAC04\uC774 @% \uB2E8\uCD95\uB41C\uB2E4."
   text: {fileID: 0}
 --- !u!114 &411804306
 MonoBehaviour:
@@ -48942,6 +48925,67 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1017423227}
   m_CullTransparentMesh: 1
+--- !u!1001 &1017688276
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1924830555882458984, guid: ec5b0a85b9bc18d40b8ce6e2d429d0c4, type: 3}
+      propertyPath: m_Name
+      value: Cat
+      objectReference: {fileID: 0}
+    - target: {fileID: 1924830555882458986, guid: ec5b0a85b9bc18d40b8ce6e2d429d0c4, type: 3}
+      propertyPath: m_RootOrder
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 1924830555882458986, guid: ec5b0a85b9bc18d40b8ce6e2d429d0c4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.314
+      objectReference: {fileID: 0}
+    - target: {fileID: 1924830555882458986, guid: ec5b0a85b9bc18d40b8ce6e2d429d0c4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.505
+      objectReference: {fileID: 0}
+    - target: {fileID: 1924830555882458986, guid: ec5b0a85b9bc18d40b8ce6e2d429d0c4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1924830555882458986, guid: ec5b0a85b9bc18d40b8ce6e2d429d0c4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1924830555882458986, guid: ec5b0a85b9bc18d40b8ce6e2d429d0c4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1924830555882458986, guid: ec5b0a85b9bc18d40b8ce6e2d429d0c4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1924830555882458986, guid: ec5b0a85b9bc18d40b8ce6e2d429d0c4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1924830555882458986, guid: ec5b0a85b9bc18d40b8ce6e2d429d0c4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1924830555882458986, guid: ec5b0a85b9bc18d40b8ce6e2d429d0c4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1924830555882458986, guid: ec5b0a85b9bc18d40b8ce6e2d429d0c4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1924830555882458989, guid: ec5b0a85b9bc18d40b8ce6e2d429d0c4, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: bb745722562dee340a9ba1315963f3b7, type: 2}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ec5b0a85b9bc18d40b8ce6e2d429d0c4, type: 3}
 --- !u!1 &1019079412
 GameObject:
   m_ObjectHideFlags: 0
@@ -104777,6 +104821,9 @@ MonoBehaviour:
   catSprite: {fileID: 771206486}
   skillIcon: {fileID: 1112305358}
   catName: {fileID: 1641298807}
+  skillText: {fileID: 0}
+  skillInfoBallon: {fileID: 0}
+  catInviteDescriptionScripts: {fileID: 0}
   CatShadow: {fileID: 1228296283}
   whiteScreen: {fileID: 1204654006}
   resultUI: {fileID: 1518069287}

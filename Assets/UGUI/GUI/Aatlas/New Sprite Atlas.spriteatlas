@@ -83,6 +83,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 970c40c51cf59e44794c295529968963, type: 3}
   - {fileID: 21300000, guid: 37cb86e57e212624dae73e9f91bf4915, type: 3}
   - {fileID: 21300000, guid: efecd936c4310ac40ad3dc76841f8bbb, type: 3}
+  - {fileID: 21300000, guid: 3fa2da369a2586748b05575b0f43a810, type: 3}
   - {fileID: 21300000, guid: bd433a5607d832542960dc8b9219f39a, type: 3}
   - {fileID: 21300000, guid: 6d838a76a0b81204aaa0b6dfbe5179e5, type: 3}
   - {fileID: 21300000, guid: 3736c896af6e70047ad25f18e1f6f70c, type: 3}
@@ -94,10 +95,12 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 28f07b0717673714e9b5475925dc36ed, type: 3}
   - {fileID: 21300000, guid: f7a4ad077b3704c4b9eceb7e09f63b36, type: 3}
   - {fileID: 21300000, guid: 28871037f408a8d40a0adfdae901012f, type: 3}
+  - {fileID: 21300000, guid: 1dffcb77c4a96674ebaf231fbe636702, type: 3}
   - {fileID: 21300000, guid: e5c4398766a31a74d90529d8fd3db8b3, type: 3}
   - {fileID: 21300000, guid: 8468b31828b306443a21cfd05f07d63e, type: 3}
   - {fileID: 21300000, guid: fc5ea0483fd99d2419eda72cd2a5c0ce, type: 3}
   - {fileID: 21300000, guid: ce5d4bc8ba2ba4d4e94443109b102f20, type: 3}
+  - {fileID: 21300000, guid: 8da0c7d8e75d7e94bbb44304ea481781, type: 3}
   - {fileID: 21300000, guid: 488332190c50d6b4eaebe5877756452a, type: 3}
   - {fileID: 21300000, guid: e4b76b7975f8b224694ddc91e4e607d3, type: 3}
   - {fileID: 21300000, guid: 3f2f9ca96bf92154bac9360a0596765b, type: 3}
@@ -161,6 +164,7 @@ SpriteAtlas:
   - power_station
   - skill_5
   - clothes_workshop
+  - camera_shot
   - Red_scarf_cat
   - coin_icon
   - stove
@@ -172,10 +176,12 @@ SpriteAtlas:
   - firewood_chopping
   - right_butten
   - skill_8
+  - camera_money
   - glow_circle
   - cat_up_button
   - skill_6
   - arrow
+  - snow_icon
   - skill_back
   - hot_spring
   - Red_frill_cat
