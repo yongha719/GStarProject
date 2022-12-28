@@ -56,7 +56,7 @@ public class GridBuildingSystem : Singleton<GridBuildingSystem>
 
         ViliageAreaSize = new Vector2(4, 4);
 
-        MainCanvas = GameObject.FindGameObjectWithTag("MainCanvas");
+        MainCanvas = GameObject.Find("MainUICanvas");
     }
 
     void Start()

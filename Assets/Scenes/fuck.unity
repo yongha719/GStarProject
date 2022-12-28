@@ -103854,7 +103854,7 @@ MonoBehaviour:
   TempTilemap: {fileID: 1158421234}
   BuildingTilemap: {fileID: 1480853136}
   TreeTilemap: {fileID: 2131355305}
-  MainCanvas: {fileID: 0}
+  MainCanvas: {fileID: 1558294059}
   CurBuildingName: 
   CurBuilding: {fileID: 0}
   BuildingInstallationEffect: {fileID: 6392570179548458414, guid: a5cc52e46ae4dac4cbbba547dae66005, type: 3}
