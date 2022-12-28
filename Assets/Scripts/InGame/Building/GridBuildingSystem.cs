@@ -55,6 +55,8 @@ public class GridBuildingSystem : Singleton<GridBuildingSystem>
         tileBases.Add(TileType.Red, Resources.Load<TileBase>(path + nameof(TileType.Red)));
 
         ViliageAreaSize = new Vector2(4, 4);
+
+        MainCanvas = GameObject.FindGameObjectWithTag("MainCanvas");
     }
 
     void Start()
