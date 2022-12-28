@@ -13,14 +13,24 @@ public class CatInviteDescription : MonoBehaviour
     private Button onOffBtn;
     private Image img;
     private Vector2 originalImgSize;
+
+    private bool isOn = false;
     private void Start()
     {
         img = GetComponent<Image>();
-        originalImgSize = img.rectTransform.sizeDelta;
+        originalImgSize = img.rectTransform.localScale;
+        img.rectTransform.localScale = Vector2.zero;
+
+        onOffBtn.onClick.AddListener(() => TextBallonActive());
     }
-    public void TextBallonActive(bool inOn)
+    private void OnDestroy()
     {
-        img.rectTransform.DOSizeDelta(inOn ? originalImgSize : Vector2.zero, 0.3f);
+        onOffBtn.onClick.RemoveAllListeners();
+    }
+    public void TextBallonActive()
+    {
+        isOn = !isOn;
+        img.rectTransform.DOScale(isOn ? originalImgSize : Vector2.zero, 0.3f);
     }
 
     public void SkillInfoApply(string[] desc, int index)
