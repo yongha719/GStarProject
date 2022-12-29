@@ -15207,8 +15207,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cdeaa7162d840d4ab26e73566035b2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 0}
-  onOffBtn: {fileID: 0}
+  text: {fileID: 1812686611}
+  onOffBtn: {fileID: 1112305356}
 --- !u!114 &411804306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52361,7 +52361,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1112305354}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -52393,25 +52393,9 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 1112305358}
-  toggleTransition: 1
-  graphic: {fileID: 0}
-  m_Group: {fileID: 0}
-  onValueChanged:
+  m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  m_IsOn: 0
+      m_Calls: []
 --- !u!222 &1112305357
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -54356,7 +54340,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1180729768
 RectTransform:
   m_ObjectHideFlags: 0
@@ -100996,7 +100980,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1518069288
 RectTransform:
   m_ObjectHideFlags: 0
@@ -101258,7 +101242,7 @@ MonoBehaviour:
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 5
+    m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
@@ -101279,6 +101263,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1663697969}
         m_TargetAssemblyTypeName: CatInvite, Assembly-CSharp
         m_MethodName: ScreenOn
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1663697968}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -101910,10 +101906,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82d85b886eef6784f950e28c8d54ec7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  catText: {fileID: 0}
-  coinText: {fileID: 0}
-  energyText: {fileID: 0}
-  iceText: {fileID: 0}
+  catText: {fileID: 1038075896}
+  coinText: {fileID: 717005512}
+  energyText: {fileID: 10854782}
+  iceText: {fileID: 762324118}
   title: {fileID: 2143843596}
   pressToStartText: {fileID: 132165155}
 --- !u!114 &1558294061
@@ -104798,7 +104794,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1663697969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104822,8 +104818,8 @@ MonoBehaviour:
   catSprite: {fileID: 771206486}
   skillIcon: {fileID: 1112305358}
   catName: {fileID: 1641298807}
-  skillInfoBallon: {fileID: 0}
-  catInviteDescriptionScripts: {fileID: 0}
+  skillInfoBallon: {fileID: 411804306}
+  catInviteDescriptionScripts: {fileID: 411804305}
   CatShadow: {fileID: 1228296283}
   whiteScreen: {fileID: 1204654006}
   resultUI: {fileID: 1518069287}
