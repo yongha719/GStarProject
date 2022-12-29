@@ -135,7 +135,7 @@ public class Cat : MonoBehaviour
 
         SpriteRenderer = GetComponent<SpriteRenderer>();
         Animator = GetComponent<Animator>();
-
+        
         SpriteRenderer.sprite = catData.CatSprite;
 
         canMoveArea = (int)GridBuildingSystem.ViliageAreaSize.x;
