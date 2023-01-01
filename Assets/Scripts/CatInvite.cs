@@ -33,9 +33,9 @@ public class CatInvite : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI catName;
     [SerializeField]
-    private TextMeshProUGUI skillText;
-    [SerializeField]
     private Image skillInfoBallon;
+    [SerializeField]
+    private CatInviteDescription catInviteDescriptionScripts;
 
     public static AudioClip nowBgm;
     [Header("Animation Effect")]
@@ -51,7 +51,7 @@ public class CatInvite : MonoBehaviour
     [SerializeField]
     private GameObject setCatNameObj;
 
-    private CatManager CatManager;
+    private CatManager mCatManager;
 
     private void OnEnable()
     {
@@ -64,12 +64,13 @@ public class CatInvite : MonoBehaviour
         abiltyInfos = Resources.LoadAll<AbiltyScriptable>("AbiltyInfo/");
         mySelfImage = transform.parent.GetComponent<Image>();
 
-        CatManager = CatManager.Instance;
+        mCatManager = CatManager.Instance;
     }
 
     private void CostTextAccept()
     {
-        needGoldValue = CatManager.CatList.Count * 500;
+        if (mCatManager.CatList != null) needGoldValue = mCatManager.CatList.Count * 500;
+        else needGoldValue = 0;
         needGoldText.text = needGoldValue.returnStr();
     }
 
@@ -118,9 +119,9 @@ public class CatInvite : MonoBehaviour
 
         catData.GoldAbilityType = abilty.type;
         catData.AbilitySprite = abilty.icon;
-        catData.CatSkinType = (CatSkinType)Random.Range(0, CatManager.catInfos.Length);
+        catData.CatSkinType = (CatSkinType)Random.Range(0, mCatManager.catInfos.Length);
 
-        SetCatInfo(catData, CatManager.GetCatInfo((int)catData.CatSkinType));
+        SetCatInfo(catData, mCatManager.GetCatInfo((int)catData.CatSkinType));
 
         int value = Random.Range(0, 20);
         if (value < 3)
@@ -132,7 +133,7 @@ public class CatInvite : MonoBehaviour
 
         string[] abiltyInfoTexts = abilty.abiltyDesc.Split('@');
 
-        skillText.text = $"{abiltyInfoTexts[0]}{catData.AbilityRating * 5}{abiltyInfoTexts[1]}";
+        catInviteDescriptionScripts.SkillInfoApply(abiltyInfoTexts, catData.AbilityRating);
 
         return catData;
     }
@@ -184,6 +185,7 @@ public class CatInvite : MonoBehaviour
             transform.DOScale(0, 0.3f).OnComplete(() => mySelfImage.DOFade(0f, 0));
         }
     }
+
     private AbiltyScriptable GetAbiltyScriptable(GoldAbilityType type) => abiltyInfos.ToList().Find((x) => x.type == type);
 
 }

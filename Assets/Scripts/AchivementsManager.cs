@@ -55,7 +55,7 @@ public class BaseAchivement
         EAchivementsType.CatInvite => 3 + beforeClearCount * 3,
         EAchivementsType.TownUpgrade => 1 + beforeClearCount,
         EAchivementsType.BuildingPlace => 2 + beforeClearCount * 2,
-        _ => throw new Exception("붸")
+        _ => throw new Exception("블리얏")
     };
 
 
@@ -131,6 +131,7 @@ public class AchivementsManager : Singleton<AchivementsManager>
         {
             int clearCount = achiveMents.baseAchivements[index].beforeClearCount;
             int processingValue = achiveMents.baseAchivements[index]._index;
+
             achiveMents.baseAchivements[index] = new BaseAchivement() { type = (EAchivementsType)index };
             achiveMents.baseAchivements[index].beforeClearCount = clearCount + 1;
             achiveMents.baseAchivements[index]._index = processingValue;
