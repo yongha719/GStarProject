@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/UnityNativeGallery-master.meta
-guid: 0f92ac32404644640a6a17213bf65fe0
-folderAsset: yes
+<<<<<<<< HEAD:Assets/UnityNativeGallery-master/LICENSE.txt.meta
+guid: cdacafaa3be33f3419753d3d2e4c1cbe
+TextScriptImporter:
 ========
 guid: 6879f3c04406aca428d1d5c80ab53d30
->>>>>>>> 2f113ce9 ([용하] 히하ㅣ):Assets/Plugins/Android/gradleTemplate.properties.meta
 DefaultImporter:
+>>>>>>>> 2f113ce9 ([용하] 히하ㅣ):Assets/Plugins/Android/gradleTemplate.properties.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

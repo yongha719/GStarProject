@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/UnityNativeGallery-master/Plugins/NativeGallery/Android.meta
 guid: 452e2541cb1810f4b8a9e51e2e8cd5e0
+========
+guid: a109072f9d0b6454d9f7efefebe8656f
+>>>>>>>> 2f113ce9 ([용하] 히하ㅣ):Assets/Plugins/Android.meta
 folderAsset: yes
 timeCreated: 1498722617
 licenseType: Pro
