@@ -1,13 +1,12 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/UnityNativeGallery-master/Plugins/NativeGallery/Android.meta
-guid: 452e2541cb1810f4b8a9e51e2e8cd5e0
+<<<<<<<< HEAD:Assets/UnityNativeGallery-master/Plugins.meta
+guid: 0ac5665ccd0528b45a13ea71d631dc4b
 ========
 guid: a109072f9d0b6454d9f7efefebe8656f
 >>>>>>>> 2f113ce9 ([용하] 히하ㅣ):Assets/Plugins/Android.meta
 folderAsset: yes
-timeCreated: 1498722617
-licenseType: Pro
 DefaultImporter:
+  externalObjects: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
