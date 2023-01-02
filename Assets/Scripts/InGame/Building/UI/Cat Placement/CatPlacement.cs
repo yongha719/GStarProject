@@ -35,9 +35,9 @@ public class CatPlacement : MonoBehaviour
 
     private const string WORKING_TEXT = "(이)가 일하는 중.";
 
-    ProductionBuilding productionBuilding;
-    BuildingType BuildingType;
-    List<CatAbilityUI> catAbilityUIs = new List<CatAbilityUI>();
+    private ProductionBuilding productionBuilding;
+    private BuildingType BuildingType;
+    private List<CatAbilityUI> catAbilityUIs = new List<CatAbilityUI>();
 
     private CatManager CatManager;
     private GridBuildingSystem GridBuildingSystem;
@@ -65,7 +65,6 @@ public class CatPlacement : MonoBehaviour
         if (catData == null)
         {
             WorkText.gameObject.SetActive(false);
-            //BuildingImage.sprite = building.Spri;
             SetCatList();
 
             return;
@@ -81,12 +80,9 @@ public class CatPlacement : MonoBehaviour
     private bool CheckCreateWorkingCat<T>(in ProductionBuilding productionbuilding)
         where T : ProductionBuilding
     {
-        var building = productionbuilding as T;
+        T building = productionbuilding as T;
 
         if (building == null) return false;
-
-        // TODO: ProductionBuilding 클래스를 만들어서 Gold~, Energy~ 클래스의 부모로 만들고
-        // 같이 사용하는 변수들을 ProductionBuilding로 옮기기 (코드 중복 줄이기)
 
         if (building.WorkingCats == null)
         {
@@ -132,9 +128,9 @@ public class CatPlacement : MonoBehaviour
 
         CurSelectedCat = workingCats.CatDatas[0];
 
-        for (int j = 0; j < workingCats.CatDatas.Count; j++)
+        for (int i = 0; i < workingCats.CatDatas.Count; i++)
         {
-            if (workingCats.CatDatas[j] == catDatas[index])
+            if (workingCats.CatDatas[i] == catDatas[index])
             {
                 return true;
             }
