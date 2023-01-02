@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.EventSystems;
 
 public enum TileType
 {
@@ -57,10 +58,6 @@ public class GridBuildingSystem : Singleton<GridBuildingSystem>
         ViliageAreaSize = new Vector2(4, 4);
 
         MainCanvas = GameObject.Find("MainUICanvas");
-    }
-
-    void Start()
-    {
     }
 
     // 마을회관 체크
@@ -148,6 +145,7 @@ public class GridBuildingSystem : Singleton<GridBuildingSystem>
     {
         BoundsInt area = TempTilemap.cellBounds;
         TileBase[] toClear = new TileBase[area.size.x * area.size.y * area.size.z];
+
         FillTiles(toClear, TileType.Empty);
         TempTilemap.SetTilesBlock(area, toClear);
     }
@@ -283,18 +281,20 @@ public class GridBuildingSystem : Singleton<GridBuildingSystem>
 
     private bool IsPointerOverGameObject()
     {
-        #if UNITY_EDITOR
-                // Check mouse
-                if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
-                {
-                    return true;
-                }
-        #elif UNITY_ANDROID
+#if UNITY_EDITOR
+        // Check mouse
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return true;
+        }
+#elif UNITY_ANDROID
 
         // Check touches
         for (int i = 0; i < Input.touchCount; i++)
         {
+            // touches 프로퍼티도 결국엔 GetTouch 반복문임
             var touch = Input.GetTouch(i);
+
             if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
             {
                 return true;
