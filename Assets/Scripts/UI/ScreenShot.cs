@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class ScreenShot : MonoBehaviour
 {
+    private string m_FileName = "WinterCat_ScreenShot";
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.W))
@@ -15,9 +16,9 @@ public class ScreenShot : MonoBehaviour
     }
     public void PlayScreenShot()
     {
-        StartCoroutine(CaptureScreenForMobile());
+        StartCoroutine(CaptureScreenForMobile(m_FileName));
     }
-    private IEnumerator CaptureScreenForMobile(string fileName = "WinterCat_ScreenShot")
+    private IEnumerator CaptureScreenForMobile(string fileName)
     {
         yield return new WaitForEndOfFrame();
         Texture2D texture = ScreenCapture.CaptureScreenshotAsTexture();

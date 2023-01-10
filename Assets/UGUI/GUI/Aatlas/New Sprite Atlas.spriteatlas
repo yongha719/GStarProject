@@ -56,6 +56,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 7670e7c0b05a61f4289b7daa8191debf, type: 3}
   - {fileID: 21300000, guid: 23dcb8c0c45349d438412356da3e76c2, type: 3}
   - {fileID: 21300000, guid: 709f32d008547f145971aabe7ddfdf82, type: 3}
+  - {fileID: 21300000, guid: 26e8cbe055b0b464988b9875df38522b, type: 3}
   - {fileID: 21300000, guid: 20e1e0f00eb37e7438ded7a58e5b176c, type: 3}
   - {fileID: 21300000, guid: a73bf301ae6336249a17855a75ae8215, type: 3}
   - {fileID: 21300000, guid: b95197115f45e404a8a02eb7554cef81, type: 3}
@@ -113,6 +114,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 7975ff4ba937d6846b7517b436628c13, type: 3}
   - {fileID: 21300000, guid: 9a3976ab914747a4d8f60853738e5268, type: 3}
   - {fileID: 21300000, guid: 6e7140ebc0469584ba73f20a011dcfcf, type: 3}
+  - {fileID: 21300000, guid: daabe1eb430b55e4ebe6ea346ad6ca8c, type: 3}
   - {fileID: 21300000, guid: 1a99dbfb050b7cc4580b323eafe88a72, type: 3}
   - {fileID: 21300000, guid: 5f97a86c82aee944caf60353e11cc969, type: 3}
   - {fileID: 21300000, guid: d41d5a7cb9ea0034f807895cdbce84d7, type: 3}
@@ -122,6 +124,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 1a5c42ed991601f4e9315b264eee4f56, type: 3}
   - {fileID: 21300000, guid: 86b3ceed0137cf24ab43ee4c9d6747a6, type: 3}
   - {fileID: 21300000, guid: cce0e0fd874d3064dad3b73e6a961678, type: 3}
+  - {fileID: 21300000, guid: c907590e00cd5ff40b80afe8c3afb47f, type: 3}
   - {fileID: 21300000, guid: d69bea3e0a64ade48a187c008def8aaa, type: 3}
   - {fileID: 21300000, guid: a5b49e6e466bffc4f8b0d0dad0f2f352, type: 3}
   - {fileID: 21300000, guid: e07a627e2283251418da784a135c9c9d, type: 3}
@@ -137,6 +140,7 @@ SpriteAtlas:
   - shop_button
   - X
   - skill_option_bubble
+  - exit_icon
   - right_butten_big
   - Basics_cat
   - skill_7
@@ -194,6 +198,7 @@ SpriteAtlas:
   - option_plat
   - skill_4
   - popup_background
+  - yes_icon
   - Village_hall
   - cat_plat
   - option_button
@@ -203,6 +208,7 @@ SpriteAtlas:
   - center_right_butten
   - left_butten
   - skill_1
+  - turn_icon
   - box
   - skill_3
   - title_back

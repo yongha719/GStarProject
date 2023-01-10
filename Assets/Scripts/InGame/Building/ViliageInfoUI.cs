@@ -84,10 +84,4 @@ public class ViliageInfoUI : MonoBehaviour
             }
         }
     }
-
-
-    void Update()
-    {
-
-    }
 }

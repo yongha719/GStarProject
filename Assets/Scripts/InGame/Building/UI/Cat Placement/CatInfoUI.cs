@@ -19,17 +19,19 @@ public class CatInfoUI : MonoBehaviour
         CatImage.sprite = cat.catData.CatSprite;
         CatNameText.text = cat.catData.Name;
 
-        if (cat.CatState == CatState.NotProducting || cat.CatState == CatState.Idle)
+        switch (cat.CatState)
         {
-            CatStateText.SetText();
-        }
-        else if (cat.CatState == CatState.Working)
-        {
-            CatStateText.SetText(cat.BuildingName + WORKING_TEXT);
-        }
-        else if(cat.CatState == CatState.Resting)
-        {
-            CatStateText.SetText(cat.BuildingName + RESTING_TEXT);
+            case CatState.NotProducting:
+                CatStateText.SetText();
+                break;
+            case CatState.Working:
+                CatStateText.SetText(cat.BuildingName + WORKING_TEXT);
+                break;
+            case CatState.Resting:
+                CatStateText.SetText(cat.BuildingName + RESTING_TEXT);
+                break;
+            default:
+                break;
         }
 
         ExportButton?.onClick.AddListener(() =>
