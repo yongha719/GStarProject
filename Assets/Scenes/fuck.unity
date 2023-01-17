@@ -7055,7 +7055,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 310693806}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -13012,8 +13012,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 295d71f17b9545d48bb95686f58adfcb, type: 2}
-  m_sharedMaterial: {fileID: 8160744853311134589, guid: 295d71f17b9545d48bb95686f58adfcb, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a4c79f5e33771464e8585eaea21e6652, type: 2}
+  m_sharedMaterial: {fileID: -1961640550000997309, guid: a4c79f5e33771464e8585eaea21e6652, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -41011,6 +41011,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53cd3f50f38cc4c48a9818790214d487, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvas: {fileID: 1326348602}
+  buildingImage: {fileID: 175573325}
+  curLevelText: {fileID: 601077355}
+  curLevelUpCostText: {fileID: 310693807}
+  nextLevelText: {fileID: 528881133}
+  nextLevelUpCostText: {fileID: 1624518003}
+  levelUpButton: {fileID: 1146173903}
+  levelUpCostText: {fileID: 219906733}
+  LevelUpEffect: {fileID: 0}
+  WoringcatParent: {fileID: 446041559}
+  GoldBuildingWorkingCats: []
+  EnergyBuildingWorkingCats: []
+  notEnoughGoldUI: {fileID: 0}
 --- !u!222 &890503096
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -50887,6 +50900,14 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5270473920036873565, guid: 23dd4255a9b7c6e41aa1fbf541c25e4a, type: 3}
+      propertyPath: GoShopButton
+      value: 
+      objectReference: {fileID: 1953619945}
+    - target: {fileID: 5270473920036873565, guid: 23dd4255a9b7c6e41aa1fbf541c25e4a, type: 3}
+      propertyPath: notEnoughGoldUI
+      value: 
+      objectReference: {fileID: 1098277383}
     - target: {fileID: 5270473920896414245, guid: 23dd4255a9b7c6e41aa1fbf541c25e4a, type: 3}
       propertyPath: m_SizeDelta.x
       value: 430
@@ -60103,8 +60124,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b469ca68fb87284db30f0d28996b00b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NotEnoughGoldUI: {fileID: 1433805656}
-  GoShopButton: {fileID: 1105128123}
+  notEnoughGoldUI: {fileID: 0}
+  GoShopButton: {fileID: 0}
 --- !u!114 &1433805659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101459,7 +101480,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1624518002}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -110142,6 +110163,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1952981062}
   m_CullTransparentMesh: 1
+--- !u!114 &1953619945 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5270473919530492776, guid: 23dd4255a9b7c6e41aa1fbf541c25e4a, type: 3}
+  m_PrefabInstance: {fileID: 1098277379}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1954932410
 GameObject:
   m_ObjectHideFlags: 0

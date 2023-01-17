@@ -107,7 +107,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 08c45546fe8548849b06d7e053e98a6a, type: 3}
   - {fileID: 21300000, guid: 248f2286e48f8fa4db9b40ee7437ad7b, type: 3}
   - {fileID: 21300000, guid: 8dc7cb964423c864b9deccc118e76170, type: 3}
-  - {fileID: 21300000, guid: b3490f672a536b649aa78ab06f3bd4c7, type: 3}
   - {fileID: 21300000, guid: 25e965e7db8f8124dbf87828538dc56c, type: 3}
   - {fileID: 21300000, guid: 93594008658c51246b6b9e70cf541f29, type: 3}
   - {fileID: 21300000, guid: 26c7f818a5e07a648a9f295a36aa8650, type: 3}
@@ -148,7 +147,6 @@ SpriteAtlas:
   - Spatula_basic_cat_38
   - Spatula_basic_cat_28
   - Spatula_basic_cat_07
-  - Spatula_basic_cat_36
   - Spatula_basic_cat_37
   - Spatula_basic_cat_12
   - Spatula_basic_cat_18

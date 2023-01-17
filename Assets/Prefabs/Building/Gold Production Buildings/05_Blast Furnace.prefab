@@ -675,19 +675,19 @@ MonoBehaviour:
   RotateButton: {fileID: 7496639491388935465}
   CatPlacement: {fileID: 0}
   BuildingInfomation: {fileID: 0}
-  buildingType: 4
-  CollectMoneyButton: {fileID: 5444481926985826226}
-  DefaultGold: 20a
-  DefaultGoldChargingTime: 25
+  CollectResourceButton: {fileID: 5444481926985826226}
+  DefaultResource: 
+  DefaultResourceChargingTime: 0
   IncreasePerLevelUp: 15
   DefaultLevelUpCost: 15b
-  ConstructionGoldText: {fileID: 3977098050459093906}
-  GoldAcquisitionEffect: {fileID: 4651143797973280713, guid: d1c3aa70df08bb943a114b0228f21908, type: 3}
+  ConstructionResourceText: {fileID: 3977098050459093906}
+  ResourceAcquisitionEffect: {fileID: 4651143797973280713, guid: d1c3aa70df08bb943a114b0228f21908, type: 3}
   BuildingUI: {fileID: 8976823664099162522}
-  CatPlacementButton: {fileID: 194358223905090119}
   BuildingInfomationButton: {fileID: 7969749181567974770}
   PlacedInBuildingCats: []
   WorkingCats: {fileID: 0}
+  buildingType: 4
+  CatPlacementButton: {fileID: 194358223905090119}
 --- !u!61 &-5821943893385752453
 BoxCollider2D:
   m_ObjectHideFlags: 0
