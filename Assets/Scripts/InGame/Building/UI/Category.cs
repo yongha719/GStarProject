@@ -32,12 +32,10 @@ public class Category : MonoBehaviour
     protected virtual void Select()
     {
         image.sprite = OnSprite;
-
     }
 
     public virtual void Unselect()
     {
         image.sprite = OffSprite;
-
     }
 }

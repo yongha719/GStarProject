@@ -31,15 +31,11 @@ public class BuildingCategory : Category
         s_CurCategoryBuildings.SetActive(false);
         CurCategoryObject.SetActive(true);
         s_CurCategoryBuildings = CurCategoryObject;
-
-        rect.DOAnchorPosY(-100f, 0.3f);
     }
 
     public override void Unselect()
     {
         base.Unselect();         
-
-        rect.DOAnchorPosY(60f, 0.3f);
     }
 
 }

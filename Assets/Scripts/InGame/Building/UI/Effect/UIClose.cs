@@ -8,11 +8,16 @@ using UnityEngine.EventSystems;
 [RequireComponent(typeof(Button))]
 public class UIClose : MonoBehaviour, IPointerDownHandler
 {
-    public UIPopup UIPopup;
+    private UIPopup UIPopup;
+
+    void Awake()
+    {
+        UIPopup = transform.GetChild(0).GetComponent<UIPopup>();
+    }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (gameObject == EventSystem.current.currentSelectedGameObject)
+        if (gameObject.Equals(EventSystem.current.currentSelectedGameObject))
         {
             UIPopup.Disable();
         }
