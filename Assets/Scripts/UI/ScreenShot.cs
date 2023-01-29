@@ -20,6 +20,15 @@ public class ScreenShot : MonoBehaviour
     }
     private IEnumerator CaptureScreenForMobile(string fileName)
     {
+        NativeGallery.Permission permission = NativeGallery.CheckPermission(NativeGallery.PermissionType.Write);
+        if (permission == NativeGallery.Permission.Denied)
+        {
+            if (NativeGallery.CanOpenSettings())
+            {
+                NativeGallery.OpenSettings();
+            }
+        }
+
         yield return new WaitForEndOfFrame();
         Texture2D texture = ScreenCapture.CaptureScreenshotAsTexture();
 
