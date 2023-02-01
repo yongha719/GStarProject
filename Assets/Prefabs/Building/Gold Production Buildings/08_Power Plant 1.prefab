@@ -698,7 +698,7 @@ GameObject:
   - component: {fileID: 2240194185434209514}
   - component: {fileID: 2077103226882709871}
   m_Layer: 0
-  m_Name: Sprite
+  m_Name: Building
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -832,19 +832,19 @@ MonoBehaviour:
   RotateButton: {fileID: 7496639491388935465}
   CatPlacement: {fileID: 0}
   BuildingInfomation: {fileID: 0}
-  buildingType: 7
-  CollectMoneyButton: {fileID: 5444481926985826226}
-  DefaultGold: 2c
-  DefaultGoldChargingTime: 30
+  CollectResourceButton: {fileID: 5444481926985826226}
+  DefaultResource: 
+  DefaultResourceChargingTime: 0
   IncreasePerLevelUp: 20
   DefaultLevelUpCost: 25d
-  ConstructionGoldText: {fileID: 3977098050459093906}
-  GoldAcquisitionEffect: {fileID: 4651143797973280713, guid: d1c3aa70df08bb943a114b0228f21908, type: 3}
+  ConstructionResourceText: {fileID: 3977098050459093906}
+  ResourceAcquisitionEffect: {fileID: 4651143797973280713, guid: d1c3aa70df08bb943a114b0228f21908, type: 3}
   BuildingUI: {fileID: 1888283804898186552}
-  CatPlacementButton: {fileID: 3621117686523416314}
   BuildingInfomationButton: {fileID: 889802787241303494}
   PlacedInBuildingCats: []
   WorkingCats: {fileID: 0}
+  buildingType: 7
+  CatPlacementButton: {fileID: 3621117686523416314}
 --- !u!61 &-2909863669077162326
 BoxCollider2D:
   m_ObjectHideFlags: 0

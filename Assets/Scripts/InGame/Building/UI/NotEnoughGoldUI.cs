@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class NotEnoughGold : MonoBehaviour
+public class NotEnoughGoldUI : MonoBehaviour
 {
-    public GameObject NotEnoughGoldUI;
+    public GameObject notEnoughGoldUI;
     [SerializeField] private Button GoShopButton;
 
 

@@ -3,51 +3,50 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class BuildingInfomation : MonoBehaviour
+public class BuildingInfomationUI : MonoBehaviour
 {
     [SerializeField] private Canvas canvas;
 
     [Header("UI")]
-    [SerializeField] private Image BuildingImage;
-    [SerializeField] private Animator Animator;
-    [SerializeField] private TextMeshProUGUI CurLevelText;
-    [SerializeField] private TextMeshProUGUI CurLevelUpCostText;
-    [SerializeField] private TextMeshProUGUI NextLevelText;
-    [SerializeField] private TextMeshProUGUI NextLevelUpCostText;
-    [SerializeField] private Button LevelUpButton;
-    [SerializeField] private TextMeshProUGUI LevelUpCostText;
-    private RectTransform LevelUpButtonRt;
+    [SerializeField] private Image buildingImage;
+    [SerializeField] private TextMeshProUGUI curLevelText;
+    [SerializeField] private TextMeshProUGUI curLevelUpCostText;
+    [SerializeField] private TextMeshProUGUI nextLevelText;
+    [SerializeField] private TextMeshProUGUI nextLevelUpCostText;
+    [SerializeField] private Button levelUpButton;
+    [SerializeField] private TextMeshProUGUI levelUpCostText;
+    private RectTransform levelUpButtonRt;
 
     [Space]
     [SerializeField] private GameObject LevelUpEffect;
     [SerializeField] private Transform WoringcatParent;
     [SerializeField] List<GameObject> GoldBuildingWorkingCats;
     [SerializeField] List<GameObject> EnergyBuildingWorkingCats;
-    [SerializeField] private NotEnoughGold NotEnoughGold;
+    [SerializeField] private NotEnoughGoldUI notEnoughGoldUI;
 
-    private BuildingType BuildingType;
+    private BuildingType buildingType;
     private GoldProductionBuilding goldBuilding;
     private EnergyProductionBuilding energyBuilding;
 
+
     void Start()
     {
-        LevelUpButtonRt = LevelUpButton.GetComponent<RectTransform>();
-        LevelUpButton.onClick.AddListener(() =>
+        levelUpButtonRt = levelUpButton.GetComponent<RectTransform>();
+        levelUpButton.onClick.AddListener(() =>
         {
             // Canvas Render Mode가 Screen Space - Camera일때 캔버스상의 좌표를 월드 좌표로 얻어내는 공식
-            Vector2 screenPos = RectTransformUtility.WorldToScreenPoint(canvas.worldCamera, LevelUpButtonRt.position);
+            Vector2 screenPos = RectTransformUtility.WorldToScreenPoint(canvas.worldCamera, levelUpButtonRt.position);
             Vector3 result = Vector3.zero;
-            RectTransformUtility.ScreenPointToWorldPointInRectangle(LevelUpButtonRt, screenPos, canvas.worldCamera, out result);
+            RectTransformUtility.ScreenPointToWorldPointInRectangle(levelUpButtonRt, screenPos, canvas.worldCamera, out result);
             Instantiate(LevelUpEffect, result, Quaternion.identity);
 
-            if(BuildingType == BuildingType.Gold)
+            if(buildingType == BuildingType.Gold)
             {
                 goldBuilding.Level++;
             }
-            else if(BuildingType == BuildingType.Energy)
+            else if(buildingType == BuildingType.Energy)
             {
                 energyBuilding.Level++;
-
             }
 
             ValueChange();
@@ -56,29 +55,28 @@ public class BuildingInfomation : MonoBehaviour
 
     void ValueChange()
     {
-        print("Daw");
-        if (BuildingType == BuildingType.Gold)
+        if (buildingType == BuildingType.Gold)
         {
-            CurLevelText.text = $"Lv. {goldBuilding.Level}";
-            CurLevelUpCostText.text = goldBuilding.LevelUpCost(goldBuilding.Level);
-            NextLevelText.text = $"Lv. {goldBuilding.Level + 1}";
-            NextLevelUpCostText.text = goldBuilding.LevelUpCost(goldBuilding.Level + 1);
-            LevelUpCostText.text = goldBuilding.LevelUpCost(goldBuilding.Level);
+            curLevelText.text = $"Lv. {goldBuilding.Level}";
+            curLevelUpCostText.text = goldBuilding.LevelUpCost(goldBuilding.Level);
+            nextLevelText.text = $"Lv. {goldBuilding.Level + 1}";
+            nextLevelUpCostText.text = goldBuilding.LevelUpCost(goldBuilding.Level + 1);
+            levelUpCostText.text = goldBuilding.LevelUpCost(goldBuilding.Level);
         }
-        else if (BuildingType == BuildingType.Energy)
+        else if (buildingType == BuildingType.Energy)
         {
-            CurLevelText.text = $"Lv. {energyBuilding.Level}";
-            CurLevelUpCostText.text = energyBuilding.LevelUpCost(energyBuilding.Level);
-            NextLevelText.text = $"Lv. {energyBuilding.Level + 1}";
-            NextLevelUpCostText.text = energyBuilding.LevelUpCost(energyBuilding.Level + 1);
-            LevelUpCostText.text = goldBuilding.LevelUpCost(energyBuilding.Level);
+            curLevelText.text = $"Lv. {energyBuilding.Level}";
+            curLevelUpCostText.text = energyBuilding.LevelUpCost(energyBuilding.Level);
+            nextLevelText.text = $"Lv. {energyBuilding.Level + 1}";
+            nextLevelUpCostText.text = energyBuilding.LevelUpCost(energyBuilding.Level + 1);
+            levelUpCostText.text = goldBuilding.LevelUpCost(energyBuilding.Level);
         }
     }
 
     public void SetData(BuildingType buildingType, ProductionBuilding building, List<Cat> placedInBuildingCats, Sprite builldingSprite)
     {
-        BuildingType = buildingType;
-        BuildingImage.sprite = builldingSprite;
+        this.buildingType = buildingType;
+        buildingImage.sprite = builldingSprite;
 
         if (building is GoldProductionBuilding)
         {

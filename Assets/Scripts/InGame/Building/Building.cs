@@ -53,7 +53,7 @@ public abstract class Building : MonoBehaviour
     #endregion
 
     [HideInInspector] public CatPlacement CatPlacement;
-    [HideInInspector] public BuildingInfomation BuildingInfomation;
+    [HideInInspector] public BuildingInfomationUI BuildingInfomation;
 
     protected RectTransform CanvasRt;
     protected Camera Camera;

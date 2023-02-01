@@ -14,7 +14,7 @@ public class BuildingInstallationUI : MonoBehaviour
 
     [Header("Warning UIs")]
     [SerializeField] private BuildingInstallWarning Warning;
-    [SerializeField] private NotEnoughGold NotEnoughGold;
+    [SerializeField] private NotEnoughGoldUI NotEnoughGold;
 
 
 
@@ -30,7 +30,7 @@ public class BuildingInstallationUI : MonoBehaviour
 
     [SerializeField] private GameObject BuildingInstallation;
     [SerializeField] private CatPlacement CatPlacement;
-    [SerializeField] private BuildingInfomation BuildingInfomation;
+    [SerializeField] private BuildingInfomationUI BuildingInfomation;
     #endregion
 
     private GridBuildingSystem GridBuildingSystem;
@@ -101,7 +101,7 @@ public class BuildingInstallationUI : MonoBehaviour
                 }
                 else
                 {
-                    NotEnoughGold.NotEnoughGoldUI.SetActive(true);
+                    NotEnoughGold.notEnoughGoldUI.SetActive(true);
                 }
             });
         }
@@ -132,7 +132,7 @@ public class BuildingInstallationUI : MonoBehaviour
                 }
                 else
                 {
-                    NotEnoughGold.NotEnoughGoldUI.SetActive(true);
+                    NotEnoughGold.notEnoughGoldUI.SetActive(true);
                 }
             });
         }

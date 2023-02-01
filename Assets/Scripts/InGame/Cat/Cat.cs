@@ -342,8 +342,6 @@ public class Cat : MonoBehaviour
         if (IsWorking || IsResting)
             return;
 
-        print("1234567890");
-
         if (GoWorking && collision.gameObject.TryGetComponent(out GoldProductionBuilding goldbuilding) && building == goldbuilding)
         {
             print("argiugriubgliubgra;iubg;oubagr;ouageo;ubaegiugraouiagroihwefouigaro;ub");
