@@ -16,6 +16,7 @@ public class EnergyProductionBuilding : ProductionBuilding
     public EnergyBuildingType buildingType;
 
     private const float AUTO_GET_ENERGY_DELAY = 10f;
+
     public override string ConstructionCost
     {
         get

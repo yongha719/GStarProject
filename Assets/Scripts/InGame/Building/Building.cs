@@ -35,7 +35,7 @@ public abstract class Building : MonoBehaviour
     public virtual string ConstructionCost { get; }
 
 
-    [HideInInspector] public BuyBuildingInfo BuildingInfo;
+    [HideInInspector] public BuildingBuyInfoUI BuildingInfo;
 
 
     [Header("Deploying")]
