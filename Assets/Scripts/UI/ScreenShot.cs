@@ -57,10 +57,14 @@ public class ScreenShot : MonoBehaviour
     {
         if (isHudAnimated == false)
         {
-            StartCoroutine(CaptureHudOnCoroutine(3));
+            StartCoroutine(CaptureHudOnOffCoroutine(0.6f, true));
         }
     }
-    private IEnumerator CaptureHudOnCoroutine(float animTime)
+    public void CaputreHudOff()
+    {
+        StartCoroutine(CaptureHudOnOffCoroutine(0.6f, false));
+    }
+    private IEnumerator CaptureHudOnOffCoroutine(float animTime, bool isOn)
     {
         isHudAnimated = true;
         isHudOn = true;
@@ -68,16 +72,26 @@ public class ScreenShot : MonoBehaviour
         float time = 0;
         while (time >= animTime)
         {
-            captureHudUpParent.transform.position =
-                Vector3.Lerp(captureHudUpParent.transform.position, captureHudUpParentPos.position, easeOutQuint(animTime / time));
-            captureHudDownParent.transform.position =
-                Vector3.Lerp(captureHudDownParent.transform.position, captureHudDownParentPos.position, easeOutQuint(animTime / time));
-
+            if (isOn)
+            {
+                captureHudUpParent.transform.position =
+                    Vector3.Lerp(captureHudUpParent.transform.position, captureHudUpParentPos.position, easeOutQuint(animTime / time));
+                captureHudDownParent.transform.position =
+                    Vector3.Lerp(captureHudDownParent.transform.position, captureHudDownParentPos.position, easeOutQuint(animTime / time));
+            }
+            else
+            {
+                captureHudUpParent.transform.position =
+                    Vector3.Lerp(captureHudUpParent.transform.position, captureHudUpParentPos.position, easeOutQuint(animTime / time));
+                captureHudDownParent.transform.position =
+                    Vector3.Lerp(captureHudDownParent.transform.position, captureHudDownParentPos.position, easeOutQuint(animTime / time));
+            }
             time += Time.deltaTime;
             yield return null;
         }
         isHudAnimated = false;
     }
+
 
     private float easeOutQuint(float x)
     {
