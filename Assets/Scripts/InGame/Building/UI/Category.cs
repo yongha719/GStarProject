@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class Category : MonoBehaviour
 {
-    public Sprite OnSprite;
-    public Sprite OffSprite;
+    readonly private Color OnColor = Color.white;
+    readonly private Color OffColor = new Color(232 / 255f, 232 / 255f, 232 / 255f, 255);
 
     [SerializeField] protected GameObject CurCategoryObject;
     [SerializeField] protected bool isSelected;
@@ -31,11 +31,11 @@ public class Category : MonoBehaviour
 
     protected virtual void Select()
     {
-        image.sprite = OnSprite;
+        image.color = OnColor;
     }
 
     public virtual void Unselect()
     {
-        image.sprite = OffSprite;
+        image.color = OffColor;
     }
 }

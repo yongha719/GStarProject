@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class NotEnoughGoldUI : MonoBehaviour
+public class NotEnoughGoldWarningUI : MonoBehaviour
 {
-    public GameObject notEnoughGoldUI;
     [SerializeField] private Button GoShopButton;
 
-
+    // 아직 상점 없어서 구현못함
 }

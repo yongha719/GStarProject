@@ -16,7 +16,7 @@ public class CatPlacementWarning : Warning
 
         NoButton.onClick.AddListener(() =>
         {
-            WarningUI.SetActive(false);
+            WarningUISetActive(false);
         });
     }
 

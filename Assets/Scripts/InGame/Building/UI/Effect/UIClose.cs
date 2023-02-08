@@ -3,23 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using DG.Tweening;
 
-// TODO : 시간나면 Custom Attribute 만들어서 해봐야징 히히
-[RequireComponent(typeof(Button))]
+/// <summary>
+/// UI Background에 있는 스크립트
+/// </summary>
 public class UIClose : MonoBehaviour, IPointerDownHandler
 {
-    private UIPopup UIPopup;
+    private RectTransform rect;
 
-    void Awake()
+    private void Awake()
     {
-        UIPopup = transform.GetChild(0).GetComponent<UIPopup>();
+        rect = transform.GetChild(0).GetComponent<RectTransform>();
+    }
+
+    private void OnEnable()
+    {
+        rect.localScale = Vector3.zero;
+        rect.DOScale(1, 0.3f);
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        print("111111111111dqwdq");
+        UIPopUpHandler.Instance.UIDisable(gameObject, rect);
         if (gameObject.Equals(EventSystem.current.currentSelectedGameObject))
         {
-            UIPopup.Disable();
+            print("dqwdq");
         }
     }
 

@@ -19,7 +19,7 @@ public class VillageHallWarning : Warning
 
         NoButton.onClick.AddListener(() =>
         {
-            WarningUI.SetActive(false);
+            WarningUISetActive(false);
         });
     }
 
