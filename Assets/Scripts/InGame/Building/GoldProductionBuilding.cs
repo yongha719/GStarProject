@@ -28,7 +28,6 @@ public class GoldProductionBuilding : ProductionBuilding
     {
         base.Start();
 
-
         CatPlacementButton.onClick.AddListener(() =>
         {
             CatPlacement.gameObject.SetActive(true);
@@ -141,8 +140,8 @@ public class GoldProductionBuilding : ProductionBuilding
     {
         base.Place();
 
+        print("place");
         StartCoroutine(ResourceProduction());
-
     }
 
     protected override IEnumerator ResourceProduction()

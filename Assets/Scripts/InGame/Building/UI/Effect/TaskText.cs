@@ -50,15 +50,15 @@ public class TaskText : MonoBehaviour
         {
             yield return wait;
 
-            if (period.Length == 3)
-            {
-                period = ".";
-                Tasktext.text = OriginalText;
-            }
-            else
+            if (period.Length != 3)
             {
                 Tasktext.text = OriginalText + period;
                 period += ".";
+            }
+            else
+            {
+                period = ".";
+                Tasktext.text = OriginalText;
             }
         }
     }

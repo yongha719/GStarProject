@@ -52,7 +52,7 @@ public abstract class Building : MonoBehaviour
     [SerializeField] private Button RotateButton;
     #endregion
 
-    [HideInInspector] public CatPlacement CatPlacement;
+    public CatPlacement CatPlacement;
     [HideInInspector] public BuildingLevelUpUI BuildingInfomation;
 
     protected RectTransform CanvasRt;
@@ -78,7 +78,7 @@ public abstract class Building : MonoBehaviour
         DemolitionButton?.onClick.AddListener(() =>
         {
             GridBuildingSystem.BuildingClear(true);
-            BuildingInfo.BuildingInstalltionUI.SetActive(true);
+            //BuildingInfo.BuildingInstalltionUI.SetActive(true);
             Destroy(gameObject);
         });
 

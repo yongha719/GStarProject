@@ -21,14 +21,19 @@ public class UIPopUpHandler : Singleton<UIPopUpHandler>
 {
     public GameObject BuildingPlacingPopup;
     private Dictionary<UIPopupType, GameObject> UIPopupDic = new Dictionary<UIPopupType, GameObject>();
-    private List<GameObject> UIPopupList= new List<GameObject>();
+    private List<GameObject> UIPopupList = new List<GameObject>();
     private Dictionary<UIWarningPopupType, GameObject> UIWarningPopupDic = new Dictionary<UIWarningPopupType, GameObject>();
     private List<GameObject> UIWarningPopupList = new List<GameObject>();
 
+
+
     private void Start()
     {
-        var UIPopups = Resources.LoadAll("UIPopup_Prefabs") as GameObject[];
-        var UIWarningPopups = Resources.LoadAll("UIWarningPopup_Prefabs") as GameObject[];
+        // TODO : as 연산자로는 안되는데 제네릭은 됨
+        // 나중에 시간되면 왜 그런지 보기
+        var UIPopups = Resources.LoadAll<GameObject>("UIPopup_Prefabs");
+        var UIWarningPopups = Resources.LoadAll<GameObject>("UIWarningPopup_Prefabs");
+
 
         if (UIPopups == null || UIWarningPopups == null)
         {
@@ -37,14 +42,10 @@ public class UIPopUpHandler : Singleton<UIPopUpHandler>
         }
 
         for (int i = 0; i < UIPopups.Length; ++i)
-        {
             UIPopupDic.Add((UIPopupType)i, UIPopups[i]);
-        }
 
-        for(int i = 0; i < UIWarningPopups.Length; ++i)
-        {
+        for (int i = 0; i < UIWarningPopups.Length; ++i)
             UIWarningPopupDic.Add((UIWarningPopupType)i, UIWarningPopups[i]);
-        }
     }
 
     public void OnUIPopUp(UIPopupType UIPopupType)
@@ -63,28 +64,31 @@ public class UIPopUpHandler : Singleton<UIPopUpHandler>
         }
         else
         {
-            Instantiate(UIPopup, Vector3.zero, Quaternion.identity, transform);
+            UIPopupList.Add(Instantiate(UIPopup, Vector3.zero, Quaternion.identity, transform));
         }
 
     }
 
-    public void OnUIWarningPopUp(UIWarningPopupType UIWarningPopupType)
+    public Warning OnUIWarningPopUp(UIWarningPopupType UIWarningPopupType)
     {
         GameObject UIWarningPopup = UIWarningPopupDic[UIWarningPopupType];
 
         if (UIWarningPopup == null)
         {
             Debug.Assert(false, "야야 없잖아 이거 프리팹 만들긴했어? 폴더 봐봐 이 친구야");
-            return;
+            return null;
         }
 
         if (UIWarningPopupList.Contains(UIWarningPopup) && UIWarningPopup.activeSelf == false)
         {
             UIWarningPopup.SetActive(true);
+            return UIWarningPopup.GetComponent<Warning>();
         }
         else
         {
-            Instantiate(UIWarningPopup, Vector3.zero, Quaternion.identity, transform);
+            var warning = Instantiate(UIWarningPopup, Vector3.zero, Quaternion.identity, transform).GetComponent<Warning>();
+            UIWarningPopupList.Add(warning.gameObject);
+            return warning;
         }
 
     }
@@ -99,5 +103,12 @@ public class UIPopUpHandler : Singleton<UIPopUpHandler>
         rect.DOScale(0f, 0.3f);
         yield return new WaitForSeconds(0.2f);
         Background.SetActive(false);
+    }
+
+    // 유니티 버튼용
+    // MainUICanvas/hud/build
+    public void OnPlacingBuilding()
+    {
+        OnUIPopUp(UIPopupType.PlacingBuilding);
     }
 }

@@ -15,11 +15,6 @@ public class PlacingBuildingUI : MonoBehaviour
 
     #endregion
 
-    #region UI Object
-
-    [SerializeField] private CatPlacement CatPlacement;
-    #endregion
-
     private GridBuildingSystem GridBuildingSystem;
     private GameManager GameManager;
 
@@ -59,6 +54,7 @@ public class PlacingBuildingUI : MonoBehaviour
                 {
                     Warning.WarningUISetActive(true);
                     Warning.SetWarningData(buildingInfo.BuildingPrefab, produtionbuilding.BuildingName);
+                    //UIPopUpHandler.Instance.OnUIWarningPopUp(UIWarningPopupType.PlacingBuildingWarning);
                 }
                 else
                     NotEnoughGold.gameObject.SetActive(true);

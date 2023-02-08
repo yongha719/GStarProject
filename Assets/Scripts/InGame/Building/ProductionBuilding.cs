@@ -61,19 +61,6 @@ public class ProductionBuilding : Building
     [Header("Level Up")]
     [SerializeField] protected string DefaultLevelUpCost;
 
-    public string LevelUpCostToString(int level)
-    {
-        var cost = DefaultLevelUpCost.returnValue();
-
-        for (int i = 0; i < level - 1; i++)
-        {
-            // 레벨업마다 8% 증가함
-            // 실수 계산이라 중첩되면 오차날까봐 반올림해서 계산
-            cost += cost * Math.Round((8 / 100d), 3);
-        }
-
-        return cost.returnStr();
-    }
 
     protected bool didGetResource;
 
@@ -104,6 +91,20 @@ public class ProductionBuilding : Building
         {
             didGetResource = true;
         });
+    }
+
+    public string LevelUpCostToString(int level)
+    {
+        var cost = DefaultLevelUpCost.returnValue();
+
+        for (int i = 0; i < level - 1; i++)
+        {
+            // 레벨업마다 8% 증가함
+            // 실수 계산이라 중첩되면 오차날까봐 반올림해서 계산
+            cost += cost * Math.Round((8 / 100d), 3);
+        }
+
+        return cost.returnStr();
     }
     
     public virtual void OnCatMemberChange(CatData catData, int index, Action action) { }

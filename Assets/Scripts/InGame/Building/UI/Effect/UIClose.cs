@@ -25,8 +25,12 @@ public class UIClose : MonoBehaviour, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (gameObject == EventSystem.current.currentSelectedGameObject)
-            UIPopUpHandler.Instance.UIDisable(gameObject, rect);
+        print("111111111111dqwdq");
+        UIPopUpHandler.Instance.UIDisable(gameObject, rect);
+        if (gameObject.Equals(EventSystem.current.currentSelectedGameObject))
+        {
+            print("dqwdq");
+        }
     }
 
 }

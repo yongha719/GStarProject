@@ -14,14 +14,13 @@ public class PlacingBuildingWarningUI : Warning
 
     private void Start()
     {
-        print("warnging");
-
         BuildingInstallationUI = UIPopUpHandler.Instance.BuildingPlacingPopup;
 
         YesButton.onClick.AddListener(() =>
         {
             GridBuildingSystem.Instance.InitializeWithBuilding(CurBuilding);
             CurBuilding.GetComponent<Building>().IsDeploying = true;
+            BuildingInstallationUI.SetActive(false);
             gameObject.SetActive(false);
         });
 
