@@ -63,6 +63,7 @@ public class GameManager : Singleton<GameManager>
     {
         DontDestroyOnLoad(this.gameObject);
 
+        BuildingManager.Init();
     }
     private void Start()
     {

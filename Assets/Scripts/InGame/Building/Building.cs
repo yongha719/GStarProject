@@ -31,8 +31,8 @@ public abstract class Building : MonoBehaviour
         }
     }
 
-    [SerializeField] protected string DefaultConstructionCost;
-    public virtual string ConstructionCost { get; }
+    [SerializeField] protected string DefaultPlacingPrice;
+    public virtual string PlacingPrice { get; }
 
 
     [HideInInspector] public BuildingBuyInfoUI BuildingInfo;
@@ -53,7 +53,7 @@ public abstract class Building : MonoBehaviour
     #endregion
 
     [HideInInspector] public CatPlacement CatPlacement;
-    [HideInInspector] public BuildingInfomationUI BuildingInfomation;
+    [HideInInspector] public BuildingLevelUpUI BuildingInfomation;
 
     protected RectTransform CanvasRt;
     protected Camera Camera;

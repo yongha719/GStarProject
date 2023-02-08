@@ -41,6 +41,8 @@ public static class BuildingManager
 
     public static void Init()
     {
+        Debug.Log("BM");
+
         for (int buildingtype = 0; buildingtype < (int)GoldBuildingType.End; buildingtype++)
         {
             s_GoldBuildingCount.Add((GoldBuildingType)buildingtype, 0);

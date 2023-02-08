@@ -10,7 +10,7 @@ public class BuildingBuyInfoUI : MonoBehaviour
     public GameObject BuildingPrefab;
 
     public Button BuyButton;
-    private TextMeshProUGUI buildingCostText;
+    private TextMeshProUGUI buildingPriceText;
 
     [HideInInspector] public GameObject BuildingInstalltionUI;
 
@@ -20,12 +20,14 @@ public class BuildingBuyInfoUI : MonoBehaviour
     {
         Building = BuildingPrefab.GetComponent<Building>();
 
-        buildingCostText = BuyButton.GetComponentInChildren<TextMeshProUGUI>();
+        buildingPriceText = BuyButton.GetComponentInChildren<TextMeshProUGUI>();
     }
 
     private void OnEnable()
     {
-        buildingCostText.text = Building.ConstructionCost;
+        Debug.Log(nameof(BuildingBuyInfoUI));
+
+        buildingPriceText.text = Building.PlacingPrice;
     }
 
     public void BuyButtonOnclick(Action<Building> call)

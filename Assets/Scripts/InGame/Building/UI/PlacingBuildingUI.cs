@@ -5,11 +5,11 @@ public class PlacingBuildingUI : MonoBehaviour
 {
     #region Buildings
 
-    [Header("WorkShop Buildings")]
+    [Header("Placing Building Infos")]
     [SerializeField] private List<BuildingBuyInfoUI> GoldProductionBuildingInfos;
     [SerializeField] private List<BuildingBuyInfoUI> EnergyProductionBuildingInfos;
 
-    [Header("Warning UIs")]
+    [Header("Warning UI")]
     [SerializeField] private PlacingBuildingWarningUI Warning;
     [SerializeField] private NotEnoughGoldWarningUI NotEnoughGold;
 
@@ -17,23 +17,19 @@ public class PlacingBuildingUI : MonoBehaviour
 
     #region UI Object
 
-    [SerializeField] private GameObject PlacingBuilding;
     [SerializeField] private CatPlacement CatPlacement;
-    [SerializeField] private BuildingInfomationUI BuildingInfomation;
     #endregion
 
     private GridBuildingSystem GridBuildingSystem;
     private GameManager GameManager;
 
-    private void Awake()
-    {
-        BuildingManager.Init();
-    }
 
     void Start()
     {
+        print("UI");
         GridBuildingSystem = GridBuildingSystem.Instance;
         GameManager = GameManager.Instance;
+        UIPopUpHandler.Instance.BuildingPlacingPopup = gameObject; 
 
         UISetting();
     }
@@ -51,21 +47,18 @@ public class PlacingBuildingUI : MonoBehaviour
         {
             buildingInfo.BuyButtonOnclick((Building) =>
             {
-                var produtionbuilding = Building as T; ;
+                var produtionbuilding = Building as T;
 
                 if (produtionbuilding == null)
                     Debug.Assert(false, "설치할 건물 정보가 잘못됨");
 
                 produtionbuilding.BuildingInfo = buildingInfo;
-                buildingInfo.BuildingInstalltionUI = PlacingBuilding;
                 buildingInfo.Building.FirstTimeInstallation = true;
 
-                Building.CatPlacement = CatPlacement;
-
-                if (GameManager._coin > 0 && GameManager._coin >= produtionbuilding.ConstructionCost.returnValue())
+                if (GameManager._coin > 0 && GameManager._coin >= produtionbuilding.PlacingPrice.returnValue())
                 {
-                    Warning.WarningUI.SetActive(true);
-                    Warning.SetWarningData(buildingInfo.BuildingPrefab, produtionbuilding.BuildingName, PlacingBuilding);
+                    Warning.WarningUISetActive(true);
+                    Warning.SetWarningData(buildingInfo.BuildingPrefab, produtionbuilding.BuildingName);
                 }
                 else
                     NotEnoughGold.gameObject.SetActive(true);

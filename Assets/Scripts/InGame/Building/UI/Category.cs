@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class Category : MonoBehaviour
 {
-    [SerializeField] private Color OnColor;
-    [SerializeField] private Color OffColor;
+    readonly private Color OnColor = Color.white;
+    readonly private Color OffColor = new Color(232 / 255f, 232 / 255f, 232 / 255f, 255);
 
     [SerializeField] protected GameObject CurCategoryObject;
     [SerializeField] protected bool isSelected;

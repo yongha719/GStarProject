@@ -14,6 +14,10 @@ public class PlacingBuildingWarningUI : Warning
 
     private void Start()
     {
+        print("warnging");
+
+        BuildingInstallationUI = UIPopUpHandler.Instance.BuildingPlacingPopup;
+
         YesButton.onClick.AddListener(() =>
         {
             GridBuildingSystem.Instance.InitializeWithBuilding(CurBuilding);
@@ -34,11 +38,9 @@ public class PlacingBuildingWarningUI : Warning
     /// <param name="building">설치하려고 하는 건물</param>
     /// <param name="buildingname">설치하려고 하는 건물 이름</param>
     /// <param name="buildingInstalltionUI"></param>
-    public void SetWarningData(GameObject building, string buildingname, GameObject buildingInstalltionUI)
+    public void SetWarningData(GameObject building, string buildingname)
     {
         CurBuilding = building;
         WarningText.text = $"{buildingname}{WARNING_PHRASE}";
-
-        BuildingInstallationUI = buildingInstalltionUI;
     }
 }
