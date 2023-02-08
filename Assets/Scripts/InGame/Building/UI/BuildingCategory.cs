@@ -5,7 +5,7 @@ using DG.Tweening;
 public class BuildingCategory : Category
 {
     private static Category s_CurCategory;
-    private static GameObject s_CurCategoryBuildings;
+    private static GameObject s_CurCategoryBuildingList;
 
     protected override void Start()
     {
@@ -14,28 +14,22 @@ public class BuildingCategory : Category
         if (isSelected)
         {
             s_CurCategory = this;
-            s_CurCategoryBuildings = CurCategoryObject;
+            s_CurCategoryBuildingList = CurCategoryObject;
         }
     }
 
     protected override void Select()
     {
-        base.Select();
-
         if (s_CurCategory == this)
             return;
+
+        base.Select();
 
         s_CurCategory.Unselect();
         s_CurCategory = this;
 
-        s_CurCategoryBuildings.SetActive(false);
+        s_CurCategoryBuildingList.SetActive(false);
         CurCategoryObject.SetActive(true);
-        s_CurCategoryBuildings = CurCategoryObject;
+        s_CurCategoryBuildingList = CurCategoryObject;
     }
-
-    public override void Unselect()
-    {
-        base.Unselect();         
-    }
-
 }

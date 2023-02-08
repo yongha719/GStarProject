@@ -1,0 +1,19 @@
+{
+    "name": "DOTweenPro.EditorScripts",
+    "rootNamespace": "",
+    "references": [
+        "GUID:0902d507dbf1d6e43af2e5ebf80eaa86",
+        "GUID:5e9af016d534f044dace728c1d5ee265"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
