@@ -6,6 +6,7 @@ public class CatPlacement : MonoBehaviour
 {
     [SerializeField] private GameObject CatPlacementUI;
     [SerializeField] private UnityEngine.UI.Image BuildingImage;
+    [SerializeField] private TMPro.TextMeshProUGUI BuildingNameText;
     [SerializeField] private TaskText WorkText;
     [SerializeField] private CatPlacementWarning CatPlacementWarning;
 

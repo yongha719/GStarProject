@@ -25,8 +25,6 @@ public class BuildingBuyInfoUI : MonoBehaviour
 
     private void OnEnable()
     {
-        Debug.Log(nameof(BuildingBuyInfoUI));
-
         buildingPriceText.text = Building.PlacingPrice;
     }
 
