@@ -742,8 +742,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7abc6daf2aa492441ba9165bc39b9c45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnSprite: {fileID: 21300000, guid: 0e07dc1d6377f9c439bf07fb040a4526, type: 3}
-  OffSprite: {fileID: 21300000, guid: 50642edb90faa5344af149e1c39475c7, type: 3}
   CurCategoryObject: {fileID: 2604347811839308646}
   isSelected: 1
 --- !u!1 &2604347811137122417
@@ -1258,7 +1256,6 @@ GameObject:
   - component: {fileID: 2604347811365023630}
   - component: {fileID: 2604347811365023628}
   - component: {fileID: 2604347811365023631}
-  - component: {fileID: 2604347811449814371}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -1328,19 +1325,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2604347811449814371
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2604347811365023625}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 799aa6cb3fdb81446b68ad801227a2a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BackgroundRt: {fileID: 2604347811137122422}
 --- !u!1 &2604347811471336191
 GameObject:
   m_ObjectHideFlags: 0
@@ -1840,7 +1824,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2604347811449814371}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UIPopup, Assembly-CSharp
         m_MethodName: Disable
         m_Mode: 1
@@ -2572,8 +2556,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7abc6daf2aa492441ba9165bc39b9c45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnSprite: {fileID: 21300000, guid: d8cf6c5513fdfe74ea8f37b8abbfe2da, type: 3}
-  OffSprite: {fileID: 21300000, guid: 6e25693e123c51d44a2775876141228e, type: 3}
   CurCategoryObject: {fileID: 2604347812082526351}
   isSelected: 0
 --- !u!1 &2604347812452710595
@@ -3660,9 +3642,9 @@ MonoBehaviour:
     m_Position: {x: 0, y: 0, z: 0}
     m_Size: {x: 2, y: 2, z: 1}
   BuildingName: "\uB9C8\uC744 \uD68C\uAD00"
-  Rating: 5
+  Level: 1
   isDeploying: 0
-  DefaultConstructionCost: 
+  DefaultPlacingPrice: 
   BuildingInfo: {fileID: 0}
   MaxDeployableCat: 0
   FirstTimeInstallation: 0
@@ -3672,7 +3654,7 @@ MonoBehaviour:
   DemolitionButton: {fileID: 0}
   RotateButton: {fileID: 5489300185493381539}
   CatPlacement: {fileID: 0}
-  Level: 1
+  BuildingInfomation: {fileID: 0}
   VillageHallUI: {fileID: 6336636036403603555}
 --- !u!61 &4540446910693747190
 BoxCollider2D:
@@ -4365,7 +4347,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 508c9a01ff7035a4ebe8adbbddde6ae4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WarningUI: {fileID: 2985428036980478869}
   WarningText: {fileID: 2985428036004747538}
   YesButton: {fileID: 2985428037157966444}
   NoButton: {fileID: 2985428035693801200}

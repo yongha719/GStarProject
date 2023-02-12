@@ -8,37 +8,25 @@ using DG.Tweening;
 /// <summary>
 /// UI Background에 있는 스크립트
 /// </summary>
-public class UIClose : MonoBehaviour, IPointerClickHandler
+[RequireComponent(typeof(Button))]
+public class UIPopup : MonoBehaviour
 {
     private RectTransform rect;
-    private GraphicRaycaster graphicRaycaster;
-    CanvasRenderer CanvasRenderer;
+    // UI Popup의 백그라운드 이미지를 누르면 Popup이 닫히게 하려고 버튼달았음
+    private Button Button;
 
     protected virtual void Awake()
     {
         rect = transform.GetChild(0).GetComponent<RectTransform>();
-        graphicRaycaster = GetComponent<GraphicRaycaster>();
-        CanvasRenderer.
+
+        Button = GetComponent<Button>();
+        Button.onClick.AddListener(() => UIDisable());
     }
 
     protected virtual void OnEnable()
     {
         rect.localScale = Vector3.zero;
         rect.DOScale(1, 0.3f);
-    }
-
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        if (gameObject.Equals(EventSystem.current.currentSelectedGameObject))
-            print("Equals");
-
-        if (gameObject.Equals(eventData.pointerClick))
-            print("pointerClick");
-
-        if (gameObject == EventSystem.current.currentSelectedGameObject)
-            print("==");
-
-        UIDisable();
     }
 
     public void UIDisable()
@@ -52,8 +40,6 @@ public class UIClose : MonoBehaviour, IPointerClickHandler
         yield return new WaitForSeconds(0.2f);
         gameObject.SetActive(false);
     }
-
-
 }
 
 public interface IUIPopup

@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class PlacingBuildingUI : MonoBehaviour
+public class PlacingBuildingUI : UIPopup
 {
     #region Buildings
+    [SerializeField] private Button CloseButton;
 
     [Header("Placing Building Infos")]
     [SerializeField] private List<BuildingBuyInfoUI> GoldProductionBuildingInfos;
@@ -13,12 +15,14 @@ public class PlacingBuildingUI : MonoBehaviour
     [SerializeField] private PlacingBuildingWarningUI Warning;
     [SerializeField] private NotEnoughGoldWarningUI NotEnoughGold;
 
+
     #endregion
 
     [SerializeField] private CatPlacement CatPlacement;
 
     private GridBuildingSystem GridBuildingSystem;
     private GameManager GameManager;
+
 
 
     void Start()
@@ -28,6 +32,7 @@ public class PlacingBuildingUI : MonoBehaviour
         GameManager = GameManager.Instance;
         UIPopUpHandler.Instance.BuildingPlacingPopup = gameObject; 
 
+
         UISetting();
     }
 
@@ -36,6 +41,8 @@ public class PlacingBuildingUI : MonoBehaviour
     {
         SetProductBuildingInfo<GoldProductionBuilding>(GoldProductionBuildingInfos);
         SetProductBuildingInfo<EnergyProductionBuilding>(EnergyProductionBuildingInfos);
+
+        CloseButton.onClick.AddListener(() => UIDisable());
     }
 
     void SetProductBuildingInfo<T>(List<BuildingBuyInfoUI> ProductionBuildingInfos) where T : ProductionBuilding

@@ -37,11 +37,12 @@ public class UIManager : Singleton<UIManager>
     public void ResourcesApply()
     {
         catText.text = $"{CatManager.Instance.CatList.Count}마리";
-        coinText.text = gameManager.resource.coin.returnStr(); CalculatorManager.returnStr(gameManager.resource.coin);
-        iceText.text = CalculatorManager.returnStr(gameManager.resource.ice);
-        energyText.text = CalculatorManager.returnStr(gameManager.resource.energy);
+        coinText.text = gameManager.resource.coin.returnStr(); 
+        iceText.text = gameManager.resource.ice.returnStr();
+        energyText.text = gameManager.resource.energy.returnStr();
 
     }
+
     private IEnumerator TitleEffect()
     {
         CanvasGroup.alpha = 0f;

@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
-using System.Linq;
-public static class CalculatorManager
+
+public static class CalculatorExetension
 {
     //1000에 자리수 마다 올림한다
     //123.45a <- 기본 형태
