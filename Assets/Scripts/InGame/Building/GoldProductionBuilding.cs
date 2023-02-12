@@ -36,7 +36,7 @@ public class GoldProductionBuilding : ProductionBuilding
 
             if (PlacedInBuildingCats.Count == 0)
             {
-                CatPlacement.SetBuildingInfo(BuildingType.Gold,this, null);
+                CatPlacement.SetBuildingInfo(BuildingType.Gold, this, null);
             }
             else
             {
@@ -51,14 +51,7 @@ public class GoldProductionBuilding : ProductionBuilding
 
             PlacedInBuildingCats = PlacedInBuildingCats.Where(x => x.building == this).ToList();
 
-            if (PlacedInBuildingCats.Count == 0)
-            {
-                BuildingInfomation.SetData(BuildingType.Gold, this, null, SpriteRenderer.sprite);
-            }
-            else
-            {
-                BuildingInfomation.SetData(BuildingType.Gold, this, PlacedInBuildingCats, SpriteRenderer.sprite);
-            }
+            BuildingInfomation.SetData(BuildingType.Gold, this, PlacedInBuildingCats, SpriteRenderer.sprite);
         });
     }
 

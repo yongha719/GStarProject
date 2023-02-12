@@ -15,6 +15,8 @@ public class PlacingBuildingUI : MonoBehaviour
 
     #endregion
 
+    [SerializeField] private CatPlacement CatPlacement;
+
     private GridBuildingSystem GridBuildingSystem;
     private GameManager GameManager;
 
@@ -49,6 +51,8 @@ public class PlacingBuildingUI : MonoBehaviour
 
                 produtionbuilding.BuildingInfo = buildingInfo;
                 buildingInfo.Building.FirstTimeInstallation = true;
+
+                Building.CatPlacement = CatPlacement;
 
                 if (GameManager._coin > 0 && GameManager._coin >= produtionbuilding.PlacingPrice.returnValue())
                 {

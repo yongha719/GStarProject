@@ -21234,7 +21234,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8582134460680398056, guid: 753720f465807f841ad79d9be95b9a20, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8582134460680398056, guid: 753720f465807f841ad79d9be95b9a20, type: 3}
       propertyPath: m_AnchorMin.x
@@ -21242,7 +21242,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8582134460680398056, guid: 753720f465807f841ad79d9be95b9a20, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8582134460680398056, guid: 753720f465807f841ad79d9be95b9a20, type: 3}
       propertyPath: m_SizeDelta.x
@@ -21282,11 +21282,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8582134460680398056, guid: 753720f465807f841ad79d9be95b9a20, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 8582134460680398056, guid: 753720f465807f841ad79d9be95b9a20, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -80
       objectReference: {fileID: 0}
     - target: {fileID: 8582134460680398056, guid: 753720f465807f841ad79d9be95b9a20, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -28030,7 +28030,7 @@ PrefabInstance:
     - target: {fileID: 591756166, guid: ad65871ce21a2374cbe8a2fad4bf9074, type: 3}
       propertyPath: Warning
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 6479320868234179965}
     - target: {fileID: 591756166, guid: ad65871ce21a2374cbe8a2fad4bf9074, type: 3}
       propertyPath: NotEnoughGold
       value: 
@@ -28057,7 +28057,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4836651270184525274, guid: ad65871ce21a2374cbe8a2fad4bf9074, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4836651270184525275, guid: ad65871ce21a2374cbe8a2fad4bf9074, type: 3}
       propertyPath: m_Pivot.x
@@ -28142,6 +28142,10 @@ PrefabInstance:
     - target: {fileID: 4836651270184525275, guid: ad65871ce21a2374cbe8a2fad4bf9074, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4836651270611771567, guid: ad65871ce21a2374cbe8a2fad4bf9074, type: 3}
+      propertyPath: m_CullTransparentMesh
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8013979678739848538, guid: ad65871ce21a2374cbe8a2fad4bf9074, type: 3}
       propertyPath: m_SizeDelta.y
@@ -53907,7 +53911,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
+  m_IgnoreReversedGraphics: 0
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
@@ -53974,8 +53978,8 @@ RectTransform:
   - {fileID: 6479320868234179967}
   - {fileID: 4483111395505719777}
   - {fileID: 6120153382569578148}
-  - {fileID: 913599989}
   - {fileID: 654345817830906707}
+  - {fileID: 913599989}
   - {fileID: 6746292988545189023}
   - {fileID: 1427444032938896869}
   m_Father: {fileID: 0}
@@ -95043,6 +95047,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1392801371}
   m_CullTransparentMesh: 1
+--- !u!114 &1403331475 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 129129293304699133, guid: 963cfc6e8bc385e4dad073d83dbc6a75, type: 3}
+  m_PrefabInstance: {fileID: 913599988}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5f8d78e93d7d9d4bb2a134cb9ef49f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1425749648
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -102504,7 +102519,6 @@ GameObject:
   - component: {fileID: 1838869694}
   - component: {fileID: 1838869693}
   - component: {fileID: 1838869692}
-  - component: {fileID: 1838869691}
   m_Layer: 5
   m_Name: ParticleCanvas
   m_TagString: ParticleCamera
@@ -102512,23 +102526,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1838869691
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1838869690}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!114 &1838869692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -102562,7 +102559,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 1
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 72627090}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -113318,7 +113315,7 @@ RectTransform:
   m_Children:
   - {fileID: 654345817510130846}
   m_Father: {fileID: 1226929076}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -117295,7 +117292,7 @@ GameObject:
   - component: {fileID: 6502584242164551396}
   - component: {fileID: 6502584242164551399}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: BuildingName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -117463,12 +117460,12 @@ GameObject:
   - component: {fileID: 6502584242905094423}
   - component: {fileID: 6502584242905094422}
   m_Layer: 5
-  m_Name: build_cat_plus
+  m_Name: Cat_Placement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6502584242905094421
 RectTransform:
   m_ObjectHideFlags: 0
@@ -117523,9 +117520,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CatPlacementUI: {fileID: 6502584242905094420}
   BuildingImage: {fileID: 58196090}
-  WorkText: {fileID: 0}
-  CatPlacementWarning: {fileID: 0}
-  CatToPlacementContentTr: {fileID: 0}
+  BuildingNameText: {fileID: 6502584242164551399}
+  WorkText: {fileID: 6502584242780631722}
+  CatPlacementWarning: {fileID: 1403331475}
+  CatToPlacementContentTr: {fileID: 1160808344}
   GoldBuildingWorkingCatPlacements:
   - {fileID: 7243737520729052130, guid: f0f7c8b74de4cfe439b9acfc3187d258, type: 3}
   - {fileID: 3311236169363745305, guid: e77b71fff30b56a4ea445319f5d28d31, type: 3}
@@ -117623,7 +117621,7 @@ GameObject:
   - component: {fileID: 6502584243168763929}
   - component: {fileID: 6502584243168763928}
   m_Layer: 5
-  m_Name: title
+  m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

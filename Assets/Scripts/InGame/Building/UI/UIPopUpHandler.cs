@@ -93,17 +93,7 @@ public class UIPopUpHandler : Singleton<UIPopUpHandler>
 
     }
 
-    public void UIDisable(GameObject Background, RectTransform rect)
-    {
-        StartCoroutine(DisableCoroutine(Background, rect));
-    }
 
-    private IEnumerator DisableCoroutine(GameObject Background, RectTransform rect)
-    {
-        rect.DOScale(0f, 0.3f);
-        yield return new WaitForSeconds(0.2f);
-        Background.SetActive(false);
-    }
 
     // 유니티 버튼용
     // MainUICanvas/hud/build
