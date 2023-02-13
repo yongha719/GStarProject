@@ -5,13 +5,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class BuyBuildingInfo : MonoBehaviour
+public class BuildingBuyInfoUI : MonoBehaviour
 {
     public GameObject BuildingPrefab;
-    private string constructionCost;
 
     public Button BuyButton;
-    private TextMeshProUGUI buildingCostText;
+    private TextMeshProUGUI buildingPriceText;
 
     [HideInInspector] public GameObject BuildingInstalltionUI;
 
@@ -20,14 +19,13 @@ public class BuyBuildingInfo : MonoBehaviour
     private void Awake()
     {
         Building = BuildingPrefab.GetComponent<Building>();
-        constructionCost = Building.ConstructionCost;
 
-        buildingCostText = BuyButton.GetComponentInChildren<TextMeshProUGUI>();
+        buildingPriceText = BuyButton.GetComponentInChildren<TextMeshProUGUI>();
     }
 
     private void OnEnable()
     {
-        buildingCostText.text = Building.ConstructionCost;
+        buildingPriceText.text = Building.PlacingPrice;
     }
 
     public void BuyButtonOnclick(Action<Building> call)

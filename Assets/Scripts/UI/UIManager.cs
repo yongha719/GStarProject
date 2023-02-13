@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine.Serialization;
 using DG.Tweening;
 
+
 public class UIManager : Singleton<UIManager>
 {
     public TextMeshProUGUI catText;
@@ -21,10 +22,14 @@ public class UIManager : Singleton<UIManager>
     [SerializeField]
     private TextMeshProUGUI pressToStartText;
 
+    CanvasGroup CanvasGroup;
+
     private GameManager gameManager;
     private void Start()
     {
         gameManager = GameManager.Instance;
+        CanvasGroup = transform.GetComponentInChildren<CanvasGroup>();
+
         ResourcesApply();
         StartCoroutine(TitleEffect());
     }
@@ -39,11 +44,8 @@ public class UIManager : Singleton<UIManager>
     }
     private IEnumerator TitleEffect()
     {
-        Image[] images = transform.GetChild(0).GetComponentsInChildren<Image>();
-        TextMeshProUGUI[] texts = transform.GetChild(0).GetComponentsInChildren<TextMeshProUGUI>();
+        CanvasGroup.alpha = 0f;
 
-        foreach (Image image in images) image.color = image.color - Color.black;
-        foreach (TextMeshProUGUI text in texts) text.color = text.color - Color.black;
         while (true)
         {
             title.transform.position += Vector3.up * Time.deltaTime * Mathf.Cos(Time.time) / 5;
@@ -54,17 +56,13 @@ public class UIManager : Singleton<UIManager>
         }
 
         SoundManager.Instance.PlaySoundClip("SFX_Button_Touch", SoundType.SFX);
-        title.DOFade(0, 1).SetEase(Ease.InBack);
-        pressToStartText.DOFade(0, 1).SetEase(Ease.InBack);
+        title.DOFade(0f, 1f).SetEase(Ease.InBack);
+        pressToStartText.DOFade(0f, 1f).SetEase(Ease.InBack);
         yield return new WaitForSeconds(1);
 
         title.gameObject.SetActive(false);
         pressToStartText.gameObject.SetActive(false);
 
-        foreach (Image image in images)
-            image.DOFade(1, 0.5f);
-        foreach (TextMeshProUGUI text in texts)
-            text.DOFade(1, 0.5f);
-
+        CanvasGroup.DOFade(1f, 0.5f);
     }
 }

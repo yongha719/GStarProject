@@ -3,24 +3,61 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using DG.Tweening;
 
-// TODO : 시간나면 Custom Attribute 만들어서 해봐야징 히히
-[RequireComponent(typeof(Button))]
-public class UIClose : MonoBehaviour, IPointerDownHandler
+/// <summary>
+/// UI Background에 있는 스크립트
+/// </summary>
+public class UIClose : MonoBehaviour, IPointerClickHandler
 {
-    private UIPopup UIPopup;
+    private RectTransform rect;
+    private GraphicRaycaster graphicRaycaster;
+    CanvasRenderer CanvasRenderer;
 
-    void Awake()
+    protected virtual void Awake()
     {
-        UIPopup = transform.GetChild(0).GetComponent<UIPopup>();
+        rect = transform.GetChild(0).GetComponent<RectTransform>();
+        graphicRaycaster = GetComponent<GraphicRaycaster>();
+        CanvasRenderer.
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    protected virtual void OnEnable()
+    {
+        rect.localScale = Vector3.zero;
+        rect.DOScale(1, 0.3f);
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
     {
         if (gameObject.Equals(EventSystem.current.currentSelectedGameObject))
-        {
-            UIPopup.Disable();
-        }
+            print("Equals");
+
+        if (gameObject.Equals(eventData.pointerClick))
+            print("pointerClick");
+
+        if (gameObject == EventSystem.current.currentSelectedGameObject)
+            print("==");
+
+        UIDisable();
     }
 
+    public void UIDisable()
+    {
+        StartCoroutine(DisableCoroutine());
+    }
+
+    private IEnumerator DisableCoroutine()
+    {
+        rect.DOScale(0f, 0.3f);
+        yield return new WaitForSeconds(0.2f);
+        gameObject.SetActive(false);
+    }
+
+
+}
+
+public interface IUIPopup
+{
+    void OpenUIPopup();
+    void CloseUIPopup();
 }

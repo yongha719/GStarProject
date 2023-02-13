@@ -12,13 +12,13 @@ public class GoldProductionBuilding : ProductionBuilding
     [Header("Gold Production Building")]
     public GoldBuildingType buildingType;
 
-    public override string ConstructionCost
+    public override string PlacingPrice
     {
         get
         {
             if (BuildingManager.s_GoldBuildingCount[buildingType] == 0)
-                return DefaultConstructionCost;
-            return (DefaultConstructionCost.returnValue() * (BuildingManager.s_GoldBuildingCount[buildingType] * 3)).returnStr();
+                return DefaultPlacingPrice;
+            return (DefaultPlacingPrice.returnValue() * (BuildingManager.s_GoldBuildingCount[buildingType] * 3)).returnStr();
         }
     }
 
@@ -28,7 +28,6 @@ public class GoldProductionBuilding : ProductionBuilding
     {
         base.Start();
 
-
         CatPlacementButton.onClick.AddListener(() =>
         {
             CatPlacement.gameObject.SetActive(true);
@@ -37,7 +36,7 @@ public class GoldProductionBuilding : ProductionBuilding
 
             if (PlacedInBuildingCats.Count == 0)
             {
-                CatPlacement.SetBuildingInfo(BuildingType.Gold,this, null);
+                CatPlacement.SetBuildingInfo(BuildingType.Gold, this, null);
             }
             else
             {
@@ -52,14 +51,7 @@ public class GoldProductionBuilding : ProductionBuilding
 
             PlacedInBuildingCats = PlacedInBuildingCats.Where(x => x.building == this).ToList();
 
-            if (PlacedInBuildingCats.Count == 0)
-            {
-                BuildingInfomation.SetData(BuildingType.Gold, this, null, SpriteRenderer.sprite);
-            }
-            else
-            {
-                BuildingInfomation.SetData(BuildingType.Gold, this, PlacedInBuildingCats, SpriteRenderer.sprite);
-            }
+            BuildingInfomation.SetData(BuildingType.Gold, this, PlacedInBuildingCats, SpriteRenderer.sprite);
         });
     }
 
@@ -141,8 +133,8 @@ public class GoldProductionBuilding : ProductionBuilding
     {
         base.Place();
 
+        print("place");
         StartCoroutine(ResourceProduction());
-
     }
 
     protected override IEnumerator ResourceProduction()
@@ -224,7 +216,7 @@ public class GoldProductionBuilding : ProductionBuilding
         yield return base.BuildingInstalltionEffect();
 
         ConstructionResourceText.gameObject.SetActive(true);
-        ConstructionResourceText.text = ConstructionCost;
+        ConstructionResourceText.text = PlacingPrice;
         ConstructionResourceText.rectTransform.DOAnchorPosY(ConstructionResourceText.rectTransform.anchoredPosition.y + 150, 1);
         yield return ConstructionResourceText.DOFade(0f, 0.7f).WaitForCompletion();
 

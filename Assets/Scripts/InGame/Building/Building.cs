@@ -31,11 +31,11 @@ public abstract class Building : MonoBehaviour
         }
     }
 
-    [SerializeField] protected string DefaultConstructionCost;
-    public virtual string ConstructionCost { get; }
+    [SerializeField] protected string DefaultPlacingPrice;
+    public virtual string PlacingPrice { get; }
 
 
-    [HideInInspector] public BuyBuildingInfo BuildingInfo;
+    [HideInInspector] public BuildingBuyInfoUI BuildingInfo;
 
 
     [Header("Deploying")]
@@ -52,8 +52,8 @@ public abstract class Building : MonoBehaviour
     [SerializeField] private Button RotateButton;
     #endregion
 
-    [HideInInspector] public CatPlacement CatPlacement;
-    [HideInInspector] public BuildingInfomationUI BuildingInfomation;
+    public CatPlacement CatPlacement;
+    [HideInInspector] public BuildingLevelUpUI BuildingInfomation;
 
     protected RectTransform CanvasRt;
     protected Camera Camera;
@@ -78,7 +78,7 @@ public abstract class Building : MonoBehaviour
         DemolitionButton?.onClick.AddListener(() =>
         {
             GridBuildingSystem.BuildingClear(true);
-            BuildingInfo.BuildingInstalltionUI.SetActive(true);
+            //BuildingInfo.BuildingInstalltionUI.SetActive(true);
             Destroy(gameObject);
         });
 
