@@ -41,9 +41,10 @@ public abstract class Building : MonoBehaviour
     [Header("Deploying")]
     [Tooltip("배치 가능한 고양이 수")] public int MaxDeployableCat;
 
-    private GameObject BuildingSprte;
+    private GameObject BuildingSprteObj;
     [HideInInspector] public bool FirstTimeInstallation;
     [SerializeField] protected SpriteRenderer SpriteRenderer;
+    [HideInInspector] public Sprite BuildingSprite;
 
     [Space(5f)]
     [SerializeField] protected GameObject DeployingUIParent;
@@ -52,7 +53,7 @@ public abstract class Building : MonoBehaviour
     [SerializeField] private Button RotateButton;
     #endregion
 
-    public CatPlacement CatPlacement;
+    public CatPlacementUI CatPlacement;
     [HideInInspector] public BuildingLevelUpUI BuildingInfomation;
 
     protected RectTransform CanvasRt;
@@ -66,7 +67,8 @@ public abstract class Building : MonoBehaviour
 
         Camera = Camera.main;
 
-        BuildingSprte = SpriteRenderer?.gameObject;
+        BuildingSprteObj = SpriteRenderer.gameObject;
+        BuildingSprite = SpriteRenderer.sprite;
 
         CanvasRt = GameObject.Find("ParticleCanvas").transform as RectTransform;
 
@@ -86,8 +88,6 @@ public abstract class Building : MonoBehaviour
         {
             SpriteRenderer.flipX = !SpriteRenderer.flipX;
         });
-
-
     }
 
     public bool CanBePlaced()
@@ -122,10 +122,10 @@ public abstract class Building : MonoBehaviour
 
     protected virtual IEnumerator BuildingInstalltionEffect()
     {
-        BuildingSprte.transform.localScale = new Vector3(0.03f, 0.03f, 1f);
+        BuildingSprteObj.transform.localScale = new Vector3(0.03f, 0.03f, 1f);
         GridBuildingSystem.BuildingInstallEffectPlay(transform.localPosition);
 
-        yield return BuildingSprte.transform.DOScale(new Vector3(0.1f, 0.1f, 1f), 0.4f).WaitForCompletion();
+        yield return BuildingSprteObj.transform.DOScale(new Vector3(0.1f, 0.1f, 1f), 0.4f).WaitForCompletion();
     }
 
     protected bool IsPointerOverGameObject()

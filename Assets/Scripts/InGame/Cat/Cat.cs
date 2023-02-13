@@ -195,7 +195,6 @@ public class Cat : MonoBehaviour
     {
         var pos = new Vector2(Pos.x, Pos.y * 2);
         targetPos = Vector2Int.CeilToInt(Pos);
-        print("move");
 
         MoveCoroutine = null;
         MoveCoroutine = StartCoroutine(MoveStep());
@@ -239,10 +238,8 @@ public class Cat : MonoBehaviour
             dest = new Vector3(node.Pos.x, node.Pos.y, PosZ);
 
             CatState = CatState.Moving;
-
             if (StopMove)
             {
-                print("stopmove");
                 StopMove = false;
                 yield break;
             }

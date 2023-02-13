@@ -69,7 +69,7 @@ public class UIPopUpHandler : Singleton<UIPopUpHandler>
 
     }
 
-    public Warning OnUIWarningPopUp(UIWarningPopupType UIWarningPopupType)
+    public WarningUI OnUIWarningPopUp(UIWarningPopupType UIWarningPopupType)
     {
         GameObject UIWarningPopup = UIWarningPopupDic[UIWarningPopupType];
 
@@ -82,11 +82,11 @@ public class UIPopUpHandler : Singleton<UIPopUpHandler>
         if (UIWarningPopupList.Contains(UIWarningPopup) && UIWarningPopup.activeSelf == false)
         {
             UIWarningPopup.SetActive(true);
-            return UIWarningPopup.GetComponent<Warning>();
+            return UIWarningPopup.GetComponent<WarningUI>();
         }
         else
         {
-            var warning = Instantiate(UIWarningPopup, Vector3.zero, Quaternion.identity, transform).GetComponent<Warning>();
+            var warning = Instantiate(UIWarningPopup, Vector3.zero, Quaternion.identity, transform).GetComponent<WarningUI>();
             UIWarningPopupList.Add(warning.gameObject);
             return warning;
         }

@@ -9,28 +9,20 @@ public class CatAbilityUI : MonoBehaviour
     [SerializeField] private Image AbilityImage;
     [SerializeField] private List<GameObject> RatingStars = new List<GameObject>();
 
-    private RectTransform rectTransform;
-
-    private void Awake()
-    {
-        rectTransform = transform as RectTransform;
-    }
-
     public void SetAbility(CatAbilityUI catAbilityUI)
     {
-        this.AbilityImage = catAbilityUI.AbilityImage;
+        AbilityImage = catAbilityUI.AbilityImage;
         //this.RatingStars = catAbilityUI.RatingStars;
-        this.rectTransform = catAbilityUI.rectTransform;
     }
 
-    public void SetAbility(Sprite abilitySprite, int Rating)
+    public void SetAbility(CatData catData)
     {
-        AbilityImage.sprite = abilitySprite;
+        AbilityImage.sprite = catData.AbilitySprite;
 
         foreach (var ratingStar in RatingStars)
             ratingStar.SetActive(false);
 
-        for (int i = 0; i < Rating; i++)
+        for (int i = 0; i < catData.AbilityRating; i++)
         {
             RatingStars[i].SetActive(true);
         }

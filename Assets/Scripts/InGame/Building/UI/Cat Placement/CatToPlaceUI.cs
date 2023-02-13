@@ -6,7 +6,7 @@ using TMPro;
 using System;
 
 /// <summary>
-/// 건물에서 배치할 수 고양이 리스트에 있는 UI
+/// 건물에 고양이 배치할 수 있는 고양이 UI
 /// </summary>
 public class CatToPlaceUI : MonoBehaviour
 {
@@ -15,34 +15,28 @@ public class CatToPlaceUI : MonoBehaviour
     [SerializeField] private CatAbilityUI Ability;
     [SerializeField] private Button PlacementButton;
 
-    public CatData CatData;
-
     /// <summary>
     /// 배치할 고양이 정보 설정
     /// </summary>
     /// <param name="onclick">배치 버튼에 들어갈 onclick 이벤트</param>
     public void SetData(CatData catData, Action<CatToPlaceUI, CatData> onclick)
     {
-        CatData = catData;
+        CatImage.sprite = catData.CatSprite;
+        CatNameText.text = catData.Name;
 
-        CatImage.sprite = CatData.CatSprite;
-        CatNameText.text = CatData.Name;
-
-        Ability.SetAbility(CatData.AbilitySprite, CatData.AbilityRating);
+        Ability.SetAbility(catData);
 
         PlacementButton.onClick.AddListener(() =>
         {
-            onclick?.Invoke(this, CatData);
+            onclick?.Invoke(this, catData);
         });
     }
 
     public void SetData(CatData catData)
     {
-        CatData = catData;
+        CatImage.sprite = catData.CatSprite;
+        CatNameText.text = catData.Name;
 
-        CatImage.sprite = CatData.CatSprite;
-        CatNameText.text = CatData.Name;
-
-        Ability.SetAbility(CatData.AbilitySprite, CatData.AbilityRating);
+        Ability.SetAbility(catData);
     }
 }

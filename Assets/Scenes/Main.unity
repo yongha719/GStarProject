@@ -568,6 +568,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b254f75bf0933504d90a0dfdeb77709d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  captureHudUpParent: {fileID: 0}
+  captureHudUpParentPos: {fileID: 0}
+  captureHudDownParent: {fileID: 0}
+  captureHudDownParentPos: {fileID: 0}
 --- !u!1 &31880291
 GameObject:
   m_ObjectHideFlags: 0
@@ -39147,6 +39151,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b254f75bf0933504d90a0dfdeb77709d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  captureHudUpParent: {fileID: 0}
+  captureHudUpParentPos: {fileID: 0}
+  captureHudDownParent: {fileID: 0}
+  captureHudDownParentPos: {fileID: 0}
 --- !u!1 &1623434950
 GameObject:
   m_ObjectHideFlags: 0
@@ -42828,7 +42836,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1893181340
 RectTransform:
   m_ObjectHideFlags: 0
@@ -42838,7 +42846,7 @@ RectTransform:
   m_GameObject: {fileID: 1893181339}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 1}
   m_Children:
   - {fileID: 1881454064}
   - {fileID: 2103110873}

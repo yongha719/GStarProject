@@ -30,13 +30,13 @@ public class GoldProductionBuilding : ProductionBuilding
 
         CatPlacementButton.onClick.AddListener(() =>
         {
-            CatPlacement.gameObject.SetActive(true);
+            CatPlacement.OpenUIPopup();
 
             PlacedInBuildingCats = PlacedInBuildingCats.Where(x => x.building == this).ToList();
 
             if (PlacedInBuildingCats.Count == 0)
             {
-                CatPlacement.SetBuildingInfo(BuildingType.Gold, this, null);
+                CatPlacement.SetBuildingInfo(BuildingType.Gold, this);
             }
             else
             {
@@ -60,7 +60,7 @@ public class GoldProductionBuilding : ProductionBuilding
 
     public virtual void OnCatMemberChange(CatData catData, int index)
     {
-        CatPlacementWorkingCats workingCats = catData.Cat.building.WorkingCats;
+        CatPlacementWorkingCatsUI workingCats = catData.Cat.building.WorkingCats;
 
         if (PlacedInBuildingCats.Count < MaxDeployableCat)
         {

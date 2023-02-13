@@ -18,7 +18,7 @@ public class PlacingBuildingUI : UIPopup
 
     #endregion
 
-    [SerializeField] private CatPlacement CatPlacement;
+    [SerializeField] private CatPlacementUI CatPlacement;
 
     private GridBuildingSystem GridBuildingSystem;
     private GameManager GameManager;
@@ -27,11 +27,9 @@ public class PlacingBuildingUI : UIPopup
 
     void Start()
     {
-        print("UI");
         GridBuildingSystem = GridBuildingSystem.Instance;
         GameManager = GameManager.Instance;
         UIPopUpHandler.Instance.BuildingPlacingPopup = gameObject; 
-
 
         UISetting();
     }
@@ -42,7 +40,7 @@ public class PlacingBuildingUI : UIPopup
         SetProductBuildingInfo<GoldProductionBuilding>(GoldProductionBuildingInfos);
         SetProductBuildingInfo<EnergyProductionBuilding>(EnergyProductionBuildingInfos);
 
-        CloseButton.onClick.AddListener(() => UIDisable());
+        CloseButton.onClick.AddListener(() => CloseUIPopup());
     }
 
     void SetProductBuildingInfo<T>(List<BuildingBuyInfoUI> ProductionBuildingInfos) where T : ProductionBuilding
@@ -63,8 +61,8 @@ public class PlacingBuildingUI : UIPopup
 
                 if (GameManager._coin > 0 && GameManager._coin >= produtionbuilding.PlacingPrice.returnValue())
                 {
-                    Warning.WarningUISetActive(true);
-                    Warning.SetWarningData(buildingInfo.BuildingPrefab, produtionbuilding.BuildingName);
+                    Warning.OpenUIPopup();
+                    Warning.SetWarningData(buildingInfo.BuildingPrefab, produtionbuilding.BuildingName, this);
                     //UIPopUpHandler.Instance.OnUIWarningPopUp(UIWarningPopupType.PlacingBuildingWarning);
                 }
                 else

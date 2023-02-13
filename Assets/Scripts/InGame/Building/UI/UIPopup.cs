@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using DG.Tweening;
+using NativeGalleryNamespace;
 
 /// <summary>
 /// UI Background에 있는 스크립트
@@ -15,12 +16,17 @@ public class UIPopup : MonoBehaviour
     // UI Popup의 백그라운드 이미지를 누르면 Popup이 닫히게 하려고 버튼달았음
     private Button Button;
 
+    readonly WaitForSeconds DisableDelay = new WaitForSeconds(0.2f);
+
     protected virtual void Awake()
     {
         rect = transform.GetChild(0).GetComponent<RectTransform>();
 
         Button = GetComponent<Button>();
-        Button.onClick.AddListener(() => UIDisable());
+        Button.onClick.AddListener(() =>
+        {
+            CloseUIPopup();
+        });
     }
 
     protected virtual void OnEnable()
@@ -29,21 +35,14 @@ public class UIPopup : MonoBehaviour
         rect.DOScale(1, 0.3f);
     }
 
-    public void UIDisable()
-    {
-        StartCoroutine(DisableCoroutine());
-    }
+    public void OpenUIPopup() => gameObject.SetActive(true);
 
-    private IEnumerator DisableCoroutine()
+    public void CloseUIPopup() => StartCoroutine(UIDisableAnimationCoroutine());
+
+    private IEnumerator UIDisableAnimationCoroutine()
     {
         rect.DOScale(0f, 0.3f);
-        yield return new WaitForSeconds(0.2f);
+        yield return DisableDelay;
         gameObject.SetActive(false);
     }
-}
-
-public interface IUIPopup
-{
-    void OpenUIPopup();
-    void CloseUIPopup();
 }

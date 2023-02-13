@@ -85,7 +85,7 @@ public class BuildingLevelUpUI : MonoBehaviour
         if (building is GoldProductionBuilding)
         {
             goldBuilding = building as GoldProductionBuilding;
-            var workingcat = Instantiate(GoldBuildingWorkingCats[goldBuilding.BuildinTypeToInt], WoringcatParent).GetComponent<CatPlacementWorkingCats>();
+            var workingcat = Instantiate(GoldBuildingWorkingCats[goldBuilding.BuildinTypeToInt], WoringcatParent).GetComponent<CatPlacementWorkingCatsUI>();
             workingcat.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 20);
 
             if (placedInBuildingCats != null)
@@ -97,7 +97,7 @@ public class BuildingLevelUpUI : MonoBehaviour
         else if (building is EnergyProductionBuilding)
         {
             energyBuilding = building as EnergyProductionBuilding;
-            var workingcat = Instantiate(EnergyBuildingWorkingCats[energyBuilding.BuildinTypeToInt], WoringcatParent).GetComponent<CatPlacementWorkingCats>();
+            var workingcat = Instantiate(EnergyBuildingWorkingCats[energyBuilding.BuildinTypeToInt], WoringcatParent).GetComponent<CatPlacementWorkingCatsUI>();
 
             if (placedInBuildingCats != null)
                 for (int i = 0; i < placedInBuildingCats.Count; i++)

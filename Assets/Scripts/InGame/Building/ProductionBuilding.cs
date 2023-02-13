@@ -79,7 +79,7 @@ public class ProductionBuilding : Building
 
     // 건물에 배치된 고양이
     public List<Cat> PlacedInBuildingCats = new List<Cat>();
-    public CatPlacementWorkingCats WorkingCats;
+    public CatPlacementWorkingCatsUI WorkingCats;
 
     protected override void Start()
     {
@@ -90,6 +90,7 @@ public class ProductionBuilding : Building
         CollectResourceButton.onClick.AddListener(() =>
         {
             didGetResource = true;
+            CollectResourceButton.gameObject.SetActive(false);
         });
     }
 
