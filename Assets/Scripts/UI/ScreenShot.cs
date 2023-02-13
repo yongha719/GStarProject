@@ -1,24 +1,22 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Net.Http.Headers;
-using System.Runtime.InteropServices.ComTypes;
-using System.Text.RegularExpressions;
 using UnityEngine;
-using UnityEngine.Windows.WebCam;
+using UnityEngine.UI;
 
 public class ScreenShot : MonoBehaviour
 {
     private string m_FileName = "WinterCat_ScreenShot";
-
     [Header("captureHud")]
+    ///캡쳐
     [SerializeField] private GameObject captureHudUpParent;
     [SerializeField] private Transform captureHudUpParentPos;
     [SerializeField] private GameObject captureHudDownParent;
     [SerializeField] private Transform captureHudDownParentPos;
+    [SerializeField] private Image CaptureImage;
 
-    [Header("captureHudAnimate")]
+
     private bool isHudAnimated;
     private bool isHudOn;
+
     public void PlayScreenShot()
     {
         StartCoroutine(CaptureScreenForMobile(m_FileName));
@@ -37,6 +35,8 @@ public class ScreenShot : MonoBehaviour
         yield return new WaitForEndOfFrame();
         Texture2D texture = ScreenCapture.CaptureScreenshotAsTexture();
 
+        CaptureImage.sprite = TextureToSprite(texture);
+
         // do something with texture
         string albumName = "BRUNCH";
         NativeGallery.SaveImageToGallery(texture, albumName, fileName, (success, path) =>
@@ -49,6 +49,11 @@ public class ScreenShot : MonoBehaviour
         Destroy(texture);
     }
 
+    private Sprite TextureToSprite(Texture2D texture)
+    {
+        Rect rect = new Rect(0, 0, texture.width, texture.height);
+        return Sprite.Create(texture, rect, new Vector2(0.5f, 0.5f));
+    }
     //UI편집관련 함수
     /// <summary>
     /// 유니티 버튼에서 사용되는 함수
@@ -75,6 +80,7 @@ public class ScreenShot : MonoBehaviour
 
             time += Time.deltaTime;
             yield return null;
+            ///작업해 안깜팽
         }
         isHudAnimated = false;
     }
