@@ -72,6 +72,12 @@ public static class BuildingManager
         return false;
     }
 
+
+    public static void AddBuilding<T>(T building) where T : ProductionBuilding
+    {
+
+    }
+
     /// <summary>
     /// 현재 배치할 건물 정보 가져오기
     /// 

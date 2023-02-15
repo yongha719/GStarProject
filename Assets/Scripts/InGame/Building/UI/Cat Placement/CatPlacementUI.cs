@@ -66,7 +66,6 @@ public class CatPlacementUI : UIPopup
 
         SetWorkingCat();
 
-
         if (catData == null)
         {
             WorkText.gameObject.SetActive(false);
@@ -126,7 +125,7 @@ public class CatPlacementUI : UIPopup
             workingCatsUI.gameObject.SetActive(true);
         }
 
-
+        // 모르겠고
         workingCatsUI.MaxDeployableCat = building.MaxDeployableCat;
 
         return true;
@@ -182,14 +181,14 @@ public class CatPlacementUI : UIPopup
         CatPlacementWarning.SetWaringData(catData.Name);
 
         // 경고창 Yes 버튼
-        CatPlacementWarning.OnClickYesButton(() => { CreateYesButtonFromCatData(in cattoplace, in catData); });
+        CatPlacementWarning.OnClickYesButton(() => { PlaceCatButton(cattoplace, catData); });
     }
 
     /// <summary>
     /// 배치 버튼 눌렀을때 호출할 함수
     /// </summary>
     /// <param name="cattoplace">배치할 수 있는 고양이</param> 
-    private void CreateYesButtonFromCatData(in CatToPlaceUI cattoplace, in CatData catData)
+    private void PlaceCatButton(CatToPlaceUI cattoplace,CatData catData)
     {
         // 건물에서 일하는 고양이가 없을 때
         if (CurSelectedCat == null || workingCatsUI.CatDatas.Count < workingCatsUI.MaxDeployableCat)
@@ -207,21 +206,26 @@ public class CatPlacementUI : UIPopup
             workingCatsUI.CatAbilitys.Add(ability);
 
             // 일하고 있는 고양이 UI 정보 셋팅
-            workingCatsUI.SetData(workingCatsUI.CatDatas.Count, in catData, call: (catnum) => CurSelectedCatIndex = catnum);
+            workingCatsUI.SetData(workingCatsUI.CatDatas.Count, catData, call: (catnum) => CurSelectedCatIndex = catnum);
         }
+        // 고양이가 있을 때
         else
         {
             // 고양이를 바꿔야 하는거임
 
             // 배치된 고양이와 정보 교체
-            workingCatsUI.SetData(CurSelectedCatIndex, in catData);
+            workingCatsUI.SetData(CurSelectedCatIndex, catData);
             cattoplace.SetData(CurSelectedCat);
+            // TODO : 바꿔진 고양이 정보 지우기
+            // 여기에서 바꿔진 고양이의 정보를 지우는게 맞겠다
         }
 
         CurSelectedCat = catData;
 
+
         // 건물에서 일하는 고양이 바꾸기
-        BuildingManager.GetGoldProductionBuilding(productionBuilding).OnCatMemberChange(catData, CurSelectedCatIndex);
+        catData.Cat.building = BuildingManager.GetGoldProductionBuilding(productionBuilding);
+        catData.Cat.building.ChangeCat(catData, CurSelectedCatIndex);
     }
 
 

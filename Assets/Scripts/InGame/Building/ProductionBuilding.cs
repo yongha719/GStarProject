@@ -108,7 +108,7 @@ public class ProductionBuilding : Building
         return cost.returnStr();
     }
     
-    public virtual void OnCatMemberChange(CatData catData, int index, Action action) { }
+    public virtual void ChangeCat(CatData catData, int index, Action action) { }
     protected virtual IEnumerator ResourceProduction() { yield return null; }
     public virtual IEnumerator WaitGetResource() { yield return null; }
 

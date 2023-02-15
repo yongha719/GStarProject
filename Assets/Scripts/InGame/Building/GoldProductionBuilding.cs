@@ -56,18 +56,19 @@ public class GoldProductionBuilding : ProductionBuilding
     }
 
 
-    protected virtual void OnCatMemberChange(int index) { }
+    protected virtual void ChangeCat(int index) { }
 
-    public virtual void OnCatMemberChange(CatData catData, int index)
+    //
+    public virtual void ChangeCat(CatData catData, int index)
     {
-        CatPlacementWorkingCatsUI workingCats = catData.Cat.building.WorkingCats;
-
         if (PlacedInBuildingCats.Count < MaxDeployableCat)
         {
             PlacedInBuildingCats.Add(catData.Cat);
+            print("Add");
         }
         else
         {
+            // 얘네는 건물안으로 들어가는 모션이라 꺼줌
             switch (buildingType)
             {
                 case GoldBuildingType.GoldMine:
@@ -81,25 +82,14 @@ public class GoldProductionBuilding : ProductionBuilding
             PlacedInBuildingCats[index] = catData.Cat;
         }
 
-        SetProductionTime();
+        if (PlacedInBuildingCats.Count != 0)
+        {
+            SetProductionTime();
+        }
 
         catData.Cat.catNum = index;
 
-        var catBuilding = catData.Cat.building;
-
-        if (catBuilding != null)
-        {
-            if (catBuilding.PlacedInBuildingCats.Contains(catData.Cat))
-            {
-                catBuilding.PlacedInBuildingCats.Remove(catData.Cat);
-                workingCats.CatDatas.Remove(catData);
-            }
-        }
-
-        catBuilding = this;
         catData.Cat.GoToWork(transform.position);
-
-        OnCatMemberChange(index);
     }
 
 
@@ -122,11 +112,8 @@ public class GoldProductionBuilding : ProductionBuilding
             }
         }
 
-        if (PlacedInBuildingCats.Count != 0)
-        {
-            if (decreasingfigure != 0)
-                waitResourceChargingTime = new WaitForSeconds(DefaultResourceChargingTime - (float)(DefaultResourceChargingTime * Math.Round(decreasingfigure / 100f, 3)));
-        }
+        if (decreasingfigure != 0)
+            waitResourceChargingTime = new WaitForSeconds(DefaultResourceChargingTime - (float)(DefaultResourceChargingTime * Math.Round(decreasingfigure / 100f, 3)));
     }
 
     public override void Place()
@@ -150,6 +137,7 @@ public class GoldProductionBuilding : ProductionBuilding
             CollectResourceButton.gameObject.SetActive(true);
             yield return StartCoroutine(WaitGetResource());
 
+            // TODO : Cat 스크립트로 옮기기
             for (int i = 0; i < PlacedInBuildingCats.Count; i++)
             {
                 if (PlacedInBuildingCats[i] == null)
@@ -228,24 +216,14 @@ public class GoldProductionBuilding : ProductionBuilding
         GridBuildingSystem.InitializeWithBuilding(BuildingInfo.BuildingPrefab);
     }
 
+    [Obsolete("이제 안씀")]
     public void SetPos(int index = 0)
     {
         var cat = PlacedInBuildingCats[index];
 
-        print(buildingType);
         switch (buildingType)
         {
             case GoldBuildingType.IceFishing:
-                if (cat.catData.CatSkinType == CatSkinType.beanieCat)
-                {
-                    cat.transform.position = transform.position + new Vector3(0.15f, 1.2f, 0);
-                }
-                else if (cat.catData.CatSkinType == CatSkinType.PinkCloakCat)
-                {
-
-                }
-                else
-                    cat.transform.position = transform.position + new Vector3(0.07f, 1.2f, 0);
                 break;
             case GoldBuildingType.FirewoodChopping:
                 cat.transform.position = transform.position + new Vector3(0.13f, 0.8f, 0);

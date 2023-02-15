@@ -48,7 +48,7 @@ public class CatPlacementWorkingCatsUI : UIPopup
     /// 고양이 배치에서 건물에서 일하는 고양이 정보 설정
     /// </summary>    
     /// <param name="call">고양이 눌렀을때 이벤트</param>
-    public void SetData(int index, in CatData CatData, Action<int> call = null)
+    public void SetData(int index, CatData CatData, Action<int> call = null)
     {
         curCatNum = CatClickButtons.IndexOf(CatClickButtons[index]);
 
@@ -57,7 +57,12 @@ public class CatPlacementWorkingCatsUI : UIPopup
         CatAnimators[index].runtimeAnimatorController = CatData.Cat.AnimatorController;
 
         if (CatDatas.Count < index + 1)
+        {
             CatDatas.Add(CatData);
+            print("CatData Add");
+            print(CatDatas.Count);
+            print(gameObject);
+        }
         else
             CatDatas[index] = CatData;
 

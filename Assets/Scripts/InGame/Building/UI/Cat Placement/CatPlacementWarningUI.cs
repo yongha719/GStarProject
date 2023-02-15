@@ -11,7 +11,7 @@ public class CatPlacementWarningUI : WarningUI
 
         YesButton.onClick.AddListener(() =>
         {
-
+            CloseUIPopup();
         });
 
         NoButton.onClick.AddListener(() =>

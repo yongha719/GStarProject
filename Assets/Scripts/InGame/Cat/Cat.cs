@@ -273,6 +273,9 @@ public class Cat : MonoBehaviour
         GoResting = true;
     }
 
+    /// <summary>
+    /// 일 끝나고 자유롭게 움직이게하는 함수
+    /// </summary>
     public void FinishWork()
     {
         StopCoroutine(MoveCoroutine);
@@ -280,8 +283,8 @@ public class Cat : MonoBehaviour
         RandomMoveCoroutine = StartCoroutine(RandomMove());
 
         GoWorking = true;
-
         IsWorking = false;
+
         CatState = CatState.Moving;
         Animator.SetInteger("State", (int)catState);
     }
@@ -341,8 +344,6 @@ public class Cat : MonoBehaviour
 
         if (GoWorking && collision.gameObject.TryGetComponent(out GoldProductionBuilding goldbuilding) && building == goldbuilding)
         {
-            print("argiugriubgliubgra;iubg;oubagr;ouageo;ubaegiugraouiagroihwefouigaro;ub");
-            //StopMove = true;
             transform.DOKill();
             Animator.SetBool("Isback", false);
 
@@ -355,10 +356,10 @@ public class Cat : MonoBehaviour
             StopCoroutine(MoveCoroutine);
 
             var index = goldbuilding.PlacedInBuildingCats.IndexOf(this);
-            if (index == -1)
-                goldbuilding.SetPos();
-            else
-                goldbuilding.SetPos(index);
+            //if (index == -1)
+            //    goldbuilding.SetPos();
+            //else
+            //    goldbuilding.SetPos(index);
 
             done = false;
 
@@ -377,7 +378,7 @@ public class Cat : MonoBehaviour
             IsResting = true;
             transform.position = new Vector3(pos.x, pos.y + 0.675f, PosZ);
 
-            energybuilding.OnCatMemberChange(catData);
+            energybuilding.ChangeCat(catData);
         }
     }
 

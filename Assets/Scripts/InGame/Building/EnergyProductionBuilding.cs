@@ -49,7 +49,7 @@ public class EnergyProductionBuilding : ProductionBuilding
         });
     }
 
-    public override void OnCatMemberChange(CatData catData, int index = 0, Action action = null)
+    public override void ChangeCat(CatData catData, int index = 0, Action action = null)
     {
         PlacedInBuildingCats.Add(catData.Cat);
         SetProductionTime();
@@ -112,7 +112,7 @@ public class EnergyProductionBuilding : ProductionBuilding
                 if (++PlacedInBuildingCats[i].NumberOfEnergyProduction >= 3)
                 {
                     PlacedInBuildingCats[i].GoToWork(PlacedInBuildingCats[i].building.transform.position);
-                    PlacedInBuildingCats[i].building.OnCatMemberChange(PlacedInBuildingCats[i].catData, PlacedInBuildingCats[i].catNum);
+                    PlacedInBuildingCats[i].building.ChangeCat(PlacedInBuildingCats[i].catData, PlacedInBuildingCats[i].catNum);
 
                     PlacedInBuildingCats.RemoveAt(i);
                 }
