@@ -3,6 +3,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// 마을 회관 팝업 주민 리스트에 있는 고양이
+/// </summary>
 public class CatInfoUI : MonoBehaviour
 {
     [SerializeField] private Image CatImage;
@@ -36,7 +39,7 @@ public class CatInfoUI : MonoBehaviour
 
         ExportButton?.onClick.AddListener(() =>
         {
-            call();
+            call?.Invoke();
             CatManager.Instance.RemoveCat(cat);
         });
     }

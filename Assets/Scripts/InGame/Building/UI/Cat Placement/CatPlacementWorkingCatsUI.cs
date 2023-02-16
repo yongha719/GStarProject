@@ -58,10 +58,7 @@ public class CatPlacementWorkingCatsUI : UIPopup
 
         if (CatDatas.Count < index + 1)
         {
-            CatDatas.Add(CatData);
-            print("CatData Add");
-            print(CatDatas.Count);
-            print(gameObject);
+            CatDatas.Add(CatData);  
         }
         else
             CatDatas[index] = CatData;

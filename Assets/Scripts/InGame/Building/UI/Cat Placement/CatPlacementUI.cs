@@ -220,12 +220,19 @@ public class CatPlacementUI : UIPopup
             // 여기에서 바꿔진 고양이의 정보를 지우는게 맞겠다
         }
 
+        var goldBuilding = BuildingManager.GetGoldProductionBuilding(productionBuilding);
+
+        if (catData.Cat.goldBuilding != null && catData.Cat.goldBuilding != goldBuilding)
+        {
+            catData.Cat.goldBuilding.WorkingCats.RemoveCat(catData);
+        }
+
         CurSelectedCat = catData;
 
 
         // 건물에서 일하는 고양이 바꾸기
-        catData.Cat.building = BuildingManager.GetGoldProductionBuilding(productionBuilding);
-        catData.Cat.building.ChangeCat(catData, CurSelectedCatIndex);
+        catData.Cat.goldBuilding = goldBuilding;
+        catData.Cat.goldBuilding.ChangeCat(catData, CurSelectedCatIndex);
     }
 
 

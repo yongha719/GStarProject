@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class ViliageInfoUI : MonoBehaviour
+public class ViliageInfoUI : UIPopup
 {
     [Header("주민")]
     [SerializeField] private RectTransform CatsContent;
@@ -23,8 +23,10 @@ public class ViliageInfoUI : MonoBehaviour
     private CatManager CatManager;
     private VillageHall VillageHall;
     private GridBuildingSystem GridBuildingSystem;
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();   
+
         CatManager = CatManager.Instance;
         GridBuildingSystem = GridBuildingSystem.Instance;
         GameManager = GameManager.Instance;
@@ -54,8 +56,10 @@ public class ViliageInfoUI : MonoBehaviour
         IceText.text = GameManager._ice.returnStr();
     }
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
+        base.OnEnable();
+
         // 레벨업 텍스트
         CurLevelText.text = $"Lv. {VillageHall.Level}";
         CurAreaText.text = $"{GridBuildingSystem.ViliageAreaSize.x} * {GridBuildingSystem.ViliageAreaSize.y}";
@@ -66,13 +70,9 @@ public class ViliageInfoUI : MonoBehaviour
 
         if (CatManager.CatList != null)
         {
-            for (int i = 0; i < CatsContent.childCount; i++)
-                Destroy(CatsContent.GetChild(i).gameObject);
-
             var CatList = CatManager.CatList;
-            var cnt = CatList.Count;
 
-            for (int i = 0; i < cnt; i++)
+            for (int i = 0; i < CatList.Count; i++)
             {
                 var catInfo = Instantiate(CatInfoPrefab, CatsContent).GetComponent<CatInfoUI>();
 
@@ -83,5 +83,11 @@ public class ViliageInfoUI : MonoBehaviour
                     });
             }
         }
+    }
+
+    private void OnDisable()
+    {
+        for (int i = 0; i < CatsContent.childCount; i++)
+            Destroy(CatsContent.GetChild(i).gameObject);
     }
 }

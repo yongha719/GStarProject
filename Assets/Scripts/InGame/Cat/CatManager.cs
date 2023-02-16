@@ -27,11 +27,7 @@ public class CatManager : Singleton<CatManager>
         {
             Destroy(cat.gameObject);
             CatList.Remove(cat);
-            cat.building.PlacedInBuildingCats.Remove(cat);
-        }
-        else
-        {
-            print("뭘 지우라는거야\n 다시 확인해");
+            cat.goldBuilding.WorkingCats.RemoveCat(cat.catData);
         }
 
         // 쫓겨나는 이벤트

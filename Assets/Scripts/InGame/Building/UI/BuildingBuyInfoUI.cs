@@ -30,6 +30,9 @@ public class BuildingBuyInfoUI : MonoBehaviour
 
     public void BuyButtonOnclick(Action<Building> call)
     {
-        BuyButton.onClick.AddListener(() => call(Building));
+        BuyButton.onClick.AddListener(() =>
+        {
+            call(Building);
+        });
     }
 }

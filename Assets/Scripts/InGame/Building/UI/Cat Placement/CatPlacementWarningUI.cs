@@ -9,20 +9,18 @@ public class CatPlacementWarningUI : WarningUI
     {
         CatPlacementUI = FindObjectOfType<CatPlacementUI>();
 
-        YesButton.onClick.AddListener(() =>
-        {
-            CloseUIPopup();
-        });
+        YesButton.onClick.AddListener(() => CloseUIPopup());
+        NoButton.onClick.AddListener(() => CloseUIPopup());
+    }
 
-        NoButton.onClick.AddListener(() =>
-        {
-            CloseUIPopup();
-        });
+    private void OnDisable()
+    {
+        YesButton.onClick.RemoveAllListeners();
+        YesButton.onClick.AddListener(() => CloseUIPopup());
     }
 
     public void OnClickYesButton(System.Action call)
     {
-        YesButton.onClick.RemoveAllListeners();
         YesButton.onClick.AddListener(() => call());
     }
 

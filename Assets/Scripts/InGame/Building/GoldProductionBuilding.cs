@@ -32,7 +32,7 @@ public class GoldProductionBuilding : ProductionBuilding
         {
             CatPlacement.OpenUIPopup();
 
-            PlacedInBuildingCats = PlacedInBuildingCats.Where(x => x.building == this).ToList();
+            PlacedInBuildingCats = PlacedInBuildingCats.Where(x => x.goldBuilding == this).ToList();
 
             if (PlacedInBuildingCats.Count == 0)
             {
@@ -45,11 +45,11 @@ public class GoldProductionBuilding : ProductionBuilding
             }
         });
 
-        BuildingInfomationButton.onClick.AddListener(() =>
+        BuildingLevelUpButton.onClick.AddListener(() =>
         {
             BuildingInfomation.gameObject.SetActive(true);
 
-            PlacedInBuildingCats = PlacedInBuildingCats.Where(x => x.building == this).ToList();
+            PlacedInBuildingCats = PlacedInBuildingCats.Where(x => x.goldBuilding == this).ToList();
 
             BuildingInfomation.SetData(BuildingType.Gold, this, PlacedInBuildingCats, SpriteRenderer.sprite);
         });
@@ -64,7 +64,6 @@ public class GoldProductionBuilding : ProductionBuilding
         if (PlacedInBuildingCats.Count < MaxDeployableCat)
         {
             PlacedInBuildingCats.Add(catData.Cat);
-            print("Add");
         }
         else
         {
@@ -92,6 +91,13 @@ public class GoldProductionBuilding : ProductionBuilding
         catData.Cat.GoToWork(transform.position);
     }
 
+    /// <summary>
+    /// 일하던 고양이가 다른 건물로 일하러 갈때 호출할 함수
+    /// </summary>
+    public virtual void BuildingRemoveCat(CatData catData)
+    {
+        WorkingCats.RemoveCat(catData);
+    } 
 
     /// <summary>
     /// 생산 시간 재설정
@@ -120,7 +126,6 @@ public class GoldProductionBuilding : ProductionBuilding
     {
         base.Place();
 
-        print("place");
         StartCoroutine(ResourceProduction());
     }
 
@@ -146,7 +151,6 @@ public class GoldProductionBuilding : ProductionBuilding
                 // 골드 생산 10번하면 쉬러 가야 함
                 if (++PlacedInBuildingCats[i].NumberOfGoldProduction >= 10 && BuildingManager.CanGoRest(out Vector3 buildingPos))
                 {
-                    print("rest");
                     PlacedInBuildingCats[i].NumberOfGoldProduction = 0;
                     PlacedInBuildingCats[i].GoWorking = false;
                     PlacedInBuildingCats[i].GoResting = true;
@@ -163,8 +167,6 @@ public class GoldProductionBuilding : ProductionBuilding
 
     public override IEnumerator WaitGetResource()
     {
-        print(nameof(WaitGetResource));
-
         var curtime = 0f;
         var autogetmoney = false;
 
@@ -216,7 +218,7 @@ public class GoldProductionBuilding : ProductionBuilding
         GridBuildingSystem.InitializeWithBuilding(BuildingInfo.BuildingPrefab);
     }
 
-    [Obsolete("이제 안씀")]
+    [Obsolete("고양이 스크립트로 옮기기")]
     public void SetPos(int index = 0)
     {
         var cat = PlacedInBuildingCats[index];
@@ -224,6 +226,7 @@ public class GoldProductionBuilding : ProductionBuilding
         switch (buildingType)
         {
             case GoldBuildingType.IceFishing:
+                cat.transform.position = transform.position + new Vector3(0.07f, 1.2f, 0);
                 break;
             case GoldBuildingType.FirewoodChopping:
                 cat.transform.position = transform.position + new Vector3(0.13f, 0.8f, 0);

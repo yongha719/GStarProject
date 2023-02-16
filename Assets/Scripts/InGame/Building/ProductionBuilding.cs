@@ -73,7 +73,7 @@ public class ProductionBuilding : Building
 
     [Space(10)]
     [SerializeField] protected GameObject BuildingUI;
-    [SerializeField] protected Button BuildingInfomationButton;
+    [SerializeField] protected Button BuildingLevelUpButton;
 
     protected static GameObject s_buildingUI;
 

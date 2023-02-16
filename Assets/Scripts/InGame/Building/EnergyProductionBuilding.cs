@@ -32,11 +32,11 @@ public class EnergyProductionBuilding : ProductionBuilding
     {
         base.Start();
 
-        BuildingInfomationButton.onClick.AddListener(() =>
+        BuildingLevelUpButton.onClick.AddListener(() =>
         {
             BuildingInfomation.gameObject.SetActive(true);
 
-            PlacedInBuildingCats = PlacedInBuildingCats.Where(x => x.building == this).ToList();
+            PlacedInBuildingCats = PlacedInBuildingCats.Where(x => x.goldBuilding == this).ToList();
 
             if (PlacedInBuildingCats.Count == 0)
             {
@@ -111,8 +111,8 @@ public class EnergyProductionBuilding : ProductionBuilding
                 // 에너지 생산 3번하면 일하러 가야함
                 if (++PlacedInBuildingCats[i].NumberOfEnergyProduction >= 3)
                 {
-                    PlacedInBuildingCats[i].GoToWork(PlacedInBuildingCats[i].building.transform.position);
-                    PlacedInBuildingCats[i].building.ChangeCat(PlacedInBuildingCats[i].catData, PlacedInBuildingCats[i].catNum);
+                    PlacedInBuildingCats[i].GoToWork(PlacedInBuildingCats[i].goldBuilding.transform.position);
+                    PlacedInBuildingCats[i].goldBuilding.ChangeCat(PlacedInBuildingCats[i].catData, PlacedInBuildingCats[i].catNum);
 
                     PlacedInBuildingCats.RemoveAt(i);
                 }

@@ -13,7 +13,6 @@ public class VillageHallWarning : WarningUI
 
         YesButton.onClick.AddListener(() =>
         {
-            print("clicked yes button");
             VillageHall.LevelUp();
         });
 

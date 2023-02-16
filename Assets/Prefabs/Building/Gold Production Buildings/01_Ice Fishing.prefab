@@ -141,20 +141,20 @@ MonoBehaviour:
   SpriteRenderer: {fileID: 2077103226882709871}
   BuildingSprite: {fileID: 0}
   DeployingUIParent: {fileID: 5899888748090832682}
-  InstallationButton: {fileID: 3461216610261338055}
-  DemolitionButton: {fileID: 242414083478471806}
+  DecideButton: {fileID: 3461216610261338055}
+  CancelButton: {fileID: 242414083478471806}
   RotateButton: {fileID: 7826019180079987851}
   CatPlacement: {fileID: 0}
   BuildingInfomation: {fileID: 0}
   CollectResourceButton: {fileID: 7111014572839036898}
-  DefaultResource: 
-  DefaultResourceChargingTime: 0
+  DefaultResource: 200
+  DefaultResourceChargingTime: 20
   IncreasePerLevelUp: 15
   DefaultLevelUpCost: 400
   ConstructionResourceText: {fileID: 3977098050459093906}
   ResourceAcquisitionEffect: {fileID: 4651143797973280713, guid: d1c3aa70df08bb943a114b0228f21908, type: 3}
   BuildingUI: {fileID: 1465863507857865530}
-  BuildingInfomationButton: {fileID: 4406919349210256713}
+  BuildingLevelUpButton: {fileID: 0}
   PlacedInBuildingCats: []
   WorkingCats: {fileID: 0}
   buildingType: 0
@@ -732,17 +732,6 @@ RectTransform:
 --- !u!114 &7947257899089732123 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2846902035265629599, guid: 5342ce198f617e040ba8a395ca807f55, type: 3}
-  m_PrefabInstance: {fileID: 5316621004992221060}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &4406919349210256713 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8421990161877310157, guid: 5342ce198f617e040ba8a395ca807f55, type: 3}
   m_PrefabInstance: {fileID: 5316621004992221060}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}

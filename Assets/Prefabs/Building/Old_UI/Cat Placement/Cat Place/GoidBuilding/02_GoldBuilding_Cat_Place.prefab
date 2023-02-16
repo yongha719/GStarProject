@@ -110,7 +110,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3311236169363745305}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f973c52e70bb0f94eaf53081ee5a8cd8, type: 3}
+  m_Script: {fileID: 11500000, guid: 9f0a325ded903364892b9d75fea5d00b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   CatImages:
@@ -124,9 +124,9 @@ MonoBehaviour:
   - {fileID: 6364506290124378063}
   CatAbilitys: []
   AbilityParent: {fileID: 8279078823148962065}
-  AbilityPrefab: {fileID: 5806247040724369428, guid: 704595c961f5a6344b690066934fc8ec, type: 3}
+  AbilityPrefab: {fileID: 5806247040724369428, guid: 3eb1aa23bf05a8a409a49ca7fcbc8c99, type: 3}
   CatDatas: []
-  MaxDeployableCat: 2
+  MaxDeployableCat: 0
 --- !u!1 &3311236170794826642
 GameObject:
   m_ObjectHideFlags: 0

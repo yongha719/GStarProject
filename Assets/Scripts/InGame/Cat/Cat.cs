@@ -122,26 +122,23 @@ public class Cat : MonoBehaviour
         _ => throw new System.Exception("고양이 능력 등급 값이 존재하지 않는 값임")
     };
 
-    public GoldProductionBuilding building;
+    public GoldProductionBuilding goldBuilding;
     public int catNum;
 
     private CatManager CatManager;
-    private GridBuildingSystem GridBuildingSystem;
 
     void Start()
     {
         CatManager = CatManager.Instance;
-        GridBuildingSystem = GridBuildingSystem.Instance;
 
         SpriteRenderer = GetComponent<SpriteRenderer>();
         Animator = GetComponent<Animator>();
         
         SpriteRenderer.sprite = catData.CatSprite;
 
-        canMoveArea = (int)GridBuildingSystem.ViliageAreaSize.x;
+        canMoveArea = (int)GridBuildingSystem.Instance.ViliageAreaSize.x;
 
         Animator.runtimeAnimatorController = catData.CatAnimator;
-
         catData.Cat = this;
 
         transform.position = transform.position + (Vector3.back * 0.01f * CatManager.CatList.IndexOf(this));
@@ -210,7 +207,7 @@ public class Cat : MonoBehaviour
 
         while (true)
         {
-            if (GridBuildingSystem.WallCheck(randomPos) == false)
+            if (GridBuildingSystem.Instance.WallCheck(randomPos) == false)
             {
                 return randomPos;
             }
@@ -249,6 +246,8 @@ public class Cat : MonoBehaviour
 
         CatState = CatState.Idle;
         yield return new WaitForSeconds(2);
+
+        node = null;
     }
 
     #endregion
@@ -317,21 +316,9 @@ public class Cat : MonoBehaviour
 
     #endregion
 
-    public void SetFishingPos()
-    {
-        if (catData.CatSkinType == CatSkinType.beanieCat)
-        {
-            transform.position += new Vector3(0.085f, -0.13f, 0);
-        }
-        else
-        {
-            transform.position += new Vector3(0.08f, -0.13f, 0);
-        }
-    }
-
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if(collision.gameObject.TryGetComponent(out GoldProductionBuilding goldbuilding) && building != goldbuilding)
+        if(collision.gameObject.TryGetComponent(out GoldProductionBuilding goldbuilding) && goldBuilding != goldbuilding)
         {
             IsWorking = false;
         }
@@ -342,7 +329,7 @@ public class Cat : MonoBehaviour
         if (IsWorking || IsResting)
             return;
 
-        if (GoWorking && collision.gameObject.TryGetComponent(out GoldProductionBuilding goldbuilding) && building == goldbuilding)
+        if (GoWorking && collision.gameObject.TryGetComponent(out GoldProductionBuilding goldbuilding) && goldBuilding == goldbuilding)
         {
             transform.DOKill();
             Animator.SetBool("Isback", false);
@@ -356,6 +343,8 @@ public class Cat : MonoBehaviour
             StopCoroutine(MoveCoroutine);
 
             var index = goldbuilding.PlacedInBuildingCats.IndexOf(this);
+            SetPos(index);
+
             //if (index == -1)
             //    goldbuilding.SetPos();
             //else
@@ -382,6 +371,43 @@ public class Cat : MonoBehaviour
         }
     }
 
+    void SetPos(int index = 0)
+    {
+        switch (goldBuilding.buildingType)
+        {
+            case GoldBuildingType.IceFishing:
+                transform.position = goldBuilding.transform.position + new Vector3(0.18f, 1.3f, 0);
+                break;
+            case GoldBuildingType.FirewoodChopping:
+                transform.position = goldBuilding.transform.position + new Vector3(0.13f, 0.8f, 0);
+                break;
+            case GoldBuildingType.BlastFurnace:
+                transform.position = goldBuilding.transform.position + new Vector3(0.4f, 0.7f, 0);
+                break;
+            case GoldBuildingType.WinterClothesWorkshop:
+                if (index == 0)
+                {
+                    transform.position = transform.position + new Vector3(0.4f, 0.8f);
+                    Animator.SetInteger("Clothes", index);
+                }
+                else
+                {
+                    transform.position = transform.position + new Vector3(-0.24f, 0.8f);
+                    Animator.SetInteger("Clothes", index);
+                }
+                break;
+            case GoldBuildingType.Cauldron:
+                transform.position = transform.position + new Vector3(-0.026f, 0.86f);
+                break;
+            case GoldBuildingType.GoldMine:
+            case GoldBuildingType.PotatoFarming:
+            case GoldBuildingType.PowerPlant:
+                gameObject.SetActive(false);
+                break;
+            case GoldBuildingType.End:
+                break;
+        }
+    }
     void OnDrawGizmos()
     {
         if (nodes.Count != 0)

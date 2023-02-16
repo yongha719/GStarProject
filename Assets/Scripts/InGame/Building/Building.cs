@@ -48,8 +48,8 @@ public abstract class Building : MonoBehaviour
 
     [Space(5f)]
     [SerializeField] protected GameObject DeployingUIParent;
-    [SerializeField] private Button InstallationButton;
-    [SerializeField] private Button DemolitionButton;
+    [SerializeField] private Button DecideButton;
+    [SerializeField] private Button CancelButton;
     [SerializeField] private Button RotateButton;
     #endregion
 
@@ -72,12 +72,12 @@ public abstract class Building : MonoBehaviour
 
         CanvasRt = GameObject.Find("ParticleCanvas").transform as RectTransform;
 
-        InstallationButton.onClick.AddListener(() =>
+        DecideButton?.onClick.AddListener(() =>
         {
             GridBuildingSystem.Place();
         });
 
-        DemolitionButton?.onClick.AddListener(() =>
+        CancelButton?.onClick.AddListener(() =>
         {
             GridBuildingSystem.BuildingClear(true);
             //BuildingInfo.BuildingInstalltionUI.SetActive(true);
