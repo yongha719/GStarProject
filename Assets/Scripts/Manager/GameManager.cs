@@ -63,6 +63,7 @@ public class GameManager : Singleton<GameManager>
     {
         DontDestroyOnLoad(this.gameObject);
 
+        BuildingManager.Init();
     }
     private void Start()
     {
@@ -71,10 +72,12 @@ public class GameManager : Singleton<GameManager>
     private IEnumerator doMeow()
     {
         WaitForSeconds meowDelay = new WaitForSeconds(25);
+
         while (true)
         {
             yield return meowDelay;
             SoundManager.Instance.PlaySoundClip("SFX_Meow", SoundType.SFX);
         }
     }
+
 }

@@ -38,6 +38,7 @@ public static class BuildingManager
     public static List<GoldProductionBuilding> s_GoldProductionBuildings = new List<GoldProductionBuilding>();
     public static List<EnergyProductionBuilding> s_EnergyProductionBuildings = new List<EnergyProductionBuilding>();
 
+
     public static void Init()
     {
         for (int buildingtype = 0; buildingtype < (int)GoldBuildingType.End; buildingtype++)
@@ -51,6 +52,9 @@ public static class BuildingManager
         }
     }
 
+    /// <summary>
+    /// 고양이가 에너지 생산 건물로 가서 휴식할 수 있는지 체크하고 위치를 전달함
+    /// </summary>
     public static bool CanGoRest(out Vector3 pos)
     {
         pos = Vector3.zero;
@@ -68,12 +72,19 @@ public static class BuildingManager
         return false;
     }
 
+
+    public static void AddBuilding<T>(T building) where T : ProductionBuilding
+    {
+
+    }
+
     /// <summary>
     /// 현재 배치할 건물 정보 가져오기
     /// 
     /// 어차피 골드 생산하는 건물밖에 설치 못함
     /// </summary>
-    public static GoldProductionBuilding GetGoldProductionBuilding(ProductionBuilding Productionbuilding) => Productionbuilding as GoldProductionBuilding;
+    public static GoldProductionBuilding GetGoldProductionBuilding(ProductionBuilding Productionbuilding)
+        => Productionbuilding as GoldProductionBuilding;
 }
 
 

@@ -26,7 +26,6 @@ public class SoundManager : Singleton<SoundManager>
     private Image mySelfImage;
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
 
         AudioClip[] clips = Resources.LoadAll<AudioClip>("Sounds/");
         foreach (AudioClip clip in clips)

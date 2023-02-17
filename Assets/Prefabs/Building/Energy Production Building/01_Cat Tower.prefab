@@ -698,7 +698,7 @@ MonoBehaviour:
     m_Position: {x: 0, y: 0, z: 0}
     m_Size: {x: 1, y: 1, z: 1}
   BuildingName: "\uCEA3 \uD0C0\uC6CC"
-  Rating: 1
+  Level: 1
   isDeploying: 1
   DefaultConstructionCost: 1000
   BuildingInfo: {fileID: 0}
@@ -711,18 +711,18 @@ MonoBehaviour:
   RotateButton: {fileID: 7496639491388935465}
   CatPlacement: {fileID: 0}
   BuildingInfomation: {fileID: 0}
-  buildingType: 0
-  CollectEnergyButton: {fileID: 5444481926985826226}
-  DefaultEnergy: 1000
-  DefaultEnergyChargingTime: 10
+  CollectResourceButton: {fileID: 5444481926985826226}
+  DefaultResource: 
+  DefaultResourceChargingTime: 0
   IncreasePerLevelUp: 15
-  ProductionsNeededToRecover: 3
   DefaultLevelUpCost: 800
-  ConstructionGoldText: {fileID: 3977098050459093906}
-  EnergyAcquisitionEffect: {fileID: 9115134678134367406, guid: 4392498c23cc9364aae001a468805695, type: 3}
+  ConstructionResourceText: {fileID: 3977098050459093906}
+  ResourceAcquisitionEffect: {fileID: 9115134678134367406, guid: 4392498c23cc9364aae001a468805695, type: 3}
   BuildingUI: {fileID: 4496664496675265360}
   BuildingInfomationButton: {fileID: 9120928394495099627}
+  PlacedInBuildingCats: []
   WorkingCats: {fileID: 0}
+  buildingType: 0
 --- !u!61 &5590015987093081977
 BoxCollider2D:
   m_ObjectHideFlags: 0

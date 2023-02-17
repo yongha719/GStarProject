@@ -12,13 +12,13 @@ public class GoldProductionBuilding : ProductionBuilding
     [Header("Gold Production Building")]
     public GoldBuildingType buildingType;
 
-    public override string ConstructionCost
+    public override string PlacingPrice
     {
         get
         {
             if (BuildingManager.s_GoldBuildingCount[buildingType] == 0)
-                return DefaultConstructionCost;
-            return (DefaultConstructionCost.returnValue() * (BuildingManager.s_GoldBuildingCount[buildingType] * 3)).returnStr();
+                return DefaultPlacingPrice;
+            return (DefaultPlacingPrice.returnValue() * (BuildingManager.s_GoldBuildingCount[buildingType] * 3)).returnStr();
         }
     }
 
@@ -28,16 +28,15 @@ public class GoldProductionBuilding : ProductionBuilding
     {
         base.Start();
 
-
         CatPlacementButton.onClick.AddListener(() =>
         {
-            CatPlacement.gameObject.SetActive(true);
+            CatPlacement.OpenUIPopup();
 
-            PlacedInBuildingCats = PlacedInBuildingCats.Where(x => x.building == this).ToList();
+            PlacedInBuildingCats = PlacedInBuildingCats.Where(x => x.goldBuilding == this).ToList();
 
             if (PlacedInBuildingCats.Count == 0)
             {
-                CatPlacement.SetBuildingInfo(BuildingType.Gold,this, null);
+                CatPlacement.SetBuildingInfo(BuildingType.Gold, this);
             }
             else
             {
@@ -46,36 +45,29 @@ public class GoldProductionBuilding : ProductionBuilding
             }
         });
 
-        BuildingInfomationButton.onClick.AddListener(() =>
+        BuildingLevelUpButton.onClick.AddListener(() =>
         {
             BuildingInfomation.gameObject.SetActive(true);
 
-            PlacedInBuildingCats = PlacedInBuildingCats.Where(x => x.building == this).ToList();
+            PlacedInBuildingCats = PlacedInBuildingCats.Where(x => x.goldBuilding == this).ToList();
 
-            if (PlacedInBuildingCats.Count == 0)
-            {
-                BuildingInfomation.SetData(BuildingType.Gold, this, null, SpriteRenderer.sprite);
-            }
-            else
-            {
-                BuildingInfomation.SetData(BuildingType.Gold, this, PlacedInBuildingCats, SpriteRenderer.sprite);
-            }
+            BuildingInfomation.SetData(BuildingType.Gold, this, PlacedInBuildingCats, SpriteRenderer.sprite);
         });
     }
 
 
-    protected virtual void OnCatMemberChange(int index) { }
+    protected virtual void ChangeCat(int index) { }
 
-    public virtual void OnCatMemberChange(CatData catData, int index)
+    //
+    public virtual void ChangeCat(CatData catData, int index)
     {
-        CatPlacementWorkingCats workingCats = catData.Cat.building.WorkingCats;
-
         if (PlacedInBuildingCats.Count < MaxDeployableCat)
         {
             PlacedInBuildingCats.Add(catData.Cat);
         }
         else
         {
+            // 얘네는 건물안으로 들어가는 모션이라 꺼줌
             switch (buildingType)
             {
                 case GoldBuildingType.GoldMine:
@@ -89,27 +81,23 @@ public class GoldProductionBuilding : ProductionBuilding
             PlacedInBuildingCats[index] = catData.Cat;
         }
 
-        SetProductionTime();
+        if (PlacedInBuildingCats.Count != 0)
+        {
+            SetProductionTime();
+        }
 
         catData.Cat.catNum = index;
 
-        var catBuilding = catData.Cat.building;
-
-        if (catBuilding != null)
-        {
-            if (catBuilding.PlacedInBuildingCats.Contains(catData.Cat))
-            {
-                catBuilding.PlacedInBuildingCats.Remove(catData.Cat);
-                workingCats.CatDatas.Remove(catData);
-            }
-        }
-
-        catBuilding = this;
         catData.Cat.GoToWork(transform.position);
-
-        OnCatMemberChange(index);
     }
 
+    /// <summary>
+    /// 일하던 고양이가 다른 건물로 일하러 갈때 호출할 함수
+    /// </summary>
+    public virtual void BuildingRemoveCat(CatData catData)
+    {
+        WorkingCats.RemoveCat(catData);
+    } 
 
     /// <summary>
     /// 생산 시간 재설정
@@ -130,11 +118,8 @@ public class GoldProductionBuilding : ProductionBuilding
             }
         }
 
-        if (PlacedInBuildingCats.Count != 0)
-        {
-            if (decreasingfigure != 0)
-                waitResourceChargingTime = new WaitForSeconds(DefaultResourceChargingTime - (float)(DefaultResourceChargingTime * Math.Round(decreasingfigure / 100f, 3)));
-        }
+        if (decreasingfigure != 0)
+            waitResourceChargingTime = new WaitForSeconds(DefaultResourceChargingTime - (float)(DefaultResourceChargingTime * Math.Round(decreasingfigure / 100f, 3)));
     }
 
     public override void Place()
@@ -142,7 +127,6 @@ public class GoldProductionBuilding : ProductionBuilding
         base.Place();
 
         StartCoroutine(ResourceProduction());
-
     }
 
     protected override IEnumerator ResourceProduction()
@@ -158,6 +142,7 @@ public class GoldProductionBuilding : ProductionBuilding
             CollectResourceButton.gameObject.SetActive(true);
             yield return StartCoroutine(WaitGetResource());
 
+            // TODO : Cat 스크립트로 옮기기
             for (int i = 0; i < PlacedInBuildingCats.Count; i++)
             {
                 if (PlacedInBuildingCats[i] == null)
@@ -166,7 +151,6 @@ public class GoldProductionBuilding : ProductionBuilding
                 // 골드 생산 10번하면 쉬러 가야 함
                 if (++PlacedInBuildingCats[i].NumberOfGoldProduction >= 10 && BuildingManager.CanGoRest(out Vector3 buildingPos))
                 {
-                    print("rest");
                     PlacedInBuildingCats[i].NumberOfGoldProduction = 0;
                     PlacedInBuildingCats[i].GoWorking = false;
                     PlacedInBuildingCats[i].GoResting = true;
@@ -183,8 +167,6 @@ public class GoldProductionBuilding : ProductionBuilding
 
     public override IEnumerator WaitGetResource()
     {
-        print(nameof(WaitGetResource));
-
         var curtime = 0f;
         var autogetmoney = false;
 
@@ -224,7 +206,7 @@ public class GoldProductionBuilding : ProductionBuilding
         yield return base.BuildingInstalltionEffect();
 
         ConstructionResourceText.gameObject.SetActive(true);
-        ConstructionResourceText.text = ConstructionCost;
+        ConstructionResourceText.text = PlacingPrice;
         ConstructionResourceText.rectTransform.DOAnchorPosY(ConstructionResourceText.rectTransform.anchoredPosition.y + 150, 1);
         yield return ConstructionResourceText.DOFade(0f, 0.7f).WaitForCompletion();
 
@@ -236,24 +218,15 @@ public class GoldProductionBuilding : ProductionBuilding
         GridBuildingSystem.InitializeWithBuilding(BuildingInfo.BuildingPrefab);
     }
 
+    [Obsolete("고양이 스크립트로 옮기기")]
     public void SetPos(int index = 0)
     {
         var cat = PlacedInBuildingCats[index];
 
-        print(buildingType);
         switch (buildingType)
         {
             case GoldBuildingType.IceFishing:
-                if (cat.catData.CatSkinType == CatSkinType.beanieCat)
-                {
-                    cat.transform.position = transform.position + new Vector3(0.15f, 1.2f, 0);
-                }
-                else if (cat.catData.CatSkinType == CatSkinType.PinkCloakCat)
-                {
-
-                }
-                else
-                    cat.transform.position = transform.position + new Vector3(0.07f, 1.2f, 0);
+                cat.transform.position = transform.position + new Vector3(0.07f, 1.2f, 0);
                 break;
             case GoldBuildingType.FirewoodChopping:
                 cat.transform.position = transform.position + new Vector3(0.13f, 0.8f, 0);

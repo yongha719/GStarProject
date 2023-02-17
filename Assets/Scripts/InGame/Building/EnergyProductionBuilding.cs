@@ -16,13 +16,14 @@ public class EnergyProductionBuilding : ProductionBuilding
     public EnergyBuildingType buildingType;
 
     private const float AUTO_GET_ENERGY_DELAY = 10f;
-    public override string ConstructionCost
+
+    public override string PlacingPrice
     {
         get
         {
             if (BuildingManager.s_EnergyBuildingCount[buildingType] == 0)
-                return DefaultConstructionCost;
-            return (DefaultConstructionCost.returnValue() * (BuildingManager.s_EnergyBuildingCount[buildingType] * 3)).returnStr();
+                return DefaultPlacingPrice;
+            return (DefaultPlacingPrice.returnValue() * (BuildingManager.s_EnergyBuildingCount[buildingType] * 3)).returnStr();
         }
     }
 
@@ -31,11 +32,11 @@ public class EnergyProductionBuilding : ProductionBuilding
     {
         base.Start();
 
-        BuildingInfomationButton.onClick.AddListener(() =>
+        BuildingLevelUpButton.onClick.AddListener(() =>
         {
             BuildingInfomation.gameObject.SetActive(true);
 
-            PlacedInBuildingCats = PlacedInBuildingCats.Where(x => x.building == this).ToList();
+            PlacedInBuildingCats = PlacedInBuildingCats.Where(x => x.goldBuilding == this).ToList();
 
             if (PlacedInBuildingCats.Count == 0)
             {
@@ -48,7 +49,7 @@ public class EnergyProductionBuilding : ProductionBuilding
         });
     }
 
-    public override void OnCatMemberChange(CatData catData, int index = 0, Action action = null)
+    public override void ChangeCat(CatData catData, int index = 0, Action action = null)
     {
         PlacedInBuildingCats.Add(catData.Cat);
         SetProductionTime();
@@ -110,8 +111,8 @@ public class EnergyProductionBuilding : ProductionBuilding
                 // 에너지 생산 3번하면 일하러 가야함
                 if (++PlacedInBuildingCats[i].NumberOfEnergyProduction >= 3)
                 {
-                    PlacedInBuildingCats[i].GoToWork(PlacedInBuildingCats[i].building.transform.position);
-                    PlacedInBuildingCats[i].building.OnCatMemberChange(PlacedInBuildingCats[i].catData, PlacedInBuildingCats[i].catNum);
+                    PlacedInBuildingCats[i].GoToWork(PlacedInBuildingCats[i].goldBuilding.transform.position);
+                    PlacedInBuildingCats[i].goldBuilding.ChangeCat(PlacedInBuildingCats[i].catData, PlacedInBuildingCats[i].catNum);
 
                     PlacedInBuildingCats.RemoveAt(i);
                 }
@@ -161,7 +162,7 @@ public class EnergyProductionBuilding : ProductionBuilding
         yield return base.BuildingInstalltionEffect();
 
         ConstructionResourceText.gameObject.SetActive(true);
-        ConstructionResourceText.text = ConstructionCost;
+        ConstructionResourceText.text = PlacingPrice;
         ConstructionResourceText.rectTransform.DOAnchorPosY(ConstructionResourceText.rectTransform.anchoredPosition.y + 150, 1);
         yield return ConstructionResourceText.DOFade(0f, 0.7f).WaitForCompletion();
 

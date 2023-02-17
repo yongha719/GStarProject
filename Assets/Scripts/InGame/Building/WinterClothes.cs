@@ -5,7 +5,7 @@ public class WinterClothes : GoldProductionBuilding
     // 제봉
     [SerializeField] private GameObject Filature;
 
-    public override void OnCatMemberChange(CatData catData, int index)
+    public override void ChangeCat(CatData catData, int index)
     {
         if (index == 0)
         {

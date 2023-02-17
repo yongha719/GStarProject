@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class VillageHallWarning : Warning
+public class VillageHallWarning : WarningUI
 {
     private VillageHall VillageHall;
 
@@ -13,13 +13,12 @@ public class VillageHallWarning : Warning
 
         YesButton.onClick.AddListener(() =>
         {
-            print("clicked yes button");
             VillageHall.LevelUp();
         });
 
         NoButton.onClick.AddListener(() =>
         {
-            WarningUI.SetActive(false);
+            WarningUISetActive(false);
         });
     }
 
