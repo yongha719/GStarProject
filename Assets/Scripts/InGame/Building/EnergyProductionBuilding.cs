@@ -34,18 +34,11 @@ public class EnergyProductionBuilding : ProductionBuilding
 
         BuildingLevelUpButton.onClick.AddListener(() =>
         {
-            BuildingInfomation.gameObject.SetActive(true);
+            BuildingLevelUpUI.gameObject.SetActive(true);
 
             PlacedInBuildingCats = PlacedInBuildingCats.Where(x => x.goldBuilding == this).ToList();
 
-            if (PlacedInBuildingCats.Count == 0)
-            {
-                BuildingInfomation.SetData(BuildingType.Energy, this, null, SpriteRenderer.sprite);
-            }
-            else
-            {
-                BuildingInfomation.SetData(BuildingType.Energy, this, PlacedInBuildingCats, SpriteRenderer.sprite);
-            }
+            BuildingLevelUpUI.SetData(this);
         });
     }
 
@@ -138,7 +131,7 @@ public class EnergyProductionBuilding : ProductionBuilding
                 // 골드 획득 연출
                 DailyQuestManager.dailyQuests.quests[(int)QuestType.Stamina]._index++;
                 SoundManager.Instance.PlaySoundClip("SFX_Goods", SoundType.SFX);
-                Destroy(Instantiate(ResourceAcquisitionEffect, transform.position + (Vector3.up * 0.5f), Quaternion.identity, CanvasRt), 1.5f);
+                Destroy(Instantiate(ResourceAcquisitionEffect, transform.position + (Vector3.up * 0.5f), Quaternion.identity, ParticleCanvasRt), 1.5f);
 
                 yield break;
             }

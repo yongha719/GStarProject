@@ -42,7 +42,7 @@ public abstract class Building : MonoBehaviour
     [Tooltip("배치 가능한 고양이 수")] public int MaxDeployableCat;
 
     private GameObject BuildingSprteObj;
-    [HideInInspector] public bool FirstTimeInstallation;
+    [HideInInspector] public bool FirstTimeInstallation = true;
     [SerializeField] protected SpriteRenderer SpriteRenderer;
     [HideInInspector] public Sprite BuildingSprite;
 
@@ -54,9 +54,9 @@ public abstract class Building : MonoBehaviour
     #endregion
 
     public CatPlacementUI CatPlacement;
-    [HideInInspector] public BuildingLevelUpUI BuildingInfomation;
+    [HideInInspector] public BuildingLevelUpUI BuildingLevelUpUI;
 
-    protected RectTransform CanvasRt;
+    protected RectTransform ParticleCanvasRt;
     protected Camera Camera;
 
     protected GridBuildingSystem GridBuildingSystem;
@@ -70,7 +70,7 @@ public abstract class Building : MonoBehaviour
         BuildingSprteObj = SpriteRenderer.gameObject;
         BuildingSprite = SpriteRenderer.sprite;
 
-        CanvasRt = GameObject.Find("ParticleCanvas").transform as RectTransform;
+        ParticleCanvasRt = GameObject.Find("ParticleCanvas").transform as RectTransform;
 
         DecideButton?.onClick.AddListener(() =>
         {
@@ -80,11 +80,10 @@ public abstract class Building : MonoBehaviour
         CancelButton?.onClick.AddListener(() =>
         {
             GridBuildingSystem.BuildingClear(true);
-            //BuildingInfo.BuildingInstalltionUI.SetActive(true);
             Destroy(gameObject);
         });
 
-        RotateButton.onClick.AddListener(() =>
+        RotateButton?.onClick.AddListener(() =>
         {
             SpriteRenderer.flipX = !SpriteRenderer.flipX;
         });

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4099631094609725867}
   m_Layer: 5
-  m_Name: Building_Installation_Popup
+  m_Name: Old__Building_Installation_Popup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

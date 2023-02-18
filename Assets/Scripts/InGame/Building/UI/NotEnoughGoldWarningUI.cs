@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class NotEnoughGoldWarningUI : MonoBehaviour
+public class NotEnoughGoldWarningUI : UIPopup
 {
     [SerializeField] private Button GoShopButton;
 

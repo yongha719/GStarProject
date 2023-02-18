@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class VillageHallUI : MonoBehaviour
+public class VillageHallUI : UIPopup
 {
     [SerializeField] private Button LevelUpButton;
 
@@ -14,7 +14,7 @@ public class VillageHallUI : MonoBehaviour
     private CatManager CatManager;
     private GridBuildingSystem GridBuildingSystem;
 
-    private void Awake()
+    protected override void Awake()
     {
         VillageHall = FindObjectOfType<VillageHall>();
 

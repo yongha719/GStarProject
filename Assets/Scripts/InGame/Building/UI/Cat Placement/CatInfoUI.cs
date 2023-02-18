@@ -17,7 +17,7 @@ public class CatInfoUI : MonoBehaviour
     const string RESTING_TEXT = "에서 휴식중.";
 
     /// <param name="call">고양이 내보내기 버튼 클릭 이벤트</param>
-    public void SetData(Cat cat, Action call)
+    public void SetData(Cat cat)
     {
         CatImage.sprite = cat.catData.CatSprite;
         CatNameText.text = cat.catData.Name;
@@ -37,9 +37,9 @@ public class CatInfoUI : MonoBehaviour
                 break;
         }
 
-        ExportButton?.onClick.AddListener(() =>
+        ExportButton.onClick.AddListener(() =>
         {
-            call?.Invoke();
+            Destroy(gameObject);
             CatManager.Instance.RemoveCat(cat);
         });
     }

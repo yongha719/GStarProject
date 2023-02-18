@@ -28,6 +28,8 @@ public class GoldProductionBuilding : ProductionBuilding
     {
         base.Start();
 
+        BuildingLevelUpUI = UIPopUpHandler.Instance.BuildingLevelUpPopup.GetComponent<BuildingLevelUpUI>();
+
         CatPlacementButton.onClick.AddListener(() =>
         {
             CatPlacement.OpenUIPopup();
@@ -47,11 +49,12 @@ public class GoldProductionBuilding : ProductionBuilding
 
         BuildingLevelUpButton.onClick.AddListener(() =>
         {
-            BuildingInfomation.gameObject.SetActive(true);
+            print("dada");
+            BuildingLevelUpUI.OpenUIPopup();
 
             PlacedInBuildingCats = PlacedInBuildingCats.Where(x => x.goldBuilding == this).ToList();
 
-            BuildingInfomation.SetData(BuildingType.Gold, this, PlacedInBuildingCats, SpriteRenderer.sprite);
+            BuildingLevelUpUI.SetData(this);
         });
     }
 
@@ -181,7 +184,7 @@ public class GoldProductionBuilding : ProductionBuilding
                 SoundManager.Instance.PlaySoundClip("SFX_Goods", SoundType.SFX);
                 //DailyQuestManager.dailyQuests.quests[(int)QuestType.Gold]._index++;
                 // 골드 획득 연출
-                Destroy(Instantiate(ResourceAcquisitionEffect, transform.position + (Vector3.up * 0.5f), Quaternion.identity, CanvasRt), 1.5f);
+                Destroy(Instantiate(ResourceAcquisitionEffect, transform.position + (Vector3.up * 0.5f), Quaternion.identity, ParticleCanvasRt), 1.5f);
 
                 yield break;
             }

@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class BuildingLevelUpUI : MonoBehaviour
+public class BuildingLevelUpUI : UIPopup
 {
     [SerializeField] private Canvas canvas;
 
@@ -20,13 +20,9 @@ public class BuildingLevelUpUI : MonoBehaviour
     [Space]
     [SerializeField] private GameObject LevelUpEffect;
     [SerializeField] private Transform WoringcatParent;
-    [SerializeField] List<GameObject> GoldBuildingWorkingCats;
-    [SerializeField] List<GameObject> EnergyBuildingWorkingCats;
 
-    private BuildingType buildingType;
-    private GoldProductionBuilding goldBuilding;
-    private EnergyProductionBuilding energyBuilding;
-    
+    private ProductionBuilding building;
+
     void Start()
     {
         levelUpButtonRt = levelUpButton.GetComponent<RectTransform>();
@@ -36,15 +32,13 @@ public class BuildingLevelUpUI : MonoBehaviour
             Vector2 screenPos = RectTransformUtility.WorldToScreenPoint(canvas.worldCamera, levelUpButtonRt.position);
             Vector3 result = Vector3.zero;
             RectTransformUtility.ScreenPointToWorldPointInRectangle(levelUpButtonRt, screenPos, canvas.worldCamera, out result);
-            Instantiate(LevelUpEffect, result, Quaternion.identity);
+            //Instantiate(LevelUpEffect, result, Quaternion.identity);
 
-            if(buildingType == BuildingType.Gold)
+            if (building.LevelUpCostToString(building.Level).returnValue() <= GameManager.Instance._coin)
+                building.Level++;
+            else
             {
-                goldBuilding.Level++;
-            }
-            else if(buildingType == BuildingType.Energy)
-            {
-                energyBuilding.Level++;
+                // 골드 경고창
             }
 
             ValueChange();
@@ -52,60 +46,33 @@ public class BuildingLevelUpUI : MonoBehaviour
     }
 
     /// <summary>
-    /// 
-    /// </summary>
-    void ValueChange()
-    {
-        if (buildingType == BuildingType.Gold)
-        {
-            curLevelText.text = $"Lv. {goldBuilding.Level}";
-            curLevelUpCostText.text = goldBuilding.LevelUpCostToString(goldBuilding.Level);
-            nextLevelText.text = $"Lv. {goldBuilding.Level + 1}";
-            nextLevelUpCostText.text = goldBuilding.LevelUpCostToString(goldBuilding.Level + 1);
-            levelUpCostText.text = goldBuilding.LevelUpCostToString(goldBuilding.Level);
-        }
-        else if (buildingType == BuildingType.Energy)
-        {
-            curLevelText.text = $"Lv. {energyBuilding.Level}";
-            curLevelUpCostText.text = energyBuilding.LevelUpCostToString(energyBuilding.Level);
-            nextLevelText.text = $"Lv. {energyBuilding.Level + 1}";
-            nextLevelUpCostText.text = energyBuilding.LevelUpCostToString(energyBuilding.Level + 1);
-            levelUpCostText.text = goldBuilding.LevelUpCostToString(energyBuilding.Level);
-        }
-    }
-
-    /// <summary>
     /// 상세정보창에 띄울 건물 정보들
     /// </summary>
-    public void SetData(BuildingType buildingType, ProductionBuilding building, List<Cat> placedInBuildingCats, Sprite builldingSprite)
+    public void SetData(ProductionBuilding building)
     {
-        this.buildingType = buildingType;
-        buildingImage.sprite = builldingSprite;
+        this.building = building;
+        buildingImage.sprite = building.BuildingSprite;
 
-        if (building is GoldProductionBuilding)
-        {
-            goldBuilding = building as GoldProductionBuilding;
-            var workingcat = Instantiate(GoldBuildingWorkingCats[goldBuilding.BuildinTypeToInt], WoringcatParent).GetComponent<CatPlacementWorkingCatsUI>();
-            workingcat.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 20);
 
-            if (placedInBuildingCats != null)
-                for (int i = 0; i < placedInBuildingCats.Count; i++)
-                {
-                    workingcat.SetData(i, placedInBuildingCats[i].Animator);
-                }
-        }
-        else if (building is EnergyProductionBuilding)
-        {
-            energyBuilding = building as EnergyProductionBuilding;
-            var workingcat = Instantiate(EnergyBuildingWorkingCats[energyBuilding.BuildinTypeToInt], WoringcatParent).GetComponent<CatPlacementWorkingCatsUI>();
+        //var workingCat = Instantiate(building.WorkingCats.gameObject, WoringcatParent).GetComponent<CatPlacementWorkingCatsUI>();
 
-            if (placedInBuildingCats != null)
-                for (int i = 0; i < placedInBuildingCats.Count; i++)
-                {
-                    workingcat.SetData(i, placedInBuildingCats[i].Animator);
-                }
-        }
+        //if (building.PlacedInBuildingCats != null)
+        //{
+        //    for (int i = 0; i < building.PlacedInBuildingCats.Count; i++)
+        //    {
+        //        workingCat.SetData(i, building.PlacedInBuildingCats[i].Animator);
+        //    }
+        //}
 
         ValueChange();
+    }
+
+    void ValueChange()
+    {
+        curLevelText.text = $"Lv. {building.Level}";
+        curLevelUpCostText.text = building.LevelUpCostToString(building.Level);
+        nextLevelText.text = $"Lv. {building.Level + 1}";
+        nextLevelUpCostText.text = building.LevelUpCostToString(building.Level + 1);
+        levelUpCostText.text = building.LevelUpCostToString(building.Level);
     }
 }

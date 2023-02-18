@@ -2,6 +2,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// 건물 설치하는 UI
+/// </summary>
 public class PlacingBuildingUI : UIPopup
 {
     #region Buildings
@@ -55,7 +58,6 @@ public class PlacingBuildingUI : UIPopup
                     Debug.Assert(false, "설치할 건물 정보가 잘못됨");
 
                 produtionbuilding.BuildingInfo = buildingInfo;
-                buildingInfo.Building.FirstTimeInstallation = true;
 
                 Building.CatPlacement = CatPlacement;
 
@@ -63,10 +65,9 @@ public class PlacingBuildingUI : UIPopup
                 {
                     Warning.OpenUIPopup();
                     Warning.SetWarningData(buildingInfo.BuildingPrefab, produtionbuilding.BuildingName, this);
-                    //UIPopUpHandler.Instance.OnUIWarningPopUp(UIWarningPopupType.PlacingBuildingWarning);
                 }
                 else
-                    NotEnoughGold.gameObject.SetActive(true);
+                    NotEnoughGold.OpenUIPopup();
             });
         }
     }

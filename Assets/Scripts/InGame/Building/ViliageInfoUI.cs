@@ -1,7 +1,8 @@
+using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 
-public class ViliageInfoUI : UIPopup
+public class ViliageInfoUI : MonoBehaviour
 {
     [Header("주민")]
     [SerializeField] private RectTransform CatsContent;
@@ -23,10 +24,8 @@ public class ViliageInfoUI : UIPopup
     private CatManager CatManager;
     private VillageHall VillageHall;
     private GridBuildingSystem GridBuildingSystem;
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();   
-
         CatManager = CatManager.Instance;
         GridBuildingSystem = GridBuildingSystem.Instance;
         GameManager = GameManager.Instance;
@@ -56,10 +55,8 @@ public class ViliageInfoUI : UIPopup
         IceText.text = GameManager._ice.returnStr();
     }
 
-    protected override void OnEnable()
+    private void OnEnable()
     {
-        base.OnEnable();
-
         // 레벨업 텍스트
         CurLevelText.text = $"Lv. {VillageHall.Level}";
         CurAreaText.text = $"{GridBuildingSystem.ViliageAreaSize.x} * {GridBuildingSystem.ViliageAreaSize.y}";
@@ -75,12 +72,7 @@ public class ViliageInfoUI : UIPopup
             for (int i = 0; i < CatList.Count; i++)
             {
                 var catInfo = Instantiate(CatInfoPrefab, CatsContent).GetComponent<CatInfoUI>();
-
-                catInfo.SetData(CatList[i],
-                    call: () =>
-                    {
-                        Destroy(catInfo.gameObject);
-                    });
+                catInfo.SetData(CatList[i]);
             }
         }
     }

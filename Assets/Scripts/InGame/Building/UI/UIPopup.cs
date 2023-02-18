@@ -22,11 +22,12 @@ public class UIPopup : MonoBehaviour
     {
         rect = transform.GetChild(0).GetComponent<RectTransform>();
 
-        Button = GetComponent<Button>();
-        Button.onClick.AddListener(() =>
-        {
-            CloseUIPopup();
-        });
+        //Button = GetComponent<Button>();
+        //Button.onClick.AddListener(() =>
+        //{
+        //    print("da");
+        //    CloseUIPopup();
+        //});
     }
 
     protected virtual void OnEnable()

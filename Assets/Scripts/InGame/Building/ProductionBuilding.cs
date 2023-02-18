@@ -72,7 +72,7 @@ public class ProductionBuilding : Building
     [SerializeField] protected GameObject ResourceAcquisitionEffect;
 
     [Space(10)]
-    [SerializeField] protected GameObject BuildingUI;
+    [SerializeField] protected GameObject BuildingInfoUI;
     [SerializeField] protected Button BuildingLevelUpButton;
 
     protected static GameObject s_buildingUI;
@@ -121,10 +121,10 @@ public class ProductionBuilding : Building
         {
             didGetResource = true;
         }
-        else if (BuildingUI.activeSelf)
+        else if (BuildingInfoUI.activeSelf)
         {
-            BuildingUI.SetActive(false);
-            s_buildingUI = BuildingUI;
+            BuildingInfoUI.SetActive(false);
+            s_buildingUI = BuildingInfoUI;
         }
         else
         {
@@ -132,8 +132,8 @@ public class ProductionBuilding : Building
             {
                 s_buildingUI.SetActive(false);
             }
-            s_buildingUI = BuildingUI;
-            BuildingUI.SetActive(true);
+            s_buildingUI = BuildingInfoUI;
+            BuildingInfoUI.SetActive(true);
         }
     }
 }

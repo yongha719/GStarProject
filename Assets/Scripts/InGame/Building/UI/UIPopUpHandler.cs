@@ -20,32 +20,32 @@ public enum UIWarningPopupType
 public class UIPopUpHandler : Singleton<UIPopUpHandler>
 {
     public GameObject BuildingPlacingPopup;
+    public GameObject BuildingLevelUpPopup;
+
     private Dictionary<UIPopupType, GameObject> UIPopupDic = new Dictionary<UIPopupType, GameObject>();
     private List<GameObject> UIPopupList = new List<GameObject>();
+
     private Dictionary<UIWarningPopupType, GameObject> UIWarningPopupDic = new Dictionary<UIWarningPopupType, GameObject>();
     private List<GameObject> UIWarningPopupList = new List<GameObject>();
 
 
-
     private void Start()
     {
-        // TODO : as 연산자로는 안되는데 제네릭은 됨
-        // 나중에 시간되면 왜 그런지 보기
-        var UIPopups = Resources.LoadAll<GameObject>("UIPopup_Prefabs");
-        var UIWarningPopups = Resources.LoadAll<GameObject>("UIWarningPopup_Prefabs");
+        //var UIPopups = Resources.LoadAll<GameObject>("UIPopup_Prefabs");
+        //var UIWarningPopups = Resources.LoadAll<GameObject>("UIWarningPopup_Prefabs");
 
 
-        if (UIPopups == null || UIWarningPopups == null)
-        {
-            Debug.Assert(false, "야야 프리팹이 하나도 없대잖아 뒤질래?");
-            return;
-        }
+        //if (UIPopups == null || UIWarningPopups == null)
+        //{
+        //    Debug.Assert(false, "야야 프리팹이 하나도 없대잖아 뒤질래?");
+        //    return;
+        //}
 
-        for (int i = 0; i < UIPopups.Length; ++i)
-            UIPopupDic.Add((UIPopupType)i, UIPopups[i]);
+        //for (int i = 0; i < UIPopups.Length; ++i)
+        //    UIPopupDic.Add((UIPopupType)i, UIPopups[i]);
 
-        for (int i = 0; i < UIWarningPopups.Length; ++i)
-            UIWarningPopupDic.Add((UIWarningPopupType)i, UIWarningPopups[i]);
+        //for (int i = 0; i < UIWarningPopups.Length; ++i)
+        //    UIWarningPopupDic.Add((UIWarningPopupType)i, UIWarningPopups[i]);
     }
 
     public void OnUIPopUp(UIPopupType UIPopupType)
