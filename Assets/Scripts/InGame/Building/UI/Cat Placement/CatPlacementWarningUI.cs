@@ -24,7 +24,7 @@ public class CatPlacementWarningUI : WarningUI
         YesButton.onClick.AddListener(() => call());
     }
 
-    public void SetWaringData(string CatName)
+    public void SetWarningData(string CatName)
     {
         WarningText.text = CatName + WARNING_TEXT;
     }

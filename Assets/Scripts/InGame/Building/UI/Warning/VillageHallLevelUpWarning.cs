@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class VillageHallWarning : WarningUI
+public class VillageHallLevelUpWarning : WarningUI
 {
     private VillageHall VillageHall;
 
@@ -18,12 +18,7 @@ public class VillageHallWarning : WarningUI
 
         NoButton.onClick.AddListener(() =>
         {
-            WarningUISetActive(false);
+            CloseUIPopup();
         });
-    }
-
-    private void OnDisable()
-    {
-        gameObject.SetActive(false);
     }
 }

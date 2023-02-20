@@ -6,7 +6,8 @@ public class VillageHallUI : UIPopup
     [SerializeField] private Button LevelUpButton;
 
     [Header("경고창")]
-    [SerializeField] private GameObject Warning;
+    [SerializeField] private GameObject LevelUpWarning;
+    [SerializeField] private GameObject CatKickWarning;
     [SerializeField] private GameObject NotEnoughGold;
 
     private VillageHall VillageHall;
@@ -31,7 +32,7 @@ public class VillageHallUI : UIPopup
         {
             if (GameManager._coin >= VillageHall.GetLevelUpCost.returnValue())
             {
-                Warning.SetActive(true);
+                LevelUpWarning.SetActive(true);
             }
             else
             {

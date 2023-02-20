@@ -179,8 +179,8 @@ public class CatPlacementUI : UIPopup
     private void PlacementOnClick(CatToPlaceUI cattoplace, CatData catData)
     {
         // 경고창
-        CatPlacementWarning.WarningUISetActive(true);
-        CatPlacementWarning.SetWaringData(catData.Name);
+        CatPlacementWarning.OpenUIPopup();
+        CatPlacementWarning.SetWarningData(catData.Name);
 
         // 경고창 Yes 버튼
         CatPlacementWarning.OnClickYesButton(() => { PlaceCatButton(cattoplace, catData); });
@@ -252,7 +252,7 @@ public class CatPlacementUI : UIPopup
 
         if (workingCatsUI != null)
         {
-            workingCatsUI.gameObject.SetActive(false);
+            workingCatsUI.CloseUIPopup();
             workingCatsUI = null;
         }
     }

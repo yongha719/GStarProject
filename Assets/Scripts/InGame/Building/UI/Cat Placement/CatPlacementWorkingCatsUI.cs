@@ -8,7 +8,7 @@ using UnityEngine.UI;
 /// </summary>
 public class CatPlacementWorkingCatsUI : UIPopup
 {
-    // 그냥 개체 하나 더 만들까 
+    // TODO : WorkingCat 개체 만들기
     [SerializeField] List<Image> CatImages;
     [SerializeField] List<Button> CatClickButtons;
     [SerializeField] List<Animator> CatAnimators;
