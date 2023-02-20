@@ -16,6 +16,8 @@ public class VillageHallUI : UIPopup
 
     protected override void Awake()
     {
+        base.Awake();
+
         VillageHall = FindObjectOfType<VillageHall>();
 
         GameManager = GameManager.Instance;

@@ -8,8 +8,6 @@ using UnityEngine.UI;
 public class PlacingBuildingUI : UIPopup
 {
     #region Buildings
-    [SerializeField] private Button CloseButton;
-
     [Header("Placing Building Infos")]
     [SerializeField] private List<BuildingBuyInfoUI> GoldProductionBuildingInfos;
     [SerializeField] private List<BuildingBuyInfoUI> EnergyProductionBuildingInfos;
@@ -42,10 +40,11 @@ public class PlacingBuildingUI : UIPopup
     {
         SetProductBuildingInfo<GoldProductionBuilding>(GoldProductionBuildingInfos);
         SetProductBuildingInfo<EnergyProductionBuilding>(EnergyProductionBuildingInfos);
-
-        CloseButton.onClick.AddListener(() => CloseUIPopup());
     }
 
+    /// <summary>
+    /// 이거 UIPopupHandler 완성되면 BuildingBuyInfoUI.cs 로 옮기기
+    /// </summary>
     void SetProductBuildingInfo<T>(List<BuildingBuyInfoUI> ProductionBuildingInfos) where T : ProductionBuilding
     {
         foreach (var buildingInfo in ProductionBuildingInfos)

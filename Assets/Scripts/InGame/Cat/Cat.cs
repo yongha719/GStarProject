@@ -306,9 +306,6 @@ public class Cat : MonoBehaviour
             MoveCoroutine = null;
         }
 
-        //if (RandomMoveCoroutine != null)
-        //StopCoroutine(RandomMoveCoroutine);
-
         StartCoroutine(Move(buildingPos));
 
         GoWorking = true;

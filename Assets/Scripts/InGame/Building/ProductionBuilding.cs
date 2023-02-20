@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.ComTypes;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -107,10 +108,22 @@ public class ProductionBuilding : Building
 
         return cost.returnStr();
     }
+
+    
+    /// <summary>
+    /// 건물에서 일하지 않는 고양이를 제거함
+    /// </summary>
+    /// <param name="catData"></param>
+    public void RemoveCat(CatData catData)
+    {
+        WorkingCats.RemoveCat(catData);
+        PlacedInBuildingCats.Remove(catData.Cat);
+    }
     
     public virtual void ChangeCat(CatData catData, int index, Action action) { }
     protected virtual IEnumerator ResourceProduction() { yield return null; }
     public virtual IEnumerator WaitGetResource() { yield return null; }
+
 
     private void OnMouseDown()
     {

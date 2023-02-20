@@ -94,13 +94,6 @@ public class GoldProductionBuilding : ProductionBuilding
         catData.Cat.GoToWork(transform.position);
     }
 
-    /// <summary>
-    /// 일하던 고양이가 다른 건물로 일하러 갈때 호출할 함수
-    /// </summary>
-    public virtual void BuildingRemoveCat(CatData catData)
-    {
-        WorkingCats.RemoveCat(catData);
-    } 
 
     /// <summary>
     /// 생산 시간 재설정
@@ -160,7 +153,7 @@ public class GoldProductionBuilding : ProductionBuilding
 
                     // 랜덤한 에너지 생산 건물 위치로 가기
                     PlacedInBuildingCats[i].GoToRest(buildingPos);
-                    PlacedInBuildingCats.RemoveAt(i);
+                    RemoveCat(PlacedInBuildingCats[i].catData);
                 }
             }
 

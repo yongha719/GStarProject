@@ -28,7 +28,7 @@ public class CatInfoUI : MonoBehaviour
                 CatStateText.SetText();
                 break;
             case CatState.Working:
-                CatStateText.SetText(cat.BuildingName + WORKING_TEXT);
+                CatStateText.SetText(cat.goldBuilding.BuildingName + WORKING_TEXT);
                 break;
             case CatState.Resting:
                 CatStateText.SetText(cat.BuildingName + RESTING_TEXT);

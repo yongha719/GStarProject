@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
 
 public class CatPlacementUI : UIPopup
 {
@@ -57,6 +58,7 @@ public class CatPlacementUI : UIPopup
     /// </summary>
     /// <param name="catData">고양이 정보</param>
     /// <param name="buildingSprite">건물 이미지</param>
+    [Obsolete("매개변수 바꾸자")]
     public void SetBuildingInfo(BuildingType buildingType, in ProductionBuilding building, in CatData[] catData = null)
     {
         productionBuilding = building;
@@ -224,7 +226,7 @@ public class CatPlacementUI : UIPopup
 
         if (catData.Cat.goldBuilding != null && catData.Cat.goldBuilding != goldBuilding)
         {
-            catData.Cat.goldBuilding.WorkingCats.RemoveCat(catData);
+            catData.Cat.goldBuilding.RemoveCat(catData);
         }
 
         CurSelectedCat = catData;
