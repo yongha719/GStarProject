@@ -18,8 +18,6 @@ public class TaskText : MonoBehaviour
     private void Awake()
     {
         Tasktext = GetComponent<TextMeshProUGUI>();
-
-        //OriginalText = Tasktext.text;
     }
 
     private void OnEnable()

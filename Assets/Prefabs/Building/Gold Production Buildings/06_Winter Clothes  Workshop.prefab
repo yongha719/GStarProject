@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2085265908
 Transform:
   m_ObjectHideFlags: 0
@@ -244,6 +244,7 @@ MonoBehaviour:
   buildingType: 5
   CatPlacementButton: {fileID: 3205442011326786833}
   Filature: {fileID: 2085265907}
+  BallOfString: {fileID: 7713502003262944574}
 --- !u!61 &636245451371842871
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -389,7 +390,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1247623855280404805
 Transform:
   m_ObjectHideFlags: 0

@@ -95,8 +95,11 @@ public class ProductionBuilding : Building
         });
     }
 
-    public string LevelUpCostToString(int level)
+    public string LevelUpCostToString(int level = 0)
     {
+        if (level == 0)
+            level = Level;
+
         var cost = DefaultLevelUpCost.returnValue();
 
         for (int i = 0; i < level - 1; i++)

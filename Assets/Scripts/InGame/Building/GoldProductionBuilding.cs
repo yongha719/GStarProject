@@ -64,19 +64,22 @@ public class GoldProductionBuilding : ProductionBuilding
     //
     public virtual void ChangeCat(CatData catData, int index)
     {
+        // 건물에 고양이를 추가하기만 하면 됨
         if (PlacedInBuildingCats.Count < MaxDeployableCat)
         {
             PlacedInBuildingCats.Add(catData.Cat);
         }
+        // 고양이를 바꿔줘야함
         else
         {
-            // 얘네는 건물안으로 들어가는 모션이라 꺼줌
+            // 얘네는 건물에서 일할때 모션이 없고 들어가서 일하는 컨셉이라
+            // 꺼져있기 때문에 다시 켜줘야 함
             switch (buildingType)
             {
                 case GoldBuildingType.GoldMine:
                 case GoldBuildingType.PotatoFarming:
                 case GoldBuildingType.PowerPlant:
-                    PlacedInBuildingCats[index].gameObject.SetActive(false);
+                    PlacedInBuildingCats[index].gameObject.SetActive(true);
                     break;
             }
 

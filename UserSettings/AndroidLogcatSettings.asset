@@ -1,9 +1,9 @@
 {
     "m_SelectedDeviceId": "R3CM500X2KR",
     "m_SelectedPackage": {
-        "deviceId": "R9PT10LZMYN",
+        "deviceId": "R3CM500X2KR",
         "name": "com.GoNyang.WinterCat",
-        "processId": 3055,
+        "processId": 25278,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -11,61 +11,31 @@
         {
             "deviceId": "R3CM500X2KR",
             "name": "com.GoNyang.WinterCat",
-            "processId": 18126,
-            "exited": true
-        },
-        {
-            "deviceId": "R3CM500X2KR",
-            "name": "com.GoNyang.WinterCat",
-            "processId": 18841,
-            "exited": true
-        },
-        {
-            "deviceId": "R3CM500X2KR",
-            "name": "com.GoNyang.WinterCat",
-            "processId": 19353,
-            "exited": true
-        },
-        {
-            "deviceId": "R3CM500X2KR",
-            "name": "com.GoNyang.WinterCat",
-            "processId": 20390,
-            "exited": true
-        },
-        {
-            "deviceId": "R3CM500X2KR",
-            "name": "com.GoNyang.WinterCat",
-            "processId": 23028,
-            "exited": false
-        },
-        {
-            "deviceId": "R3CM500X2KR",
-            "name": "com.GoNyang.WinterCat",
-            "processId": 25263,
-            "exited": false
-        },
-        {
-            "deviceId": "R3CM500X2KR",
-            "name": "com.GoNyang.WinterCat",
             "processId": 25639,
-            "exited": false
+            "exited": true
         },
         {
             "deviceId": "R3CM500X2KR",
             "name": "com.GoNyang.WinterCat",
             "processId": 26912,
-            "exited": false
+            "exited": true
         },
         {
             "deviceId": "R3CM500X2KR",
             "name": "com.GoNyang.WinterCat",
             "processId": 28178,
-            "exited": false
+            "exited": true
         },
         {
             "deviceId": "R3CM500X2KR",
             "name": "com.GoNyang.WinterCat",
             "processId": 7946,
+            "exited": true
+        },
+        {
+            "deviceId": "R3CM500X2KR",
+            "name": "com.GoNyang.WinterCat",
+            "processId": 25278,
             "exited": false
         },
         {

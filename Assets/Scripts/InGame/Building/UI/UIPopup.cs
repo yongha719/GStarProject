@@ -36,6 +36,17 @@ public class UIPopup : MonoBehaviour
         rect.DOScale(1, 0.3f);
     }
 
+    protected virtual void Update()
+    {
+        if(Application.platform == RuntimePlatform.Android)
+        {
+            if(Input.GetKeyDown(KeyCode.Escape))
+            {
+                CloseUIPopup();
+            }
+        }
+    }
+
     public void OpenUIPopup() => gameObject.SetActive(true);
 
     public void CloseUIPopup() => StartCoroutine(UIDisableAnimationCoroutine());
