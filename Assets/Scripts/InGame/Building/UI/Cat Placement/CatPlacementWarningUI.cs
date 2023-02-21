@@ -1,4 +1,6 @@
-
+/// <summary>
+/// 고양이 배치 경고창
+/// </summary>
 public class CatPlacementWarningUI : WarningUI
 {
     CatPlacementUI CatPlacementUI;
@@ -29,4 +31,3 @@ public class CatPlacementWarningUI : WarningUI
         WarningText.text = CatName + WARNING_TEXT;
     }
 }
-

@@ -8,7 +8,7 @@ using UnityEngine.UI;
 /// </summary>
 public class CatPlacementWorkingCatsUI : UIPopup
 {
-    // TODO : WorkingCat 개체 만들기
+    // 개체 하나 더 만들자
     [SerializeField] List<Image> CatImages;
     [SerializeField] List<Button> CatClickButtons;
     [SerializeField] List<Animator> CatAnimators;
@@ -58,7 +58,7 @@ public class CatPlacementWorkingCatsUI : UIPopup
 
         if (CatDatas.Count < index + 1)
         {
-            CatDatas.Add(CatData);  
+            CatDatas.Add(CatData);
         }
         else
             CatDatas[index] = CatData;
