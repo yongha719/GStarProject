@@ -114,6 +114,8 @@ public abstract class Building : MonoBehaviour
         {
             FirstTimeInstallation = false;
             StartCoroutine(BuildingInstalltionEffect());
+
+            UIManager.Instance.SetBuildingLevelUp();
         }
 
         SoundManager.Instance.PlaySoundClip("SFX_Building", SoundType.SFX);

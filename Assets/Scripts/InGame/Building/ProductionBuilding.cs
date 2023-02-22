@@ -76,6 +76,8 @@ public class ProductionBuilding : Building
     [SerializeField] protected GameObject BuildingInfoUI;
     [SerializeField] protected Button BuildingLevelUpButton;
 
+    [HideInInspector] public Sprite BuildingIcon;
+
     protected static GameObject s_buildingUI;
 
     // 건물에 배치된 고양이

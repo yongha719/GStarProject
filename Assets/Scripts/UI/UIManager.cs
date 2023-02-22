@@ -22,6 +22,12 @@ public class UIManager : Singleton<UIManager>
     [SerializeField]
     private TextMeshProUGUI pressToStartText;
 
+    [Header("Building LevelUp")]
+    [SerializeField] Button BuildingLevelUpButton;
+    [SerializeField] Image BuildingImage;
+    [SerializeField] TextMeshProUGUI BuildingLevel;
+    private ProductionBuilding CurCanLevelUpBuilding;
+
     CanvasGroup CanvasGroup;
 
     private GameManager gameManager;
@@ -32,15 +38,20 @@ public class UIManager : Singleton<UIManager>
 
         ResourcesApply();
         StartCoroutine(TitleEffect());
+
+        // 레벨업할 때마다 초기화
+        BuildingLevelUpButton.onClick.AddListener(() =>
+        {
+
+        });
     }
 
     public void ResourcesApply()
     {
         catText.text = $"{CatManager.Instance.CatList.Count}마리";
-        coinText.text = gameManager.resource.coin.returnStr(); 
+        coinText.text = gameManager.resource.coin.returnStr();
         iceText.text = gameManager.resource.ice.returnStr();
         energyText.text = gameManager.resource.energy.returnStr();
-
     }
 
     private IEnumerator TitleEffect()
@@ -66,4 +77,21 @@ public class UIManager : Singleton<UIManager>
 
         CanvasGroup.DOFade(1f, 0.5f);
     }
+
+    /// <summary>
+    /// 건물 빠르게 레벨업할 수 있는 UI 버튼
+    /// </summary>
+    public void SetBuildingLevelUp()
+    {
+        var building = BuildingManager.GetCanLevelUpBuilding();
+
+        if (building == null || CurCanLevelUpBuilding == building)
+            return;
+
+        CurCanLevelUpBuilding = building;
+
+        
+    }
+
+
 }

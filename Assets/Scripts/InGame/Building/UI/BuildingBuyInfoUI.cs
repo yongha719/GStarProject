@@ -9,6 +9,7 @@ public class BuildingBuyInfoUI : MonoBehaviour
 {
     public GameObject BuildingPrefab;
 
+    public Image BuildingIcon;
     public Button BuyButton;
     private TextMeshProUGUI buildingPriceText;
 
@@ -21,6 +22,8 @@ public class BuildingBuyInfoUI : MonoBehaviour
         Building = BuildingPrefab.GetComponent<Building>();
 
         buildingPriceText = BuyButton.GetComponentInChildren<TextMeshProUGUI>();
+
+        (Building as ProductionBuilding).BuildingIcon = BuildingIcon.sprite;
     }
 
     private void OnEnable()
