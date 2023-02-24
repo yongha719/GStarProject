@@ -77,9 +77,11 @@ public class GridBuildingSystem : Singleton<GridBuildingSystem>
     {
         while (true)
         {
+            yield return null;
+
             // 클릭한 오브젝트가 UI면 return
             if (IsPointerOverGameObject())
-                continue;
+            continue;
 
             if (Input.GetMouseButton(0))
             {
@@ -96,8 +98,6 @@ public class GridBuildingSystem : Singleton<GridBuildingSystem>
                     }
                 }
             }
-
-            yield return null;
         }
     }
 

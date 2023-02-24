@@ -155,6 +155,7 @@ MonoBehaviour:
   ResourceAcquisitionEffect: {fileID: 4651143797973280713, guid: d1c3aa70df08bb943a114b0228f21908, type: 3}
   BuildingInfoUI: {fileID: 1036203558453863843}
   BuildingLevelUpButton: {fileID: 472939556134604919}
+  BuildingIcon: {fileID: 21300000, guid: 631be374af6c51f479be2023e9868782, type: 3}
   PlacedInBuildingCats: []
   WorkingCats: {fileID: 0}
   buildingType: 0

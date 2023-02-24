@@ -69,7 +69,7 @@ public static class BuildingManager
     {
         ProductionBuilding gold = s_GoldProductionBuildings.OrderBy(x => x.LevelUpCostToString(x.Level).returnValue()).FirstOrDefault();
 
-        if (gold == null)
+        if (gold == null && s_EnergyProductionBuildings.Count == 0)
             return null;
 
         ProductionBuilding energy = s_EnergyProductionBuildings.OrderBy(x => x.LevelUpCostToString(x.Level).returnValue()).FirstOrDefault();

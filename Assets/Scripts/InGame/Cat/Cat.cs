@@ -373,7 +373,7 @@ public class Cat : MonoBehaviour
         switch (goldBuilding.buildingType)
         {
             case GoldBuildingType.IceFishing:
-                transform.position = goldBuilding.transform.position + new Vector3(0.18f, 1.3f, 0);
+                transform.position = goldBuilding.transform.position + new Vector3(0.16f, 1f, 0);
                 break;
             case GoldBuildingType.FirewoodChopping:
                 transform.position = goldBuilding.transform.position + new Vector3(0.13f, 0.8f, 0);
