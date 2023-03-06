@@ -16,13 +16,14 @@ public class EnergyProductionBuilding : ProductionBuilding
     public EnergyBuildingType buildingType;
 
     private const float AUTO_GET_ENERGY_DELAY = 10f;
-    public override string ConstructionCost
+
+    public override string PlacingPrice
     {
         get
         {
             if (BuildingManager.s_EnergyBuildingCount[buildingType] == 0)
-                return DefaultConstructionCost;
-            return (DefaultConstructionCost.returnValue() * (BuildingManager.s_EnergyBuildingCount[buildingType] * 3)).returnStr();
+                return DefaultPlacingPrice;
+            return (DefaultPlacingPrice.returnValue() * (BuildingManager.s_EnergyBuildingCount[buildingType] * 3)).returnStr();
         }
     }
 
@@ -31,24 +32,17 @@ public class EnergyProductionBuilding : ProductionBuilding
     {
         base.Start();
 
-        BuildingInfomationButton.onClick.AddListener(() =>
+        BuildingLevelUpUI = UIPopUpHandler.Instance.BuildingLevelUpPopup.GetComponent<BuildingLevelUpUI>();
+
+        BuildingLevelUpButton.onClick.AddListener(() =>
         {
-            BuildingInfomation.gameObject.SetActive(true);
+            BuildingLevelUpUI.OpenUIPopup();
 
-            PlacedInBuildingCats = PlacedInBuildingCats.Where(x => x.building == this).ToList();
-
-            if (PlacedInBuildingCats.Count == 0)
-            {
-                BuildingInfomation.SetData(BuildingType.Energy, this, null, SpriteRenderer.sprite);
-            }
-            else
-            {
-                BuildingInfomation.SetData(BuildingType.Energy, this, PlacedInBuildingCats, SpriteRenderer.sprite);
-            }
+            BuildingLevelUpUI.SetData(this);
         });
     }
 
-    public override void OnCatMemberChange(CatData catData, int index = 0, Action action = null)
+    public override void ChangeCat(CatData catData, int index = 0, Action action = null)
     {
         PlacedInBuildingCats.Add(catData.Cat);
         SetProductionTime();
@@ -110,10 +104,10 @@ public class EnergyProductionBuilding : ProductionBuilding
                 // 에너지 생산 3번하면 일하러 가야함
                 if (++PlacedInBuildingCats[i].NumberOfEnergyProduction >= 3)
                 {
-                    PlacedInBuildingCats[i].GoToWork(PlacedInBuildingCats[i].building.transform.position);
-                    PlacedInBuildingCats[i].building.OnCatMemberChange(PlacedInBuildingCats[i].catData, PlacedInBuildingCats[i].catNum);
+                    PlacedInBuildingCats[i].GoToWork(PlacedInBuildingCats[i].goldBuilding.transform.position);
+                    PlacedInBuildingCats[i].goldBuilding.ChangeCat(PlacedInBuildingCats[i].catData, PlacedInBuildingCats[i].catNum);
 
-                    PlacedInBuildingCats.RemoveAt(i);
+                    RemoveCat(PlacedInBuildingCats[i].catData);
                 }
             }
 
@@ -135,9 +129,9 @@ public class EnergyProductionBuilding : ProductionBuilding
                 CollectResourceButton.gameObject.SetActive(false);
 
                 // 골드 획득 연출
-                DailyQuestManager.dailyQuests.quests[(int)QuestType.Stamina]._index++;
+                //DailyQuestManager.dailyQuests.quests[(int)QuestType.Stamina]._index++;
                 SoundManager.Instance.PlaySoundClip("SFX_Goods", SoundType.SFX);
-                Destroy(Instantiate(ResourceAcquisitionEffect, transform.position + (Vector3.up * 0.5f), Quaternion.identity, CanvasRt), 1.5f);
+                Destroy(Instantiate(ResourceAcquisitionEffect, transform.position + (Vector3.up * 0.5f), Quaternion.identity, ParticleCanvasRt), 1.5f);
 
                 yield break;
             }
@@ -161,7 +155,7 @@ public class EnergyProductionBuilding : ProductionBuilding
         yield return base.BuildingInstalltionEffect();
 
         ConstructionResourceText.gameObject.SetActive(true);
-        ConstructionResourceText.text = ConstructionCost;
+        ConstructionResourceText.text = PlacingPrice;
         ConstructionResourceText.rectTransform.DOAnchorPosY(ConstructionResourceText.rectTransform.anchoredPosition.y + 150, 1);
         yield return ConstructionResourceText.DOFade(0f, 0.7f).WaitForCompletion();
 

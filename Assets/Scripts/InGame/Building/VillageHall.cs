@@ -51,6 +51,8 @@ public class VillageHall : Building
             return;
         }
 
+        print("ddaddda");
+
         if (VillageHallUI.activeSelf)
         {
             VillageHallUI.SetActive(false);

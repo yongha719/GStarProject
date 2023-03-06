@@ -91,6 +91,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 5fb2ed9614c23f54ba41bdd7cff39cac, type: 3}
   - {fileID: 21300000, guid: 4089c3a6d24cefc4e9293770e8ddad37, type: 3}
   - {fileID: 21300000, guid: f6a874a64ebbfe54890b45f7ae780327, type: 3}
+  - {fileID: 21300000, guid: 7b7a29b603303ab408395a7bd1f14937, type: 3}
   - {fileID: 21300000, guid: 18bc9be673d90db4992ed0040fa5629f, type: 3}
   - {fileID: 21300000, guid: e434bff66e3e7724cb646a308c403712, type: 3}
   - {fileID: 21300000, guid: 28f07b0717673714e9b5475925dc36ed, type: 3}
@@ -98,6 +99,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 28871037f408a8d40a0adfdae901012f, type: 3}
   - {fileID: 21300000, guid: 1dffcb77c4a96674ebaf231fbe636702, type: 3}
   - {fileID: 21300000, guid: e5c4398766a31a74d90529d8fd3db8b3, type: 3}
+  - {fileID: 21300000, guid: 10eef4e743d65f142a5bad1edc7a8f17, type: 3}
   - {fileID: 21300000, guid: 8468b31828b306443a21cfd05f07d63e, type: 3}
   - {fileID: 21300000, guid: fc5ea0483fd99d2419eda72cd2a5c0ce, type: 3}
   - {fileID: 21300000, guid: ce5d4bc8ba2ba4d4e94443109b102f20, type: 3}
@@ -163,7 +165,7 @@ SpriteAtlas:
   - fishing_hole
   - research_instiute
   - coin_big
-  - butten
+  - button
   - enargy_icon
   - power_station
   - skill_5
@@ -175,6 +177,7 @@ SpriteAtlas:
   - cat_button
   - backgorund_bar
   - cat_icon
+  - glow_point_2
   - upjuk_button
   - enarge_big
   - firewood_chopping
@@ -182,6 +185,7 @@ SpriteAtlas:
   - skill_8
   - camera_money
   - glow_circle
+  - glow_circle_ver2
   - cat_up_button
   - skill_6
   - arrow
@@ -204,7 +208,7 @@ SpriteAtlas:
   - option_button
   - build_button
   - cauldron
-  - campfore
+  - campfire
   - center_right_butten
   - left_butten
   - skill_1

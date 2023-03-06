@@ -1,3 +1,5 @@
+using System.Net.NetworkInformation;
+using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 
@@ -23,7 +25,8 @@ public class ViliageInfoUI : MonoBehaviour
     private CatManager CatManager;
     private VillageHall VillageHall;
     private GridBuildingSystem GridBuildingSystem;
-    void Awake()
+
+    private void Awake()
     {
         CatManager = CatManager.Instance;
         GridBuildingSystem = GridBuildingSystem.Instance;
@@ -66,22 +69,18 @@ public class ViliageInfoUI : MonoBehaviour
 
         if (CatManager.CatList != null)
         {
-            for (int i = 0; i < CatsContent.childCount; i++)
-                Destroy(CatsContent.GetChild(i).gameObject);
-
-            var CatList = CatManager.CatList;
-            var cnt = CatList.Count;
-
-            for (int i = 0; i < cnt; i++)
+            print(CatManager.CatList.Count);
+            for (int i = 0; i < CatManager.CatList.Count; i++)
             {
                 var catInfo = Instantiate(CatInfoPrefab, CatsContent).GetComponent<CatInfoUI>();
-
-                catInfo.SetData(CatList[i],
-                    call: () =>
-                    {
-                        Destroy(catInfo.gameObject);
-                    });
+                catInfo.SetData(CatManager.CatList[i]);
             }
         }
+    }
+
+    private void OnDisable()
+    {
+        for (int i = 0; i < CatsContent.childCount; i++)
+            Destroy(CatsContent.GetChild(i).gameObject);
     }
 }

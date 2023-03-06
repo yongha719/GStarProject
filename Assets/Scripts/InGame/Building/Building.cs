@@ -31,31 +31,32 @@ public abstract class Building : MonoBehaviour
         }
     }
 
-    [SerializeField] protected string DefaultConstructionCost;
-    public virtual string ConstructionCost { get; }
+    [SerializeField] protected string DefaultPlacingPrice;
+    public virtual string PlacingPrice { get; }
 
 
-    [HideInInspector] public BuyBuildingInfo BuildingInfo;
+    [HideInInspector] public BuildingBuyInfoUI BuildingInfo;
 
 
     [Header("Deploying")]
     [Tooltip("배치 가능한 고양이 수")] public int MaxDeployableCat;
 
-    private GameObject BuildingSprte;
-    [HideInInspector] public bool FirstTimeInstallation;
+    private GameObject BuildingSprteObj;
+    [HideInInspector] public bool FirstTimeInstallation = true;
     [SerializeField] protected SpriteRenderer SpriteRenderer;
+    [HideInInspector] public Sprite BuildingSprite;
 
     [Space(5f)]
     [SerializeField] protected GameObject DeployingUIParent;
-    [SerializeField] private Button InstallationButton;
-    [SerializeField] private Button DemolitionButton;
+    [SerializeField] private Button DecideButton;
+    [SerializeField] private Button CancelButton;
     [SerializeField] private Button RotateButton;
     #endregion
 
-    [HideInInspector] public CatPlacement CatPlacement;
-    [HideInInspector] public BuildingInfomationUI BuildingInfomation;
+    public CatPlacementUI CatPlacement;
+    [HideInInspector] public BuildingLevelUpUI BuildingLevelUpUI;
 
-    protected RectTransform CanvasRt;
+    protected RectTransform ParticleCanvasRt;
     protected Camera Camera;
 
     protected GridBuildingSystem GridBuildingSystem;
@@ -66,28 +67,26 @@ public abstract class Building : MonoBehaviour
 
         Camera = Camera.main;
 
-        BuildingSprte = SpriteRenderer?.gameObject;
+        BuildingSprteObj = SpriteRenderer.gameObject;
+        BuildingSprite = SpriteRenderer.sprite;
 
-        CanvasRt = GameObject.Find("ParticleCanvas").transform as RectTransform;
+        ParticleCanvasRt = GameObject.Find("ParticleCanvas").transform as RectTransform;
 
-        InstallationButton.onClick.AddListener(() =>
+        DecideButton?.onClick.AddListener(() =>
         {
             GridBuildingSystem.Place();
         });
 
-        DemolitionButton?.onClick.AddListener(() =>
+        CancelButton?.onClick.AddListener(() =>
         {
             GridBuildingSystem.BuildingClear(true);
-            BuildingInfo.BuildingInstalltionUI.SetActive(true);
             Destroy(gameObject);
         });
 
-        RotateButton.onClick.AddListener(() =>
+        RotateButton?.onClick.AddListener(() =>
         {
             SpriteRenderer.flipX = !SpriteRenderer.flipX;
         });
-
-
     }
 
     public bool CanBePlaced()
@@ -115,6 +114,8 @@ public abstract class Building : MonoBehaviour
         {
             FirstTimeInstallation = false;
             StartCoroutine(BuildingInstalltionEffect());
+
+            //UIManager.Instance.SetBuildingLevelUp();
         }
 
         SoundManager.Instance.PlaySoundClip("SFX_Building", SoundType.SFX);
@@ -122,10 +123,10 @@ public abstract class Building : MonoBehaviour
 
     protected virtual IEnumerator BuildingInstalltionEffect()
     {
-        BuildingSprte.transform.localScale = new Vector3(0.03f, 0.03f, 1f);
+        BuildingSprteObj.transform.localScale = new Vector3(0.03f, 0.03f, 1f);
         GridBuildingSystem.BuildingInstallEffectPlay(transform.localPosition);
 
-        yield return BuildingSprte.transform.DOScale(new Vector3(0.1f, 0.1f, 1f), 0.4f).WaitForCompletion();
+        yield return BuildingSprteObj.transform.DOScale(new Vector3(0.1f, 0.1f, 1f), 0.4f).WaitForCompletion();
     }
 
     protected bool IsPointerOverGameObject()

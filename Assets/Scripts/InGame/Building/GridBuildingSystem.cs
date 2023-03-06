@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.EventSystems;
+using System.Collections;
 
 public enum TileType
 {
@@ -29,7 +30,7 @@ public class GridBuildingSystem : Singleton<GridBuildingSystem>
     public Building CurBuilding;
     [SerializeField] private ParticleSystem BuildingInstallationEffect;
 
-
+    private Coroutine PlacingBuildingCoroutine;
 
     private Vector3 prevPos;
     private BoundsInt prevArea;
@@ -72,14 +73,15 @@ public class GridBuildingSystem : Singleton<GridBuildingSystem>
         return false;
     }
 
-    void Update()
+    IEnumerator PlacingBuilding()
     {
-        #region Building Installation
-        if (CurBuilding != null)
+        while (true)
         {
+            yield return null;
+
             // 클릭한 오브젝트가 UI면 return
             if (IsPointerOverGameObject())
-                return;
+            continue;
 
             if (Input.GetMouseButton(0))
             {
@@ -97,7 +99,6 @@ public class GridBuildingSystem : Singleton<GridBuildingSystem>
                 }
             }
         }
-        #endregion
     }
 
     private TileBase[] GetTilesBlock(BoundsInt area, Tilemap tilemap)
@@ -154,6 +155,8 @@ public class GridBuildingSystem : Singleton<GridBuildingSystem>
     {
         CurBuilding = Instantiate(building, Vector3.zero, Quaternion.identity, transform).GetComponent<Building>();
         FollowBuiliding();
+
+        PlacingBuildingCoroutine = StartCoroutine(PlacingBuilding());
 
         IsDeploying = true;
     }
@@ -276,6 +279,11 @@ public class GridBuildingSystem : Singleton<GridBuildingSystem>
 
             MainCanvas.SetActive(true);
             IsDeploying = false;
+
+            StopCoroutine(PlacingBuildingCoroutine);
+            PlacingBuildingCoroutine = null;
+
+
         }
     }
 

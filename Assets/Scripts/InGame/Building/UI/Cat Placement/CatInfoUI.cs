@@ -3,6 +3,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// 마을 회관 팝업 주민 리스트에 있는 고양이
+/// </summary>
 public class CatInfoUI : MonoBehaviour
 {
     [SerializeField] private Image CatImage;
@@ -14,7 +17,7 @@ public class CatInfoUI : MonoBehaviour
     const string RESTING_TEXT = "에서 휴식중.";
 
     /// <param name="call">고양이 내보내기 버튼 클릭 이벤트</param>
-    public void SetData(Cat cat, Action call)
+    public void SetData(Cat cat)
     {
         CatImage.sprite = cat.catData.CatSprite;
         CatNameText.text = cat.catData.Name;
@@ -25,7 +28,7 @@ public class CatInfoUI : MonoBehaviour
                 CatStateText.SetText();
                 break;
             case CatState.Working:
-                CatStateText.SetText(cat.BuildingName + WORKING_TEXT);
+                CatStateText.SetText(cat.goldBuilding.BuildingName + WORKING_TEXT);
                 break;
             case CatState.Resting:
                 CatStateText.SetText(cat.BuildingName + RESTING_TEXT);
@@ -34,9 +37,9 @@ public class CatInfoUI : MonoBehaviour
                 break;
         }
 
-        ExportButton?.onClick.AddListener(() =>
+        ExportButton.onClick.AddListener(() =>
         {
-            call();
+            Destroy(gameObject);
             CatManager.Instance.RemoveCat(cat);
         });
     }

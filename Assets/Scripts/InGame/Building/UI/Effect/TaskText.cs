@@ -18,8 +18,6 @@ public class TaskText : MonoBehaviour
     private void Awake()
     {
         Tasktext = GetComponent<TextMeshProUGUI>();
-
-        //OriginalText = Tasktext.text;
     }
 
     private void OnEnable()
@@ -50,15 +48,15 @@ public class TaskText : MonoBehaviour
         {
             yield return wait;
 
-            if (period.Length == 3)
-            {
-                period = ".";
-                Tasktext.text = OriginalText;
-            }
-            else
+            if (period.Length != 3)
             {
                 Tasktext.text = OriginalText + period;
                 period += ".";
+            }
+            else
+            {
+                period = ".";
+                Tasktext.text = OriginalText;
             }
         }
     }

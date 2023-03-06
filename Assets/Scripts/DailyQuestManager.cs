@@ -114,7 +114,7 @@ public class DailyQuestManager : Singleton<DailyQuestManager>
 
             dailyQuestUIInfo.processingValue.text = $"{questClearValue} / {questNeedValue}";
             dailyQuestUIInfo.processingBar.fillAmount = questClearValue / questNeedValue;
-            dailyQuestUIInfo.clearRewardValue.text = $"<sprite name={returnResourceTypeString(dailyQuestInfo.rewardType)}> {CalculatorManager.returnStr(curQuest.returnRewardValue(dailyQuestInfo.rewardValue))}";
+            dailyQuestUIInfo.clearRewardValue.text = $"<sprite name={returnResourceTypeString(dailyQuestInfo.rewardType)}> {curQuest.returnRewardValue(dailyQuestInfo.rewardValue).returnStr()}";
 
             dailyQuestUIInfo.clearText.DOFade(curQuest.isClear() ? 1f : 0.5f, 0);
             dailyQuestUIInfo.clearRewardValue.DOFade(curQuest.isClear() ? 1f : 0.5f, 0);
