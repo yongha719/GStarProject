@@ -17,8 +17,7 @@ public class CatPlacementUI : UIPopup
 
     [Header("고양이 배치")]
     // 건물마다 일할 수 있는 고양이들의 수가 다르기 때문에 고양이들의 배치가 달라서 프리팹으로 따로 만들었음
-    [SerializeField] private List<GameObject> GoldBuildingWorkingCatPlacements = new List<GameObject>();
-    [SerializeField] private List<GameObject> EnergyBuildingWorkingCatPlacements = new List<GameObject>();
+    [SerializeField] private List<GameObject> WorkingCatPlacements = new List<GameObject>();
     [SerializeField] private GameObject CatToPlacementPrefab;
     [SerializeField] private GameObject AbilityPrefab;
 
@@ -58,17 +57,17 @@ public class CatPlacementUI : UIPopup
     /// </summary>
     /// <param name="catData">고양이 정보</param>
     /// <param name="buildingSprite">건물 이미지</param>
-    [Obsolete("매개변수 바꾸자")]
-    public void SetBuildingInfo(BuildingType buildingType, in ProductionBuilding building, in CatData[] catData = null)
+    public void SetBuildingInfo(in ProductionBuilding building)
     {
+        var catDatas = building.PlacedInBuildingCats.Select((cat) => cat.catData).ToList();
+
         productionBuilding = building;
-        BuildingType = buildingType;
         BuildingImage.sprite = building.BuildingSprite;
         BuildingNameText.text = building.BuildingName;
 
-        SetWorkingCat();
+        CreateWorkingCat();
 
-        if (catData == null)
+        if (catDatas == null)
         {
             WorkText.gameObject.SetActive(false);
 
@@ -77,60 +76,27 @@ public class CatPlacementUI : UIPopup
         }
 
         WorkText.gameObject.SetActive(true);
-        WorkText.SetText(catData[0].Name + WORKING_TEXT);
+        WorkText.SetText(catDatas[0].Name + WORKING_TEXT);
 
         SetCatList();
     }
 
-
-    /// <summary>
-    /// 배치된 고양이 생성
-    /// </summary>
-    private void SetWorkingCat()
-    {
-        if (BuildingType == BuildingType.Gold)
-            if (CheckCreateWorkingCat<GoldProductionBuilding>() == false)
-            {
-                Debug.Assert(false, $"{nameof(GoldProductionBuilding)} {nameof(CheckCreateWorkingCat)} failed");
-                return;
-            }
-
-        if (BuildingType == BuildingType.Energy)
-            if (CheckCreateWorkingCat<EnergyProductionBuilding>() == false)
-            {
-                Debug.Assert(false, $"{nameof(EnergyProductionBuilding)} {nameof(CheckCreateWorkingCat)} failed");
-                return;
-            }
-    }
-
-
     // Create Working cat
-    private bool CheckCreateWorkingCat<T>() where T : ProductionBuilding
+    private void CreateWorkingCat()
     {
-        T building = productionBuilding as T;
-
-        if (building == null) return false;
-
         // 건물에서 일하는 고양이가 없을 때
-        if (building.WorkingCats == null)
+        if (productionBuilding.WorkingCats == null)
         {
-            if (BuildingType == BuildingType.Gold)
-                workingCatsUI = Instantiate(GoldBuildingWorkingCatPlacements[building.BuildinTypeToInt], WorkingCatParentTr).GetComponent<CatPlacementWorkingCatsUI>();
-            else if (BuildingType == BuildingType.Energy)
-                workingCatsUI = Instantiate(EnergyBuildingWorkingCatPlacements[building.BuildinTypeToInt], WorkingCatParentTr).GetComponent<CatPlacementWorkingCatsUI>();
+            workingCatsUI = Instantiate(WorkingCatPlacements[productionBuilding.BuildinTypeToInt], WorkingCatParentTr).GetComponent<CatPlacementWorkingCatsUI>();
 
-            building.WorkingCats = workingCatsUI;
+            workingCatsUI.MaxDeployableCat = productionBuilding.MaxDeployableCat;
+            productionBuilding.WorkingCats = workingCatsUI;
         }
         else
         {
-            workingCatsUI = building.WorkingCats;
+            workingCatsUI = productionBuilding.WorkingCats;
             workingCatsUI.gameObject.SetActive(true);
         }
-
-        // 모르겠고
-        workingCatsUI.MaxDeployableCat = building.MaxDeployableCat;
-
-        return true;
     }
 
 
@@ -172,7 +138,7 @@ public class CatPlacementUI : UIPopup
                 return true;
             }
         }
-         
+
         return false;
     }
 
@@ -190,7 +156,7 @@ public class CatPlacementUI : UIPopup
     /// 배치 버튼 눌렀을때 호출할 함수
     /// </summary>
     /// <param name="cattoplace">배치할 수 있는 고양이</param> 
-    private void PlaceCatButton(CatToPlaceUI cattoplace,CatData catData)
+    private void PlaceCatButton(CatToPlaceUI cattoplace, CatData catData)
     {
         // 건물에서 일하는 고양이가 없을 때
         if (CurSelectedCat == null || workingCatsUI.CatDatas.Count < workingCatsUI.MaxDeployableCat)

@@ -34,25 +34,12 @@ public class GoldProductionBuilding : ProductionBuilding
         {
             CatPlacement.OpenUIPopup();
 
-            PlacedInBuildingCats = PlacedInBuildingCats.Where(x => x.goldBuilding == this).ToList();
-
-            if (PlacedInBuildingCats.Count == 0)
-            {
-                CatPlacement.SetBuildingInfo(BuildingType.Gold, this);
-            }
-            else
-            {
-                var cats = PlacedInBuildingCats.Where(x => x.catData != null).Select(x => x.catData).ToArray();
-                CatPlacement.SetBuildingInfo(BuildingType.Gold, this, cats);
-            }
+            CatPlacement.SetBuildingInfo(this);
         });
 
         BuildingLevelUpButton.onClick.AddListener(() =>
         {
-            print("dada");
             BuildingLevelUpUI.OpenUIPopup();
-
-            PlacedInBuildingCats = PlacedInBuildingCats.Where(x => x.goldBuilding == this).ToList();
 
             BuildingLevelUpUI.SetData(this);
         });
