@@ -91,12 +91,11 @@ public class CatPlacementUI : UIPopup
 
             workingCatsUI.MaxDeployableCat = productionBuilding.MaxDeployableCat;
             productionBuilding.WorkingCats = workingCatsUI;
+            return;
         }
-        else
-        {
-            workingCatsUI = productionBuilding.WorkingCats;
-            workingCatsUI.gameObject.SetActive(true);
-        }
+
+        workingCatsUI = productionBuilding.WorkingCats;
+        workingCatsUI.gameObject.SetActive(true);
     }
 
 
@@ -117,11 +116,11 @@ public class CatPlacementUI : UIPopup
 
         for (int index = 0; index < cnt; index++)
         {
-            if (AlreadyCatWorking(CatDataList[index])) continue;
-
-            var catToPlacement = Instantiate(CatToPlacementPrefab, CatToPlacementContentTr).GetComponent<CatToPlaceUI>();
-
-            catToPlacement.SetData(CatDataList[index], onclick: PlacementOnClick);
+            if (AlreadyCatWorking(CatDataList[index]) == false)
+            {
+                var catToPlacement = Instantiate(CatToPlacementPrefab, CatToPlacementContentTr).GetComponent<CatToPlaceUI>();
+                catToPlacement.SetData(CatDataList[index], onclick: PlacementOnClick);
+            }
         }
     }
 
@@ -174,7 +173,8 @@ public class CatPlacementUI : UIPopup
             workingCatsUI.CatAbilitys.Add(ability);
 
             // 일하고 있는 고양이 UI 정보 셋팅
-            workingCatsUI.SetData(workingCatsUI.CatDatas.Count, catData, call: (catnum) => CurSelectedCatIndex = catnum);
+            workingCatsUI.SetData(workingCatsUI.CatDatas.Count, catData, 
+                call: (catnum) => CurSelectedCatIndex = catnum);
         }
         // 고양이가 있을 때
         else

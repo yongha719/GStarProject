@@ -1,10 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 using DG.Tweening;
-using NativeGalleryNamespace;
 
 /// <summary>
 /// UI Background에 있는 스크립트

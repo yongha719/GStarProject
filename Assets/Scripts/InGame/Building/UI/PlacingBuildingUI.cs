@@ -47,27 +47,31 @@ public class PlacingBuildingUI : UIPopup
     /// </summary>
     void SetProductBuildingInfo<T>(List<BuildingBuyInfoUI> ProductionBuildingInfos) where T : ProductionBuilding
     {
-        foreach (var buildingInfo in ProductionBuildingInfos)
+        using (List<BuildingBuyInfoUI>.Enumerator enumerator = ProductionBuildingInfos.GetEnumerator())
         {
-            buildingInfo.BuyButtonOnclick((Building) =>
+            while(enumerator.MoveNext())
             {
-                var produtionbuilding = Building as T;
-
-                if (produtionbuilding == null)
-                    Debug.Assert(false, "설치할 건물 정보가 잘못됨");
-
-                produtionbuilding.BuildingInfo = buildingInfo;
-
-                Building.CatPlacement = CatPlacement;
-
-                if (GameManager._coin > 0 && GameManager._coin >= produtionbuilding.PlacingPrice.returnValue())
+                BuildingBuyInfoUI buildingInfo = enumerator.Current;
+                buildingInfo.BuyButtonOnclick((Building) =>
                 {
-                    Warning.OpenUIPopup();
-                    Warning.SetWarningData(buildingInfo.BuildingPrefab, produtionbuilding.BuildingName, this);
-                }
-                else
-                    NotEnoughGold.OpenUIPopup();
-            });
+                    var produtionbuilding = Building as T;
+
+                    if (produtionbuilding == null)
+                        Debug.Assert(false, "설치할 건물 정보가 잘못됨");
+
+                    produtionbuilding.BuildingInfo = buildingInfo;
+
+                    Building.CatPlacement = CatPlacement;
+
+                    if (GameManager._coin > 0 && GameManager._coin >= produtionbuilding.PlacingPrice.returnValue())
+                    {
+                        Warning.OpenUIPopup();
+                        Warning.SetWarningData(buildingInfo.BuildingPrefab, produtionbuilding.BuildingName, this);
+                    }
+                    else
+                        NotEnoughGold.OpenUIPopup();
+                });
+            }
         }
     }
 }

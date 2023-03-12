@@ -108,7 +108,7 @@ public class ProductionBuilding : Building
         {
             // 레벨업마다 8% 증가함
             // 실수 계산이라 중첩되면 오차날까봐 반올림해서 계산
-            cost += cost * Math.Round((8 / 100d), 3);
+            cost += cost * Math.Round(0.08d, 3);
         }
 
         return cost.returnStr();

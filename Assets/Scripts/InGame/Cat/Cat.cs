@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System.Reflection;
 
 /// <summary>
 /// 골드 생산 건물 고양이 능력
@@ -133,7 +134,7 @@ public class Cat : MonoBehaviour
 
         SpriteRenderer = GetComponent<SpriteRenderer>();
         Animator = GetComponent<Animator>();
-        
+
         SpriteRenderer.sprite = catData.CatSprite;
 
         canMoveArea = (int)GridBuildingSystem.Instance.ViliageAreaSize.x;
@@ -222,32 +223,30 @@ public class Cat : MonoBehaviour
     {
         nodes = AStar.PathFinding(Vector2Int.CeilToInt(transform.position), targetPos);
 
-        var cnt = 0;
+        int cnt = 0;
 
-        Node node = null;
         int nodesCnt = nodes.Count;
 
         while (cnt++ != nodesCnt - 1)
         {
 
             done = true;
-            node = nodes[cnt];
+            Node node = nodes[cnt];
             dest = new Vector3(node.Pos.x, node.Pos.y, PosZ);
 
             CatState = CatState.Moving;
             if (StopMove)
             {
-                StopMove = false;
-                yield break;
+                break;
             }
+
             yield return new WaitForSeconds(1);
 
         }
 
+        StopMove = false;
         CatState = CatState.Idle;
         yield return new WaitForSeconds(2);
-
-        node = null;
     }
 
     #endregion
@@ -277,6 +276,17 @@ public class Cat : MonoBehaviour
     /// </summary>
     public void FinishWork()
     {
+        // 얘네는 건물에서 일할때 모션이 없고 들어가서 일하는 컨셉이라
+        // 꺼져있기 때문에 다시 켜줘야 함
+        switch (goldBuilding.buildingType)
+        {
+            case GoldBuildingType.GoldMine:
+            case GoldBuildingType.PotatoFarming:
+            case GoldBuildingType.PowerPlant:
+                gameObject.SetActive(true);
+                break;
+        }
+
         StopCoroutine(MoveCoroutine);
         MoveCoroutine = null;
         RandomMoveCoroutine = StartCoroutine(RandomMove());
@@ -315,7 +325,7 @@ public class Cat : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if(collision.gameObject.TryGetComponent(out GoldProductionBuilding goldbuilding) && goldBuilding != goldbuilding)
+        if (collision.gameObject.TryGetComponent(out GoldProductionBuilding goldbuilding) && goldBuilding != goldbuilding)
         {
             IsWorking = false;
         }
@@ -342,17 +352,14 @@ public class Cat : MonoBehaviour
             var index = goldbuilding.PlacedInBuildingCats.IndexOf(this);
             SetPos(index);
 
-            //if (index == -1)
-            //    goldbuilding.SetPos();
-            //else
-            //    goldbuilding.SetPos(index);
-
             done = false;
 
             Animator.SetInteger("WorkState", (int)goldbuilding.buildingType);
             CatState = CatState.Working;
+            return;
         }
-        else if (GoResting && collision.gameObject.TryGetComponent(out EnergyProductionBuilding energybuilding))
+
+        if (GoResting && collision.gameObject.TryGetComponent(out EnergyProductionBuilding energybuilding))
         {
             transform.DOKill();
             StopMove = true;
@@ -375,6 +382,11 @@ public class Cat : MonoBehaviour
             case GoldBuildingType.IceFishing:
                 transform.position = goldBuilding.transform.position + new Vector3(0.16f, 1f, 0);
                 break;
+            case GoldBuildingType.GoldMine:
+            case GoldBuildingType.PotatoFarming:
+            case GoldBuildingType.PowerPlant:
+                gameObject.SetActive(false);
+                break;
             case GoldBuildingType.FirewoodChopping:
                 transform.position = goldBuilding.transform.position + new Vector3(0.13f, 0.8f, 0);
                 break;
@@ -395,11 +407,6 @@ public class Cat : MonoBehaviour
                 break;
             case GoldBuildingType.Cauldron:
                 transform.position = transform.position + new Vector3(-0.026f, 0.86f);
-                break;
-            case GoldBuildingType.GoldMine:
-            case GoldBuildingType.PotatoFarming:
-            case GoldBuildingType.PowerPlant:
-                gameObject.SetActive(false);
                 break;
             case GoldBuildingType.End:
                 break;

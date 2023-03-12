@@ -39,11 +39,6 @@ public class CatPlacementWorkingCatsUI : UIPopup
         CatDatas.Remove(catData);
     }
 
-    public void SetData(int index, Animator animator)
-    {
-        CatAnimators[index] = animator;
-    }
-
     /// <summary>
     /// 고양이 배치에서 건물에서 일하는 고양이 정보 설정
     /// </summary>    
