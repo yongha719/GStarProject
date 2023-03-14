@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-
+using System.Text;
 
 public class TaskText : MonoBehaviour
 {
     private TextMeshProUGUI Tasktext;
 
     private WaitForSeconds wait = new WaitForSeconds(0.5f);
-    private string period = ".";
+    private StringBuilder stringBuilder = new StringBuilder();
+    private const char PERIOD = '.';
 
     private string OriginalText;
 
@@ -31,8 +32,7 @@ public class TaskText : MonoBehaviour
         if (text == null)
         {
             TaskTextCoroutine = null;
-            if (Tasktext != null)
-                Tasktext.text = "";
+            Tasktext.text = string.Empty;
 
             return;
         }
@@ -44,20 +44,24 @@ public class TaskText : MonoBehaviour
     // 텍스트 뒤에 ... 이 바뀌는 연출
     IEnumerator TextChange()
     {
+        stringBuilder.Clear();
+        stringBuilder.Append(OriginalText);
+
         while (true)
         {
             yield return wait;
 
-            if (period.Length != 3)
+            if (stringBuilder.Length == OriginalText.Length + 3)
             {
-                Tasktext.text = OriginalText + period;
-                period += ".";
+                stringBuilder.Clear();
+                stringBuilder.Append(OriginalText).Append(PERIOD);
             }
             else
             {
-                period = ".";
-                Tasktext.text = OriginalText;
+                stringBuilder.Append(PERIOD);
             }
+
+            Tasktext.text = stringBuilder.ToString();
         }
     }
 }

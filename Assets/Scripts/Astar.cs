@@ -42,21 +42,16 @@ public class AStar
         bottomLeft = Vector2Int.Min(startPos, targetPos);
         topRight = Vector2Int.Max(startPos, targetPos);
 
-        // NodeArray의 크기 정해주고, isWall, x, y 대입
         int sizeX = topRight.x - bottomLeft.x + 1;
         int sizeY = topRight.y - bottomLeft.y + 1;
         NodeArray = new Node[sizeX, sizeY];
 
-        // 장애물 판정
+        // TODO
         for (int i = 0; i < sizeX; i++)
         {
             for (int j = 0; j < sizeY; j++)
             {
-                bool isWall = false;
-
-                isWall = GridBuildingSystem.Instance.WallCheck(new Vector2Int(i + bottomLeft.x, j + bottomLeft.y));
-
-                NodeArray[i, j] = new Node(isWall, i + bottomLeft.x, j + bottomLeft.y);
+                NodeArray[i, j] = new Node(false, i + bottomLeft.x, j + bottomLeft.y);
             }
         }
 
@@ -72,7 +67,7 @@ public class AStar
 
         while (OpenList.Count > 0)
         {
-            // 열린리스트 중 가장 F가 작고 F가 같다면 H가 작은 걸 현재노드로 하고 열린리스트에서 닫힌리스트로 옮기기
+            // 열린리스트 중 F가 작거나 같고 H가 작으면 현재노드로 하고 열린리스트에서 닫힌리스트로 옮기기
             CurNode = OpenList[0];
             for (int i = 1; i < OpenList.Count; i++)
                 if (OpenList[i].F <= CurNode.F && OpenList[i].H < CurNode.H)
@@ -85,11 +80,9 @@ public class AStar
             // 마지막
             if (CurNode == TargetNode)
             {
-                Node TargetCurNode = TargetNode;
-                while (TargetCurNode != StartNode)
+                for (Node node = TargetNode; node != StartNode; node = node.ParentNode)
                 {
-                    FinalNodeList.Add(TargetCurNode);
-                    TargetCurNode = TargetCurNode.ParentNode;
+                    FinalNodeList.Add(node);
                 }
                 FinalNodeList.Add(StartNode);
                 FinalNodeList.Reverse();

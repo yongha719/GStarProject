@@ -67,10 +67,7 @@ public class GridBuildingSystem : Singleton<GridBuildingSystem>
         var max = gridLayout.CellToLocal(VillageHall.area.position - VillageHall.area.max) * -2;
         var min = gridLayout.CellToLocal(VillageHall.area.position) * 2;
 
-        if ((pos.x < max.x && pos.y < max.y) && (pos.x >= min.x && pos.y >= min.y))
-            return true;
-
-        return false;
+        return (pos.x < max.x && pos.y < max.y) && (pos.x >= min.x && pos.y >= min.y);
     }
 
     IEnumerator PlacingBuilding()
@@ -80,22 +77,16 @@ public class GridBuildingSystem : Singleton<GridBuildingSystem>
             yield return null;
 
             // 클릭한 오브젝트가 UI면 return
-            if (IsPointerOverGameObject())
-            continue;
-
-            if (Input.GetMouseButton(0))
+            if (IsPointerOverGameObject() == false && Input.GetMouseButton(0) && CurBuilding.Placed == false)
             {
-                if (CurBuilding.Placed == false)
-                {
-                    Vector2 touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                    cellPos = gridLayout.LocalToCell(touchPos);
+                Vector2 touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                cellPos = gridLayout.LocalToCell(touchPos);
 
-                    if (prevPos != cellPos)
-                    {
-                        CurBuilding.transform.localPosition = gridLayout.CellToLocalInterpolated(cellPos);
-                        prevPos = cellPos;
-                        FollowBuiliding();
-                    }
+                if (prevPos != cellPos)
+                {
+                    CurBuilding.transform.localPosition = gridLayout.CellToLocalInterpolated(cellPos);
+                    prevPos = cellPos;
+                    FollowBuiliding();
                 }
             }
         }
@@ -118,8 +109,6 @@ public class GridBuildingSystem : Singleton<GridBuildingSystem>
 
     public void BuildingClear(bool Destroy = false)
     {
-        TileBase[] toClear = new TileBase[prevArea.size.x * prevArea.size.y];
-
         TileBase[] tempbase = GetTilesBlock(prevArea, BuildingTilemap);
 
         int size = tempbase.Length;
@@ -140,15 +129,6 @@ public class GridBuildingSystem : Singleton<GridBuildingSystem>
             IsDeploying = false;
             MainCanvas.SetActive(true);
         }
-    }
-
-    private void AllClearArea()
-    {
-        BoundsInt area = TempTilemap.cellBounds;
-        TileBase[] toClear = new TileBase[area.size.x * area.size.y * area.size.z];
-
-        FillTiles(toClear, TileType.Empty);
-        TempTilemap.SetTilesBlock(area, toClear);
     }
 
     public void InitializeWithBuilding(GameObject building)
@@ -255,18 +235,14 @@ public class GridBuildingSystem : Singleton<GridBuildingSystem>
 
     public void SetTilesBlock(BoundsInt area, TileType type, Tilemap tilemap)
     {
-        int size = area.size.x * area.size.y;
-
-        TileBase[] tileArray = new TileBase[size];
+        TileBase[] tileArray = new TileBase[area.size.x * area.size.y];
         FillTiles(tileArray, type);
         tilemap.SetTilesBlock(area, tileArray);
     }
 
     private void FillTiles(TileBase[] arr, TileType type)
     {
-        int arrLength = arr.Length;
-
-        for (int i = 0; i < arrLength; i++)
+        for (int i = 0; i < arr.Length; i++)
             arr[i] = tileBases[type];
     }
 
@@ -282,14 +258,12 @@ public class GridBuildingSystem : Singleton<GridBuildingSystem>
 
             StopCoroutine(PlacingBuildingCoroutine);
             PlacingBuildingCoroutine = null;
-
-
         }
     }
 
     private bool IsPointerOverGameObject()
     {
-#if UNITY_EDITOR
+#if UNITY_EDITOR 
         // Check mouse
         if (EventSystem.current.IsPointerOverGameObject())
         {

@@ -50,21 +50,19 @@ public class UIPopUpHandler : Singleton<UIPopUpHandler>
 
     public void OnUIPopUp(UIPopupType UIPopupType)
     {
-        GameObject UIPopup = UIPopupDic[UIPopupType];
-
-        if (UIPopup == null)
+        if (UIPopupDic[UIPopupType] == null)
         {
             Debug.Assert(false, "야야 없잖아 이거 프리팹 만들긴했어? 폴더 봐봐 이 친구야");
             return;
         }
 
-        if (UIPopupList.Contains(UIPopup) && UIPopup.activeSelf == false)
+        if (UIPopupList.Contains(UIPopupDic[UIPopupType]) && UIPopupDic[UIPopupType].activeSelf == false)
         {
-            UIPopup.SetActive(true);
+            UIPopupDic[UIPopupType].SetActive(true);
         }
         else
         {
-            UIPopupList.Add(Instantiate(UIPopup, Vector3.zero, Quaternion.identity, transform));
+            UIPopupList.Add(Instantiate(UIPopupDic[UIPopupType], Vector3.zero, Quaternion.identity, transform));
         }
 
     }
