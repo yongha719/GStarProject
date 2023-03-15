@@ -27308,6 +27308,10 @@ PrefabInstance:
       propertyPath: BuildingIcon
       value: 
       objectReference: {fileID: 735832915}
+    - target: {fileID: 3294499027157460406, guid: ad65871ce21a2374cbe8a2fad4bf9074, type: 3}
+      propertyPath: BuildingIcon
+      value: 
+      objectReference: {fileID: 2116802849}
     - target: {fileID: 3294499027279706205, guid: ad65871ce21a2374cbe8a2fad4bf9074, type: 3}
       propertyPath: BuildingIcon
       value: 
@@ -111483,6 +111487,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2116496882}
   m_CullTransparentMesh: 1
+--- !u!114 &2116802849 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2035077042559313894, guid: ad65871ce21a2374cbe8a2fad4bf9074, type: 3}
+  m_PrefabInstance: {fileID: 735832906}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2117184499
 GameObject:
   m_ObjectHideFlags: 0
@@ -116491,21 +116506,7 @@ MonoBehaviour:
   WorkText: {fileID: 6502584242780631722}
   CatPlacementWarning: {fileID: 1403331475}
   CatToPlacementContentTr: {fileID: 1894673839}
-  GoldBuildingWorkingCatPlacements:
-  - {fileID: 7243737520729052130, guid: f0f7c8b74de4cfe439b9acfc3187d258, type: 3}
-  - {fileID: 3311236169363745305, guid: e77b71fff30b56a4ea445319f5d28d31, type: 3}
-  - {fileID: 1520593963037860467, guid: f0f6e871ec8edad439d365b9e4477efe, type: 3}
-  - {fileID: 7321347963781117119, guid: 5b17f4d3d7a967a49a53cada5b6f7e22, type: 3}
-  - {fileID: 6291524829818608119, guid: f2c0f0bab2c306d4bb900ad92fbf7a0e, type: 3}
-  - {fileID: 5358634723264409363, guid: 4c37447b3b2284c48b7117973e3a04f2, type: 3}
-  - {fileID: 681514947699799139, guid: 154a2c0493dfba74590ac698fb085eff, type: 3}
-  - {fileID: 4711566646519506401, guid: 5ab2c5107740350418f3b964789429b7, type: 3}
-  EnergyBuildingWorkingCatPlacements:
-  - {fileID: 1218830541384261307, guid: 4646bad192dee76418f76d8bb81cde0a, type: 3}
-  - {fileID: 8160361594501837135, guid: ebd57f7aaad1dfa48870a83599f6bc71, type: 3}
-  - {fileID: 9204714729044918274, guid: c340d174ebad17947848e5b076759a3a, type: 3}
-  - {fileID: 7729480423851691674, guid: c5ec9c8129f9ae1438661487defa3409, type: 3}
-  - {fileID: 961235739132923491, guid: eb9cd5895fa396f489f446d2a6ac31e2, type: 3}
+  WorkingCatPlacements: []
   CatToPlacementPrefab: {fileID: 8582134460680398059, guid: 753720f465807f841ad79d9be95b9a20, type: 3}
   AbilityPrefab: {fileID: 5806247040724369428, guid: 3eb1aa23bf05a8a409a49ca7fcbc8c99, type: 3}
 --- !u!114 &6502584242905094425
