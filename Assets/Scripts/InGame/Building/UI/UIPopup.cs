@@ -4,14 +4,12 @@ using UnityEngine.UI;
 using DG.Tweening;
 
 /// <summary>
-/// UI Background에 있는 스크립트
+/// Popup들은 다 달고 있음
 /// </summary>
-[RequireComponent(typeof(Button))]
 public class UIPopup : MonoBehaviour
 {
     private RectTransform rect;
     // UI Popup의 백그라운드 이미지를 누르면 Popup이 닫히게 하려고 버튼달았음
-    private Button Button;
 
     readonly WaitForSeconds DisableDelay = new WaitForSeconds(0.2f);
 

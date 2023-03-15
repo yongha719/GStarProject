@@ -33,7 +33,7 @@ public class CatPlacementWorkingCatsUI : UIPopup
         int index = CatDatas.IndexOf(catData);
 
         CatImages[index].sprite = TransparentImage;
-        //CatClickButtons[index].onClick.RemoveAllListeners();
+        CatClickButtons[index].onClick.RemoveAllListeners();
         CatAbilitys.RemoveAt(index);
         Destroy(AbilityParent.GetChild(index).gameObject);
         CatDatas.Remove(catData);

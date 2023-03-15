@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using System.Reflection;
+using System.Linq;
 
 /// <summary>
 /// 골드 생산 건물 고양이 능력
@@ -336,7 +337,9 @@ public class Cat : MonoBehaviour
         if (IsWorking || IsResting)
             return;
 
-        if (GoWorking && collision.gameObject.TryGetComponent(out GoldProductionBuilding goldbuilding) && goldBuilding == goldbuilding)
+        print("박치기");
+
+        if (GoWorking && collision.TryGetComponent(out GoldProductionBuilding goldbuilding))
         {
             transform.DOKill();
             Animator.SetBool("Isback", false);
@@ -349,17 +352,16 @@ public class Cat : MonoBehaviour
 
             StopCoroutine(MoveCoroutine);
 
-            var index = goldbuilding.PlacedInBuildingCats.IndexOf(this);
-            SetPos(index);
+            SetPos();
 
             done = false;
-
             Animator.SetInteger("WorkState", (int)goldbuilding.buildingType);
+
             CatState = CatState.Working;
             return;
         }
 
-        if (GoResting && collision.gameObject.TryGetComponent(out EnergyProductionBuilding energybuilding))
+        if (GoResting && collision.TryGetComponent(out EnergyProductionBuilding energybuilding))
         {
             transform.DOKill();
             StopMove = true;
@@ -375,7 +377,7 @@ public class Cat : MonoBehaviour
         }
     }
 
-    void SetPos(int index = 0)
+    void SetPos()
     {
         switch (goldBuilding.buildingType)
         {
@@ -394,6 +396,7 @@ public class Cat : MonoBehaviour
                 transform.position = goldBuilding.transform.position + new Vector3(0.4f, 0.7f, 0);
                 break;
             case GoldBuildingType.WinterClothesWorkshop:
+                int index = goldBuilding.PlacedInBuildingCats.IndexOf(this);
                 if (index == 0)
                 {
                     transform.position = transform.position + new Vector3(0.4f, 0.8f);
