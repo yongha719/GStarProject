@@ -1,9 +1,9 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using DG.Tweening;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public abstract class Building : MonoBehaviour
 {

@@ -59,9 +59,7 @@ public static class BuildingManager
         }
     }
 
-    /// <summary>
-    /// 건물 자동 레벨업에 사용
-    /// </summary>
+    /// <summary>    /// 건물 자동 레벨업에 사용    /// </summary>
     /// <returns>가장 적은 레벨업 비용이 드는 건물을 반환함<br></br>
     /// null로 return되면 없다는 뜻임</returns>
     // 히히 Linq 떡칠 시간 복잡도는 O(N)이야 알아서 해~~

@@ -97,9 +97,9 @@ public class ProductionBuilding : Building
         });
     }
 
-    public string LevelUpCostToString(int level = 0)
+    public string LevelUpCostToString(int level = default)
     {
-        if (level == 0)
+        if (level == default)
             level = Level;
 
         var cost = DefaultLevelUpCost.returnValue();

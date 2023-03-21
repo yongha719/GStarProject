@@ -157,15 +157,10 @@ public class Cat : MonoBehaviour
 
             SpriteRenderer.flipX = (transform.position.x < dest.x);
 
+            Animator.SetBool("Isback", transform.position.y < dest.y);
+
             if (transform.position.y < dest.y)
-            {
-                Animator.SetBool("Isback", true);
                 SpriteRenderer.flipX = !SpriteRenderer.flipX;
-            }
-            else
-            {
-                Animator.SetBool("Isback", false);
-            }
 
             if (transform.position.y == dest.y)
                 transform.DOMove(dest, 1.4f).SetEase(Ease.Linear);
