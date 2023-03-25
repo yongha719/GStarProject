@@ -23,7 +23,7 @@ public class ScreenShot : MonoBehaviour
     }
     private IEnumerator CaptureScreenForMobile(string fileName)
     {
-        NativeGallery.Permission permission = NativeGallery.CheckPermission(NativeGallery.PermissionType.Write);
+        NativeGallery.Permission permission = NativeGallery.CheckPermission(NativeGallery.PermissionType.Write, NativeGallery.MediaType.Image);
         if (permission == NativeGallery.Permission.Denied)
         {
             if (NativeGallery.CanOpenSettings())
