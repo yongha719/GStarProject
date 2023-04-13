@@ -27,7 +27,7 @@ public class CatManager : Singleton<CatManager>
         {
             Destroy(cat.gameObject);
             CatList.Remove(cat);
-            cat.goldBuilding.WorkingCats.RemoveCat(cat.catData);
+            cat.goldBuilding.WorkingCatsUI.RemoveCat(cat.catData);
         }
 
         // 쫓겨나는 이벤트

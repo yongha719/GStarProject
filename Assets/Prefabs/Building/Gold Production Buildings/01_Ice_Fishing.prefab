@@ -157,7 +157,7 @@ MonoBehaviour:
   BuildingLevelUpButton: {fileID: 472939556134604919}
   BuildingIcon: {fileID: 21300000, guid: 631be374af6c51f479be2023e9868782, type: 3}
   PlacedInBuildingCats: []
-  WorkingCats: {fileID: 0}
+  WorkingCatsUI: {fileID: 0}
   buildingType: 0
   CatPlacementButton: {fileID: 4620836101067902869}
 --- !u!61 &1225053044882868628

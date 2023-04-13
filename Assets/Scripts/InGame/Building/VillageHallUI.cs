@@ -32,11 +32,7 @@ public class VillageHallUI : UIPopup
         {
             if (GameManager._coin >= VillageHall.GetLevelUpCost.returnValue())
             {
-                LevelUpWarning.SetActive(true);
-            }
-            else
-            {
-                NotEnoughGold.SetActive(true);
+                VillageHall.LevelUp();
             }
         });
     }

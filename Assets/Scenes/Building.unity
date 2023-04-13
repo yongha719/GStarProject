@@ -93960,7 +93960,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -180, y: 520}
+  m_AnchoredPosition: {x: -179.99994, y: 520}
   m_SizeDelta: {x: -1340, y: -2860}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1381683282
@@ -96439,6 +96439,10 @@ PrefabInstance:
       propertyPath: Warning
       value: 
       objectReference: {fileID: 1518888346}
+    - target: {fileID: 4848318354359172516, guid: 5e0ad18e9b2a20440b1819f71a213ace, type: 3}
+      propertyPath: LevelUpWarning
+      value: 
+      objectReference: {fileID: 957822452960323283, guid: 0eaeac4c3637abd43bfee974bef156e3, type: 3}
     - target: {fileID: 5257599788222974831, guid: 5e0ad18e9b2a20440b1819f71a213ace, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -114118,12 +114122,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 1226929075}
   buildingImage: {fileID: 1512262258}
+  WorkingCatText: {fileID: 6120153382827312486}
+  buildingNameText: {fileID: 6120153382313878819}
   curLevelText: {fileID: 6120153382521327063}
   curLevelUpCostText: {fileID: 6120153382750820696}
   nextLevelText: {fileID: 6120153381764971573}
   nextLevelUpCostText: {fileID: 6120153381820977033}
   levelUpButton: {fileID: 6120153383049260316}
   levelUpCostText: {fileID: 6120153383267593941}
+  WorkingCatPlacements:
+  - {fileID: 7243737520729052130, guid: f0f7c8b74de4cfe439b9acfc3187d258, type: 3}
+  - {fileID: 3311236169363745305, guid: e77b71fff30b56a4ea445319f5d28d31, type: 3}
+  - {fileID: 1520593963037860467, guid: f0f6e871ec8edad439d365b9e4477efe, type: 3}
+  - {fileID: 7321347963781117119, guid: 5b17f4d3d7a967a49a53cada5b6f7e22, type: 3}
+  - {fileID: 6291524829818608119, guid: f2c0f0bab2c306d4bb900ad92fbf7a0e, type: 3}
+  - {fileID: 5358634723264409363, guid: 4c37447b3b2284c48b7117973e3a04f2, type: 3}
+  - {fileID: 681514947699799139, guid: 154a2c0493dfba74590ac698fb085eff, type: 3}
+  - {fileID: 4711566646519506401, guid: 5ab2c5107740350418f3b964789429b7, type: 3}
   LevelUpEffect: {fileID: 0}
   WoringcatParent: {fileID: 6120153382838379197}
 --- !u!114 &6120153382569578153
@@ -114353,6 +114368,7 @@ GameObject:
   - component: {fileID: 6120153382827312485}
   - component: {fileID: 6120153382827312491}
   - component: {fileID: 6120153382827312490}
+  - component: {fileID: 6120153382827312486}
   m_Layer: 5
   m_Name: Task_Text
   m_TagString: Untagged
@@ -114379,6 +114395,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 220}
   m_SizeDelta: {x: 721.5603, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &6120153382827312486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6120153382827312484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a04705a7d96509458ee9db07892a6d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &6120153382827312490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114400,7 +114428,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "\uBB3C \uB053\uC774\uB294 \uC6A9\uC6A9\uC6A9\uC774 \uC77C\uD558\uB294
-    \uC911...."
+    \uC911"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 295d71f17b9545d48bb95686f58adfcb, type: 2}
   m_sharedMaterial: {fileID: 8160744853311134589, guid: 295d71f17b9545d48bb95686f58adfcb, type: 2}
@@ -116506,7 +116534,15 @@ MonoBehaviour:
   WorkText: {fileID: 6502584242780631722}
   CatPlacementWarning: {fileID: 1403331475}
   CatToPlacementContentTr: {fileID: 1894673839}
-  WorkingCatPlacements: []
+  WorkingCatPlacements:
+  - {fileID: 7243737520729052130, guid: f0f7c8b74de4cfe439b9acfc3187d258, type: 3}
+  - {fileID: 3311236169363745305, guid: e77b71fff30b56a4ea445319f5d28d31, type: 3}
+  - {fileID: 1520593963037860467, guid: f0f6e871ec8edad439d365b9e4477efe, type: 3}
+  - {fileID: 7321347963781117119, guid: 5b17f4d3d7a967a49a53cada5b6f7e22, type: 3}
+  - {fileID: 6291524829818608119, guid: f2c0f0bab2c306d4bb900ad92fbf7a0e, type: 3}
+  - {fileID: 5358634723264409363, guid: 4c37447b3b2284c48b7117973e3a04f2, type: 3}
+  - {fileID: 681514947699799139, guid: 154a2c0493dfba74590ac698fb085eff, type: 3}
+  - {fileID: 4711566646519506401, guid: 5ab2c5107740350418f3b964789429b7, type: 3}
   CatToPlacementPrefab: {fileID: 8582134460680398059, guid: 753720f465807f841ad79d9be95b9a20, type: 3}
   AbilityPrefab: {fileID: 5806247040724369428, guid: 3eb1aa23bf05a8a409a49ca7fcbc8c99, type: 3}
 --- !u!114 &6502584242905094425

@@ -67,7 +67,7 @@ public class CatPlacementUI : UIPopup
 
         CreateWorkingCat();
 
-        if (catDatas == null)
+        if (catDatas.Count == 0)
         {
             WorkText.gameObject.SetActive(false);
 
@@ -85,16 +85,16 @@ public class CatPlacementUI : UIPopup
     private void CreateWorkingCat()
     {
         // 건물에서 일하는 고양이가 없을 때
-        if (productionBuilding.WorkingCats == null)
+        if (productionBuilding.WorkingCatsUI == null)
         {
             workingCatsUI = Instantiate(WorkingCatPlacements[productionBuilding.BuildinTypeToInt], WorkingCatParentTr).GetComponent<CatPlacementWorkingCatsUI>();
 
             workingCatsUI.MaxDeployableCat = productionBuilding.MaxDeployableCat;
-            productionBuilding.WorkingCats = workingCatsUI;
+            productionBuilding.WorkingCatsUI = workingCatsUI;
             return;
         }
 
-        workingCatsUI = productionBuilding.WorkingCats;
+        workingCatsUI = productionBuilding.WorkingCatsUI;
         workingCatsUI.gameObject.SetActive(true);
     }
 

@@ -82,7 +82,7 @@ public class ProductionBuilding : Building
 
     // 건물에 배치된 고양이
     public List<Cat> PlacedInBuildingCats = new List<Cat>();
-    public CatPlacementWorkingCatsUI WorkingCats;
+    public CatPlacementWorkingCatsUI WorkingCatsUI;
 
     protected override void Start()
     {
@@ -121,7 +121,7 @@ public class ProductionBuilding : Building
     /// <param name="catData"></param>
     public void RemoveCat(CatData catData)
     {
-        WorkingCats.RemoveCat(catData);
+        WorkingCatsUI.RemoveCat(catData);
         PlacedInBuildingCats.Remove(catData.Cat);
     }
     
